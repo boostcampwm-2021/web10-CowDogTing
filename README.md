@@ -36,5 +36,5 @@ COWDOGTING
   - ### 홍한솔
   > ㅎㅇ 내이름 갓한솔 그냥 배포기계 눈감고 40초 컷 백엔드? so~ ez 다물어봐
 
-## Wiki 
-https://github.com/boostcampwm-2021/web10-CowDogTing/wiki
+## [Wiki](https://github.com/boostcampwm-2021/web10-CowDogTing/wiki) 
+
