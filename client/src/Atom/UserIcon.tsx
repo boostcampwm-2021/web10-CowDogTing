@@ -5,8 +5,9 @@ import userIcon from "../assets/userIcon.svg";
 
 const userIconStyle = css`
   position: relative;
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
+  top: 4%;
   left: 90%;
 `;
 
