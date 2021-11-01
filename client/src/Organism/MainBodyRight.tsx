@@ -5,10 +5,12 @@ import meetingImage from "../assets/meetingImage.png";
 import { ImageDiv } from "../Atom/ImageDiv";
 
 const mainBodyRightStyle = css`
+  position: relative;
   display: flex;
   width: 45%;
   height: 70%;
   flex-wrap: wrap;
+  top: -3vh;
 `;
 
 function MainBodyRight() {
