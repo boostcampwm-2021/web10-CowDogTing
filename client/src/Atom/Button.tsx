@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { ButtonType } from "../util/type";
 
+/* 확인 , 취소 ... */
 const StateButtonStyle = css`
   width: 100px;
   height: 50px;
@@ -23,6 +24,7 @@ const LargeButtonStyle = css`
   height: 80px;
 `;
 
+/* Oauth 로그인 버튼 */
 const LongButtonStyle = css`
   width: 300px;
   color: #ffffff;
