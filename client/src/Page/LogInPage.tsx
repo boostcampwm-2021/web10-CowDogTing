@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
 
@@ -43,7 +43,9 @@ export default function LogInPage() {
       <Input placeholder="PW" type="password" autoComplete="off" />
 
       <div css={ButtonContainerStyle}>
-        <Button type="Small">회원가입</Button>
+        <Link to="/register">
+          <Button type="Small">회원가입</Button>
+        </Link>
         <Button type="Small">로그인</Button>
       </div>
 
