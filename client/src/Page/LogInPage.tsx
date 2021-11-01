@@ -34,12 +34,11 @@ const SocialLoginButtonContainerStyle = css`
 export default function LogInPage() {
   const searchParams = new URLSearchParams(useLocation().search);
   const code = searchParams.get("code");
-  console.log(code);
+
   return (
     <div css={containerStyle}>
       <div css={titleStyle}>Sign in</div>
       <Input placeholder="ID" autoComplete="off" />
-      <br />
       <Input placeholder="PW" type="password" autoComplete="off" />
 
       <div css={ButtonContainerStyle}>
