@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable dot-notation */
 /* eslint-disable comma-dangle */
@@ -10,8 +11,16 @@ interface DropDownProps {
   className: string;
 }
 const MenuStyle = css`
+  display: flex;
+  flex-direction: column;
   width: 300px;
   box-sizing: border-box;
+  .hide {
+    display: none;
+  }
+  .show {
+    display: flex;
+  }
   div {
     &:first-child {
       border-top-left-radius: 27px;
@@ -21,12 +30,6 @@ const MenuStyle = css`
       border-bottom-left-radius: 27px;
       border-bottom-right-radius: 27px;
     }
-  }
-  .hide {
-    display: none;
-  }
-  .show {
-    display: block;
   }
 `;
 const SearchData = {
@@ -50,47 +53,29 @@ export default function DropDown(props: DropDownProps) {
 }
 const MenuDropDown = (className: string) => {
   return (
-    <div css={MenuStyle}>
-      <Button type="LargeDropDown" className={className}>
-        공지사항
-      </Button>
-      <Button type="LargeDropDown" className={className}>
-        소개팅 하러가기
-      </Button>
-      <Button type="LargeDropDown" className={className}>
-        미팅 하러가기
-      </Button>
-      <Button type="LargeDropDown" className={className}>
-        이벤트
-      </Button>
-      <Button type="LargeDropDown" className={className}>
-        문의하기
-      </Button>
+    <div css={MenuStyle} onClick={(e) => e.stopPropagation()} className={className}>
+      <Button type="LargeDropDown">공지사항</Button>
+      <Button type="LargeDropDown">소개팅 하러가기</Button>
+      <Button type="LargeDropDown">미팅 하러가기</Button>
+      <Button type="LargeDropDown">이벤트</Button>
+      <Button type="LargeDropDown">문의하기</Button>
     </div>
   );
 };
 const UserDropDown = (className: string) => {
   return (
-    <div css={MenuStyle}>
-      <Button type="LargeDropDown" className={className}>
-        내 정보 보기
-      </Button>
-      <Button type="LargeDropDown" className={className}>
-        내가 고른 이상형
-      </Button>
-      <Button type="LargeDropDown" className={className}>
-        팀 설정하기
-      </Button>
+    <div css={MenuStyle} onClick={(e) => e.stopPropagation()} className={className}>
+      <Button type="LargeDropDown">내 정보 보기</Button>
+      <Button type="LargeDropDown">내가 고른 이상형</Button>
+      <Button type="LargeDropDown">팀 설정하기</Button>
     </div>
   );
 };
 const SearchDropDown = (DropDownList: Array<string>, className: string) => {
   return (
-    <div css={MenuStyle}>
+    <div css={MenuStyle} onClick={(e) => e.stopPropagation()} className={className}>
       {DropDownList.map((el) => (
-        <Button type="LargeDropDown" className={className}>
-          {el}
-        </Button>
+        <Button type="LargeDropDown">{el}</Button>
       ))}
     </div>
   );
