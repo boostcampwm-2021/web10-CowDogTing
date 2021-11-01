@@ -1,24 +1,59 @@
+/** @jsxImportSource @emotion/react */
 import React from "react";
+import { css } from "@emotion/react";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
 
+const containerStyle = css`
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  width: 300px;
+  margin-top: 50px;
+`;
+
+const titleStyle = css`
+  font-size: 64px;
+  text-align: center;
+  margin-bottom: 20px;
+`;
+
+const ButtonContainerStyle = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+`;
+
+const SocialLoginButtonContainerStyle = css`
+  div:nth-child(2) {
+    margin: 10px 0;
+  }
+`;
 export default function LogInPage() {
   return (
-    <>
-      <h1>Sign in</h1>
+    <div css={containerStyle}>
+      <div css={titleStyle}>Sign in</div>
       <Input placeholder="ID" autoComplete="off" />
+      <br />
       <Input placeholder="PW" type="password" autoComplete="off" />
-      <Button type="Small">회원가입</Button>
-      <Button type="Small">로그인</Button>
-      <Button type="Long" color="#000000">
-        Sign in with Github
-      </Button>
-      <Button type="Long" color="#f3e84d">
-        Sign in with Kakao
-      </Button>
-      <Button type="Long" color="#2DB400">
-        Sign in with Naver
-      </Button>
-    </>
+
+      <div css={ButtonContainerStyle}>
+        <Button type="Small">회원가입</Button>
+        <Button type="Small">로그인</Button>
+      </div>
+
+      <div css={SocialLoginButtonContainerStyle}>
+        <Button type="Long" color="#000000">
+          Sign in with Github
+        </Button>
+        <Button type="Long" color="#f3e84d">
+          Sign in with Kakao
+        </Button>
+        <Button type="Long" color="#2DB400">
+          Sign in with Naver
+        </Button>
+      </div>
+    </div>
   );
 }
