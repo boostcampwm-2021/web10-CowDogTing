@@ -1,14 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
-import { css } from "@emotion/react";
-
-const mainBodyLeftStyle = css`
-  width: 50%;
-  height: 40%;
-`;
+import meetingImage from "../assets/meetingImage.png";
+import { ImageDiv } from "../Atom/ImageDiv";
 
 function MainBodyLeft() {
-  return <div css={mainBodyLeftStyle} />;
+  return <ImageDiv type="big" image={meetingImage} />;
 }
 
 export default MainBodyLeft;
