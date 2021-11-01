@@ -69,6 +69,7 @@ export const Button = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+  cursor: pointer;
 
   & + & {
     border-top: none;
