@@ -51,7 +51,6 @@ const ButtonStyle = (props: ButtonType) => css`
   ${props.type === "Long" && LongButtonStyle}
   ${props.type === "LargeDropDown" && LargeDropDownStyle}
   ${props.type === "SmallDropDown" && SmallDropDownStyle}
-
   &:hover {
     background-color: ${props.color};
     color: #ffffff;
@@ -67,7 +66,6 @@ export const Button = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-
   &:hover {
     background-color: #ffcfcf;
     color: #ffffff;
