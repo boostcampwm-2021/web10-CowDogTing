@@ -23,8 +23,13 @@ const LongButtonStyle = css`
   width: 300px;
 `;
 
-const DropDownButtonStyle = css`
-  width: 230px;
+const SmallDropDownStyle = css`
+  width: 200px;
+  height: 65px;
+`;
+
+const LargeDropDownStyle = css`
+  width: 250px;
   height: 80px;
 `;
 
@@ -33,7 +38,8 @@ const ButtonStyle = (props: ButtonType) => css`
   ${props.type === "Medium" && MediumButtonStyle}
   ${props.type === "Large" && LargeButtonStyle}
   ${props.type === "Long" && LongButtonStyle}
-  ${props.type === "DropDown" && DropDownButtonStyle}
+  ${props.type === "LargeDropDown" && LargeDropDownStyle}
+  ${props.type === "SmallDropDown" && SmallDropDownStyle}
 `;
 
 export const Button = styled.div`
@@ -45,6 +51,7 @@ export const Button = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 10px;
 
   &:hover {
     background-color: #ffcfcf;
