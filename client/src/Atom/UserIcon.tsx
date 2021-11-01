@@ -7,8 +7,7 @@ const userIconStyle = css`
   position: relative;
   width: 32px;
   height: 32px;
-  left: 80%;
-  top: 10%;
+  left: 90%;
 `;
 
 function UserIcon() {
