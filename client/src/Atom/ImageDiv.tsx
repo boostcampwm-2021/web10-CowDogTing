@@ -24,8 +24,14 @@ const leftLongImageDivStyle = css`
   margin: 3%;
   top: -30%;
 `;
+const leftLongDivStyle = css`
+  top: -30%;
+`;
 const ImageDivStyle = (props: ImageDivType) => css`
   position: relative;
+  height: fit-content;
+  margin: 0% 2%;
+  ${props.type === "left-long" && leftLongDivStyle}
   &::before {
     content: "";
     left: 0px;
