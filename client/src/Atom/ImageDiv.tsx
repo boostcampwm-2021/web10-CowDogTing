@@ -25,6 +25,7 @@ const leftLongImageDivStyle = css`
   top: -30%;
 `;
 const ImageDivStyle = (props: ImageDivType) => css`
+  position: relative;
   &::before {
     content: "";
     left: 0px;
@@ -38,7 +39,10 @@ const ImageDivStyle = (props: ImageDivType) => css`
     ${props.type === "left-long" && leftLongImageDivStyle}
   }
   &:hover::before {
-    opacity: 0.2;
+    opacity: 0.6;
+  }
+  &:hover div {
+    display: flex;
   }
 `;
 
