@@ -8,7 +8,7 @@ const mainPageBodyStyle = css`
   width: 100vw;
   height: 80vh;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 `;
 
