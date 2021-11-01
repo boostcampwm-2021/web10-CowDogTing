@@ -7,6 +7,7 @@ import { Button } from "../Atom/Button";
 
 interface DropDownProps {
   type: string;
+  className: string;
 }
 const MenuStyle = css`
   width: 300px;
@@ -36,44 +37,60 @@ const SearchData = {
 export default function DropDown(props: DropDownProps) {
   switch (props.type) {
     case "Menu":
-      return MenuDropDown();
+      return MenuDropDown(props.className);
     case "User":
-      return UserDropDown();
+      return UserDropDown(props.className);
     case "location":
-      return SearchDropDown(SearchData.location);
+      return SearchDropDown(SearchData.location, props.className);
     case "age":
-      return SearchDropDown(SearchData.age);
+      return SearchDropDown(SearchData.age, props.className);
     default:
-      return SearchDropDown(SearchData.category);
+      return SearchDropDown(SearchData.category, props.className);
   }
 }
-const MenuDropDown = () => {
+const MenuDropDown = (className: string) => {
   return (
     <div css={MenuStyle}>
-      <Button type="LargeDropDown">공지사항</Button>
-      <Button type="LargeDropDown">소개팅 하러가기</Button>
-      <Button type="LargeDropDown">미팅 하러가기</Button>
-      <Button type="LargeDropDown">이벤트</Button>
-      <Button type="LargeDropDown">문의하기</Button>
+      <Button type="LargeDropDown" className={className}>
+        공지사항
+      </Button>
+      <Button type="LargeDropDown" className={className}>
+        소개팅 하러가기
+      </Button>
+      <Button type="LargeDropDown" className={className}>
+        미팅 하러가기
+      </Button>
+      <Button type="LargeDropDown" className={className}>
+        이벤트
+      </Button>
+      <Button type="LargeDropDown" className={className}>
+        문의하기
+      </Button>
     </div>
   );
 };
-const UserDropDown = () => {
+const UserDropDown = (className: string) => {
   return (
     <div css={MenuStyle}>
-      <Button type="LargeDropDown">공지사항</Button>
-      <Button type="LargeDropDown">소개팅 하러가기</Button>
-      <Button type="LargeDropDown">미팅 하러가기</Button>
-      <Button type="LargeDropDown">이벤트</Button>
-      <Button type="LargeDropDown">문의하기</Button>
+      <Button type="LargeDropDown" className={className}>
+        내 정보 보기
+      </Button>
+      <Button type="LargeDropDown" className={className}>
+        내가 고른 이상형
+      </Button>
+      <Button type="LargeDropDown" className={className}>
+        팀 설정하기
+      </Button>
     </div>
   );
 };
-const SearchDropDown = (DropDownList: Array<string>) => {
+const SearchDropDown = (DropDownList: Array<string>, className: string) => {
   return (
     <div css={MenuStyle}>
       {DropDownList.map((el) => (
-        <Button type="LargeDropDown">{el}</Button>
+        <Button type="LargeDropDown" className={className}>
+          {el}
+        </Button>
       ))}
     </div>
   );
