@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
+import { useLocation } from "react-router-dom";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
 
@@ -31,6 +32,9 @@ const SocialLoginButtonContainerStyle = css`
   }
 `;
 export default function LogInPage() {
+  const searchParams = new URLSearchParams(useLocation().search);
+  const code = searchParams.get("code");
+  console.log(code);
   return (
     <div css={containerStyle}>
       <div css={titleStyle}>Sign in</div>
@@ -43,17 +47,19 @@ export default function LogInPage() {
         <Button type="Small">로그인</Button>
       </div>
 
-      <div css={SocialLoginButtonContainerStyle}>
-        <Button type="Long" color="#000000">
-          Sign in with Github
-        </Button>
-        <Button type="Long" color="#f3e84d">
-          Sign in with Kakao
-        </Button>
-        <Button type="Long" color="#2DB400">
-          Sign in with Naver
-        </Button>
-      </div>
+      {!code && (
+        <div css={SocialLoginButtonContainerStyle}>
+          <Button type="Long" color="#000000">
+            Sign in with Github
+          </Button>
+          <Button type="Long" color="#f3e84d">
+            Sign in with Kakao
+          </Button>
+          <Button type="Long" color="#2DB400">
+            Sign in with Naver
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
