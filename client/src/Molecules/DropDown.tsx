@@ -21,6 +21,12 @@ const MenuStyle = css`
       border-bottom-right-radius: 27px;
     }
   }
+  .hide {
+    display: none;
+  }
+  .show {
+    display: block;
+  }
 `;
 const SearchData = {
   location: ["서울", "경기", "인천", "대구", "대전", "광주", "부산", "울산"],
