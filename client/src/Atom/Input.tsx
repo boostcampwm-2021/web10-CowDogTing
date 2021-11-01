@@ -6,8 +6,11 @@ export const Input = styled.input`
   border: 2px solid #ffcfcf;
   padding: 0 20px;
   cursor: pointer;
-  margin-top: 20px;
+  margin: 10px 0 20px 0;
 
+  & + & {
+    margin-top: 0px;
+  }
   &:focus {
     outline: none;
   }

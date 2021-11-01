@@ -23,10 +23,12 @@ const ButtonContainerStyle = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 20px 0;
 `;
 
 const SocialLoginButtonContainerStyle = css`
+  div:nth-child(1) {
+    margin-top: 20px;
+  }
   div:nth-child(2) {
     margin: 10px 0;
   }

@@ -28,6 +28,10 @@ const LargeButtonStyle = css`
 const LongButtonStyle = css`
   width: 300px;
   color: #ffffff;
+
+  &:hover {
+    height: 60px;
+  }
 `;
 
 const SmallDropDownStyle = css`
