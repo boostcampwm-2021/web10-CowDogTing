@@ -28,6 +28,7 @@
     "no-use-before-define": "off",
     "import/no-extraneous-dependencies": 0,
     "react/react-in-jsx-scope": 0, // 'off'
+    "import/prefer-default-export": "off",
     "react/jsx-filename-extension": [
       2,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
