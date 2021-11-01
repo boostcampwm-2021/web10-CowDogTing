@@ -1,18 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
+import logo from "../assets/Logo.svg";
 
 const mainHeaderLogoStyle = css`
-  font-family: Romanesco;
-  font-style: Regular;
-  font-size: 96px;
   position: relative;
-  left: 30%;
-  top: 40%;
+  left: 40%;
+  top: 70%;
 `;
 
 function MainHeaderLogo() {
-  return <div css={mainHeaderLogoStyle}>CowDogTing</div>;
+  return <img alt="mainLogo" src={logo} css={mainHeaderLogoStyle} />;
 }
 
 export default MainHeaderLogo;
