@@ -3,16 +3,19 @@
 import { css } from "@emotion/react";
 
 const MenuStyle = css`
-  width: 58px;
+  width: 71px;
   height: 71px;
+  cursor: pointer;
 `;
 interface MenuProps {
   onClick: () => void;
 }
 export default function Menu(props: MenuProps) {
   return (
-    <div css={MenuStyle}>
-      <img src="./Menu.png" alt="Menu" onClick={props.onClick} />
-    </div>
+    <>
+      <div css={MenuStyle}>
+        <img src="./Menu.png" alt="Menu" onClick={props.onClick} />
+      </div>
+    </>
   );
 }
