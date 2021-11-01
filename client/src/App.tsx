@@ -4,6 +4,7 @@ import MainPage from "./Page/MainPage";
 import reset from "./util/reset";
 import LogInPage from "./Page/LogInPage";
 import Menu from "./Atom/Menu";
+import MenuDropDown from "./Molecules/MenuDropDown";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Global styles={reset} />
       <LogInPage />
       <Menu />
+      <MenuDropDown />
     </>
   );
 }
