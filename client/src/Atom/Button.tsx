@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable comma-dangle */
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
@@ -9,15 +10,11 @@ const StateButtonStyle = css`
   height: 50px;
 `;
 
-/* 나가기 버튼 */
-const SmallButtonStyle = css`
-  height: 50px;
-`;
-
 /* 선택 버튼 */
 const MediumButtonStyle = css`
   width: 180px;
   height: 75px;
+  border-radius: 0;
 `;
 
 /* 채팅 신청하기 */
@@ -28,6 +25,7 @@ const LargeButtonStyle = css`
 
 const LongButtonStyle = css`
   width: 300px;
+  color: #ffffff;
 `;
 
 const SmallDropDownStyle = css`
@@ -44,11 +42,15 @@ const LargeDropDownStyle = css`
 
 const ButtonStyle = (props: ButtonType) => css`
   border: 2px solid ${props.color};
+
   ${props.type === "State" && StateButtonStyle}
-  ${props.type === "Small" && SmallButtonStyle}
   ${props.type === "Medium" && MediumButtonStyle}
   ${props.type === "Large" && LargeButtonStyle}
   ${props.type === "Long" && LongButtonStyle}
+  ${props.type === "Long" &&
+  css`
+    background-color: ${props.color};
+  `}
   ${props.type === "LargeDropDown" && LargeDropDownStyle}
   ${props.type === "SmallDropDown" && SmallDropDownStyle}
 
@@ -68,6 +70,10 @@ export const Button = styled.div`
   align-items: center;
   border-radius: 10px;
 
+  & + & {
+    border-top: none;
+  }
+
   &:hover {
     background-color: #ffcfcf;
     color: #ffffff;
@@ -76,5 +82,6 @@ export const Button = styled.div`
 `;
 
 Button.defaultProps = {
+  type: "Small",
   color: "#ffcfcf",
 };

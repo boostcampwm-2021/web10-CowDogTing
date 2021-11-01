@@ -1,4 +1,4 @@
 export type ButtonType = {
-  type: string;
+  type?: string;
   color?: string;
 };
