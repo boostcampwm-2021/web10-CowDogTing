@@ -3,34 +3,43 @@ import { css } from "@emotion/react";
 import { ImageDivType } from "../util/type";
 
 const bigImageDivStyle = css`
-  width: 45%;
-  height: 70%;
+  width: 40vw;
+  height: 60vh;
 `;
 const shortImageDivStyle = css`
-  width: 40%;
-  height: 30%;
+  width: 20vw;
+  height: 20vh;
   margin: 3%;
 `;
 const longImageDivStyle = css`
-  width: 40%;
-  height: 60%;
+  width: 20vw;
+  height: 40vh;
   margin: 3%;
 `;
 
 const leftLongImageDivStyle = css`
   position: relative;
-  width: 40%;
-  height: 60%;
+  width: 20vw;
+  height: 40vh;
   margin: 3%;
   top: -30%;
 `;
 const ImageDivStyle = (props: ImageDivType) => css`
-  ${props.type === "big" && bigImageDivStyle}
-  ${props.type === "long" && longImageDivStyle}
-  ${props.type === "short" && shortImageDivStyle}
-  ${props.type === "left-long" && leftLongImageDivStyle}
-  background-image: url(${props.image});
-  background-size: cover;
+  &::before {
+    content: "";
+    left: 0px;
+    top: 0px;
+    background: url(${props.image});
+    background-size: cover;
+    display: inline-block;
+    ${props.type === "big" && bigImageDivStyle}
+    ${props.type === "long" && longImageDivStyle}
+    ${props.type === "short" && shortImageDivStyle}
+    ${props.type === "left-long" && leftLongImageDivStyle}
+  }
+  &:hover::before {
+    opacity: 0.2;
+  }
 `;
 
 export const ImageDiv = styled.div`
