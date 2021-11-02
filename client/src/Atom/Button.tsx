@@ -1,15 +1,12 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable comma-dangle */
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { ButtonType } from "../util/type";
 
+/* 확인 , 취소 ... */
 const StateButtonStyle = css`
   width: 100px;
-  height: 50px;
-`;
-
-/* 나가기 버튼 */
-const SmallButtonStyle = css`
   height: 50px;
 `;
 
@@ -17,6 +14,7 @@ const SmallButtonStyle = css`
 const MediumButtonStyle = css`
   width: 180px;
   height: 75px;
+  border-radius: 0;
 `;
 
 /* 채팅 신청하기 */
@@ -25,8 +23,14 @@ const LargeButtonStyle = css`
   height: 80px;
 `;
 
+/* Oauth 로그인 버튼 */
 const LongButtonStyle = css`
   width: 300px;
+  color: #ffffff;
+
+  &:hover {
+    height: 60px;
+  }
 `;
 
 const SmallDropDownStyle = css`
@@ -43,11 +47,15 @@ const LargeDropDownStyle = css`
 
 const ButtonStyle = (props: ButtonType) => css`
   border: 2px solid ${props.color};
+
   ${props.type === "State" && StateButtonStyle}
-  ${props.type === "Small" && SmallButtonStyle}
   ${props.type === "Medium" && MediumButtonStyle}
   ${props.type === "Large" && LargeButtonStyle}
   ${props.type === "Long" && LongButtonStyle}
+  ${props.type === "Long" &&
+  css`
+    background-color: ${props.color};
+  `}
   ${props.type === "LargeDropDown" && LargeDropDownStyle}
   ${props.type === "SmallDropDown" && SmallDropDownStyle}
   &:hover {
@@ -65,6 +73,12 @@ export const Button = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+  cursor: pointer;
+
+  & + & {
+    border-top: none;
+  }
+
   &:hover {
     background-color: #ffcfcf;
     color: #ffffff;
@@ -73,5 +87,6 @@ export const Button = styled.div`
 `;
 
 Button.defaultProps = {
+  type: "Small",
   color: "#ffcfcf",
 };
