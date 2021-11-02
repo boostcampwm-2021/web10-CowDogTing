@@ -14,11 +14,11 @@ const LabelStyle = css`
   height: 20%;
   width: 90%;
 `;
-function InputLabel({ label }: InputLabelType) {
+function InputLabel({ label, placeholder }: InputLabelType) {
   return (
     <div css={InputLabelStyle}>
       <p css={LabelStyle}>{label}</p>
-      <Input />
+      <Input placeholder={placeholder} />
     </div>
   );
 }

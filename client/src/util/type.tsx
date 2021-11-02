@@ -14,4 +14,5 @@ export type ChildrenType = {
 
 export type InputLabelType = {
   label: string;
+  placeholder?: string;
 };
