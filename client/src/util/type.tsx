@@ -49,6 +49,7 @@ export type ProfileType = {
 
 export type ProfileInfoDataType = {
   data: ProfileType;
+  idx?: number;
 };
 
 export type ProfileListType = {
