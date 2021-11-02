@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
@@ -9,10 +10,10 @@ const typeStyle = (props: { type: string }) => css`
 const ProfileCardContainer = styled.div`
   width: 400px;
   height: 200px;
-  ${typeStyle}
-  border-radius : 10px;
+  border-radius: 10px;
   cursor: pointer;
   padding: 20px 40px;
+  ${typeStyle}
 `;
 
 export default function ProfileCard({ type, children }: { type: string; children: JSX.Element[] | JSX.Element }) {
