@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { css } from "@emotion/react";
 import MyPageSideBar from "../Organism/MyPageSideBar";
 import MyInfo from "./MyPageMain/MyInfo";
@@ -9,11 +9,11 @@ import Review from "./MyPageMain/Review";
 import LikeList from "./MyPageMain/LikeList";
 
 const MyPageBodyStyle = css`
-  width: 100vw;
-  height: 80vh;
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
+  width: 100vw;
+  height: 100vh;
+  margin-left: 200px;
 `;
 
 export default function MyPageBodyTemplate() {
@@ -25,6 +25,7 @@ export default function MyPageBodyTemplate() {
         <Route path="/mypage/question" component={QuestionList} />
         <Route path="/mypage/review" component={Review} />
         <Route path="/mypage/likelist" component={LikeList} />
+        <Redirect path="/*" to="/mypage/myinfo" />
       </Switch>
     </div>
   );

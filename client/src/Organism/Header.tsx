@@ -11,6 +11,9 @@ const HeaderStyle = css`
   justify-content: space-between;
   width: 100vw;
   margin: 50px;
+  border-bottom: 1px solid black;
+  padding-bottom: 30px;
+  margin-bottom: 0px;
   .hide {
     display: none;
   }

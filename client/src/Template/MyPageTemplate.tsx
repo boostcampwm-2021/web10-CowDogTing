@@ -6,7 +6,7 @@ import MyPageBodyTemplate from "./MyPageBodyTemplate";
 
 const MyPageStyle = css`
   width: 100vw;
-  height: 80vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
