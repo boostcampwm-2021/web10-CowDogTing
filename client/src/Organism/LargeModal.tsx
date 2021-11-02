@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import { Button } from "../Atom/Button";
 import { Modal } from "../Molecules/Modal";
 import { LargeModalType } from "../util/type";
 import RightBtn from "../assets/RightButton.svg";
@@ -55,7 +54,7 @@ export default function LargeModal({ index, children, datas, decreaseIndex, inCr
         {children[0]}
         <div css={RightButton({ visiable: index + 1 === datas?.length })} onClick={inCrease} />
       </div>
-      <Button type="Large">{children[1]}</Button>
+      {children[1]}
     </Modal>
   );
 }

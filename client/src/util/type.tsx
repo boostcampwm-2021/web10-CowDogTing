@@ -64,4 +64,3 @@ export type LargeModalType = {
   inCreaseIndex: (e: React.MouseEvent<HTMLElement>) => void;
   index: number;
 };
-// React.DOMAttributes<HTMLDivElement>.onClick?: React.MouseEventHandler<HTMLDivElement> | undefined

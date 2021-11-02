@@ -106,8 +106,8 @@ export async function getCowDogInfo(person: number): Promise<ProfileType[]> {
         ]
       : [
           {
-            image: "asfdadsf",
-            id: "팀명",
+            image: "1111",
+            id: "111111",
             info: "asdfsafd",
             time: "월, 금 오후 3시",
             location: "우만동",
