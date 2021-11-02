@@ -46,7 +46,7 @@ export type ProfileInfoDataType = {
   data: ProfileType;
 };
 
-export type CowDogPageBodyType = {
+export type ProfileListType = {
   datas: ProfileType[] | null;
   person: number;
   setOpenModal: (prev: any) => void;
