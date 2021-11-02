@@ -9,7 +9,11 @@ import MainPage from "./Page/MainPage";
 import MyPage from "./Page/MyPage";
 =======
 import TeamCreatePage from "./Page/TeamCreatePage";
+<<<<<<< HEAD
 >>>>>>> 1c22814... Feat : 팀 생성 컨테이너 UI 개발[#55]
+=======
+import TeamSettingPage from "./Page/TeamSettingPage";
+>>>>>>> f4efd67... Feat : 팀 설정 페이지 - 팀 없음 UI 구현[#48]
 
 function App() {
   return (
@@ -23,7 +27,11 @@ function App() {
         <Route path="/mypage" component={MyPage} />
 =======
         <Route path="/teamCreate" component={TeamCreatePage} />
+<<<<<<< HEAD
 >>>>>>> 1c22814... Feat : 팀 생성 컨테이너 UI 개발[#55]
+=======
+        <Route path="/teamSetting" component={TeamSettingPage} />
+>>>>>>> f4efd67... Feat : 팀 설정 페이지 - 팀 없음 UI 구현[#48]
         <Redirect path="/*" to="/" />
       </Switch>
     </>
