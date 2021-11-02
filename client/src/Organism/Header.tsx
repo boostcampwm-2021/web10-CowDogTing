@@ -20,7 +20,7 @@ export default function Header() {
   };
   const handleModalClose = () => {};
   useEffect(() => {
-    window.addEventListener("click", () => handleModalClose());
+    window.addEventListener("click", handleModalClose);
   }, []);
   return (
     <div css={HeaderStyle}>
