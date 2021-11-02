@@ -2,9 +2,9 @@
 import React from "react";
 import ProfileCard from "../Atom/ProfileCard";
 import ProfileInfo from "../Atom/ProfileInfo";
-import { CowDogPageBodyType } from "../util/type";
+import { ProfileListType } from "../util/type";
 
-export default function CowDogPageBody({ datas, person, setOpenModal }: CowDogPageBodyType) {
+export default function ProfileList({ datas, person, setOpenModal }: ProfileListType) {
   const handleModalClick = (e: React.MouseEvent) => {
     const { id } = (e.target as HTMLElement).dataset;
     if (id === undefined) return;
