@@ -1,5 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
 const MenuStyle = css`
