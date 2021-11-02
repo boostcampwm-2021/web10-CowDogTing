@@ -1,46 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable no-unneeded-ternary */
-/** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
-import { css } from "@emotion/react";
-import { Button } from "../Atom/Button";
 import ProfileInfo from "../Atom/ProfileInfo";
-import { Modal } from "../Molecules/Modal";
 import { ProfileInfoDataType, ProfileType } from "../util/type";
-import RightBtn from "../assets/RightButton.svg";
-import LeftBtn from "../assets/LeftButton.svg";
-
-const InfoContainer = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-  width: 100%;
-`;
-
-const LeftButton = (props: { visiable: boolean }) => css`
-  background-image: url(${LeftBtn});
-  width: 100px;
-  height: 100px;
-  cursor: pointer;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  float: left;
-  ${!props.visiable && { visibility: "hidden" }};
-`;
-
-const RightButton = (props: { visiable: boolean }) => css`
-  background-image: url(${RightBtn});
-  width: 100px;
-  height: 100px;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  cursor: pointer;
-  float: right;
-  ${!props.visiable && { visibility: "hidden" }};
-`;
+import LargeModal from "../Organism/LargeModal";
 
 export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element {
   const [index, setIndex] = useState<number>(0);
@@ -64,12 +28,12 @@ export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element
     setDatas([data, ...teamPerson]);
   }, []);
 
-  const inCreaseIndex = () => {
+  const inCreaseIndex = (e: React.MouseEvent<HTMLElement>): void => {
     setIndex((prev) => prev + 1);
     setTarget(datas ? datas[index] : null);
   };
 
-  const decreaseIndex = () => {
+  const decreaseIndex = (e: React.MouseEvent<HTMLElement>): void => {
     setIndex((prev) => prev - 1);
     setTarget(datas ? datas[index] : null);
   };
@@ -77,13 +41,9 @@ export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element
   if (!target) return <div>로딩중...</div>;
 
   return (
-    <Modal type="Large">
-      <div css={InfoContainer}>
-        <div css={LeftButton({ visiable: index > 0 })} onClick={decreaseIndex} />
-        <ProfileInfo data={target} />
-        <div css={RightButton({ visiable: index + 1 !== datas?.length })} onClick={inCreaseIndex} />
-      </div>
-      <Button type="Large">채팅 신청하기</Button>
-    </Modal>
+    <LargeModal index={index} datas={datas} inCreaseIndex={inCreaseIndex} decreaseIndex={decreaseIndex}>
+      <ProfileInfo data={target} />
+      <div>채팅 신청하기</div>
+    </LargeModal>
   );
 }
