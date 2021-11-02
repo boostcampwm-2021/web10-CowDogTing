@@ -59,3 +59,8 @@ export type LargeModalType = {
   inCreaseIndex: (e: React.MouseEvent<HTMLElement>) => void;
   index: number;
 };
+
+export type SmallModalType = {
+  data: ProfileType;
+  setRequest: (current: boolean) => void;
+};

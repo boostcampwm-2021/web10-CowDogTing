@@ -55,7 +55,7 @@ export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element
           채팅 신청하기
         </Button>
       </LargeModal>
-      {request && datas && <RequestModal data={datas[0]} />}
+      {request && datas && <RequestModal data={datas[0]} setRequest={setRequest} />}
     </>
   );
 }
