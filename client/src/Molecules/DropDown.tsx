@@ -13,9 +13,9 @@ interface DropDownProps {
 const DropDownStyle = css`
   display: flex;
   flex-direction: column;
-  width: 300px;
   position: absolute;
   box-sizing: border-box;
+  background-color: #fff;
   div {
     &:first-child {
       border-top-left-radius: 27px;

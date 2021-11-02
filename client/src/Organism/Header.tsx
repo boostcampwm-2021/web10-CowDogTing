@@ -10,10 +10,9 @@ const HeaderStyle = css`
   display: flex;
   justify-content: space-between;
   width: 100vw;
-  margin: 50px;
+  margin-top: 50px;
   border-bottom: 1px solid black;
-  padding-bottom: 30px;
-  margin-bottom: 0px;
+  padding: 40px;
   .hide {
     display: none;
   }
