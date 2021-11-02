@@ -7,7 +7,7 @@ const mainHeaderCenterStyle = css`
   position: relative;
   width: 210px;
   justify-content: center;
-  top: 30%;
+  top: 50%;
 `;
 
 function MainHeaderCenter() {

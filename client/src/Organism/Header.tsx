@@ -38,8 +38,10 @@ export default function Header() {
         <DropDown type="Menu" className={MenuOpen ? "show" : "hide"} />
       </div>
       <MainHeaderLogo />
-      <UserIcon onClick={() => ToggleUserModal()} />
-      <DropDown type="User" className={UserOpen ? "show" : "hide"} />
+      <div>
+        <UserIcon onClick={() => ToggleUserModal()} />
+        <DropDown type="User" className={UserOpen ? "show" : "hide"} />
+      </div>
     </div>
   );
 }
