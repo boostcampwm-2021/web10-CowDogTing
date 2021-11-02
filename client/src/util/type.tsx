@@ -11,3 +11,7 @@ export type ImageDivType = {
 export type ChildrenType = {
   children?: JSX.Element;
 };
+
+export type InputLabelType = {
+  label: string;
+};
