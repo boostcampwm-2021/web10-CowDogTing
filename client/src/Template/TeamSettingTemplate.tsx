@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import React from "react";
+import { Button } from "../Atom/Button";
 import InputLabel from "../Molecules/InputLabel";
+import TeamButtonContainer from "../Organism/TeamButtonContainer";
 import TeamInfoContainer from "../Organism/TeamInfoContainer";
 import TeamSettingMemberContainer from "../Organism/TeamSettingMemberContainer";
 
@@ -23,6 +25,10 @@ function TeamSettingTemplate() {
         <InputLabel label="지역" placeholder="경기/수원" />
       </TeamInfoContainer>
       <TeamSettingMemberContainer />
+      <TeamButtonContainer>
+        <Button type="Medium">초대하기</Button>
+        <Button type="Medium">수정하기</Button>
+      </TeamButtonContainer>
     </div>
   );
 }
