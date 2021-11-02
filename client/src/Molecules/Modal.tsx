@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 const LargeModalStyle = css`
-  width: 600px;
+  width: 550px;
   height: 400px;
 `;
 
@@ -22,5 +22,13 @@ export const Modal = styled.div`
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 27px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 30%;
+  left: 30%;
+  position: fixed;
   ${typeStyle}
 `;

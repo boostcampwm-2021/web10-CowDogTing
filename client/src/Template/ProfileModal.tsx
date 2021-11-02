@@ -2,9 +2,45 @@
 /* eslint-disable no-unneeded-ternary */
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
+import { css } from "@emotion/react";
+import { Button } from "../Atom/Button";
 import ProfileInfo from "../Atom/ProfileInfo";
 import { Modal } from "../Molecules/Modal";
 import { ProfileInfoDataType, ProfileType } from "../util/type";
+import RightBtn from "../assets/RightButton.svg";
+import LeftBtn from "../assets/LeftButton.svg";
+
+const InfoContainer = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+`;
+
+const LeftButton = (props: { visiable: boolean }) => css`
+  background-image: url(${LeftBtn});
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  float: left;
+  ${!props.visiable && { visibility: "hidden" }};
+`;
+
+const RightButton = (props: { visiable: boolean }) => css`
+  background-image: url(${RightBtn});
+  width: 100px;
+  height: 100px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  float: right;
+  ${!props.visiable && { visibility: "hidden" }};
+`;
 
 export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element {
   const [index, setIndex] = useState<number>(0);
@@ -13,6 +49,7 @@ export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element
 
   useEffect(() => {
     setTarget(data);
+    setIndex(0);
   }, [data]);
 
   useEffect(() => {
@@ -24,7 +61,6 @@ export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element
   useEffect(() => {
     const { member } = data;
     const teamPerson = member ? member : [];
-
     setDatas([data, ...teamPerson]);
   }, []);
 
@@ -42,9 +78,12 @@ export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element
 
   return (
     <Modal type="Large">
-      {index > 0 && <div onClick={decreaseIndex}>이동</div>}
-      <ProfileInfo data={target} />
-      {index + 1 !== datas?.length && <div onClick={inCreaseIndex}>이동</div>}
+      <div css={InfoContainer}>
+        <div css={LeftButton({ visiable: index > 0 })} onClick={decreaseIndex} />
+        <ProfileInfo data={target} />
+        <div css={RightButton({ visiable: index + 1 !== datas?.length })} onClick={inCreaseIndex} />
+      </div>
+      <Button type="Large">채팅 신청하기</Button>
     </Modal>
   );
 }
