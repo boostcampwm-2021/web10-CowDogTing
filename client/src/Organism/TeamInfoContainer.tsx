@@ -2,8 +2,9 @@
 import React from "react";
 import { css } from "@emotion/react";
 import InputLabel from "../Molecules/InputLabel";
+import TeamInputContainer from "./TeamInputContainer";
 
-const TeamCreateContainerStyle = css`
+const TeamInfoContainerStyle = css`
   display: flex;
   width: 100%;
   height: 70%;
@@ -14,25 +15,18 @@ const ImageContainerStyle = css`
   height: 100%;
 `;
 
-const TeamCreateInputContainerStyle = css`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
-`;
-
-function TeamCreateContainer() {
+function TeamInfoContainer() {
   return (
-    <div css={TeamCreateContainerStyle}>
+    <div css={TeamInfoContainerStyle}>
       <div css={ImageContainerStyle}>image 입주 예정</div>
-      <div css={TeamCreateInputContainerStyle}>
+      <TeamInputContainer>
         <InputLabel label="팀명" />
         <InputLabel label="소개" />
         <InputLabel label="가능시간" />
         <InputLabel label="지역" />
-      </div>
+      </TeamInputContainer>
     </div>
   );
 }
 
-export default TeamCreateContainer;
+export default TeamInfoContainer;
