@@ -12,9 +12,8 @@ const MyPageBodyStyle = css`
   display: flex;
   text-align: center;
   align-items: center;
-  width: 100vw;
+  width: 80vw;
   height: 100vh;
-  margin-left: 200px;
 `;
 
 export default function MyPageBodyTemplate() {

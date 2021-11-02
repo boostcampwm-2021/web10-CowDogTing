@@ -4,10 +4,11 @@ import SideBarDiv from "../Atom/SideBarDiv";
 
 /** @jsxImportSource @emotion/react */
 const SideBarStyle = css`
-  width: 15vw;
+  width: 10vw;
   height: 80vh;
   border-left: 1px solid black;
   border-right: 1px solid black;
+  margin-right: 5vw;
   div {
     border-bottom: 1px solid black;
     &:first-child {
