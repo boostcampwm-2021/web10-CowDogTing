@@ -10,6 +10,7 @@ import LikeList from "./MyPageMain/LikeList";
 
 const MyPageBodyStyle = css`
   display: flex;
+  text-align: center;
   align-items: center;
   width: 100vw;
   height: 100vh;

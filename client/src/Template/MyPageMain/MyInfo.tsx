@@ -1,4 +1,15 @@
+import { css } from "@emotion/react";
+import MyInfoContainer from "../../Organism/MyInfoContainer";
+
 /** @jsxImportSource @emotion/react */
+const MyInfoStyle = css`
+  padding-left: 50px;
+  width: 85vw;
+`;
 export default function MyInfo() {
-  return <div>내 정보 페이지 입니다.</div>;
+  return (
+    <div css={MyInfoStyle}>
+      <MyInfoContainer />
+    </div>
+  );
 }
