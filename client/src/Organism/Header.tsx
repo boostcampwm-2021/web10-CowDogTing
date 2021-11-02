@@ -9,6 +9,7 @@ import DropDown from "../Molecules/DropDown";
 const HeaderStyle = css`
   display: flex;
   justify-content: space-between;
+  width: 100vw;
   margin: 50px;
   .hide {
     display: none;
