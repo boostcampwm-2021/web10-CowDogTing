@@ -56,3 +56,12 @@ export type CowDogPageBodyType = {
   person: number;
   setOpenModal: (prev: any) => void;
 };
+
+export type LargeModalType = {
+  children: JSX.Element[];
+  datas: ProfileType[] | null;
+  decreaseIndex: (e: React.MouseEvent<HTMLElement>) => void;
+  inCreaseIndex: (e: React.MouseEvent<HTMLElement>) => void;
+  index: number;
+};
+// React.DOMAttributes<HTMLDivElement>.onClick?: React.MouseEventHandler<HTMLDivElement> | undefined
