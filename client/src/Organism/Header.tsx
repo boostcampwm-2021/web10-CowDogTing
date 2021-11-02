@@ -1,10 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
+import MainHeaderLogo from "../Atom/MainHeaderLogo";
 import Menu from "../Atom/Menu";
+import UserIcon from "../Atom/UserIcon";
 import DropDown from "../Molecules/DropDown";
 
 const HeaderStyle = css`
+  display: flex;
+  justify-content: space-between;
+  margin: 50px;
   .hide {
     display: none;
   }
@@ -28,6 +33,8 @@ export default function Header() {
         <Menu onClick={() => ToggleMenu()} />
         <DropDown type="Menu" className={MenuOpen ? "show" : "hide"} />
       </div>
+      <MainHeaderLogo />
+      <UserIcon />
     </div>
   );
 }
