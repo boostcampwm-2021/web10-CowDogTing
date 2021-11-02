@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable comma-dangle */
 
-import axios from "axios";
-
 // import axios from "axios";
 
 export function getUserInfo() {
