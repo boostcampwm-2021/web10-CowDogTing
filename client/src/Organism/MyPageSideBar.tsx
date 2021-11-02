@@ -10,6 +10,10 @@ const SideBarStyle = css`
   border-right: 1px solid black;
   div {
     border-bottom: 1px solid black;
+    &:first-child {
+      margin-top: 80px;
+      border-top: 1px solid black;
+    }
   }
 `;
 
@@ -23,7 +27,7 @@ export default function MyPageSideBar() {
   return (
     <div css={SideBarStyle}>
       {SideBarList.map((el) => (
-        <SideBarDiv menu={el.menu} link={el.link} />
+        <SideBarDiv key={el.menu} menu={el.menu} link={el.link} />
       ))}
     </div>
   );

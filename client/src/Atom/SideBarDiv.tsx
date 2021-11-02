@@ -19,8 +19,8 @@ interface SideBarDivProps {
 }
 export default function SideBarDiv(props: SideBarDivProps) {
   return (
-    <Link to={props.link}>
-      <div css={SideBarDIv}>{props.menu}</div>
-    </Link>
+    <div css={SideBarDIv}>
+      <Link to={props.link}>{props.menu}</Link>
+    </div>
   );
 }
