@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import React from "react";
 import InputLabel from "../Molecules/InputLabel";
 import TeamInfoContainer from "../Organism/TeamInfoContainer";
+import TeamSettingMemberContainer from "../Organism/TeamSettingMemberContainer";
 
 const TeamSettingTemPlateStyle = css`
   display: flex;
@@ -21,6 +22,7 @@ function TeamSettingTemplate() {
         <InputLabel label="가능시간" placeholder="2023/02/11" />
         <InputLabel label="지역" placeholder="경기/수원" />
       </TeamInfoContainer>
+      <TeamSettingMemberContainer />
     </div>
   );
 }
