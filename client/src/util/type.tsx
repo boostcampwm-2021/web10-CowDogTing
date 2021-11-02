@@ -21,8 +21,9 @@ export type PersonInfoType = {
   id: string;
   image: string;
   location: string;
-  sex: boolean;
+  sex: string;
   age: number;
+  info: string;
 };
 
 export type TeamInfoType = {
@@ -32,8 +33,20 @@ export type TeamInfoType = {
   time: string;
   location: string;
   age: number;
-  leader: boolean;
-  teamPersonNum: number;
-  sex: boolean;
+  sex: string;
   member: PersonInfoType[];
+};
+
+export type ProfileType = {
+  id: string;
+  image: string;
+  location: string;
+  sex: string;
+  age: number;
+  info: string;
+  member?: PersonInfoType[];
+};
+
+export type ProfileInfoDataType = {
+  data: ProfileType;
 };
