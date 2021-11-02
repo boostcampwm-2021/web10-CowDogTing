@@ -1,6 +1,12 @@
+/* eslint-disable comma-dangle */
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { ButtonType } from "../util/type";
+
+const StateButtonStyle = css`
+  width: 100px;
+  height: 50px;
+`;
 
 /* 나가기 버튼 */
 const SmallButtonStyle = css`
@@ -23,29 +29,42 @@ const LongButtonStyle = css`
   width: 300px;
 `;
 
-const DropDownButtonStyle = css`
-  width: 230px;
+const SmallDropDownStyle = css`
+  width: 200px;
+  height: 65px;
+  border-radius: 0;
+`;
+
+const LargeDropDownStyle = css`
+  width: 250px;
   height: 80px;
+  border-radius: 0;
 `;
 
 const ButtonStyle = (props: ButtonType) => css`
+  border: 2px solid ${props.color};
+  ${props.type === "State" && StateButtonStyle}
   ${props.type === "Small" && SmallButtonStyle}
   ${props.type === "Medium" && MediumButtonStyle}
   ${props.type === "Large" && LargeButtonStyle}
   ${props.type === "Long" && LongButtonStyle}
-  ${props.type === "DropDown" && DropDownButtonStyle}
+  ${props.type === "LargeDropDown" && LargeDropDownStyle}
+  ${props.type === "SmallDropDown" && SmallDropDownStyle}
+  &:hover {
+    background-color: ${props.color};
+    color: #ffffff;
+  }
 `;
 
 export const Button = styled.div`
   width: 125px;
   height: 50px;
-  border: 2px solid #ffcfcf;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-
+  border-radius: 10px;
   &:hover {
     background-color: #ffcfcf;
     color: #ffffff;
@@ -54,6 +73,5 @@ export const Button = styled.div`
 `;
 
 Button.defaultProps = {
-  // eslint-disable-next-line comma-dangle
-  color: "basic",
+  color: "#ffcfcf",
 };
