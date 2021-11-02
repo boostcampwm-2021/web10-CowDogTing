@@ -1,6 +1,5 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable comma-dangle */
-/** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { ButtonType } from "../util/type";
@@ -59,7 +58,6 @@ const ButtonStyle = (props: ButtonType) => css`
   `}
   ${props.type === "LargeDropDown" && LargeDropDownStyle}
   ${props.type === "SmallDropDown" && SmallDropDownStyle}
-
   &:hover {
     background-color: ${props.color};
     color: #ffffff;
