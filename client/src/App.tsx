@@ -6,6 +6,7 @@ import LogInPage from "./Page/LogInPage";
 import RegisterPage from "./Page/RegisterPage";
 import MainPage from "./Page/MainPage";
 import TeamCreatePage from "./Page/TeamCreatePage";
+import TeamSettingPage from "./Page/TeamSettingPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" component={LogInPage} exact />
         <Route path="/register" component={RegisterPage} />
         <Route path="/teamCreate" component={TeamCreatePage} />
+        <Route path="/teamSetting" component={TeamSettingPage} />
         <Redirect path="/*" to="/" />
       </Switch>
     </>
