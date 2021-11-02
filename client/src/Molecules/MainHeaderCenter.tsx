@@ -5,8 +5,7 @@ import MainHeaderLogo from "../Atom/MainHeaderLogo";
 
 const mainHeaderCenterStyle = css`
   position: relative;
-  display: flex;
-  width: 100vw;
+  width: 210px;
   justify-content: center;
   top: 30%;
 `;
