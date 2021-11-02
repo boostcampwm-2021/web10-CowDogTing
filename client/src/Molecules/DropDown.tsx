@@ -10,17 +10,12 @@ interface DropDownProps {
   type: string;
   className: string;
 }
-const MenuStyle = css`
+const DropDownStyle = css`
   display: flex;
   flex-direction: column;
   width: 300px;
+  position: absolute;
   box-sizing: border-box;
-  .hide {
-    display: none;
-  }
-  .show {
-    display: flex;
-  }
   div {
     &:first-child {
       border-top-left-radius: 27px;
@@ -53,7 +48,7 @@ export default function DropDown(props: DropDownProps) {
 }
 const MenuDropDown = (className: string) => {
   return (
-    <div css={MenuStyle} onClick={(e) => e.stopPropagation()} className={className}>
+    <div css={DropDownStyle} onClick={(e) => e.stopPropagation()} className={className}>
       <Button type="LargeDropDown">공지사항</Button>
       <Button type="LargeDropDown">소개팅 하러가기</Button>
       <Button type="LargeDropDown">미팅 하러가기</Button>
@@ -64,7 +59,7 @@ const MenuDropDown = (className: string) => {
 };
 const UserDropDown = (className: string) => {
   return (
-    <div css={MenuStyle} onClick={(e) => e.stopPropagation()} className={className}>
+    <div css={DropDownStyle} onClick={(e) => e.stopPropagation()} className={className}>
       <Button type="LargeDropDown">내 정보 보기</Button>
       <Button type="LargeDropDown">내가 고른 이상형</Button>
       <Button type="LargeDropDown">팀 설정하기</Button>
@@ -73,7 +68,7 @@ const UserDropDown = (className: string) => {
 };
 const SearchDropDown = (DropDownList: Array<string>, className: string) => {
   return (
-    <div css={MenuStyle} onClick={(e) => e.stopPropagation()} className={className}>
+    <div css={DropDownStyle} onClick={(e) => e.stopPropagation()} className={className}>
       {DropDownList.map((el) => (
         <Button type="LargeDropDown">{el}</Button>
       ))}
