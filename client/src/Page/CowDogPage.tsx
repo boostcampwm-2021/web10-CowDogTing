@@ -3,19 +3,22 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import ProfileCard from "../Atom/ProfileCard";
 import ProfileInfo from "../Atom/ProfileInfo";
+import ProfileModal from "../Template/ProfileModal";
 import { getCowDogInfo } from "../util/dummyData";
 import { ProfileType } from "../util/type";
 
 export default function CowDogPage() {
+  const [datas, setDatas] = useState<ProfileType[] | null>(null);
+  const [openModal, setOpenModal] = useState<Number | null>(null);
+
   const searchParams = new URLSearchParams(useLocation().search);
   const person = Number(searchParams.get("person"));
-  const [openModal, setOpenModal] = useState<Number | null>(null);
-  const [datas, setDatas] = useState<ProfileType[] | null>(null);
 
   const handleModalClick = (e: React.MouseEvent) => {
     const { id } = (e.target as HTMLElement).dataset;
     if (id === undefined) return;
-    setOpenModal(openModal === Number(id) ? null : Number(id));
+
+    setOpenModal((prev) => (prev === Number(id) ? null : Number(id)));
   };
 
   const getDatas = async () => {
@@ -27,11 +30,11 @@ export default function CowDogPage() {
     getDatas();
   }, []);
 
+  if (datas && openModal !== null) console.log(datas[Number(openModal)]);
   return (
     <div>
       {datas?.map((data, idx): React.ReactElement | undefined => {
         const sex = person > 1 ? "team" : data.sex;
-
         return (
           <div onClick={handleModalClick} data-id={idx}>
             <ProfileCard type={sex}>
@@ -41,18 +44,7 @@ export default function CowDogPage() {
         );
       })}
 
-      {/* {member.map((people) => {
-            const { id, image: peopleImage, location: peopleLocation, sex: peopleSex, age: peopleAge } = people;
-            return (
-            <>
-                <div>{id}</div>
-                <div>{peopleImage}</div>
-                <div>{peopleLocation}</div>
-                <div>{peopleSex}</div>
-                <div>{peopleAge}</div>
-            </>
-            );
-        })} */}
+      {datas && openModal !== null && <ProfileModal data={datas[Number(openModal)]} />}
     </div>
   );
 }
