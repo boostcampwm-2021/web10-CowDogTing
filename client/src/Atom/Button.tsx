@@ -1,5 +1,3 @@
-/* eslint-disable comma-dangle */
-/** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { ButtonType } from "../util/type";
@@ -56,5 +54,6 @@ export const Button = styled.div`
 `;
 
 Button.defaultProps = {
+  // eslint-disable-next-line comma-dangle
   color: "basic",
 };
