@@ -5,6 +5,8 @@ import MainHeaderCenter from "../Molecules/MainHeaderCenter";
 import MainHeaderRightSide from "../Molecules/MainHeaderRightSide";
 
 const mainHeaderStyle = css`
+  display: flex;
+  justify-content: space-between;
   width: 100vw;
   height: 30vh;
 `;

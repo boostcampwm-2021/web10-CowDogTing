@@ -20,8 +20,12 @@ const HeaderStyle = css`
 
 export default function Header() {
   const [MenuOpen, setMenu] = useState(false);
-  const ToggleMenu = () => {
+  const [UserOpen, setUser] = useState(false);
+  const ToggleMenuModal = () => {
     setMenu((isOpen) => !isOpen);
+  };
+  const ToggleUserModal = () => {
+    setUser((isOpen) => !isOpen);
   };
   const handleModalClose = () => {};
   useEffect(() => {
@@ -30,11 +34,12 @@ export default function Header() {
   return (
     <div css={HeaderStyle}>
       <div>
-        <Menu onClick={() => ToggleMenu()} />
+        <Menu onClick={() => ToggleMenuModal()} />
         <DropDown type="Menu" className={MenuOpen ? "show" : "hide"} />
       </div>
       <MainHeaderLogo />
-      <UserIcon />
+      <UserIcon onClick={() => ToggleUserModal()} />
+      <DropDown type="User" className={UserOpen ? "show" : "hide"} />
     </div>
   );
 }
