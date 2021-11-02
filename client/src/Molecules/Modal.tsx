@@ -5,11 +5,15 @@ import { css } from "@emotion/react";
 const LargeModalStyle = css`
   width: 550px;
   height: 400px;
+  top: 30%;
+  left: 30%;
 `;
 
 const SmallModalStyle = css`
   width: 450px;
   height: 300px;
+  top: 35%;
+  left: 35%;
 `;
 
 const typeStyle = (props: { type: string }) => css`
@@ -27,8 +31,6 @@ export const Modal = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  top: 30%;
-  left: 30%;
   position: fixed;
   ${typeStyle}
 `;
