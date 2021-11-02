@@ -50,3 +50,9 @@ export type ProfileType = {
 export type ProfileInfoDataType = {
   data: ProfileType;
 };
+
+export type CowDogPageBodyType = {
+  datas: ProfileType[] | null;
+  person: number;
+  setOpenModal: (prev: any) => void;
+};
