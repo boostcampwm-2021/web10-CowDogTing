@@ -1,15 +1,15 @@
-/** @jsxImportSource @emotion/react */
 import React from "react";
 import TeamCreateIcon from "../Atom/TeamCreateIcon";
 import Header from "../Organism/Header";
+import TeamSettingTemplate from "../Template/TeamSettingTemplate";
 
 function TeamSettingPage() {
-  const teamState = false;
+  const teamState = true;
 
   return (
     <>
       <Header />
-      {teamState ? "aa" : <TeamCreateIcon />}
+      {teamState ? <TeamSettingTemplate /> : <TeamCreateIcon />}
     </>
   );
 }

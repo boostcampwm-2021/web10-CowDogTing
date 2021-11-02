@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import Header from "../Organism/Header";
 import TeamCreateButtonContainer from "../Organism/TeamCreateButtonContainer";
 import TeamInfoContainer from "../Organism/TeamInfoContainer";
+import InputLabel from "../Molecules/InputLabel";
 
 const TeamCreatePageStyle = css`
   position: relative;
@@ -19,7 +20,12 @@ function TeamCreatePage() {
     <>
       <Header />
       <div css={TeamCreatePageStyle}>
-        <TeamInfoContainer />
+        <TeamInfoContainer>
+          <InputLabel label="팀명" />
+          <InputLabel label="소개" />
+          <InputLabel label="가능시간" />
+          <InputLabel label="지역" />
+        </TeamInfoContainer>
         <TeamCreateButtonContainer />
       </div>
     </>
