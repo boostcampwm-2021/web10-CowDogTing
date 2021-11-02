@@ -9,7 +9,7 @@ export type ImageDivType = {
 };
 
 export type ChildrenType = {
-  children?: JSX.Element;
+  children?: JSX.Element | JSX.Element[];
 };
 
 export type InputLabelType = {

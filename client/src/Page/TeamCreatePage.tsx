@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import TeamCreateContainer from "../Organism/TeamCreateContainer";
 import Header from "../Organism/Header";
 import TeamCreateButtonContainer from "../Organism/TeamCreateButtonContainer";
+import TeamInfoContainer from "../Organism/TeamInfoContainer";
 
 const TeamCreatePageStyle = css`
   position: relative;
@@ -19,7 +19,7 @@ function TeamCreatePage() {
     <>
       <Header />
       <div css={TeamCreatePageStyle}>
-        <TeamCreateContainer />
+        <TeamInfoContainer />
         <TeamCreateButtonContainer />
       </div>
     </>
