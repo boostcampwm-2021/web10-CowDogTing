@@ -13,7 +13,6 @@ const ChatContainerStyle = css`
 `;
 
 export default function ChatDetail({ chatRoomID }: { chatRoomID: number }) {
-  // const myID = "yj";
   const [chats, setChats] = useState<MessageType[] | null>(null);
 
   const getChats = async () => {
