@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router";
 import Header from "../Organism/Header";
+import ChatRoom from "./ChatRoom";
 import CowDogPage from "./CowDogPage";
 import LogInPage from "./LogInPage";
 import RegisterPage from "./RegisterPage";
@@ -17,6 +18,7 @@ function App() {
         <Route path="/sub/CowDogPage" component={CowDogPage} />
         <Route path="/sub/teamCreate" component={TeamCreatePage} />
         <Route path="/sub/teamSetting" component={TeamSettingPage} />
+        <Route path="/sub/ChatRoom" component={ChatRoom} />
       </Switch>
     </>
   );
