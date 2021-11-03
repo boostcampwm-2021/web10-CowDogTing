@@ -12,14 +12,10 @@ function App() {
     <>
       <Global styles={reset} />
       <Switch>
-        <Route path="/" component={MainPage} exact />
-        <Route path="/login" component={LogInPage} exact />
-        <Route path="/register" component={RegisterPage} />
-        <Route path="/mypage" component={MyPage} />
-        <Route path="/teamCreate" component={TeamCreatePage} />
-        <Redirect path="/*" to="/" />
         <Route path="/main" component={MainPage} />
         <Route path="/sub" component={Page} />
+        <Route path="/mypage" component={MyPage} />
+        <Route path="/teamCreate" component={TeamCreatePage} />
         <Redirect path="*" to="/main" />
       </Switch>
     </>

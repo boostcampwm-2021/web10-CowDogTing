@@ -4,7 +4,6 @@ import Header from "../Organism/Header";
 import CowDogPage from "./CowDogPage";
 import LogInPage from "./LogInPage";
 import RegisterPage from "./RegisterPage";
-import TeamPage from "./TeamPage";
 
 function App() {
   return (
@@ -14,7 +13,6 @@ function App() {
         <Route path="/sub/Login" component={LogInPage} />
         <Route path="/sub/Register" component={RegisterPage} />
         <Route path="/sub/CowDogPage" component={CowDogPage} />
-        <Route path="/sub/Team" component={TeamPage} />
       </Switch>
     </>
   );

@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import MainHeaderLogo from "../Atom/MainHeaderLogo";
 import Menu from "../Atom/Menu";
 import UserIcon from "../Atom/UserIcon";
@@ -40,7 +41,9 @@ export default function Header() {
         <Menu onClick={() => ToggleMenuModal()} />
         <DropDown type="Menu" className={MenuOpen ? "show" : "hide"} />
       </div>
-      <MainHeaderLogo />
+      <Link to="/main">
+        <MainHeaderLogo />
+      </Link>
       <div>
         <UserIcon onClick={() => ToggleUserModal()} />
         <DropDown type="User" className={UserOpen ? "show" : "hide"} />

@@ -4,6 +4,7 @@
 /* eslint-disable comma-dangle */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { Link } from "react-router-dom";
 import { Button } from "../Atom/Button";
 
 interface DropDownProps {
@@ -60,9 +61,15 @@ const MenuDropDown = (className: string) => {
 const UserDropDown = (className: string) => {
   return (
     <div css={DropDownStyle} onClick={(e) => e.stopPropagation()} className={className}>
-      <Button type="LargeDropDown">내 정보 보기</Button>
-      <Button type="LargeDropDown">내가 고른 이상형</Button>
-      <Button type="LargeDropDown">팀 설정하기</Button>
+      <Link to="/mypage/myinfo">
+        <Button type="LargeDropDown">내 정보 보기</Button>
+      </Link>
+      <Link to="/mypage/likelist">
+        <Button type="LargeDropDown">내가 고른 이상형</Button>
+      </Link>
+      <Link to="/teamCreate">
+        <Button type="LargeDropDown">팀 설정하기</Button>
+      </Link>
     </div>
   );
 };
