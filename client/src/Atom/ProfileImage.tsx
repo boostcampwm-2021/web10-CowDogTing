@@ -17,7 +17,7 @@ const smallProfileImageStyle = css`
 const profileImageStyle = (props: ProfileImageType) => css`
   ${props.type === "Big" && bigProfileImageStyle}
   ${props.type === "Small" && smallProfileImageStyle}
-  background-image: url(${props.image});
+  background-image: url(${props.image as string});
   background-size: cover;
 `;
 
