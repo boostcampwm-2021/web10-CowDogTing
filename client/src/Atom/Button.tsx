@@ -76,7 +76,8 @@ export const Button = styled.div`
   cursor: pointer;
 
   & + & {
-    border-top: none;
+    /* border-top: none; */
+    margin-left: 30px;
   }
 
   &:hover {
