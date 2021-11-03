@@ -34,9 +34,9 @@ function TeamSettingTemplate() {
   return (
     <div css={TeamSettingTemPlateStyle}>
       <TeamInfoContainer>
-        <InputLabel label="팀명" placeholder={teamInfo?.teamID} />
+        <InputLabel label="팀명" placeholder={teamInfo?.id} />
         <InputLabel label="소개" placeholder={teamInfo?.info} />
-        <InputLabel label="가능시간" placeholder={teamInfo?.time} />
+        <InputLabel label="성별" placeholder={teamInfo?.sex} />
         <InputLabel label="지역" placeholder={teamInfo?.location} />
       </TeamInfoContainer>
       <TeamSettingMemberContainer>

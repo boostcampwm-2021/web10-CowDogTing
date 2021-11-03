@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import Header from "../Organism/Header";
 import MyPageBodyTemplate from "./MyPageBodyTemplate";
 
 const MyPageStyle = css`
@@ -16,7 +15,6 @@ const MyPageStyle = css`
 export default function MyPageTemplate() {
   return (
     <div css={MyPageStyle}>
-      <Header />
       <MyPageBodyTemplate />
     </div>
   );
