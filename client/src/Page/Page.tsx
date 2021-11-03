@@ -23,6 +23,7 @@ function App() {
         <Route path="/sub/mypage" component={MyPage} />
         <Route path="/sub/chatList" component={ChatListPage} />
         <Route path="/sub/ChatRoom" component={ChatRoom} />
+        <Route path="/sub/mypage" component={MyPage} />
       </Switch>
     </>
   );
