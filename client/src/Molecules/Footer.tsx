@@ -9,7 +9,7 @@ const FooterStyle = css`
   z-index: 998;
   position: fixed;
   margin-left: 95%;
-  margin-top: 44%;
+  margin-top: 48%;
   .hide {
     display: none;
   }
