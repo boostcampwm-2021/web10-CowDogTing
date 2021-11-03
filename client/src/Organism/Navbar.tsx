@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Input } from "../Atom/Input";
 import NavbarDiv from "../Atom/NavbarDiv";
 import DropDown from "../Molecules/DropDown";
+import SearchIcon from "../Atom/SearchIcon";
 /** @jsxImportSource @emotion/react */
 const NavbarStyle = css`
   width: 100vw;
@@ -16,9 +17,16 @@ const NavbarStyle = css`
     display: flex;
   }
   .navbar-item {
+    display: flex;
+    height: 80px;
+    align-items: center;
     &:first-child {
       border-left: 1px solid black;
       margin-left: 180px;
+    }
+    &:last-child {
+      padding: 20px;
+      border-right: 1px solid black;
     }
   }
 `;
@@ -52,6 +60,7 @@ export default function Navbar() {
       </div>
       <div className="navbar-item">
         <Input />
+        <SearchIcon />
       </div>
     </div>
   );
