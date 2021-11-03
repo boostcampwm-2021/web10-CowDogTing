@@ -70,3 +70,12 @@ export type SmallModalType = {
   data: ProfileType;
   setRequest: (current: boolean) => void;
 };
+
+export type TeamImageContainerType = {
+  image: string;
+};
+
+export type ProfileImageType = {
+  image: string;
+  type: string;
+};
