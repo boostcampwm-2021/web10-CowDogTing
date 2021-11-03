@@ -1,16 +1,19 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/require-default-props */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable dot-notation */
 /* eslint-disable comma-dangle */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../Atom/Button";
 
-interface DropDownProps {
-  type: string;
+type DropDownProps = {
+  type?: string;
   className: string;
-}
+};
 const DropDownStyle = css`
   z-index: 999;
   display: flex;
@@ -34,6 +37,7 @@ const DropDownStyle = css`
   }
 `;
 const NavDropDownStyle = css`
+  z-index: 999;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -72,16 +76,46 @@ export default function DropDown(props: DropDownProps) {
   }
 }
 const MenuDropDown = (className: string) => {
+  const [meetingDropDown, setmeetingDropDown] = useState(false);
+  const ToggleMeetingModal = () => {
+    setmeetingDropDown((isOpen) => !isOpen);
+  };
+
   return (
     <div css={DropDownStyle} onClick={(e) => e.stopPropagation()} className={className}>
-      <Button type="LargeDropDown">공지사항</Button>
-      <Button type="LargeDropDown">소개팅 하러가기</Button>
-      <Button type="LargeDropDown">미팅 하러가기</Button>
-      <Button type="LargeDropDown">이벤트</Button>
-      <Button type="LargeDropDown">문의하기</Button>
+      <Link to="/">
+        <Button type="LargeDropDown">공지사항</Button>
+      </Link>
+      <Link to="/sub/CowDogPage?person=1">
+        <Button type="LargeDropDown">소개팅 하러가기</Button>
+      </Link>
+      <div>
+        <Button type="LargeDropDown" onClick={ToggleMeetingModal}>
+          미팅 하러가기
+        </Button>
+        <MeetingDropDown className={meetingDropDown ? "show" : "hide"} />
+      </div>
+      <Link to="/">
+        <Button type="LargeDropDown">이벤트</Button>
+      </Link>
+      <Link to="/">
+        <Button type="LargeDropDown">문의하기</Button>
+      </Link>
     </div>
   );
 };
+function MeetingDropDown(props: DropDownProps) {
+  return (
+    <div css={DropDownStyle} style={{ marginLeft: "250px", marginTop: "-100px" }} className={props.className} onClick={(e) => e.stopPropagation()}>
+      <Link to="/sub/CowDogPage?person=2">
+        <Button type="LargeDropDown">2:2 미팅</Button>
+      </Link>
+      <Link to="/sub/CowDogPage?person=3">
+        <Button type="LargeDropDown">3:3 미팅</Button>
+      </Link>
+    </div>
+  );
+}
 const UserDropDown = (className: string) => {
   return (
     <div css={DropDownStyle} style={{ marginLeft: "-200px" }} onClick={(e) => e.stopPropagation()} className={className}>
