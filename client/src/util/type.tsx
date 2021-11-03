@@ -72,10 +72,10 @@ export type SmallModalType = {
 };
 
 export type TeamImageContainerType = {
-  image: string;
+  image: string | ArrayBuffer | null;
 };
 
 export type ProfileImageType = {
-  image: string;
+  image: string | ArrayBuffer | null;
   type: string;
 };
