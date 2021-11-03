@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable comma-dangle */
 
-import axios from "axios";
+import { ProfileType, TeamInfoType } from "./type";
 
 // import axios from "axios";
 
@@ -14,6 +14,7 @@ export function getUserInfo() {
       sex: true,
       age: 25,
       teamID: null,
+      info: "안녕하세요",
       joinChatRooms: [
         {
           roomID: 1,
@@ -44,59 +45,216 @@ export async function createTeam(teamID: string, image: string, info: string, ti
 
   console.log(teamID, info, image, time, location, userID);
 }
-export async function getTeamPeople(teamID: string) {
+export async function getTeamPeople(teamID: string): Promise<TeamInfoType> {
   //   const { data } = await axios.get(`localhost:3000?teamID=${teamID}`);
   console.log(teamID);
-  const data = [
-    {
-      image: "asfdadsf",
-      teamID: "팀명",
-      info: "asdfsafd",
-      time: "월, 금 오후 3시",
-      location: "우만동",
-      age: 23,
-      leader: false,
-      teamPersonNum: 2,
-      member: [
-        {
-          id: "yj",
-          image: "Image",
-          Location: "우만동",
-          age: 23,
-          sex: true,
-        },
-        {
-          id: "hansory",
-          image: "Image",
-          Location: "우만동",
-          age: 23,
-          sex: true,
-        },
-      ],
-    },
-  ];
+  const data = {
+    image: "asfdadsf",
+    teamID: "팀명",
+    info: "asdfsafd",
+    time: "월, 금 오후 3시",
+    location: "우만동",
+    age: 23,
+    leader: false,
+    teamPersonNum: 2,
+    sex: "male",
+    member: [
+      {
+        id: "yj",
+        image: "Image",
+        location: "우만동",
+        age: 23,
+        sex: "male",
+        info: "안녕하세요",
+      },
+      {
+        id: "hansory",
+        image: "Image",
+        location: "우만동",
+        age: 23,
+        sex: "male",
+        info: "안녕하세요",
+      },
+    ],
+  };
   return data;
 }
 
-export async function getCowDogPersonInfo(person: number) {
+export async function getCowDogInfo(person: number): Promise<ProfileType[]> {
   //   const { data } = await axios.get(`localhost:3000?person=${person}`);
 
   console.log(person);
-  const data = [
-    {
-      id: "yj",
-      image: "Image",
-      location: "우만동",
-      sex: true,
-      age: 25,
-    },
-    {
-      id: "hansory",
-      image: "Image",
-      location: "우만동",
-      sex: true,
-      age: 25,
-    },
-  ];
+  const data =
+    person === 1
+      ? [
+          {
+            id: "yj",
+            image: "Image",
+            location: "우만동",
+            sex: "female",
+            age: 25,
+            info: "안녕하세요",
+          },
+          {
+            id: "hansory",
+            image: "Image",
+            location: "우만동",
+            sex: "female",
+            age: 25,
+            info: "안녕하세요",
+          },
+          {
+            id: "yj",
+            image: "Image",
+            location: "우만동",
+            sex: "female",
+            age: 25,
+            info: "안녕하세요",
+          },
+          {
+            id: "hansory",
+            image: "Image",
+            location: "우만동",
+            sex: "female",
+            age: 25,
+            info: "안녕하세요",
+          },
+          {
+            id: "yj",
+            image: "Image",
+            location: "우만동",
+            sex: "female",
+            age: 25,
+            info: "안녕하세요",
+          },
+          {
+            id: "hansory",
+            image: "Image",
+            location: "우만동",
+            sex: "female",
+            age: 25,
+            info: "안녕하세요",
+          },
+          {
+            id: "yj",
+            image: "Image",
+            location: "우만동",
+            sex: "female",
+            age: 25,
+            info: "안녕하세요",
+          },
+          {
+            id: "hansory",
+            image: "Image",
+            location: "우만동",
+            sex: "female",
+            age: 25,
+            info: "안녕하세요",
+          },
+          {
+            id: "yj",
+            image: "Image",
+            location: "우만동",
+            sex: "female",
+            age: 25,
+            info: "안녕하세요",
+          },
+          {
+            id: "hansory",
+            image: "Image",
+            location: "우만동",
+            sex: "female",
+            age: 25,
+            info: "안녕하세요",
+          },
+          {
+            id: "yj",
+            image: "Image",
+            location: "우만동",
+            sex: "female",
+            age: 25,
+            info: "안녕하세요",
+          },
+          {
+            id: "hansory",
+            image: "Image",
+            location: "우만동",
+            sex: "female",
+            age: 25,
+            info: "안녕하세요",
+          },
+          {
+            id: "yj",
+            image: "Image",
+            location: "우만동",
+            sex: "female",
+            age: 25,
+            info: "안녕하세요",
+          },
+          {
+            id: "hansory",
+            image: "Image",
+            location: "우만동",
+            sex: "female",
+            age: 25,
+            info: "안녕하세요",
+          },
+        ]
+      : [
+          {
+            image: "1111",
+            id: "111111",
+            info: "asdfsafd",
+            time: "월, 금 오후 3시",
+            location: "우만동",
+            age: 23,
+            sex: "male",
+            member: [
+              {
+                id: "yj",
+                image: "Image",
+                location: "우만동",
+                age: 23,
+                sex: "male",
+                info: "안녕하세요",
+              },
+              {
+                id: "hansory",
+                image: "Image",
+                location: "우만동",
+                age: 23,
+                sex: "male",
+                info: "안녕하세요",
+              },
+            ],
+          },
+          {
+            image: "asfdadsf",
+            id: "팀명",
+            info: "asdfsafd",
+            time: "월, 금 오후 3시",
+            location: "우만동",
+            age: 23,
+            sex: "male",
+            member: [
+              {
+                id: "yj",
+                image: "Image",
+                location: "우만동",
+                age: 23,
+                sex: "male",
+                info: "안녕하세요",
+              },
+              {
+                id: "hansory",
+                image: "Image",
+                location: "우만동",
+                age: 23,
+                sex: "male",
+                info: "안녕하세요",
+              },
+            ],
+          },
+        ];
   return data;
 }
