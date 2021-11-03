@@ -8,7 +8,7 @@ const containerStyle = css`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 50%;
 `;
 export default function ChatRoomGame() {
   return <div css={containerStyle}>게임방입니다.</div>;
