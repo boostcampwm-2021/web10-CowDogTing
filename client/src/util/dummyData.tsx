@@ -274,7 +274,7 @@ export async function getChatsInfo(): Promise<ChatsInfoType> {
         chatRoomID: 1,
         member: [
           {
-            id: "333",
+            id: "영진",
             image: "Image",
             location: "우as만동",
             sex: "male",
@@ -366,7 +366,7 @@ export async function getChatsInfo(): Promise<ChatsInfoType> {
             source: "image",
           },
           {
-            from: "123",
+            from: "영진",
             message: "ㅎㅇㅎㅇ",
             read: true,
             source: "image",
@@ -377,7 +377,7 @@ export async function getChatsInfo(): Promise<ChatsInfoType> {
         chatRoomID: 2,
         member: [
           {
-            id: "333",
+            id: "3영진3",
             image: "Image",
             location: "우as만동",
             sex: "male",
@@ -415,8 +415,8 @@ export async function getChatsInfo(): Promise<ChatsInfoType> {
             source: "image",
           },
           {
-            from: "123",
-            message: "ㅎㅇㅎㅇ",
+            from: "3영진3",
+            message: "ㅂㅇㅂㅇ",
             read: true,
             source: "image",
           },

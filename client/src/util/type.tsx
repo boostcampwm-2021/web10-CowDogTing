@@ -123,3 +123,8 @@ export type ProfileCardType = {
   children?: undefined | JSX.Element[] | JSX.Element | string;
   idx: number;
 };
+
+export type ChatListInfoType = {
+  lastChat: string;
+  from: string;
+};

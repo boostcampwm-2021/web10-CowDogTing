@@ -15,6 +15,7 @@ const ProfileCardContainer = styled.div`
   cursor: pointer;
   padding: 20px 40px;
   margin: 2vh auto;
+  display: flex;
   ${typeStyle}
 `;
 
