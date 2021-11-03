@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState } from "react";
+import React from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ChatImageContainerType } from "../util/type";
 import { ProfileImage } from "../Atom/ProfileImage";
 import { Button } from "../Atom/Button";
-import ProfileModal from "../Template/ProfileModal";
 
 const ChatListHeader = styled.div`
   display: flex;
@@ -24,18 +23,9 @@ const ChatImageContainerStyle = css`
 `;
 
 function ChatImageContainer({ member }: ChatImageContainerType) {
-  const [openModal, setOpenModal] = useState<number | null>(null);
-  const changeOpenModal = (event: React.MouseEvent) => {
-    const { id } = (event.target as HTMLElement).dataset;
-    if (id === undefined) {
-      setOpenModal(null);
-    } else if (id !== undefined) {
-      setOpenModal(Number(id));
-    }
-  };
   return (
     <>
-      <ChatListHeader onClick={changeOpenModal}>
+      <ChatListHeader>
         <div css={ChatImageContainerStyle}>
           {member?.map((userInfo, idx) => (
             <ProfileImage type="Mini" image={userInfo.image} data-id={idx} />
@@ -43,7 +33,6 @@ function ChatImageContainer({ member }: ChatImageContainerType) {
         </div>
         <Button>나가기</Button>
       </ChatListHeader>
-      {member && openModal !== null && <ProfileModal data={member[openModal]} />}
     </>
   );
 }
