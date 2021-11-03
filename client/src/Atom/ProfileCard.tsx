@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
+import { ProfileCardType } from "../util/type";
 
 const typeStyle = (props: { type: string }) => css`
   border: 5px solid ${(props.type === "team" && "#CAABFB") || (props.type === "male" && "#CFDAFF") || (props.type === "female" && "#FFCFCF")};
@@ -16,7 +17,7 @@ const ProfileCardContainer = styled.div`
   ${typeStyle}
 `;
 
-export default function ProfileCard({ type, children, idx }: { type: string; children: JSX.Element[] | JSX.Element; idx: number }) {
+export default function ProfileCard({ type, children, idx }: ProfileCardType) {
   return (
     <ProfileCardContainer type={type} data-id={idx}>
       {children}
