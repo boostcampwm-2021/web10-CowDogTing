@@ -16,10 +16,9 @@ const ChatRoomStyle = css`
 const InputContainer = css`
   display: flex;
   justify-content: center;
-  padding: 10px 0 10px 0;
+  padding-top: 10px;
   align-items: center;
   height: 10%;
-  min-height: 100px;
   border-top: 1px solid #ffcfcf;
 `;
 
