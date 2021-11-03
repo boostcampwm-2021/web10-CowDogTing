@@ -28,9 +28,8 @@ export type PersonInfoType = {
 
 export type TeamInfoType = {
   image: string;
-  teamID: string;
+  id: string;
   info: string;
-  time: string;
   location: string;
   age: number;
   sex: string;
@@ -69,4 +68,40 @@ export type LargeModalType = {
 export type SmallModalType = {
   data: ProfileType;
   setRequest: (current: boolean) => void;
+};
+
+export type MessageType = {
+  from: string;
+  message: string;
+  read: boolean;
+  source: string;
+};
+
+export type ChatInfoType = {
+  chatRoomID: number;
+  member: PersonInfoType[];
+  chatMessage: MessageType[];
+};
+
+export type ChatsInfoType = {
+  data: ChatInfoType[];
+};
+
+export type RequestType = {
+  from: string;
+  to: string;
+  info: ProfileType;
+  state: string;
+};
+
+export type RequestsType = {
+  data: RequestType[];
+};
+
+export type joinChatType = {
+  chatRoomID: number;
+  notReadNum: number;
+};
+export type JoinChatsType = {
+  joinChatRooms: joinChatType[];
 };
