@@ -12,6 +12,28 @@ interface DropDownProps {
   className: string;
 }
 const DropDownStyle = css`
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  box-sizing: border-box;
+  background-color: #fff;
+  a {
+    &:first-child {
+      div {
+        border-top-left-radius: 27px;
+        border-top-right-radius: 27px;
+      }
+    }
+    &:last-child {
+      div {
+        border-bottom-left-radius: 27px;
+        border-bottom-right-radius: 27px;
+      }
+    }
+  }
+`;
+const NavDropDownStyle = css`
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -62,7 +84,7 @@ const MenuDropDown = (className: string) => {
 };
 const UserDropDown = (className: string) => {
   return (
-    <div css={DropDownStyle} onClick={(e) => e.stopPropagation()} className={className}>
+    <div css={DropDownStyle} style={{ marginLeft: "-200px" }} onClick={(e) => e.stopPropagation()} className={className}>
       <Link to="/mypage/myinfo">
         <Button type="LargeDropDown">내 정보 보기</Button>
       </Link>
@@ -77,7 +99,7 @@ const UserDropDown = (className: string) => {
 };
 const SearchDropDown = (DropDownList: Array<string>, className: string) => {
   return (
-    <div css={DropDownStyle} onClick={(e) => e.stopPropagation()} className={className}>
+    <div css={NavDropDownStyle} onClick={(e) => e.stopPropagation()} className={className}>
       {DropDownList.map((el) => (
         <Button type="LargeDropDown">{el}</Button>
       ))}
