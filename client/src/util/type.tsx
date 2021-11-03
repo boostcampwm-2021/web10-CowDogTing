@@ -104,4 +104,11 @@ export type joinChatType = {
 };
 export type JoinChatsType = {
   joinChatRooms: joinChatType[];
+export type TeamImageContainerType = {
+  image: string;
+};
+
+export type ProfileImageType = {
+  image: string;
+  type: string;
 };
