@@ -23,20 +23,20 @@ const HeaderStyle = css`
 `;
 
 export default function Header() {
-  const [MenuOpen, setMenu] = useState(false);
-  const [UserOpen, setUser] = useState(false);
+  const [MenuOpen, setMenuOpen] = useState(false);
+  const [UserOpen, setUserOpen] = useState(false);
   const ToggleMenuModal = () => {
-    setMenu((isOpen) => !isOpen);
+    setMenuOpen((isOpen) => !isOpen);
   };
   const ToggleUserModal = () => {
-    setUser((isOpen) => !isOpen);
+    setUserOpen((isOpen) => !isOpen);
   };
   const handleModalClose = () => {};
   useEffect(() => {
     window.addEventListener("click", handleModalClose);
   }, []);
   return (
-    <div css={HeaderStyle}>
+    <div css={HeaderStyle} id="header">
       <div>
         <Menu onClick={() => ToggleMenuModal()} />
         <DropDown type="Menu" className={MenuOpen ? "show" : "hide"} />

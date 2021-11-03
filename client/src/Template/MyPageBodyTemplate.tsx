@@ -18,7 +18,7 @@ const MyPageBodyStyle = css`
 
 export default function MyPageBodyTemplate() {
   return (
-    <div css={MyPageBodyStyle}>
+    <div css={MyPageBodyStyle} id="mypage-body">
       <MyPageSideBar />
       <Switch>
         <Route path="/mypage/myinfo" component={MyInfo} />
