@@ -31,7 +31,7 @@ const DropDownStyle = css`
 const SearchData = {
   location: ["서울", "경기", "인천", "대구", "대전", "광주", "부산", "울산"],
   age: ["10대", "20대", "30대"],
-  category: ["보드게임", "등산", "게임", "술", "방탈출"],
+  sex: ["남자", "여자", "기타"],
 };
 export default function DropDown(props: DropDownProps) {
   switch (props.type) {
@@ -39,12 +39,14 @@ export default function DropDown(props: DropDownProps) {
       return MenuDropDown(props.className);
     case "User":
       return UserDropDown(props.className);
-    case "location":
+    case "Location":
       return SearchDropDown(SearchData.location, props.className);
-    case "age":
+    case "Age":
       return SearchDropDown(SearchData.age, props.className);
+    case "Sex":
+      return SearchDropDown(SearchData.sex, props.className);
     default:
-      return SearchDropDown(SearchData.category, props.className);
+      return MenuDropDown(props.className);
   }
 }
 const MenuDropDown = (className: string) => {
