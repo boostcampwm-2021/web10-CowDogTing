@@ -29,10 +29,10 @@ function TeamCreatePage() {
           <InputLabel label="지역" />
         </TeamInfoContainer>
         <TeamCreateButtonContainer>
-          <Link to="/teamSetting">
+          <Link to="/sub/teamSetting">
             <Button type="Medium">생성</Button>
           </Link>
-          <Link to="/teamSetting">
+          <Link to="/sub/teamSetting">
             <Button type="Medium">삭제</Button>
           </Link>
         </TeamCreateButtonContainer>

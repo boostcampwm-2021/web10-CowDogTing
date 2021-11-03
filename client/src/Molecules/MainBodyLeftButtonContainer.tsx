@@ -28,7 +28,7 @@ function MainBodyLeftButtonContainer() {
       <Link to="/sub/CowDogPage?person=3">
         <Button type="Medium">3:3 미팅</Button>
       </Link>
-      <Link to="/teamCreate">
+      <Link to="/sub/teamCreate">
         <Button type="Medium">팀 설정</Button>
       </Link>
     </div>
