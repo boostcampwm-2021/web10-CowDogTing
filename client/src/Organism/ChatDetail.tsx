@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
-import Chat from "../Atom/Chat";
 import { getChatInfo } from "../util/dummyData";
 import { MessageType } from "../util/type";
+import Chats from "../Molecules/Chats";
 
 const ChatContainerStyle = css`
   width: 100%;
@@ -13,7 +13,7 @@ const ChatContainerStyle = css`
 `;
 
 export default function ChatDetail({ chatRoomID }: { chatRoomID: number }) {
-  const myID = "yj";
+  // const myID = "yj";
   const [chats, setChats] = useState<MessageType[] | null>(null);
 
   const getChats = async () => {
@@ -26,10 +26,7 @@ export default function ChatDetail({ chatRoomID }: { chatRoomID: number }) {
 
   return (
     <div css={ChatContainerStyle}>
-      {chats?.map((chat) => {
-        const type = chat.from === myID ? "Mine" : "Other";
-        return <Chat type={type}>{[chat.from, chat.message]}</Chat>;
-      })}
+      <Chats chats={chats} />
     </div>
   );
 }
