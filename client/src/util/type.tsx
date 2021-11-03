@@ -129,3 +129,11 @@ export type ChatListInfoType = {
   lastChat: string;
   from: string;
 };
+
+export type ChatListContainerType = {
+  chatInfo?: ChatInfoType;
+};
+
+export type ChatImageContainerType = {
+  member?: PersonInfoType[];
+};

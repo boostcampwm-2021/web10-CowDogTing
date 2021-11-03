@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
+import { ChatListContainerType } from "../util/type";
+import ChatImageContainer from "./ChatImageContainer";
 
 const ChatListContainerStyle = css`
   width: 50%;
@@ -10,8 +12,12 @@ const ChatListContainerStyle = css`
   align-items: center;
 `;
 
-function ChatListContainer() {
-  return <div css={ChatListContainerStyle}>aaa</div>;
+function ChatListContainer({ chatInfo }: ChatListContainerType) {
+  return (
+    <div css={ChatListContainerStyle}>
+      <ChatImageContainer member={chatInfo?.member} />
+    </div>
+  );
 }
 
 export default ChatListContainer;
