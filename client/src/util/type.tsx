@@ -105,3 +105,11 @@ export type joinChatType = {
 export type JoinChatsType = {
   joinChatRooms: joinChatType[];
 };
+export type TeamImageContainerType = {
+  image: string | ArrayBuffer | null;
+};
+
+export type ProfileImageType = {
+  image: string | ArrayBuffer | null;
+  type: string;
+};
