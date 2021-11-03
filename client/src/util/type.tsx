@@ -116,6 +116,7 @@ export type ProfileImageType = {
 
 export type ChatProfileContainerType = {
   chatsInfo: ChatsInfoType | null;
+  setClickedRoomIndex: Function;
 };
 
 export type ProfileCardType = {

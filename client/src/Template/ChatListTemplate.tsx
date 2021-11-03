@@ -12,11 +12,14 @@ const ChatListTemplateStyle = css`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  margin: 3vh auto;
+  margin: auto;
+  border: 1px solid;
 `;
 
 function ChatListTemplate() {
   const [chatsInfo, setChatsInfo] = useState<ChatsInfoType | null>(null);
+  const [clickedRoomIndex, setClickedRoomIndex] = useState(0);
+  console.log(clickedRoomIndex);
   const getChatRoomData = async () => {
     const data = await getChatsInfo();
     setChatsInfo(data);
@@ -24,9 +27,10 @@ function ChatListTemplate() {
   useEffect(() => {
     getChatRoomData();
   }, []);
+
   return (
     <div css={ChatListTemplateStyle}>
-      <ChatProfileContainer chatsInfo={chatsInfo} />
+      <ChatProfileContainer chatsInfo={chatsInfo} setClickedRoomIndex={setClickedRoomIndex} />
       <ChatListContainer />
     </div>
   );
