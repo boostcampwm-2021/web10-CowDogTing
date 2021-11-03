@@ -5,6 +5,7 @@ import reset from "./util/reset";
 import MainPage from "./Page/MainPage";
 import MyPage from "./Page/MyPage";
 import Page from "./Page/Page";
+import ChatRoom from "./Page/ChatRoom";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/main" component={MainPage} />
         <Route path="/sub" component={Page} />
         <Route path="/mypage" component={MyPage} />
+        <Route path="/ChatRoom" component={ChatRoom} />
         <Redirect path="*" to="/main" />
       </Switch>
     </>

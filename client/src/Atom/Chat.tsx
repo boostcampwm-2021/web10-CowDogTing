@@ -16,26 +16,22 @@ const OtherChatStyle = css`
 `;
 
 const MySendStyle = css`
-  float: right;
-`;
-const OtherSendStyle = css`
-  float: left;
+  display: flex;
+  justify-content: end;
 `;
 
 const ChatTypeStyle = (props: { type: string }) => css`
   display: inline-flex;
   margin-top: 10px;
+  max-width: 50%;
   ${props.type === "Mine" && MyChatStyle}
   ${props.type === "Other" && OtherChatStyle}
 `;
 
 const ChatContainerStyle = (props: { type: string }) => css`
-  display: flex;
-  flex-direction: column;
   margin: 10px 0;
-  max-width: 150px;
+  width: 100%;
   ${props.type === "Mine" && MySendStyle}
-  ${props.type === "Other" && OtherSendStyle}
 `;
 
 export default function Chat({ type, children }: { type: string; children: string[] }) {
