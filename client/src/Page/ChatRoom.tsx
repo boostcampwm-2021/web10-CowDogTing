@@ -2,8 +2,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router-dom";
-import ChatDetail from "../Organism/ChatDetail";
-import ChatInput from "../Molecules/ChatInput";
+import ChatRoomLeft from "../Template/ChatRoomLeft";
 
 const ChatRoomStyle = css`
   width: 400px;
@@ -17,8 +16,7 @@ export default function ChatRoom() {
 
   return (
     <div css={ChatRoomStyle}>
-      <ChatDetail chatRoomID={chatRoomID} />
-      <ChatInput />
+      <ChatRoomLeft chatRoomID={chatRoomID} />
     </div>
   );
 }
