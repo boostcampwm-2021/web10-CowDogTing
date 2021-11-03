@@ -2,13 +2,18 @@
 import { css } from "@emotion/react";
 import React, { useEffect, useState } from "react";
 import { Button } from "../Atom/Button";
+import ProfileCard from "../Atom/ProfileCard";
+import ProfileInfo from "../Atom/ProfileInfo";
 import InputLabel from "../Molecules/InputLabel";
 import TeamButtonContainer from "../Organism/TeamButtonContainer";
 import TeamInfoContainer from "../Organism/TeamInfoContainer";
 import TeamSettingMemberContainer from "../Organism/TeamSettingMemberContainer";
 import { getTeamPeople } from "../util/dummyData";
-import { TeamInfoType } from "../util/type";
+import { PersonInfoType, TeamInfoType } from "../util/type";
 
+const ProfileStyle = css`
+  margin: 30px 0px;
+`;
 const TeamSettingTemPlateStyle = css`
   display: flex;
   height: 100vh;
@@ -34,7 +39,18 @@ function TeamSettingTemplate() {
         <InputLabel label="가능시간" placeholder={teamInfo?.time} />
         <InputLabel label="지역" placeholder={teamInfo?.location} />
       </TeamInfoContainer>
-      <TeamSettingMemberContainer />
+      <TeamSettingMemberContainer>
+        {teamInfo?.member?.map((data: PersonInfoType, idx) => {
+          const { sex } = data;
+          return (
+            <div css={ProfileStyle}>
+              <ProfileCard type={sex} idx={idx}>
+                <ProfileInfo data={data} idx={idx} />
+              </ProfileCard>
+            </div>
+          );
+        })}
+      </TeamSettingMemberContainer>
       <TeamButtonContainer>
         <Button type="Medium">초대하기</Button>
         <Button type="Medium">수정하기</Button>
