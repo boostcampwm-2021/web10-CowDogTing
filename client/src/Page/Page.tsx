@@ -5,6 +5,7 @@ import CowDogPage from "./CowDogPage";
 import LogInPage from "./LogInPage";
 import MyPage from "./MyPage";
 import RegisterPage from "./RegisterPage";
+import RequestPage from "./RequestPage";
 import TeamCreatePage from "./TeamCreatePage";
 import TeamSettingPage from "./TeamSettingPage";
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/sub/teamCreate" component={TeamCreatePage} />
         <Route path="/sub/teamSetting" component={TeamSettingPage} />
         <Route path="/sub/mypage" component={MyPage} />
+        <Route path="/sub/Request" component={RequestPage} />
       </Switch>
     </>
   );
