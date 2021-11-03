@@ -6,8 +6,8 @@ import { ChildrenType } from "../util/type";
 
 const TeamInfoContainerStyle = css`
   display: flex;
-  width: 50vw;
-  height: 50vh;
+  width: 60vw;
+  height: 60vh;
   border: 1px solid #b0c2ff;
 `;
 const ImageContainerStyle = css`

@@ -34,7 +34,7 @@ export type TeamInfoType = {
   location: string;
   age: number;
   sex: string;
-  member: PersonInfoType[];
+  member?: PersonInfoType[] | null;
 };
 
 export type ProfileType = {
@@ -53,7 +53,7 @@ export type ProfileInfoDataType = {
 };
 
 export type ProfileListType = {
-  datas: ProfileType[] | null;
+  datas?: PersonInfoType[] | null | ProfileType[];
   person: number;
   setOpenModal: (prev: any) => void;
 };
