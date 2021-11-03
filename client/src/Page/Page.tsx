@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router";
 import Header from "../Organism/Header";
 import ChatListPage from "./ChatListPage";
+import ChatRoom from "./ChatRoom";
 import CowDogPage from "./CowDogPage";
 import LogInPage from "./LogInPage";
 import MyPage from "./MyPage";
@@ -21,6 +22,7 @@ function App() {
         <Route path="/sub/teamSetting" component={TeamSettingPage} />
         <Route path="/sub/mypage" component={MyPage} />
         <Route path="/sub/chatList" component={ChatListPage} />
+        <Route path="/sub/ChatRoom" component={ChatRoom} />
       </Switch>
     </>
   );

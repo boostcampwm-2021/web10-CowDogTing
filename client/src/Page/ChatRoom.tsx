@@ -2,11 +2,13 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router-dom";
-import ChatRoomLeft from "../Template/ChatRoomLeft";
+import ChatDetail from "../Template/ChatDetail";
 
 const ChatRoomStyle = css`
-  width: 400px;
-  height: 100vh;
+  width: 300px;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
   border-right: 1px solid #000000;
 `;
 
@@ -16,7 +18,7 @@ export default function ChatRoom() {
 
   return (
     <div css={ChatRoomStyle}>
-      <ChatRoomLeft chatRoomID={chatRoomID} />
+      <ChatDetail chatRoomID={chatRoomID} />
     </div>
   );
 }
