@@ -17,14 +17,14 @@ const NavbarStyle = css`
     display: flex;
   }
   .navbar-item {
-    display: flex;
-    height: 80px;
-    align-items: center;
     &:first-child {
       border-left: 1px solid black;
-      margin-left: 180px;
+      margin-left: 210px;
     }
     &:last-child {
+      display: flex;
+      height: 80px;
+      align-items: center;
       padding: 20px;
       border-right: 1px solid black;
     }
