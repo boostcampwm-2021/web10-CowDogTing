@@ -1,11 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../Atom/Button";
 import InputLabel from "../Molecules/InputLabel";
 import TeamButtonContainer from "../Organism/TeamButtonContainer";
 import TeamInfoContainer from "../Organism/TeamInfoContainer";
 import TeamSettingMemberContainer from "../Organism/TeamSettingMemberContainer";
+import { getTeamPeople } from "../util/dummyData";
+import { TeamInfoType } from "../util/type";
 
 const TeamSettingTemPlateStyle = css`
   display: flex;
@@ -16,13 +18,21 @@ const TeamSettingTemPlateStyle = css`
   align-items: center;
 `;
 function TeamSettingTemplate() {
+  const [teamInfo, setTeamInfo] = useState<TeamInfoType | null>(null);
+  const getTeamInfo = async () => {
+    const data = await getTeamPeople("태홍");
+    setTeamInfo(data);
+  };
+  useEffect(() => {
+    getTeamInfo();
+  }, []);
   return (
     <div css={TeamSettingTemPlateStyle}>
       <TeamInfoContainer>
-        <InputLabel label="팀명" placeholder="민태홍 남친구함" />
-        <InputLabel label="소개" placeholder="운동 잘하는 사람" />
-        <InputLabel label="가능시간" placeholder="2023/02/11" />
-        <InputLabel label="지역" placeholder="경기/수원" />
+        <InputLabel label="팀명" placeholder={teamInfo?.teamID} />
+        <InputLabel label="소개" placeholder={teamInfo?.info} />
+        <InputLabel label="가능시간" placeholder={teamInfo?.time} />
+        <InputLabel label="지역" placeholder={teamInfo?.location} />
       </TeamInfoContainer>
       <TeamSettingMemberContainer />
       <TeamButtonContainer>
