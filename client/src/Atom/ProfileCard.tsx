@@ -14,6 +14,7 @@ const ProfileCardContainer = styled.div`
   border-radius: 10px;
   cursor: pointer;
   padding: 20px 40px;
+  margin: 2vh auto;
   ${typeStyle}
 `;
 

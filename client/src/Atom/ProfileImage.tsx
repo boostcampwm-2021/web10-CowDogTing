@@ -9,9 +9,9 @@ const bigProfileImageStyle = css`
   border-radius: 150px;
 `;
 const smallProfileImageStyle = css`
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
 `;
 
 const profileImageStyle = (props: ProfileImageType) => css`

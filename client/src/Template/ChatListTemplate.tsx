@@ -12,6 +12,7 @@ const ChatListTemplateStyle = css`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  margin: 3vh auto;
 `;
 
 function ChatListTemplate() {
