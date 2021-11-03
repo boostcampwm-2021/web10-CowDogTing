@@ -17,7 +17,6 @@ export default function ChatDetail({ chatRoomID }: { chatRoomID: number | undefi
 
   const getChats = async () => {
     const { data: datas } = await getChatsInfo();
-    console.log(chatRoomID);
     setChats(datas.filter((data) => data.chatRoomID === chatRoomID)[0].chatMessage);
   };
   useEffect(() => {
