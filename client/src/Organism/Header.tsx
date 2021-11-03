@@ -1,10 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
+import MainHeaderLogo from "../Atom/MainHeaderLogo";
 import Menu from "../Atom/Menu";
+import UserIcon from "../Atom/UserIcon";
 import DropDown from "../Molecules/DropDown";
 
 const HeaderStyle = css`
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  margin-top: 50px;
+  border-bottom: 1px solid black;
+  padding: 40px;
   .hide {
     display: none;
   }
@@ -15,8 +23,12 @@ const HeaderStyle = css`
 
 export default function Header() {
   const [MenuOpen, setMenu] = useState(false);
-  const ToggleMenu = () => {
+  const [UserOpen, setUser] = useState(false);
+  const ToggleMenuModal = () => {
     setMenu((isOpen) => !isOpen);
+  };
+  const ToggleUserModal = () => {
+    setUser((isOpen) => !isOpen);
   };
   const handleModalClose = () => {};
   useEffect(() => {
@@ -25,8 +37,13 @@ export default function Header() {
   return (
     <div css={HeaderStyle}>
       <div>
-        <Menu onClick={() => ToggleMenu()} />
+        <Menu onClick={() => ToggleMenuModal()} />
         <DropDown type="Menu" className={MenuOpen ? "show" : "hide"} />
+      </div>
+      <MainHeaderLogo />
+      <div>
+        <UserIcon onClick={() => ToggleUserModal()} />
+        <DropDown type="User" className={UserOpen ? "show" : "hide"} />
       </div>
     </div>
   );
