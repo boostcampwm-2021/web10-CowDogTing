@@ -267,7 +267,7 @@ export async function getCowDogInfo(person: number): Promise<ProfileType[]> {
  * 채팅 정보 구하기
  */
 
-export async function getChatInfo(): Promise<ChatsInfoType> {
+export async function getChatsInfo(): Promise<ChatsInfoType> {
   const data = {
     data: [
       {
@@ -355,6 +355,55 @@ export async function getChatInfo(): Promise<ChatsInfoType> {
           },
           {
             from: "yj",
+            message: "ㅎㅇㅎㅇ",
+            read: true,
+            source: "image",
+          },
+          {
+            from: "123",
+            message: "ㅎㅇㅎㅇ",
+            read: true,
+            source: "image",
+          },
+          {
+            from: "123",
+            message: "ㅎㅇㅎㅇ",
+            read: true,
+            source: "image",
+          },
+        ],
+      },
+      {
+        chatRoomID: 2,
+        member: [
+          {
+            id: "333",
+            image: "Image",
+            location: "우as만동",
+            sex: "male",
+            age: 25,
+            info: "gggg",
+          },
+          {
+            id: "222",
+            image: "Image",
+            location: "우fasd만동",
+            sex: "male",
+            age: 25,
+            info: "fffff",
+          },
+          {
+            id: "123",
+            image: "Image",
+            location: "asdf우만동",
+            sex: "male",
+            age: 25,
+            info: "afsd",
+          },
+        ],
+        chatMessage: [
+          {
+            from: "123",
             message: "ㅎㅇㅎㅇ",
             read: true,
             source: "image",
