@@ -20,7 +20,6 @@ const DropDownStyle = css`
   flex-direction: column;
   position: absolute;
   box-sizing: border-box;
-  background-color: #fff;
   a {
     &:first-child {
       div {
@@ -42,7 +41,6 @@ const NavDropDownStyle = css`
   flex-direction: column;
   position: absolute;
   box-sizing: border-box;
-  background-color: #fff;
   div {
     &:first-child {
       border-top-left-radius: 27px;
@@ -51,6 +49,29 @@ const NavDropDownStyle = css`
     &:last-child {
       border-bottom-left-radius: 27px;
       border-bottom-right-radius: 27px;
+    }
+  }
+`;
+const ChatDropDownStyle = css`
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  margin-top: -180px;
+  margin-left: -180px;
+  box-sizing: border-box;
+  a {
+    &:first-child {
+      div {
+        border-top-left-radius: 27px;
+        border-top-right-radius: 27px;
+      }
+    }
+    &:last-child {
+      div {
+        border-bottom-left-radius: 27px;
+        border-bottom-right-radius: 27px;
+      }
     }
   }
 `;
@@ -66,15 +87,29 @@ export default function DropDown(props: DropDownProps) {
     case "User":
       return UserDropDown(props.className);
     case "Location":
-      return SearchDropDown(SearchData.location, props.className);
+      return NavDropDown(SearchData.location, props.className);
     case "Age":
-      return SearchDropDown(SearchData.age, props.className);
+      return NavDropDown(SearchData.age, props.className);
     case "Sex":
-      return SearchDropDown(SearchData.sex, props.className);
+      return NavDropDown(SearchData.sex, props.className);
+    case "Chat":
+      return ChatDropDown(props.className);
     default:
       return MenuDropDown(props.className);
   }
 }
+const ChatDropDown = (className: string) => {
+  return (
+    <div css={ChatDropDownStyle} onClick={(e) => e.stopPropagation()} className={className}>
+      <Link to="/">
+        <Button type="LargeDropDown">내 채팅 목록 보기</Button>
+      </Link>
+      <Link to="/">
+        <Button type="LargeDropDown">채팅 요청 목록</Button>
+      </Link>
+    </div>
+  );
+};
 const MenuDropDown = (className: string) => {
   const [meetingDropDown, setmeetingDropDown] = useState(false);
   const ToggleMeetingModal = () => {
@@ -131,7 +166,7 @@ const UserDropDown = (className: string) => {
     </div>
   );
 };
-const SearchDropDown = (DropDownList: Array<string>, className: string) => {
+const NavDropDown = (DropDownList: Array<string>, className: string) => {
   return (
     <div css={NavDropDownStyle} onClick={(e) => e.stopPropagation()} className={className}>
       {DropDownList.map((el) => (

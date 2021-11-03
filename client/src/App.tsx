@@ -6,11 +6,13 @@ import MainPage from "./Page/MainPage";
 import MyPage from "./Page/MyPage";
 import TeamCreatePage from "./Page/TeamCreatePage";
 import Page from "./Page/Page";
+import Footer from "./Molecules/Footer";
 
 function App() {
   return (
     <>
       <Global styles={reset} />
+      <Footer />
       <Switch>
         <Route path="/main" component={MainPage} />
         <Route path="/sub" component={Page} />
