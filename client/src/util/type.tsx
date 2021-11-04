@@ -28,13 +28,12 @@ export type PersonInfoType = {
 
 export type TeamInfoType = {
   image: string;
-  teamID: string;
+  id: string;
   info: string;
-  time: string;
   location: string;
   age: number;
   sex: string;
-  member: PersonInfoType[];
+  member?: PersonInfoType[] | null;
 };
 
 export type ProfileType = {
@@ -53,7 +52,7 @@ export type ProfileInfoDataType = {
 };
 
 export type ProfileListType = {
-  datas: ProfileType[] | null;
+  datas?: PersonInfoType[] | null | ProfileType[];
   person: number;
   setOpenModal: (prev: any) => void;
 };
@@ -69,4 +68,48 @@ export type LargeModalType = {
 export type SmallModalType = {
   data: ProfileType;
   setRequest: (current: boolean) => void;
+};
+
+export type MessageType = {
+  from: string;
+  message: string;
+  read: boolean;
+  source: string;
+};
+
+export type ChatInfoType = {
+  chatRoomID: number;
+  member: PersonInfoType[];
+  chatMessage: MessageType[];
+};
+
+export type ChatsInfoType = {
+  data: ChatInfoType[];
+};
+
+export type RequestType = {
+  from: string;
+  to: string;
+  info: ProfileType;
+  state: string;
+};
+
+export type RequestsType = {
+  data: RequestType[];
+};
+
+export type joinChatType = {
+  chatRoomID: number;
+  notReadNum: number;
+};
+export type JoinChatsType = {
+  joinChatRooms: joinChatType[];
+};
+export type TeamImageContainerType = {
+  image: string | ArrayBuffer | null;
+};
+
+export type ProfileImageType = {
+  image: string | ArrayBuffer | null;
+  type: string;
 };

@@ -3,22 +3,20 @@ import React from "react";
 import { css } from "@emotion/react";
 import TeamInputContainer from "./TeamInputContainer";
 import { ChildrenType } from "../util/type";
+import teamImage from "../assets/meetingImage.png";
+import TeamInfoImageContainer from "./TeamInfoImageContainer";
 
 const TeamInfoContainerStyle = css`
   display: flex;
-  width: 50vw;
-  height: 50vh;
+  width: 60vw;
+  height: 60vh;
   border: 1px solid #b0c2ff;
-`;
-const ImageContainerStyle = css`
-  width: 100%;
-  height: 100%;
 `;
 
 function TeamInfoContainer({ children }: ChildrenType) {
   return (
     <div css={TeamInfoContainerStyle}>
-      <div css={ImageContainerStyle}>image 입주 예정</div>
+      <TeamInfoImageContainer image={teamImage} />
       <TeamInputContainer>{children}</TeamInputContainer>
     </div>
   );
