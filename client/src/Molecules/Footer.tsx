@@ -8,8 +8,8 @@ import DropDown from "./DropDown";
 const FooterStyle = css`
   z-index: 998;
   position: fixed;
-  margin-left: 95%;
-  margin-top: 48%;
+  left: 95vw;
+  top: 90vh;
   .hide {
     display: none;
   }

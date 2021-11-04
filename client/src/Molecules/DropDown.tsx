@@ -101,10 +101,10 @@ export default function DropDown(props: DropDownProps) {
 const ChatDropDown = (className: string) => {
   return (
     <div css={ChatDropDownStyle} onClick={(e) => e.stopPropagation()} className={className}>
-      <Link to="/">
+      <Link to="/sub/chatList">
         <Button type="LargeDropDown">내 채팅 목록 보기</Button>
       </Link>
-      <Link to="/">
+      <Link to="/sub/Request">
         <Button type="LargeDropDown">채팅 요청 목록</Button>
       </Link>
     </div>
@@ -154,13 +154,13 @@ function MeetingDropDown(props: DropDownProps) {
 const UserDropDown = (className: string) => {
   return (
     <div css={DropDownStyle} style={{ marginLeft: "-200px" }} onClick={(e) => e.stopPropagation()} className={className}>
-      <Link to="/mypage/myinfo">
+      <Link to="/sub/mypage/myinfo">
         <Button type="LargeDropDown">내 정보 보기</Button>
       </Link>
-      <Link to="/mypage/likelist">
+      <Link to="/sub/mypage/likelist">
         <Button type="LargeDropDown">내가 고른 이상형</Button>
       </Link>
-      <Link to="/teamCreate">
+      <Link to="/sub/teamCreate">
         <Button type="LargeDropDown">팀 설정하기</Button>
       </Link>
     </div>

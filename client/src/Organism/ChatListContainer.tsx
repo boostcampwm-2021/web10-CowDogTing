@@ -27,7 +27,7 @@ function ChatListContainer({ chatInfo }: ChatListContainerType) {
           <ChatDetail chatRoomID={chatRoomId} />
           <ChatInputContainer>
             <ChatInput />
-            <Link to={`/sub/ChatRoom?chatRoomId=${chatRoomId}`}>
+            <Link to={`/ChatRoom?chatRoomId=${chatRoomId}`}>
               <Button>추가기능</Button>
             </Link>
           </ChatInputContainer>

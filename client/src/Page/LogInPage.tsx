@@ -4,7 +4,6 @@ import { css } from "@emotion/react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
-import Header from "../Organism/Header";
 
 const containerStyle = css`
   display: flex;
@@ -40,7 +39,6 @@ export default function LogInPage() {
 
   return (
     <>
-      <Header />
       <div css={containerStyle}>
         <div css={titleStyle}>Sign in</div>
         <Input placeholder="ID" autoComplete="off" />

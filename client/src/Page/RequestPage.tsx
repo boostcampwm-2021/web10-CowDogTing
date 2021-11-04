@@ -6,30 +6,45 @@ import ProfileModal from "../Template/ProfileModal";
 import { getRequestInfo } from "../util/dummyData";
 import { ProfileType, RequestType } from "../util/type";
 
+const RequestPageStyle = css`
+  display: flex;
+  width: 100vw;
+  margin: 0 auto;
+  height: 100vh;
+  flex-direction: row;
+  justify-content: center;
+`;
+const RequestTitleStyle = css`
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10vh 0;
+`;
+const RequestListStyle = css`
+  width: 41%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+
+  border: 1px solid #000000;
+  border-top: none;
+  overflow: auto;
+  & + & {
+    border-left: none;
+  }
+
+  div {
+    margin: 0 auto;
+  }
+`;
+
 export default function RequestPage() {
   const [RequestForMe, setRequestForMe] = useState<ProfileType[]>([]);
   const [RequestToMe, setRequestToMe] = useState<ProfileType[]>([]);
   const [openModal, setOpenModal] = useState<number | null>(null);
   const myId = "123";
   const person = 1;
-
-  const RequestPageStyle = css`
-    margin: 10vh 0 0 0;
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    flex-direction: row;
-    justify-content: center;
-  `;
-  const RequestTitleStyle = css`
-    font-size: 20px;
-    font-weight: bold;
-  `;
-  const RequestListStyle = css`
-    width: 30vw;
-    display: flex;
-    flex-direction: column;
-  `;
 
   const getDatas = async () => {
     const item = await getRequestInfo();

@@ -10,5 +10,8 @@ const reset = css`
     text-decoration: none;
     color: #000000;
   }
+  *::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
 export default reset;

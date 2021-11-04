@@ -8,10 +8,11 @@ import { ProfileListType } from "../util/type";
 
 const ProfileListStyle = css`
   margin: 0 auto;
-  width: 60%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  margin-bottom: 10px;
 `;
 
 const ProfileStyle = css`
@@ -19,7 +20,7 @@ const ProfileStyle = css`
 `;
 
 const bodyStyle = css`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 `;
 

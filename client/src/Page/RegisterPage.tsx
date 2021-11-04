@@ -7,7 +7,6 @@ import React, { useState } from "react";
 import { css } from "@emotion/react";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
-import Header from "../Organism/Header";
 
 const RegisterContainerStyle = css`
   width: 450px;
@@ -39,7 +38,6 @@ export default function RegisterPage() {
 
   return (
     <>
-      <Header />
       <div css={RegisterContainerStyle}>
         <div>ID</div>
         <div css={IdContainerStyle}>
