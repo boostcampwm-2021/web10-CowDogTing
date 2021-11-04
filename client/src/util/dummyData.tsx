@@ -488,3 +488,13 @@ export async function getJoinChatInfo(): Promise<JoinChatsType> {
   };
   return data;
 }
+
+export function getGameDatas() {
+  const data = ["캐치마인드"];
+  return data;
+}
+
+export function getGatherCharacter() {
+  const data = ["1", "2", "3", "4", "5"];
+  return data;
+}
