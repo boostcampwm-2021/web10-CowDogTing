@@ -10,8 +10,8 @@ const InputContainer = css`
   justify-content: center;
   padding-top: 10px;
   align-items: center;
-  height: 10%;
   border-top: 1px solid #ffcfcf;
+  height: fit-content;
 `;
 
 const sendImageStyle = css`

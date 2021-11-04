@@ -12,7 +12,7 @@ const ChatRoomStyle = css`
 
 export default function ChatRoom() {
   const searchParams = new URLSearchParams(useLocation().search);
-  const chatRoomID = Number(searchParams.get("chatRoomID"));
+  const chatRoomID = Number(searchParams.get("chatRoomId"));
 
   return (
     <div css={ChatRoomStyle}>

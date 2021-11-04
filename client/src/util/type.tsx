@@ -113,3 +113,27 @@ export type ProfileImageType = {
   image: string | ArrayBuffer | null;
   type: string;
 };
+
+export type ChatProfileContainerType = {
+  chatsInfo: ChatsInfoType | null;
+  setClickedRoomIndex: Function;
+};
+
+export type ProfileCardType = {
+  type: string;
+  children?: undefined | JSX.Element[] | JSX.Element | string;
+  idx: number;
+};
+
+export type ChatListInfoType = {
+  lastChat: string;
+  from: string;
+};
+
+export type ChatListContainerType = {
+  chatInfo?: ChatInfoType;
+};
+
+export type ChatImageContainerType = {
+  member?: PersonInfoType[];
+};

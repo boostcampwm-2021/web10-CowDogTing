@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
-import { getChatInfo } from "../util/dummyData";
+import { getChatsInfo } from "../util/dummyData";
 import { MessageType } from "../util/type";
 import Chats from "../Molecules/Chats";
 
@@ -12,11 +12,11 @@ const ChatContainerStyle = css`
   overflow: auto;
 `;
 
-export default function ChatDetail({ chatRoomID }: { chatRoomID: number }) {
+export default function ChatDetail({ chatRoomID }: { chatRoomID: number | undefined }) {
   const [chats, setChats] = useState<MessageType[] | null>(null);
 
   const getChats = async () => {
-    const { data: datas } = await getChatInfo();
+    const { data: datas } = await getChatsInfo();
     setChats(datas.filter((data) => data.chatRoomID === chatRoomID)[0].chatMessage);
   };
   useEffect(() => {

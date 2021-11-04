@@ -15,7 +15,6 @@ const TeamInfoImageContainerStyle = css`
 const imageInputStyle = css`
   display: none;
 `;
-
 function TeamInfoImageContainer({ image }: TeamImageContainerType) {
   const initBlob = new Blob();
   const imageInputTag = useRef<HTMLInputElement | null>(null);

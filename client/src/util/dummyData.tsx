@@ -2,7 +2,7 @@
 /* eslint-disable comma-dangle */
 
 import { ChatsInfoType, JoinChatsType, ProfileType, RequestsType, TeamInfoType } from "./type";
-
+import dummyImage from "../assets/meetingImage.png";
 // import axios from "axios";
 
 /**
@@ -267,15 +267,15 @@ export async function getCowDogInfo(person: number): Promise<ProfileType[]> {
  * 채팅 정보 구하기
  */
 
-export async function getChatInfo(): Promise<ChatsInfoType> {
+export async function getChatsInfo(): Promise<ChatsInfoType> {
   const data = {
     data: [
       {
         chatRoomID: 1,
         member: [
           {
-            id: "333",
-            image: "Image",
+            id: "영진",
+            image: dummyImage,
             location: "우as만동",
             sex: "male",
             age: 25,
@@ -283,7 +283,7 @@ export async function getChatInfo(): Promise<ChatsInfoType> {
           },
           {
             id: "222",
-            image: "Image",
+            image: dummyImage,
             location: "우fasd만동",
             sex: "male",
             age: 25,
@@ -291,7 +291,7 @@ export async function getChatInfo(): Promise<ChatsInfoType> {
           },
           {
             id: "123",
-            image: "Image",
+            image: dummyImage,
             location: "asdf우만동",
             sex: "male",
             age: 25,
@@ -366,8 +366,57 @@ export async function getChatInfo(): Promise<ChatsInfoType> {
             source: "image",
           },
           {
+            from: "영진",
+            message: "ㅎㅇㅎㅇ",
+            read: true,
+            source: "image",
+          },
+        ],
+      },
+      {
+        chatRoomID: 2,
+        member: [
+          {
+            id: "3영진3",
+            image: dummyImage,
+            location: "우as만동",
+            sex: "male",
+            age: 25,
+            info: "gggg",
+          },
+          {
+            id: "222",
+            image: dummyImage,
+            location: "우fasd만동",
+            sex: "male",
+            age: 25,
+            info: "fffff",
+          },
+          {
+            id: "123",
+            image: dummyImage,
+            location: "asdf우만동",
+            sex: "male",
+            age: 25,
+            info: "afsd",
+          },
+        ],
+        chatMessage: [
+          {
             from: "123",
             message: "ㅎㅇㅎㅇ",
+            read: true,
+            source: "image",
+          },
+          {
+            from: "123",
+            message: "ㅎㅇㅎㅇ",
+            read: true,
+            source: "image",
+          },
+          {
+            from: "3영진3",
+            message: "ㅂㅇㅂㅇ",
             read: true,
             source: "image",
           },
@@ -406,7 +455,7 @@ export async function getRequestInfo(): Promise<RequestsType> {
           image: "Image",
           location: "우만동",
           sex: "female",
-          age: 25,
+          age: 26,
           info: "안녕하세요",
           member: [],
         },
