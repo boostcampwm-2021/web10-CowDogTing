@@ -37,14 +37,12 @@ const SmallDropDownStyle = css`
   width: 200px;
   height: 65px;
   border-radius: 0;
-  background-color: #fff;
 `;
 
 const LargeDropDownStyle = css`
   width: 250px;
   height: 80px;
   border-radius: 0;
-  background-color: #fff;
 `;
 
 const ButtonStyle = (props: ButtonType) => css`

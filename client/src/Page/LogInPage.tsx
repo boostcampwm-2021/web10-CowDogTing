@@ -47,7 +47,7 @@ export default function LogInPage() {
         <Input placeholder="PW" type="password" autoComplete="off" />
 
         <div css={ButtonContainerStyle}>
-          <Link to="/sub/Register">
+          <Link to="/register">
             <Button type="Small">회원가입</Button>
           </Link>
           <Button type="Small">로그인</Button>

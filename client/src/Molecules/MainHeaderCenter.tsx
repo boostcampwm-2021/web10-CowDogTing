@@ -5,9 +5,10 @@ import MainHeaderLogo from "../Atom/MainHeaderLogo";
 
 const mainHeaderCenterStyle = css`
   position: relative;
-  width: 210px;
+  display: flex;
+  width: 100vw;
   justify-content: center;
-  top: 50%;
+  top: 30%;
 `;
 
 function MainHeaderCenter() {
