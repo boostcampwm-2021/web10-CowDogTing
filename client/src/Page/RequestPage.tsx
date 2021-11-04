@@ -50,7 +50,7 @@ export default function RequestPage() {
   const getDatas = async () => {
     const item = await getRequestInfo();
     item?.data.forEach((data: RequestType) => {
-      data.from === myId ? setRequestForMe((prev) => [...prev, data.info]) : setRequestToMe((prev) => [...prev, data.info]);
+      return data.from === myId ? setRequestForMe((prev) => [...prev, data.info]) : setRequestToMe((prev) => [...prev, data.info]);
       // setPerson((prev) => (data.info.member === null ? [...prev, 1] : [...prev, 2]));
     });
   };
