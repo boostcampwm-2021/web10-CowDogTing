@@ -3,19 +3,19 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import userIcon from "../assets/userIcon.svg";
+import ChatIconImg from "../assets/ChatIcon.png";
 
-const userIconStyle = css`
+const ChatIconStyle = css`
   position: relative;
   width: 48px;
   height: 48px;
   cursor: pointer;
 `;
-interface UserIconProps {
+interface ChatIconProps {
   onClick: () => void;
 }
-function UserIcon(props: UserIconProps) {
-  return <img alt="user Icon" src={userIcon} onClick={props.onClick} css={userIconStyle} />;
+function ChatIcon(props: ChatIconProps) {
+  return <img alt="user Icon" src={ChatIconImg} onClick={props.onClick} css={ChatIconStyle} />;
 }
 
-export default UserIcon;
+export default ChatIcon;
