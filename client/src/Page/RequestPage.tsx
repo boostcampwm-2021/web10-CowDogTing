@@ -14,13 +14,19 @@ export default function RequestPage() {
   const person = 1;
 
   const RequestPageStyle = css`
+    margin: 10vh 0 0 0;
     display: flex;
     width: 100vw;
     height: 100vh;
     flex-direction: row;
     justify-content: center;
   `;
+  const RequestTitleStyle = css`
+    font-size: 20px;
+    font-weight: bold;
+  `;
   const RequestListStyle = css`
+    width: 30vw;
     display: flex;
     flex-direction: column;
   `;
@@ -40,12 +46,12 @@ export default function RequestPage() {
     <>
       <div css={RequestPageStyle}>
         <div css={RequestListStyle}>
-          <div>나에게 온 요청</div>
+          <div css={RequestTitleStyle}>나에게 온 요청</div>
           <ProfileList datas={RequestForMe} person={person} setOpenModal={setOpenModal} />
           {RequestForMe && openModal !== null && <ProfileModal data={RequestForMe[Number(openModal)]} />}
         </div>
         <div css={RequestListStyle}>
-          <div>내가 보낸 요청</div>
+          <div css={RequestTitleStyle}>내가 보낸 요청</div>
           <ProfileList datas={RequestToMe} person={person} setOpenModal={setOpenModal} />
           {RequestToMe && openModal !== null && <ProfileModal data={RequestToMe[Number(openModal)]} />}
         </div>
