@@ -42,6 +42,7 @@ const RequestListStyle = css`
 export default function RequestPage() {
   const [RequestForMe, setRequestForMe] = useState<ProfileType[]>([]);
   const [RequestToMe, setRequestToMe] = useState<ProfileType[]>([]);
+  // const [person, setPerson] = useState<number[]>([]);
   const [openModal, setOpenModal] = useState<number | null>(null);
   const myId = "123";
   const person = 1;
@@ -49,7 +50,8 @@ export default function RequestPage() {
   const getDatas = async () => {
     const item = await getRequestInfo();
     item?.data.forEach((data: RequestType) => {
-      return data.from === myId ? setRequestForMe((prev) => [...prev, data.info]) : setRequestToMe((prev) => [...prev, data.info]);
+      data.from === myId ? setRequestForMe((prev) => [...prev, data.info]) : setRequestToMe((prev) => [...prev, data.info]);
+      // setPerson((prev) => (data.info.member === null ? [...prev, 1] : [...prev, 2]));
     });
   };
 
