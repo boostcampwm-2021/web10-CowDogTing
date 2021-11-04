@@ -4,7 +4,7 @@ import MyInfoContainer from "../../Organism/MyInfoContainer";
 /** @jsxImportSource @emotion/react */
 const MyInfoStyle = css`
   padding-left: 50px;
-  width: 65vw;
+  width: 60vw;
 `;
 export default function MyInfo() {
   return (

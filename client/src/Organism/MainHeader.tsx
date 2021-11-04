@@ -9,7 +9,6 @@ const mainHeaderStyle = css`
   justify-content: space-between;
   width: 100vw;
   height: 30vh;
-
   .hide {
     display: none;
   }
