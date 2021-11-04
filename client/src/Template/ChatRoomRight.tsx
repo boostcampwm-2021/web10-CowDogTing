@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 import { css } from "@emotion/react";
-import { getChatInfo } from "../util/dummyData";
+import { getChatsInfo } from "../util/dummyData";
 import { PersonInfoType } from "../util/type";
 import { Button } from "../Atom/Button";
 import ChatRoomBasic from "../Molecules/ChatRoomBasic";
@@ -22,7 +22,7 @@ export default function ChatRoomRight(props: { chatRoomID: number }) {
   const history = useHistory();
 
   const getMember = async () => {
-    const { data: datas } = await getChatInfo();
+    const { data: datas } = await getChatsInfo();
     setMember(datas.filter((data) => data.chatRoomID === props.chatRoomID)[0].member);
   };
 
