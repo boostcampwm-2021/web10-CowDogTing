@@ -1,11 +1,18 @@
 import app from "./app";
 import { createServer } from "http";
+import { sequelize } from "./models"
 
 
 const port: number = Number(process.env.PORT) || 5000;
 
 const server = createServer(app);
 
-server.listen(port, () => {
-    console.log(port+"번 포트");
+server.listen(port,() => {
+    sequelize.authenticate()
+    .then(() => {
+        console.log("connection");
+    })
+    .catch((err) => {
+        console.log('fail: ', err)
+    })
 });
