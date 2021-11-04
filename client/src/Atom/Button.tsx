@@ -74,9 +74,10 @@ export const Button = styled.div`
   align-items: center;
   border-radius: 10px;
   cursor: pointer;
+  background-color: #fff;
 
   & + & {
-    border-top: none;
+    der-top: none;
   }
 
   &:hover {

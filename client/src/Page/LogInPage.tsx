@@ -4,7 +4,6 @@ import { css } from "@emotion/react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
-import Header from "../Organism/Header";
 
 const containerStyle = css`
   display: flex;
@@ -40,14 +39,13 @@ export default function LogInPage() {
 
   return (
     <>
-      <Header />
       <div css={containerStyle}>
         <div css={titleStyle}>Sign in</div>
         <Input placeholder="ID" autoComplete="off" />
         <Input placeholder="PW" type="password" autoComplete="off" />
 
         <div css={ButtonContainerStyle}>
-          <Link to="/register">
+          <Link to="/sub/Register">
             <Button type="Small">회원가입</Button>
           </Link>
           <Button type="Small">로그인</Button>

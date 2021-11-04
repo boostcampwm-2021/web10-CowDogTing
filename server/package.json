@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./src/www.ts"
+    "migration_all" : "ts-node ./src/migrations/createTableAll.ts",
+    "start": "nodemon ./src/www.ts",
+    "build": "node ./src/www.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/node": "^16.11.6",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "morgan": "^1.10.0",
@@ -19,9 +23,11 @@
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/express-session": "^1.17.4",
     "@types/morgan": "^1.9.3",
+    "@types/validator": "^13.6.6",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.2.0",
     "eslint": "^7.32.0",
