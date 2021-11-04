@@ -19,8 +19,8 @@ const SideBarStyle = css`
 `;
 
 const SideBarList = [
-  { menu: "내 정보 보기", link: "/mypage/myinfo" },
-  { menu: "내가 고른 이상형", link: "/mypage/likelist" },
+  { menu: "내 정보 보기", link: "myinfo" },
+  { menu: "내가 고른 이상형", link: "likelist" },
   { menu: "나의 문의사항 보기", link: "question" },
   { menu: "리뷰 보기", link: "review" },
 ];

@@ -28,9 +28,9 @@ export default function ChatRoomFooter() {
   const [datas, setDatas] = useState<String[] | null>(null);
 
   const searchParams = new URLSearchParams(useLocation().search);
-  const chatRoomID = Number(searchParams.get("chatRoomID"));
-  const gameURL = `/ChatRoom/Game?chatRoomID=${chatRoomID}`;
-  const gatherURL = `/ChatRoom/Gather?chatRoomID=${chatRoomID}`;
+  const chatRoomID = Number(searchParams.get("chatRoomId"));
+  const gameURL = `/ChatRoom/Game?chatRoomId=${chatRoomID}`;
+  const gatherURL = `/ChatRoom/Gather?chatRoomId=${chatRoomID}`;
   const handleGameButtonClick = () => {
     setOpenGather(false);
     setIndex(0);

@@ -11,9 +11,9 @@ import LikeList from "./MyPageMain/LikeList";
 const MyPageBodyStyle = css`
   display: flex;
   text-align: center;
-  align-items: center;
+  align-items: flex-start;
   width: 80vw;
-  height: 100vh;
+  height: 100%;
 `;
 
 export default function MyPageBodyTemplate() {
@@ -21,11 +21,11 @@ export default function MyPageBodyTemplate() {
     <div css={MyPageBodyStyle} id="mypage-body">
       <MyPageSideBar />
       <Switch>
-        <Route path="/mypage/myinfo" component={MyInfo} />
-        <Route path="/mypage/question" component={QuestionList} />
-        <Route path="/mypage/review" component={Review} />
-        <Route path="/mypage/likelist" component={LikeList} />
-        <Redirect path="/*" to="/mypage/myinfo" />
+        <Route path="/sub/mypage/myinfo" component={MyInfo} />
+        <Route path="/sub/mypage/question" component={QuestionList} />
+        <Route path="/sub/mypage/review" component={Review} />
+        <Route path="/sub/mypage/likelist" component={LikeList} />
+        <Redirect path="/*" to="/sub/mypage/myinfo" />
       </Switch>
     </div>
   );

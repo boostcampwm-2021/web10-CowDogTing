@@ -37,14 +37,12 @@ const SmallDropDownStyle = css`
   width: 200px;
   height: 65px;
   border-radius: 0;
-  background-color: #fff;
 `;
 
 const LargeDropDownStyle = css`
   width: 250px;
   height: 80px;
   border-radius: 0;
-  background-color: #fff;
 `;
 
 const ButtonStyle = (props: ButtonType) => css`
@@ -76,10 +74,10 @@ export const Button = styled.div`
   align-items: center;
   border-radius: 10px;
   cursor: pointer;
+  background-color: #fff;
 
   & + & {
-    /* border-top: none; */
-    margin-left: 30px;
+    der-top: none;
   }
 
   &:hover {

@@ -31,17 +31,23 @@ const NavbarStyle = css`
   }
 `;
 export default function Navbar() {
-  const [locationDropdown, setlocationDropdown] = useState(false);
-  const [ageDropdwon, setageDropdown] = useState(false);
-  const [sexDropdwon, setsexDropdown] = useState(false);
+  const [locationDropdown, setLocationDropdown] = useState(false);
+  const [ageDropdwon, setAgeDropdown] = useState(false);
+  const [sexDropdwon, setSexDropdown] = useState(false);
   const TogglelocationModal = () => {
-    setlocationDropdown((isOpen) => !isOpen);
+    setLocationDropdown((isOpen) => !isOpen);
+    setAgeDropdown(false);
+    setSexDropdown(false);
   };
   const ToggleAgeModal = () => {
-    setageDropdown((isOpen) => !isOpen);
+    setAgeDropdown((isOpen) => !isOpen);
+    setLocationDropdown(false);
+    setSexDropdown(false);
   };
   const ToggleSexModal = () => {
-    setsexDropdown((isOpen) => !isOpen);
+    setSexDropdown((isOpen) => !isOpen);
+    setLocationDropdown(false);
+    setAgeDropdown(false);
   };
 
   return (
