@@ -4,6 +4,9 @@ info:
   title: 'CowDogTing'
   description: 'API 명세'
 servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/ddaynew365/CowDogTing/1.0.0
   - description : API 명세
     url: http://localhost:4000/
 paths:
@@ -28,11 +31,10 @@ paths:
                 type: object
                 properties:
                   image:
-                    type: string(binary)
+                    type: string
   /api/core/userInfo:
     get:
       summary: 유저 정보 획득
-      parameters:
       responses:
         '200':
           description: 유저 정보
@@ -126,7 +128,7 @@ paths:
       summary: 회원가입
       parameters:
         - name: userInfo
-          in: body
+          in: header
           required: true
           description: 유저 정보
           schema:
@@ -156,14 +158,14 @@ paths:
       summary: 팀 생성
       parameters:
         - name: teamInfo
-          in: body
+          in: header
           required: true
           description: 팀 정보
           schema:
             type: object
             properties:
               image:
-                type: binary
+                type: number
               id:
                 type: string
               info:
@@ -270,7 +272,7 @@ paths:
       summary: 팀 정보 수정
       parameters:
       - name: teamInfo
-        in: body
+        in: header
         description: 새로운 팀 정보
         required: true
         schema:
@@ -303,7 +305,7 @@ paths:
       summary: 팀원 초대하기
       parameters:
       - name: inviteID
-        in: body
+        in: header
         description: 초대하려는 유저 아이디
         required: true
         schema:
@@ -376,9 +378,6 @@ paths:
   /api/chat/info:
     get:
       summary: 채팅방 정보 가져오기
-      parameters:
-      - name: ChatRoomID
-        in: query
       responses:
         '200':
           description: 채팅방 정보
@@ -582,10 +581,9 @@ paths:
   /api/request/info:
     get:
       summary: 요청 목록 가져오기
-      parameters:
       responses:
         '200':
-          description:
+          description: 요청 목록
           content:
             application/json:
               schema:
@@ -649,11 +647,3 @@ paths:
                     },
                   ],
                 }
-
-
-      
-              
-
-                  
-
-
