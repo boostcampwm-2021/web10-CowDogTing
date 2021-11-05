@@ -67,5 +67,20 @@ paths:
                     notReadNum: 2
                   },
                 ]
-  
+  api/auth/login:
+    get:
+      summary: 로그인 버튼 클릭(유저 정보 받아오기)
+      parameters:
+      responses:
+        '200':
+          description: 유저 정보
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
+
+                  
+
 
