@@ -67,7 +67,7 @@ paths:
                     notReadNum: 2
                   },
                 ]
-  api/auth/login:
+  /api/auth/login:
     get:
       summary: 로그인 버튼 클릭(유저 정보 받아오기)
       parameters:
@@ -80,7 +80,7 @@ paths:
                 type: boolean
               example:
                 true
-  api/auth/validation:
+  /api/auth/validation:
     get:
       summary: 회원가입(아이디 중복 검사)
       parameters:
@@ -99,7 +99,7 @@ paths:
             type: boolean
           example:
             true
-  api/auth/register:
+  /api/auth/register:
     post:
       summary: 회원가입
       parameters:
@@ -125,7 +125,7 @@ paths:
           description: 회원가입 성공 여부
           schema:
             type: boolean
-  api/team/create:
+  /api/team/create:
     post:
       summary: 팀 생성
       parameters:
@@ -158,7 +158,7 @@ paths:
             type: boolean
           example:
             true
-  api/team/info:
+  /api/team/info:
     get:
       summary: 팀 정보 가져오기
       parameters:
@@ -210,7 +210,7 @@ paths:
                         info: 
                           type: string
               example:
-  api/team/update:
+  /api/team/update:
     post:
       summary: 팀 정보 수정
       parameters:
@@ -243,7 +243,7 @@ paths:
               example:
                 true
 
-  api/team/invite:
+  /api/team/invite:
     post:
       summary: 팀원 초대하기
       parameters:
@@ -265,7 +265,7 @@ paths:
                 type: boolean
               example:
                 true
-  api/profile:
+  /api/profile:
     get:
       summary: 소개 프로필 가져오기
       parameters:
@@ -318,7 +318,56 @@ paths:
                     info: "반가워요",
                   }
                 ]
+  /api/chat/info:
+    get:
+      summary: 채팅방 정보 가져오기
+      parameters:
+      - name: ChatRoomID
+        in: query
+  /api/chat/messages:
+    get:
+      summary: 채팅 내역 추가 가져오기
+      parameters:
+      - name: ChatRoomID
+        in: query
+        description: 채팅방 정보
+        required: true
+        schema:
+          type: number
+        example:
+          1
+      - name: index
+        in: query
+        description: 몇번째 페이지
+        required: true
+        schema:
+          type: number
+        example:
+          2
+      responses:
+        '200':
+          description: 채팅 내역
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  chatMessage:
+                    type: array
+                    items:
+                      type: object
+                      properties: 
+                        from:
+                          type: string
+                        message:
+                          type: string
+                        read:
+                          type: boolean
+                        source:
+                          type: number
+              
 
+      
               
 
                   
