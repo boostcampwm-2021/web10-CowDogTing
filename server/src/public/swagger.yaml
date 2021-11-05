@@ -324,6 +324,165 @@ paths:
       parameters:
       - name: ChatRoomID
         in: query
+      responses:
+        '200':
+          description: 채팅방 정보
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        chatRoomID:
+                          type: number
+                        member:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              image:
+                                type: number
+                              location:
+                                type: string
+                              sex:
+                                type: string
+                              age:
+                                type: number
+                              info:
+                                type: string
+              example:
+                {
+                  data: [
+                    {
+                      chatRoomID: 1,
+                      member: [
+                        {
+                          id: "영진",
+                          image: dummyImage,
+                          location: "우as만동",
+                          sex: "male",
+                          age: 25,
+                          info: "gggg",
+                        },
+                        {
+                          id: "222",
+                          image: dummyImage,
+                          location: "우fasd만동",
+                          sex: "male",
+                          age: 25,
+                          info: "fffff",
+                        },
+                        {
+                          id: "123",
+                          image: dummyImage,
+                          location: "asdf우만동",
+                          sex: "male",
+                          age: 25,
+                          info: "afsd",
+                        },
+                      ],
+                      chatMessage: [
+                        {
+                          from: "123",
+                          message: "ㅎㅇㅎㅇ",
+                          read: true,
+                          source: "image",
+                        },
+                        {
+                          from: "yj",
+                          message: "ㅎㅇㅎㅇ",
+                          read: true,
+                          source: "image",
+                        },
+                        {
+                          from: "123",
+                          message: "ㅎㅇㅎㅇ",
+                          read: true,
+                          source: "image",
+                        },
+                        {
+                          from: "123",
+                          message: "ㅎㅇㅎㅇ",
+                          read: true,
+                          source: "image",
+                        },
+                        {
+                          from: "yj",
+                          message: "ㅎㅇㅎㅇ",
+                          read: true,
+                          source: "image",
+                        },
+                        {
+                          from: "123",
+                          message: "ㅎㅇㅎㅇ",
+                          read: true,
+                          source: "image",
+                        },
+                        {
+                          from: "영진",
+                          message: "ㅎㅇㅎㅇ",
+                          read: true,
+                          source: "image",
+                        },
+                      ],
+                    },
+                    {
+                      chatRoomID: 2,
+                      member: [
+                        {
+                          id: "3영진3",
+                          image: dummyImage,
+                          location: "우as만동",
+                          sex: "male",
+                          age: 25,
+                          info: "gggg",
+                        },
+                        {
+                          id: "222",
+                          image: dummyImage,
+                          location: "우fasd만동",
+                          sex: "male",
+                          age: 25,
+                          info: "fffff",
+                        },
+                        {
+                          id: "123",
+                          image: dummyImage,
+                          location: "asdf우만동",
+                          sex: "male",
+                          age: 25,
+                          info: "afsd",
+                        },
+                      ],
+                      chatMessage: [
+                        {
+                          from: "123",
+                          message: "ㅎㅇㅎㅇ",
+                          read: true,
+                          source: "image",
+                        },
+                        {
+                          from: "123",
+                          message: "ㅎㅇㅎㅇ",
+                          read: true,
+                          source: "image",
+                        },
+                        {
+                          from: "3영진3",
+                          message: "ㅂㅇㅂㅇ",
+                          read: true,
+                          source: "image",
+                        },
+                      ],
+                    },
+                  ],
+                }
   /api/chat/messages:
     get:
       summary: 채팅 내역 추가 가져오기
@@ -365,7 +524,77 @@ paths:
                           type: boolean
                         source:
                           type: number
-              
+  /api/request/info:
+    get:
+      summary: 요청 목록 가져오기
+      parameters:
+      responses:
+        '200':
+          description:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        from:
+                          type: string
+                        to:
+                          type: string
+                        info: 
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            image:
+                              type: string
+                            location:
+                              type: string
+                            sex:
+                              type: string
+                            age:
+                              type: number
+                            info:
+                              type: string
+                        state:
+                          type: string  
+              example:
+                {
+                  data: [
+                    {
+                      from: "123",
+                      to: "yj",
+                      info: {
+                        id: "yj",
+                        image: "Image",
+                        location: "우만동",
+                        sex: "female",
+                        age: 25,
+                        info: "안녕하세요",
+                      },
+                      state: "대기중",
+                    },
+                    {
+                      from: "yj",
+                      to: "123",
+                      info: {
+                        id: "123",
+                        image: "Image",
+                        location: "우만동",
+                        sex: "female",
+                        age: 26,
+                        info: "안녕하세요",
+                        member: [],
+                      },
+                      state: "대기중",
+                    },
+                  ],
+                }
+
 
       
               
