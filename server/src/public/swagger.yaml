@@ -7,6 +7,28 @@ servers:
   - description : API 명세
     url: http://localhost:4000/
 paths:
+  /api/core/image:
+    get:
+      summary: 이미지 불러오기
+      parameters:
+        - name: imageID
+          in: query
+          required: true
+          description: 이미지 아이디
+          schema:
+            type: number
+          example:
+            23843900384290394
+      responses:
+        '200':
+          description: 이미지 파일
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  image:
+                    type: string(binary)
   /api/core/userInfo:
     get:
       summary: 유저 정보 획득
@@ -41,7 +63,6 @@ paths:
   /api/core/joinChatInfo:
     get:
       summary: 참여 채팅방 정보 가져오기 
-      parameters:
       responses:
         '200':
           description: 참여 채팅방 정보
@@ -70,7 +91,6 @@ paths:
   /api/auth/login:
     get:
       summary: 로그인 버튼 클릭(유저 정보 받아오기)
-      parameters:
       responses:
         '200':
           description: 유저 정보
@@ -85,7 +105,7 @@ paths:
       summary: 회원가입(아이디 중복 검사)
       parameters:
         - name: id
-          in: path
+          in: query
           required: true
           description: 유저 아이디
           schema:
@@ -95,10 +115,12 @@ paths:
       responses:
         '200':
           description: 회원가입 아이디 중복 검사 확인
-          schema:
-            type: boolean
-          example:
-            true
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
   /api/auth/register:
     post:
       summary: 회원가입
@@ -123,8 +145,12 @@ paths:
       responses:
         '200':
           description: 회원가입 성공 여부
-          schema:
-            type: boolean
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
   /api/team/create:
     post:
       summary: 팀 생성
@@ -154,10 +180,12 @@ paths:
       responses:
         '200':
           description: 팀 생성 여부
-          schema:
-            type: boolean
-          example:
-            true
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
   /api/team/info:
     get:
       summary: 팀 정보 가져오기
@@ -210,6 +238,33 @@ paths:
                         info: 
                           type: string
               example:
+                {
+                  image: "asfdadsf",
+                  id: "팀명",
+                  info: "asdfsafd",
+                  location: "우만동",
+                  age: 23,
+                  leader: false,
+                  sex: "male",
+                  member: [
+                    {
+                      id: "yj",
+                      image: "Image",
+                      location: "우만동",
+                      age: 23,
+                      sex: "male",
+                      info: "안녕하세요",
+                    },
+                    {
+                      id: "hansory",
+                      image: "Image",
+                      location: "우만동",
+                      age: 23,
+                      sex: "male",
+                      info: "안녕하세요",
+                    },
+                  ],
+                }
   /api/team/update:
     post:
       summary: 팀 정보 수정
