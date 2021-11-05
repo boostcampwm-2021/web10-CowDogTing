@@ -236,10 +236,12 @@ paths:
       responses:
         '200':
           description: 팀 정보 수정 성공 여부
-          schema:
-            type: boolean
-          example:
-            true
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
 
   api/team/invite:
     post:
@@ -257,10 +259,67 @@ paths:
       responses:
         '200':
           description: 초대 성공 여부
-          schema:
-            type: boolean
-          example:
-            true
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
+  api/profile:
+    get:
+      summary: 소개 프로필 가져오기
+      parameters:
+      - name: person
+        in: query
+        description: 인원 수
+        required: true
+        schema:
+          type: number
+        example:
+          1
+      responses:
+        '200':
+          description: 소개 프로필 데이터
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    image:
+                      type: number
+                    location:
+                      type: string
+                    sex:
+                      type: string
+                    age:
+                      type: number
+                    info:
+                      type: string
+              example:
+                [
+                  {
+                    id: "yj",
+                    image: "Image",
+                    location: "우만동",
+                    sex: "female",
+                    age: 25,
+                    info: "안녕하세요",
+                  },
+                  {
+                    id: "hansory",
+                    image: "Image",
+                    location: "영통동",
+                    sex: "female",
+                    age: 20,
+                    info: "반가워요",
+                  }
+                ]
+
+              
 
                   
 
