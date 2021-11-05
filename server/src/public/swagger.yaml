@@ -1,0 +1,11 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: 'CowDogTing'
+  description: 'API 명세'
+servers:
+  - description : API 명세
+    url: http://localhost:4000/
+paths:
+
+
