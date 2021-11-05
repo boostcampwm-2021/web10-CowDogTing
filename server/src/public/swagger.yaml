@@ -7,5 +7,36 @@ servers:
   - description : API 명세
     url: http://localhost:4000/
 paths:
+  /api/core/userInfo:
+    get:
+      summary: 유저 정보 획득
+      parameters:
+      responses:
+        '200':
+          description: 유저 정보
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  image:
+                    type: number
+                  location:
+                    type: string
+                  sex: 
+                    type: string
+                  age: 
+                    type: number
+                  info: 
+                    type: string
+              example:
+                id: "yj"
+                image: 33
+                location: "우만동"
+                sex: "male"
+                age: 25
+                info: "안녕하세요"
 
 
