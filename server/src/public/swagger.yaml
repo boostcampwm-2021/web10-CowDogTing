@@ -38,5 +38,34 @@ paths:
                 sex: "male"
                 age: 25
                 info: "안녕하세요"
-
+  /api/core/joinChatInfo:
+    get:
+      summary: 참여 채팅방 정보 가져오기 
+      parameters:
+      responses:
+        '200':
+          description: 참여 채팅방 정보
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    chatRoomID:
+                      type: number
+                    notReadNum:
+                      type: number
+              example:
+                [
+                  {
+                    chatRoomID: 1,
+                    notReadNum: 3
+                  },
+                  {
+                    chatRoomID: 2,
+                    notReadNum: 2
+                  },
+                ]
+  
 
