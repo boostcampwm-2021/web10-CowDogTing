@@ -99,6 +99,169 @@ paths:
             type: boolean
           example:
             true
+  api/auth/register:
+    post:
+      summary: 회원가입
+      parameters:
+        - name: userInfo
+          in: body
+          required: true
+          description: 유저 정보
+          schema:
+            type: object
+            properties:
+                id: 
+                  type: string
+                image:
+                  type: number
+                location:
+                  type: string
+                sex:
+                  type: string
+                age:
+                  type: number
+      responses:
+        '200':
+          description: 회원가입 성공 여부
+          schema:
+            type: boolean
+  api/team/create:
+    post:
+      summary: 팀 생성
+      parameters:
+        - name: teamInfo
+          in: body
+          required: true
+          description: 팀 정보
+          schema:
+            type: object
+            properties:
+              image:
+                type: binary
+              id:
+                type: string
+              info:
+                type: string
+              location:
+                type: string
+              age:
+                type: number
+              leader:
+                type: string
+              sex:
+                type: string
+          example:
+      responses:
+        '200':
+          description: 팀 생성 여부
+          schema:
+            type: boolean
+          example:
+            true
+  api/team/info:
+    get:
+      summary: 팀 정보 가져오기
+      parameters:
+        - name: teamID
+          in: query
+          description: 팀 아이디
+          required: true
+          schema:
+            type: number
+          example:
+            123
+      responses:
+        '200':
+          description: 팀 정보
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  id: 
+                    type: string
+                  info: 
+                    type: string
+                  location: 
+                    type: string
+                  age: 
+                    type: number
+                  leader: 
+                    type: string
+                  sex: 
+                    type: string
+                  image: 
+                    type: number
+                  member:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: 
+                          type: string
+                        image: 
+                          type: string
+                        location: 
+                          type: string
+                        age: 
+                          type: number
+                        sex: 
+                          type:  string
+                        info: 
+                          type: string
+              example:
+  api/team/update:
+    post:
+      summary: 팀 정보 수정
+      parameters:
+      - name: teamInfo
+        in: body
+        description: 새로운 팀 정보
+        required: true
+        schema:
+          type: object
+          properties:
+            id:
+              type: string
+            info:
+              type: string
+            location:
+              type: string
+            image:
+              type: number
+        example:
+          {
 
+          }
+      responses:
+        '200':
+          description: 팀 정보 수정 성공 여부
+          schema:
+            type: boolean
+          example:
+            true
+
+  api/team/invite:
+    post:
+      summary: 팀원 초대하기
+      parameters:
+      - name: inviteID
+        in: body
+        description: 초대하려는 유저 아이디
+        required: true
+        schema:
+          type: object
+          properties:
+            id:
+              type: string
+      responses:
+        '200':
+          description: 초대 성공 여부
+          schema:
+            type: boolean
+          example:
+            true
+
+                  
 
 
