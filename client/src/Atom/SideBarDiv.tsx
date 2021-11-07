@@ -1,5 +1,4 @@
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable comma-dangle */
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";

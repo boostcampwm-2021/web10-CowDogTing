@@ -3,7 +3,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable dot-notation */
-/* eslint-disable comma-dangle */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useState } from "react";
@@ -78,7 +77,7 @@ const ChatDropDownStyle = css`
 const SearchData = {
   location: ["서울", "경기", "인천", "대구", "대전", "광주", "부산", "울산"],
   age: ["10대", "20대", "30대"],
-  sex: ["남자", "여자", "기타"],
+  sex: ["남자", "여자", "기타"]
 };
 export default function DropDown(props: DropDownProps) {
   switch (props.type) {

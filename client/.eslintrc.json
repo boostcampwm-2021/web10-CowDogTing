@@ -34,7 +34,7 @@
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
     ],
     "no-unused-vars": "off",
-    "comma-dangle": ["error", "never"],
+    "comma-dangle": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
     "import/extensions": [
       "error",
