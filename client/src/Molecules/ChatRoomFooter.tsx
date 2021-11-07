@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { css } from "@emotion/react";
 import VideoSupport from "./VideoSupport";
 import { Button } from "../Atom/Button";
 import { getGameDatas, getGatherCharacter } from "../util/dummyData";
 import LargeModal from "../Organism/LargeModal";
+import LinkButton from "./LinkButton";
 
 const footerStyle = css`
   display: flex;
@@ -74,21 +75,13 @@ export default function ChatRoomFooter() {
       {openGame && (
         <LargeModal index={index} datas={datas} inCreaseIndex={inCreaseIndex} decreaseIndex={decreaseIndex}>
           <div>게임{index}</div>
-          <Link to={gameURL}>
-            <Button type="Large" onClick={handleCloseButtonClick}>
-              게임 시작하기
-            </Button>
-          </Link>
+          <LinkButton url={gameURL} type="Large" onClick={handleCloseButtonClick} content="게임 시작하기" />
         </LargeModal>
       )}
       {openGather && (
         <LargeModal index={index} datas={datas} inCreaseIndex={inCreaseIndex} decreaseIndex={decreaseIndex}>
           <div css={CharacterStyle({ index })} />
-          <Link to={gatherURL}>
-            <Button type="Large" onClick={handleCloseButtonClick}>
-              입장하기
-            </Button>
-          </Link>
+          <LinkButton url={gatherURL} type="Large" onClick={handleCloseButtonClick} content="게임 시작하기" />
         </LargeModal>
       )}
     </>

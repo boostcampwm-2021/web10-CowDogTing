@@ -147,6 +147,7 @@ export type LinkButtonType = {
   url: string | undefined;
   type: string;
   content: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 };
 
 export type DropDownType = {

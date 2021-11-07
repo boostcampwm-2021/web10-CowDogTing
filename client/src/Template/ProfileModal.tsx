@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-/* eslint-disable no-unneeded-ternary */
 import React, { useEffect, useState } from "react";
 import ProfileInfo from "../Atom/ProfileInfo";
 import { ProfileInfoDataType, ProfileType } from "../util/type";
@@ -15,7 +14,7 @@ export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element
 
   useEffect(() => {
     const { member } = data;
-    const teamPerson = member ? member : [];
+    const teamPerson = member || [];
     setTarget(data);
     setIndex(0);
     setDatas([data, ...teamPerson]);
