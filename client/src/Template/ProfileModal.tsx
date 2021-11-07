@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable no-unneeded-ternary */
 import React, { useEffect, useState } from "react";
@@ -29,17 +28,17 @@ export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element
     }
   }, [index]);
 
-  const inCreaseIndex = (e: React.MouseEvent<HTMLElement>): void => {
+  const inCreaseIndex = (): void => {
     setIndex((prev) => prev + 1);
     setTarget(datas ? datas[index] : null);
   };
 
-  const decreaseIndex = (e: React.MouseEvent<HTMLElement>): void => {
+  const decreaseIndex = (): void => {
     setIndex((prev) => prev - 1);
     setTarget(datas ? datas[index] : null);
   };
 
-  const requestChat = (e: React.MouseEvent<HTMLElement>): void => {
+  const requestChat = (): void => {
     if (datas === null) return;
     console.log(datas[0]);
     console.log("소켓연동 후");

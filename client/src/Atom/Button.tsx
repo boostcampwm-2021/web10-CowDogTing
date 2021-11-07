@@ -1,4 +1,3 @@
-/* eslint-disable no-return-assign */
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { ButtonType } from "../util/type";

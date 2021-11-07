@@ -1,8 +1,8 @@
+/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
 
-/** @jsxImportSource @emotion/react */
 const MyInfoContainerStyle = css`
   width: 350px;
   height: 80vh;

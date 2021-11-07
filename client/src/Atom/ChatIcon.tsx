@@ -1,5 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
@@ -11,11 +9,20 @@ const ChatIconStyle = css`
   height: 48px;
   cursor: pointer;
 `;
+
+const buttonStyle = css`
+  background: none;
+`;
 interface ChatIconProps {
   onClick: () => void;
 }
 function ChatIcon(props: ChatIconProps) {
-  return <img alt="user Icon" src={ChatIconImg} onClick={props.onClick} css={ChatIconStyle} />;
+  const { onClick } = props;
+  return (
+    <button type="button" onClick={onClick} css={buttonStyle}>
+      <img alt="user Icon" src={ChatIconImg} css={ChatIconStyle} />
+    </button>
+  );
 }
 
 export default ChatIcon;

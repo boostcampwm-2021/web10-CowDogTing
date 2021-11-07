@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-/* eslint-disable comma-dangle */
 
 import { ChatsInfoType, JoinChatsType, ProfileType, RequestsType, TeamInfoType } from "./type";
 import dummyImage from "../assets/meetingImage.png";

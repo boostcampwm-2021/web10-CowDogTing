@@ -1,5 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
-/** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
 
@@ -25,8 +23,9 @@ const containerStyle = (props: { type: string }) => css`
 `;
 
 export default function VideoSupport(props: { type: string }) {
+  const { type } = props;
   return (
-    <div css={containerStyle({ type: props.type })}>
+    <div css={containerStyle({ type })}>
       <div css={supportStyle} />
       <div css={supportStyle} />
     </div>

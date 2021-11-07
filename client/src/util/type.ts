@@ -137,3 +137,27 @@ export type ChatListContainerType = {
 export type ChatImageContainerType = {
   member?: PersonInfoType[];
 };
+
+export type NavDropDownType = {
+  DropDownList: Array<string>;
+  className: string;
+};
+
+export type LinkButtonType = {
+  url: string | undefined;
+  type: string;
+  content: string;
+};
+
+export type DropDownType = {
+  type: string;
+  className: string;
+};
+
+export type menuType = {
+  link?: string;
+  name: string;
+};
+export type menuListType = {
+  [key: string]: menuType[];
+};
