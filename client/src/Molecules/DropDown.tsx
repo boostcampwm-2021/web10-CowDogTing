@@ -5,29 +5,34 @@ import { DropDownType } from "../util/type";
 import LinkButton from "./LinkButton";
 import { MENU_LIST } from "../util/constant";
 
+const borderTop = css`
+  border-top-left-radius: 27px;
+  border-top-right-radius: 27px;
+`;
+const borderBottom = css`
+  border-bottom-left-radius: 27px;
+  border-bottom-right-radius: 27px;
+`;
+
 const navStyle = css`
   &:first-child {
-    border-top-left-radius: 27px;
-    border-top-right-radius: 27px;
+    ${borderTop}
   }
 
   &:last-child {
-    border-bottom-left-radius: 27px;
-    border-bottom-right-radius: 27px;
+    ${borderBottom}
   }
 `;
 
 const childrenStyle = css`
   &:first-child {
     div {
-      border-top-left-radius: 27px;
-      border-top-right-radius: 27px;
+      ${borderTop}
     }
   }
   &:last-child {
     div {
-      border-bottom-left-radius: 27px;
-      border-bottom-right-radius: 27px;
+      ${borderBottom}
     }
   }
 `;
