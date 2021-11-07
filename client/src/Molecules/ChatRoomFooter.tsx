@@ -78,6 +78,7 @@ export default function ChatRoomFooter() {
           <LinkButton url={gameURL} type="Large" onClick={handleCloseButtonClick} content="게임 시작하기" />
         </LargeModal>
       )}
+
       {openGather && (
         <LargeModal index={index} datas={datas} inCreaseIndex={inCreaseIndex} decreaseIndex={decreaseIndex}>
           <div css={CharacterStyle({ index })} />

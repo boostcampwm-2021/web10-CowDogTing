@@ -17,34 +17,22 @@ export type InputLabelType = {
   placeholder?: string;
 };
 
-export type PersonInfoType = {
+export interface PersonInfoType {
   id: string;
   image: string;
   location: string;
   sex: string;
   age: number;
   info: string;
-};
+}
 
-export type TeamInfoType = {
-  image: string;
-  id: string;
-  info: string;
-  location: string;
-  age: number;
-  sex: string;
+export interface TeamInfoType extends PersonInfoType {
   member?: PersonInfoType[] | null;
-};
+}
 
-export type ProfileType = {
-  id: string;
-  image: string;
-  location: string;
-  sex: string;
-  age: number;
-  info: string;
+export interface ProfileType extends PersonInfoType {
   member?: PersonInfoType[];
-};
+}
 
 export type ProfileInfoDataType = {
   data: ProfileType;
