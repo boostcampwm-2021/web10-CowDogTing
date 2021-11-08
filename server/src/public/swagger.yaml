@@ -102,28 +102,7 @@ paths:
                 type: boolean
               example:
                 true
-  /api/auth/validation:
-    get:
-      summary: 회원가입(아이디 중복 검사)
-      parameters:
-        - name: id
-          in: query
-          required: true
-          description: 유저 아이디
-          schema:
-            type: string
-          example:
-            "my_id"
-      responses:
-        '200':
-          description: 회원가입 아이디 중복 검사 확인
-          content:
-            application/json:
-              schema:
-                type: boolean
-              example:
-                true
-  /api/auth/register:
+  /api/auth/join:
     post:
       summary: 회원가입
       parameters:
