@@ -4,8 +4,32 @@ import { Users } from "../../models/users";
 
 /**
  *
- * @param param0
- * @returns
+ * @param param0 => { uid }
+ * @returns => {
+                  "data": [
+                    {
+                      "chatRoomID": 1,
+                      "member": [
+                        {
+                          "id": "영진",
+                          "image": "dummyImage",
+                          "location": "우as만동",
+                          "sex": "male",
+                          "age": 25,
+                          "info": "gggg"
+                        },
+                      ],
+                      "chatMessage": [
+                        {
+                          "from": "123",
+                          "message": "ㅎㅇㅎㅇ",
+                          "read": true,
+                          "source": "image"
+                        },
+                      ]
+                    },
+                  ]
+                }
  * [get] /api/chat/messages
  * raw: true 를 넣어주면 dataValues가 바로 나온다고함
  * User Table에 chatRoomId 필요할 것 같음
@@ -33,13 +57,27 @@ export const findChatRoomInfo = async ({ uid }) => {
           },
         ],
       },
+      {
+        raw: true,
+        attributes: ["uid", "message", "source", "chatId"],
+        order: ["chatId", "DESC"],
+        limit: 10,
+        where: { chatRoomId },
+        include: [
+          {
+            raw: true,
+            model: Image,
+            where: { id: source },
+          },
+        ],
+      },
     ],
   };
 
   const datas = await Users.findAll(query);
   // datas =
-  // {
-  //   chatRoomID : 1,
+  // [{
+  //   chatRoomId : 1,
   //   Users : [{
   //     uid : '영진',
   //     image : 0,
@@ -60,17 +98,44 @@ export const findChatRoomInfo = async ({ uid }) => {
   //     Image : [{
   //       image : 'asdfasdf'
   //     }]
-  //   }]
-  // }
+  //   }],
+  //  Chat : [{
+  //            uid : '영진',
+  //            message : 'hihi',
+  //            source : 0,
+  //            chatId : 10,
+  //            Image : [{
+  //              image : 'ImagePath'
+  //            }],
+  //          }]
+  // }]
   const data = datas.map((item) => {
-    const { uid: id, Image, location, sex, age, info } = item;
+    const { chatRoomId, Users, Chat } = item;
+    const member = Users.map((user) => {
+      const { uid: id, Image, location, sex, age, info } = user;
+      return {
+        id,
+        image: Image[0].image,
+        location,
+        sex,
+        age,
+        info,
+      };
+    });
+    const chatMessage = Chat.map((chat) => {
+      const { uid: from, message, Image, chatId } = chat;
+      return {
+        from,
+        message,
+        image: Image[0].image,
+        id: chatId,
+      };
+    });
+
     return {
-      id,
-      image: Image[0].image,
-      location,
-      sex,
-      age,
-      info,
+      chatRoomId,
+      member,
+      chatMessage,
     };
   });
 
