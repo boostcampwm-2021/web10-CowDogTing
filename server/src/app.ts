@@ -6,8 +6,8 @@ import * as cookieParser from "cookie-parser";
 import * as passport from "passport";
 import * as cors from "cors";
 
-import apiRouter from "./api/routes/auth";
-import passportConfig from "./api/passport";
+import apiRouter from "./api/auth";
+import passportConfig from "./passport";
 dotenv.config();
 
 const app: express.Application = express();

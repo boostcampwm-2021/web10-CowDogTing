@@ -1,7 +1,7 @@
 import * as passport from "passport";
 import * as passportLocal from "passport-local";
 import * as bcrypt from "bcrypt";
-import { Users } from "../../models/users";
+import { Users } from "../models/users";
 
 const LocalStrategy = passportLocal.Strategy;
 export default () => {
@@ -15,8 +15,8 @@ export default () => {
         try {
           const exUser = await Users.findOne({ where: { uid } });
           if (exUser) {
-            // const result = await bcrypt.compare(password, exUser.password);
-            const result = password === exUser.password;
+            const result = await bcrypt.compare(password, exUser.password);
+            // const result = password === exUser.password;
             if (result) {
               done(null, exUser);
             } else {

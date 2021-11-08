@@ -9,9 +9,10 @@ interface UserAttributes {
   github_id: string;
   naver_id: string;
   kakao_id: string;
-  image: string;
+  image: number;
   age: number;
   sex: string;
+  gid: number;
 }
 
 export class Users extends Model<UserAttributes> {
@@ -21,9 +22,10 @@ export class Users extends Model<UserAttributes> {
   public github_id!: string;
   public naver_id!: string;
   public kakao_id!: string;
-  public image!: string;
+  public image!: number;
   public age!: number;
   public sex!: string;
+  public gid!: number;
 
   public static associations: {};
 }
@@ -53,7 +55,7 @@ Users.init(
       type: DataTypes.STRING(30),
     },
     image: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     age: {
@@ -63,6 +65,9 @@ Users.init(
     sex: {
       type: DataTypes.STRING(30),
       allowNull: false,
+    },
+    gid: {
+      type: DataTypes.INTEGER,
     },
   },
   {
@@ -74,11 +79,11 @@ Users.init(
   }
 );
 
-// Team.hasOne(Users, {
-//   sourceKey: "gid",
-//   foreignKey: "gid",
-// });
-// Users.belongsTo(Team, {
-//   foreignKey: "gid",
-//   targetKey: "gid",
-// });
+Team.hasOne(Users, {
+  sourceKey: "gid",
+  foreignKey: "gid",
+});
+Users.belongsTo(Team, {
+  foreignKey: "gid",
+  targetKey: "gid",
+});

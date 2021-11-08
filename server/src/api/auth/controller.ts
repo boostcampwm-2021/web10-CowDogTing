@@ -1,15 +1,14 @@
-import * as express from "express";
 import * as passport from "passport";
 import { findUser, createUser } from "./service";
 
-export const handleJoin = async (req, res, next) => {
-  const { uid, password, email, name, location, image, age, sex }: { uid: string; password: string; email: string; name: string; location: string; image: number; age: number; sex: string } = req.body;
+export const handleRegister = async (req, res, next) => {
+  const { uid, password, location, age, sex }: { uid: string; password: string; location: string; age: number; sex: string } = req.body;
   try {
     const exUser = await findUser({ uid });
     if (exUser) {
       return res.send({ test: "해당 아이디 존재" });
     }
-    await createUser({ uid, password, location, image, age, sex });
+    await createUser({ uid, password, location, age, sex });
     return res.send({ test: "회원가입 성공" });
   } catch (error) {
     console.error(error);
@@ -31,7 +30,7 @@ export const handleLogin = (req, res, next) => {
         console.error(loginError);
         return next(loginError);
       }
-      return res.send({ test: "로그인 성공" });
+      return res.send(user);
     });
   })(req, res, next);
 };

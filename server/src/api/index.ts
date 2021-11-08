@@ -1,8 +1,8 @@
 import { Router } from "express";
-import authRouter from "./routes/auth";
-import chatRouter from "./routes/chat";
-import coreRouter from "./routes/core";
-import teamRouter from "./routes/team";
+import authRouter from "./auth";
+import chatRouter from "./chat";
+import coreRouter from "./core";
+import teamRouter from "./team";
 
 const router = Router();
 router.use("/auth", authRouter);
