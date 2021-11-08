@@ -22,8 +22,8 @@ app.use(
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   session({
-    resave: false,
-    saveUninitialized: true,
+    resave: true,
+    saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
     cookie: {
       httpOnly: true,
@@ -31,10 +31,15 @@ app.use(
     },
   })
 );
-// app.use(express.static("src/public")); // API Test
+app.use(express.static("src/public")); // API Test
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 app.use(morgan("dev"));
 app.use("/api", apiRouter);
 app.get("/", (req, res) => {
@@ -46,7 +51,6 @@ app.use((err, req, res, next) => {
   res.locals.error = err;
   const status = err.status || 500;
   res.status(status);
-  res.render("error");
 });
 
 export default app;
