@@ -1,27 +1,48 @@
 import * as express from "express";
-import * as path from "path";
 import * as morgan from "morgan";
-import * as dotenv from 'dotenv';
-// import * as session from "express-session";
-// import * as cookieParser from "cookie-parser";
-import apiRouter from "./api";
+import * as dotenv from "dotenv";
+import * as session from "express-session";
+import * as cookieParser from "cookie-parser";
+import * as passport from "passport";
+import * as cors from "cors";
 
 dotenv.config();
+import apiRouter from "./api/routes/auth/auth";
+import passportConfig from "./api/passport";
 
-const app : express.Application = express();
-
+const app: express.Application = express();
+passportConfig();
 
 app.use(express.json());
 app.use(
-    express.urlencoded({
+  express.urlencoded({
     extended: false,
-  }),
+  })
 );
-app.use(morgan('dev'));
-app.use('/api', apiRouter);
-app.get('/', (req, res) => {
-    res.send('Hello');
-});
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.COOKIE_SECRET,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+    },
+  })
+);
+app.use(express.static("src/public")); // API Test
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(cors());
+app.use(morgan("dev"));
+app.use("/api", apiRouter);
 
+app.use((err, req, res, next) => {
+  res.locals.error = err;
+  const status = err.status || 500;
+  res.status(status);
+  res.render("error");
+});
 
 export default app;
