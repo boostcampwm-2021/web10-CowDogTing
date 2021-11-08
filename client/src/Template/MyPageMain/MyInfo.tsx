@@ -11,6 +11,7 @@ const MyInfoStyle = css`
   display: flex;
   align-items: center;
 `;
+
 export default function MyInfo() {
   return (
     <div css={MyInfoStyle}>
