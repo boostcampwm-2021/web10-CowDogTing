@@ -1,6 +1,10 @@
-import * as express from 'express';
+// import { Router } from "express";
+// import auth from "./routes/auth";
 
-const apiRouter = express.Router();
-/* http method */
+// /* http method */
 
-export default apiRouter;
+// export default () => {
+//   const router = Router();
+
+//   apiRouter;
+// };
