@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
+import React, { useRef } from "react";
 import { css } from "@emotion/react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../Atom/Button";
@@ -36,19 +36,42 @@ const SocialLoginButtonContainerStyle = css`
 export default function LogInPage() {
   const searchParams = new URLSearchParams(useLocation().search);
   const code = searchParams.get("code");
+  const idRef = useRef(null);
+  const pwRef = useRef(null);
+
+  const clickLogin = async () => {
+    if (idRef.current === null) return;
+    if (pwRef.current === null) return;
+    const id = (idRef.current as HTMLInputElement).value;
+    const pw = (pwRef.current as HTMLInputElement).value;
+    console.log(id);
+    console.log(pw);
+    const response = await fetch("http://localhost:4000/api/login", {
+      method: "POST",
+      headers: {
+        credential: "include",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ uid: id, password: pw }),
+    });
+    const body = await response.json();
+    console.log(body);
+  };
 
   return (
     <>
       <div css={containerStyle}>
         <div css={titleStyle}>Sign in</div>
-        <Input placeholder="ID" autoComplete="off" />
-        <Input placeholder="PW" type="password" autoComplete="off" />
+        <Input ref={idRef} placeholder="ID" autoComplete="off" />
+        <Input ref={pwRef} placeholder="PW" type="password" autoComplete="off" />
 
         <div css={ButtonContainerStyle}>
           <Link to="/sub/Register">
             <Button type="Small">회원가입</Button>
           </Link>
-          <Button type="Small">로그인</Button>
+          <Button type="Small" onClick={clickLogin}>
+            로그인
+          </Button>
         </div>
 
         {!code && (
