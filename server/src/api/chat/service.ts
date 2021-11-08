@@ -1,5 +1,5 @@
-import { Chat } from "../../../models/chat";
-import { Users } from "../../../models/users";
+import { Chat } from "../../models/chat";
+import { Users } from "../../models/users";
 
 export const findChatRoomInfo = async ({ uid }) => {
   // uid로 chatRoom 정보 가져오고

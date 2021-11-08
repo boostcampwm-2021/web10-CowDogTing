@@ -1,4 +1,4 @@
-import { Users } from "../../../models/users";
+import { Users } from "../../models/users";
 import * as bcrypt from "bcrypt";
 
 export const findUser = async ({ uid }) => {

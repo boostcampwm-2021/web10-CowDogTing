@@ -1,7 +1,7 @@
 import * as express from "express";
 import * as passport from "passport";
 import * as bcrypt from "bcrypt";
-import { Users } from "../../../models/users";
+import { Users } from "../../models/users";
 import { findUser, createUser } from "./service";
 
 export const handleJoin = async (req, res, next) => {
