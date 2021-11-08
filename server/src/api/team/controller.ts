@@ -1,35 +1,20 @@
 import { _createTeam, findTeam, _updateTeam, _inviteTeam } from "./service";
 
-/**
- *
- * @param res
- * @param req
- *
- * [get] : /api/team/info
- */
-export const getTeamInfo = async (req, res) => {
-  const {
-    query: { teamId: gid },
-  } = req;
-
-  try {
-    const data = await findTeam({ gid });
-    res.send(data);
-  } catch (err) {
-    res.send(err);
-  }
+export const getTeamInfo = async (res, req) => {
+  const gid = res.teamID;
+  const data = await findTeam({ gid });
 };
-export const createTeam = async (req, res) => {
-  const { teamInfo } = res;
+export const createTeam = async (res, req) => {
+  const teamInfo = res.teamInfo;
   await _createTeam({ teamInfo });
 };
-export const updateTeam = async (req, res) => {
-  const { teamInfo } = res;
+export const updateTeam = async (res, req) => {
+  const teamInfo = res.teamInfo;
   await _updateTeam({ teamInfo });
 };
-export const inviteTeam = async (req, res) => {
+export const inviteTeam = async (res, req) => {
   // swagger에 잘못 나와있는거가틈. 팀 아이디가 없음
   const gid = res.teamID;
-  const { inviteID } = res;
+  const inviteID = res.inviteID;
   await _inviteTeam({ gid, inviteID });
 };
