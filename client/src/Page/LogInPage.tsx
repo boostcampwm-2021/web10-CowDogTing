@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useRef } from "react";
+import axios from "axios";
 import { css } from "@emotion/react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../Atom/Button";
@@ -44,18 +45,8 @@ export default function LogInPage() {
     if (pwRef.current === null) return;
     const id = (idRef.current as HTMLInputElement).value;
     const pw = (pwRef.current as HTMLInputElement).value;
-    console.log(id);
-    console.log(pw);
-    const response = await fetch("http://localhost:4000/api/login", {
-      method: "POST",
-      headers: {
-        credential: "include",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ uid: id, password: pw }),
-    });
-    const body = await response.json();
-    console.log(body);
+    const response = await axios.post("http://localhost:4000/api/login", { uid: id, password: pw }, { withCredentials: true });
+    console.log(response);
   };
 
   return (
