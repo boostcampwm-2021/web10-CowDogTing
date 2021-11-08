@@ -3,7 +3,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /** @jsxImportSource @emotion/react */
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import axios from "axios";
 import { css } from "@emotion/react";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
@@ -35,18 +36,49 @@ export default function RegisterPage() {
   const [firstPassword, setFirstPassword] = useState<string>("");
   const [secondPassword, setSecondPassword] = useState<string>("");
   const [passwordCheck, setPasswordCheck] = useState<boolean>(true);
+  const idRef = useRef(null);
+  const pwRef = useRef(null);
+  const loRef = useRef(null);
+  const ageRef = useRef(null);
+  const sexRef = useRef(null);
+
+  const clickRegister = async () => {
+    if (idRef.current === null) return;
+    if (pwRef.current === null) return;
+    if (loRef.current === null) return;
+    if (ageRef.current === null) return;
+    if (sexRef.current === null) return;
+    const id = (idRef.current as HTMLInputElement).value;
+    const pw = (pwRef.current as HTMLInputElement).value;
+    const location = (pwRef.current as HTMLInputElement).value;
+    const age = (pwRef.current as HTMLInputElement).value;
+    const sex = (pwRef.current as HTMLInputElement).value;
+    const response = await axios.post(
+      "http://localhost:4000/api/register",
+      {
+        uid: id,
+        password: pw,
+        location,
+        age,
+        sex,
+      },
+      { withCredentials: true }
+    );
+    console.log(response);
+  };
 
   return (
     <>
       <div css={RegisterContainerStyle}>
         <div>ID</div>
         <div css={IdContainerStyle}>
-          <Input placeholder="ID" autoComplete="off" />
+          <Input ref={idRef} placeholder="ID" autoComplete="off" />
           <Button type="Small"> 중복 체크 </Button>
         </div>
 
         <div>Password</div>
         <Input
+          ref={pwRef}
           placeholder="Password"
           type="password"
           autoComplete="off"
@@ -74,15 +106,18 @@ export default function RegisterPage() {
         />
 
         <div>Location</div>
-        <Input placeholder="Location" autoComplete="off" />
+        <Input ref={loRef} placeholder="Location" autoComplete="off" />
 
         <div>Age</div>
-        <Input placeholder="Age" autoComplete="off" />
+        <Input ref={ageRef} placeholder="Age" autoComplete="off" />
 
         <div>Sex</div>
-        <Input placeholder="Sex" autoComplete="off" />
+        <Input ref={sexRef} placeholder="Sex" autoComplete="off" />
 
-        <Button type="Long"> 회원가입 </Button>
+        <Button type="Long" onClick={clickRegister}>
+          {" "}
+          회원가입{" "}
+        </Button>
       </div>
     </>
   );
