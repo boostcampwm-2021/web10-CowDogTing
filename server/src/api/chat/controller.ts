@@ -29,11 +29,11 @@ export const getChatsInfo = async (req, res) => {
  */
 export const getChatMessage = async (req, res) => {
   const {
-    query: { chatRoomId },
+    query: { chatRoomId, index },
   } = req;
 
   try {
-    const data = await findMessages({ chatRoomId });
+    const data = await findMessages({ chatRoomId, index });
     res.send(data);
   } catch (err) {
     // 어떻게 할까?
