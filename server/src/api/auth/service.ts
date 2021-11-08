@@ -11,11 +11,12 @@ export const createUser = async ({ uid, password, location, image, age, sex }) =
     uid,
     password,
     location,
-    github_id: "",
-    naver_id: "",
-    kakao_id: "",
+    github_id: null,
+    naver_id: null,
+    kakao_id: null,
     image,
     age,
     sex,
+    gid: null,
   });
 };
