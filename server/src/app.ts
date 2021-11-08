@@ -22,7 +22,7 @@ app.use(
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   session({
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
     cookie: {
@@ -31,12 +31,15 @@ app.use(
     },
   })
 );
-app.use(express.static("src/public")); // API Test
+// app.use(express.static("src/public")); // API Test
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
 app.use(morgan("dev"));
 app.use("/api", apiRouter);
+app.get("/", (req, res) => {
+  res.send(req.user);
+});
 
 app.use((err, req, res, next) => {
   res.locals.error = err;
