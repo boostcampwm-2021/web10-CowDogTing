@@ -5,8 +5,6 @@ import { sequelize } from "./index";
 interface UserAttributes {
   uid: string;
   password: string;
-  email: string;
-  name: string;
   location: string;
   github_id: string;
   naver_id: string;
@@ -14,14 +12,11 @@ interface UserAttributes {
   image: string;
   age: number;
   sex: string;
-  gid: number;
 }
 
 export class Users extends Model<UserAttributes> {
   public uid!: string;
   public password!: string;
-  public email!: string;
-  public name!: string;
   public location!: string;
   public github_id!: string;
   public naver_id!: string;
@@ -29,7 +24,6 @@ export class Users extends Model<UserAttributes> {
   public image!: string;
   public age!: number;
   public sex!: string;
-  public gid!: number;
 
   public static associations: {};
 }
@@ -42,14 +36,6 @@ Users.init(
       primaryKey: true,
     },
     password: {
-      type: DataTypes.STRING(30),
-      allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING(30),
-      allowNull: false,
-    },
-    name: {
       type: DataTypes.STRING(30),
       allowNull: false,
     },
@@ -78,10 +64,6 @@ Users.init(
       type: DataTypes.STRING(30),
       allowNull: false,
     },
-    gid: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
   },
   {
     modelName: "Users",
@@ -92,11 +74,11 @@ Users.init(
   }
 );
 
-Team.hasOne(Users, {
-  sourceKey: "gid",
-  foreignKey: "gid",
-});
-Users.belongsTo(Team, {
-  foreignKey: "gid",
-  targetKey: "gid",
-});
+// Team.hasOne(Users, {
+//   sourceKey: "gid",
+//   foreignKey: "gid",
+// });
+// Users.belongsTo(Team, {
+//   foreignKey: "gid",
+//   targetKey: "gid",
+// });
