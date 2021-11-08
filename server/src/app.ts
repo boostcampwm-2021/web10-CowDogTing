@@ -22,8 +22,8 @@ app.use(
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   session({
-    resave: true,
-    saveUninitialized: false,
+    resave: false,
+    saveUninitialized: true,
     secret: process.env.COOKIE_SECRET,
     cookie: {
       httpOnly: true,
@@ -38,7 +38,8 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use("/api", apiRouter);
 app.get("/", (req, res) => {
-  res.send(req.user);
+  console.log("세션");
+  console.log(req.session);
 });
 
 app.use((err, req, res, next) => {

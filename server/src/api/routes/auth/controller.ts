@@ -21,25 +21,25 @@ export const handleJoin = async (req, res, next) => {
 };
 
 export const handleLogin = (req, res, next) => {
-  // passport.authenticate("local", (authError, user, info) => {
-  //   if (authError) {
-  //     console.error(authError);
-  //     return next(authError);
-  //   }
-  //   if (!user) {
-  //     return res.send({ test: "회원정보 불일치", info: [info] });
-  //   }
-  //   return req.login(user, (loginError) => {
-  //     if (loginError) {
-  //       console.error(loginError);
-  //       return next(loginError);
-  //     }
-  //     res.cookie("sibal", "sibalsaeki");
-  //     res.send({ test: "로그인 성공" });
-  //     // return res.redirect("http://localhost:3001/main");
-  //   });
-  // })(req, res, next);
-  res.cookie("rememberme", "1", { expires: new Date(Date.now() + 900000), httpOnly: true });
+  passport.authenticate("local", (authError, user, info) => {
+    if (authError) {
+      console.error(authError);
+      return next(authError);
+    }
+    if (!user) {
+      return res.send({ test: "회원정보 불일치", info: [info] });
+    }
+    return req.login(user, (loginError) => {
+      if (loginError) {
+        console.error(loginError);
+        return next(loginError);
+      }
+      res.cookie("sibal", "sibalsaeki");
+      return res.send({ test: "로그인 성공" });
+      // return res.redirect("http://localhost:3001/main");
+    });
+  })(req, res, next);
+  // res.cookie("rememberme", JSON.stringify("1"), { expires: new Date(Date.now() + 900000), httpOnly: false });
   res.send({ test: "로그인 성공" });
 };
 
