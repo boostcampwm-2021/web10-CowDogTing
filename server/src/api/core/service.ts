@@ -1,3 +1,4 @@
+import { sequelize } from "./../../models/index";
 import { Op } from "sequelize";
 import { Request } from "./../../models/request";
 import { Chat } from "../../models/chat";
@@ -9,17 +10,13 @@ export const findImage = async ({ imageID }) => {
 };
 
 export const findChatRoomNotReadNum = async ({ uid }) => {
-  // uid로 chatRoom의 id값 가져와서
-  // join으로 message 가져오는데
-  // read : false 인 애들 만 가져와서
-  // 숫자로 변환해서 return 해주기
   const joinCathRoom = await findJoinChatRooms({ uid }); // chat의 service와 중복 => 나중에 공통으로
   console.log(joinCathRoom);
   const chatList = await Promise.all(
     joinCathRoom.map(async (RoomNum) => {
       return {
         ...RoomNum,
-        num: await findAllChat(RoomNum),
+        notReadNum: await findAllChat(RoomNum),
       };
     })
   );
@@ -44,7 +41,7 @@ export const findAllRequest = async ({ uid }) => {
         model: Users,
         as: "info",
         attributes: ["uid", "image", "location", "sex", "age"],
-        // attributes: ["uid", "image", "location", "sex", "age", "info"]
+        // attributes: ["uid", "image", "location", "sex", "age", "info"] // 나중에 info 컬럼 추가시 해당 열 사용
       },
     ],
     where: {
@@ -54,4 +51,13 @@ export const findAllRequest = async ({ uid }) => {
   const requests = await Request.findAll(query);
 
   return requests;
+};
+
+export const findUserInfo = async ({ uid }) => {
+  const query = {
+    attributes: [["uid", "id"], "image", "location", "sex", "age"],
+    where: { uid },
+  };
+  const userInfo = await Users.findOne(query as object);
+  return userInfo;
 };
