@@ -11,8 +11,16 @@ export const getTeamInfo = async (req, res, next) => {
   }
 };
 export const createTeam = async (req, res, next) => {
-  const teamInfo = res.teamInfo;
-  await _createTeam({ teamInfo });
+  const teamInfo = req.body;
+  try {
+    const result = await _createTeam({ teamInfo });
+    /*
+    if (!result) res.send({ error: "팀 생성 실패" });
+    if (result) res.send({ success: "팀 생성 성공" });
+    */
+  } catch (error) {
+    next(error);
+  }
 };
 export const updateTeam = async (req, res, next) => {
   const teamInfo = res.teamInfo;
