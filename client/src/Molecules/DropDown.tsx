@@ -58,9 +58,15 @@ const ChatDropDownStyle = css`
   margin-left: -180px;
   ${BasicDropDownStyle}
 `;
+const MeetingDropDownStyle = css`
+  position: absolute;
+  margin-left: 150px;
+  margin-bottom: 150px;
+`;
 
 const DropDownStyle = (props: { type: string; className: string }) => css`
   ${props.type === "Menu" && BasicDropDownStyle}
+  ${props.type === "Meeting" && MeetingDropDownStyle}
   ${props.type === "User" && UserDropDownStyle}
   ${props.type === "Location" && NavDropDownStyle}
   ${props.type === "Age" && NavDropDownStyle}
@@ -78,6 +84,7 @@ const DropDownContainer = styled.div`
 
 export default function DropDown(props: DropDownType) {
   const { type, className } = props;
+
   const list = MENU_LIST[type];
 
   return (

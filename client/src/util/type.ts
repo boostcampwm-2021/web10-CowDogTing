@@ -1,3 +1,5 @@
+import { RefObject } from "react";
+
 export type ButtonType = {
   type?: string;
   color?: string;
@@ -139,6 +141,7 @@ export type LinkButtonType = {
 };
 
 export type DropDownType = {
+  DropDownRef?: RefObject<HTMLDivElement>;
   type: string;
   className: string;
 };
