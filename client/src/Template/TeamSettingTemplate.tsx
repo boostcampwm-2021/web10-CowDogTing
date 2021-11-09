@@ -40,12 +40,12 @@ function TeamSettingTemplate() {
         <InputLabel label="지역" placeholder={teamInfo?.location} />
       </TeamInfoContainer>
       <TeamSettingMemberContainer>
-        {teamInfo?.member?.map((data: PersonInfoType) => {
+        {teamInfo?.member?.map((data: PersonInfoType, idx) => {
           const { sex } = data;
           return (
             <div css={ProfileStyle}>
-              <ProfileCard type={sex}>
-                <ProfileInfo data={data} />
+              <ProfileCard type={sex} idx={idx}>
+                <ProfileInfo data={data} idx={idx} />
               </ProfileCard>
             </div>
           );

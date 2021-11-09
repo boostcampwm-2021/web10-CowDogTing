@@ -38,6 +38,7 @@ export interface ProfileType extends PersonInfoType {
 
 export type ProfileInfoDataType = {
   data: ProfileType;
+  idx?: number;
 };
 
 export type ProfileListType = {
@@ -111,6 +112,7 @@ export type ChatProfileContainerType = {
 export type ProfileCardType = {
   type: string;
   children?: undefined | JSX.Element[] | JSX.Element | string;
+  idx: number;
 };
 
 export type ChatListInfoType = {

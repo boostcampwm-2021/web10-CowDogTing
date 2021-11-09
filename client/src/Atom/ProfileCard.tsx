@@ -19,6 +19,10 @@ const ProfileCardContainer = styled.div`
   ${typeStyle}
 `;
 
-export default function ProfileCard({ type, children }: ProfileCardType) {
-  return <ProfileCardContainer type={type}>{children}</ProfileCardContainer>;
+export default function ProfileCard({ type, children, idx }: ProfileCardType) {
+  return (
+    <ProfileCardContainer type={type} data-id={idx}>
+      {children}
+    </ProfileCardContainer>
+  );
 }
