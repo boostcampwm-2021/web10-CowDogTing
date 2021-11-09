@@ -1,19 +1,19 @@
 /* eslint-disable no-console */
-import { RefObject, useLayoutEffect } from "react";
+import { RefObject, useEffect } from "react";
 
-export default function useModalEvent(ref: RefObject<HTMLDivElement>, handler: () => void) {
-  useLayoutEffect(() => {
-    function listener(event: MouseEvent) {
+export default function useModalEvent(ref: RefObject<HTMLDivElement>, handler: (event: MouseEvent) => void) {
+  useEffect(() => {
+    const listener = (event: MouseEvent): void => {
       const target: HTMLElement = event.target as HTMLElement;
-      console.log(ref.current);
       if (!ref.current || ref.current.contains(target)) {
-        // console.log("?");
         return;
       }
-      handler();
-    }
+      handler(event);
+    };
+    document.addEventListener("click", listener);
 
-    document.addEventListener("click", (e) => listener(e));
-    return document.removeEventListener("click", listener);
+    return () => {
+      document.removeEventListener("click", listener);
+    };
   }, [ref, handler]);
 }

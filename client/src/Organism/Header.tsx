@@ -40,19 +40,11 @@ export default function Header() {
     setUserOpen((isOpen) => !isOpen);
   };
 
-  // const [meetingOpen, setMeetingOpen] = useState(false);
-  // const meetingRef = useRef<HTMLDivElement>(null);
-  // useModalEvent(meetingRef, () => setMenuOpen(false));
-  // const ToggleMeetingModal = () => {
-  //   setMeetingOpen((isOpen) => !isOpen);
-  // };
-
   return (
     <div css={HeaderStyle} id="header">
       <div ref={menuRef}>
         <Menu onClick={() => ToggleMenuModal()} />
         <DropDown type="Menu" className={menuOpen ? "show" : "hide"} />
-        {/* {meetingOpen && <DropDown ref={meetingRef} type="Meeting" className={menuOpen ? "show" : "hide"} />} */}
       </div>
       <Link to="/main">
         <MainHeaderLogo />
