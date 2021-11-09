@@ -27,9 +27,16 @@ export interface PersonInfoType {
   info: string;
 }
 
-export interface TeamInfoType extends PersonInfoType {
+export type TeamInfoType = {
+  image: string;
+  id: string;
+  info: string;
+  location: string;
+  age: number;
+  sex: string;
+  leader: string;
   member?: PersonInfoType[] | null;
-}
+};
 
 export interface ProfileType extends PersonInfoType {
   member?: PersonInfoType[];
