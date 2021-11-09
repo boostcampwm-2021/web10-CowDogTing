@@ -15,6 +15,7 @@ export type ChildrenType = {
 export type InputLabelType = {
   label: string;
   placeholder?: string;
+  refProps?: React.MutableRefObject<HTMLInputElement | null>;
 };
 
 export interface PersonInfoType {
