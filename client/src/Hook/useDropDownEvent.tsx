@@ -15,5 +15,5 @@ export default function useDropDownEvent(ref: RefObject<HTMLDivElement>, handler
     return () => {
       document.removeEventListener("click", listener);
     };
-  }, [ref, handler]);
+  }, [ref]);
 }

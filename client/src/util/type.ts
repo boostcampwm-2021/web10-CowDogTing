@@ -44,6 +44,7 @@ export type ProfileListType = {
   datas?: PersonInfoType[] | null | ProfileType[];
   person: number;
   setOpenModal: (prev: any) => void;
+  children?: JSX.Element;
 };
 
 export type LargeModalType = {

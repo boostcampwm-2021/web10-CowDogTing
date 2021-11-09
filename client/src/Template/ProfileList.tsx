@@ -19,7 +19,7 @@ const ProfileStyle = css`
   margin: 30px 0px;
 `;
 
-export default function ProfileList({ datas, person, setOpenModal }: ProfileListType) {
+export default function ProfileList({ datas, person, setOpenModal, children }: ProfileListType) {
   const handleModalClick = (e: React.MouseEvent) => {
     const closestElement = (e.target as HTMLElement).closest(".Profile");
     if (!closestElement) return;
@@ -40,6 +40,7 @@ export default function ProfileList({ datas, person, setOpenModal }: ProfileList
             <ProfileCard type={sex}>
               <ProfileInfo data={data} />
             </ProfileCard>
+            {children}
           </div>
         );
       })}

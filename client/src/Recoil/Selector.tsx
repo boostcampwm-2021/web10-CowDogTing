@@ -1,3 +1,4 @@
+import axios from "axios";
 import { selector, selectorFamily } from "recoil";
 // import { selector, selectorFamily, useRecoilState, useRecoilValue } from "recoil";
 // import { testState } from "./Atom";
@@ -21,10 +22,10 @@ export const testSelector = selector({
 export const fetchGet = selectorFamily({
   key: "fetchGet",
   get:
-    ({ url, query, atom }: { url: string; query: string; atom: any }) =>
-    async ({ get }: any): Promise<any> => {
-      const response = await fetch(`localhost:3000/${url}?${query}=${get(atom)}`);
-      return response.json();
+    ({ url, query }: { url: string; query: string }) =>
+    async (): Promise<any> => {
+      const { data } = await axios.get(`localhost:3000/${url}?${query}`);
+      return data;
     },
 });
 // const fetchGetState = useRecoilValue(fetchGet({ url: "aaa", query: "aaa", atom: fool }));

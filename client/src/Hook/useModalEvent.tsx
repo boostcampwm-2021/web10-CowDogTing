@@ -17,5 +17,5 @@ export default function useModalEvent(ref: RefObject<HTMLDivElement>, handler: (
     return () => {
       document.removeEventListener("click", listener);
     };
-  }, [handler]);
+  }, [ref, handler]);
 }

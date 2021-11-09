@@ -40,6 +40,7 @@ export default function RequestPage() {
   const [RequestForMe, setRequestForMe] = useState<ProfileType[]>([]);
   const [RequestToMe, setRequestToMe] = useState<ProfileType[]>([]);
   const [openModal, setOpenModal] = useState<number | null>(null);
+
   const myId = "123";
   const person = 1;
 
@@ -62,13 +63,13 @@ export default function RequestPage() {
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>나에게 온 요청</div>
         <ProfileList datas={RequestForMe} person={person} setOpenModal={setOpenModal} />
-        {/* {RequestForMe && openModal !== null && <ProfileModal data={RequestForMe[Number(openModal)]} />} */}
+        <div ref={modalRef}>{RequestForMe && openModal !== null && <ProfileModal data={RequestForMe[Number(openModal)]} />}</div>
       </div>
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>내가 보낸 요청</div>
         <ProfileList datas={RequestToMe} person={person} setOpenModal={setOpenModal} />
+        <div ref={modalRef}>{RequestToMe && openModal !== null && <ProfileModal data={RequestToMe[Number(openModal)]} />}</div>
       </div>
-      <div ref={modalRef}>{RequestToMe && openModal !== null && <ProfileModal data={RequestToMe[Number(openModal)]} />}</div>
     </div>
   );
 }
