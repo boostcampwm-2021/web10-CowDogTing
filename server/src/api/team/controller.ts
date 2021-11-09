@@ -14,10 +14,8 @@ export const createTeam = async (req, res, next) => {
   const teamInfo = req.body;
   try {
     const result = await _createTeam({ teamInfo });
-    /*
     if (!result) res.send({ error: "팀 생성 실패" });
     if (result) res.send({ success: "팀 생성 성공" });
-    */
   } catch (error) {
     next(error);
   }
@@ -28,7 +26,12 @@ export const updateTeam = async (req, res, next) => {
 };
 export const inviteTeam = async (req, res, next) => {
   // swagger에 잘못 나와있는거가틈. 팀 아이디가 없음
-  const gid = res.teamID;
-  const inviteID = res.inviteID;
-  await _inviteTeam({ gid, inviteID });
+  const inviteInfo = req.body;
+  try {
+    const result = await _inviteTeam({ inviteInfo });
+    if (!result) res.send({ error: "팀 초대 실패" });
+    if (result) res.send({ success: "팀 초대  성공" });
+  } catch (error) {
+    next(error);
+  }
 };
