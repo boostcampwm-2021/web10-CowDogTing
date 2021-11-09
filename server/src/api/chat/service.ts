@@ -6,30 +6,55 @@ import { Users } from "../../models/users";
 export const findChatRoomInfo = async ({ uid }) => {
   // uid로 chatRoom 정보 가져오고
   // join으로 chatRoom에 대한 user 정보 가져오기
+  const query = ({ chatRoomId }) => {
+    return {
+      raw: true,
+      include: [
+        {
+          model: Users,
+        },
+      ],
+      where: chatRoomId,
+      attribute: [],
+    };
+  };
+
+  const joinChatRooms = await findJoinChatRooms({ uid });
+
+  const promiseArr = joinChatRooms.map((chatRoomId, idx) => {
+    return Participant.findAll(query({ chatRoomId }));
+  });
+  const memberData = await Promise.all(promiseArr);
+
+  const filteredMemberData = memberData.map((chatRoomMember) => {
+    return chatRoomMember.map((member) => {
+      return {
+        id: member["User.uid"],
+        image: member["User.image"],
+        location: member["User.location"],
+        sex: member["User.sex"],
+        age: member["User.age"],
+        info: member["User.info"],
+      };
+    });
+  });
+
+  const datas = joinChatRooms.map((chatRoomId, idx) => {
+    return { ...chatRoomId, member: filteredMemberData[idx] };
+  });
+  return datas;
+};
+
+export const findJoinChatRooms = async ({ uid }) => {
   const query = {
     attributes: ["chatRoomId"],
     where: { uid },
-    include: [
-      /*{
-        model: Users,
-        as: "Users",
-      },*/
-      {
-        model: ChatRoom,
-        include: [
-          {
-            model: Chat,
-          },
-        ],
-      },
-    ],
+    raw: true,
   };
-
   const datas = await Participant.findAll(query);
-  const data = datas.filter((item) => {});
-
-  return data;
+  return datas;
 };
+
 export const findMessages = async ({ chatRoomId }) => {
   // chatRoomId에 대한 채팅들 모두 가져오기
   const query = {

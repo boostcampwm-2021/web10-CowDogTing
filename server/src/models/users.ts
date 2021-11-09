@@ -1,8 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import { Team } from "./team";
 import { sequelize } from "./index";
-import { ChatRoom } from "./chatRoom";
-import { Participant } from "./participant";
 
 interface UserAttributes {
   uid: string;
@@ -96,9 +94,4 @@ Team.hasOne(Users, {
 Users.belongsTo(Team, {
   foreignKey: "gid",
   targetKey: "gid",
-});
-
-Users.hasMany(Participant, {
-  foreignKey: "uid",
-  sourceKey: "uid",
 });
