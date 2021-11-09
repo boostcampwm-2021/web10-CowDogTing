@@ -23,7 +23,7 @@ const RequestTitleStyle = css`
 const RequestListStyle = css`
   width: 41%;
   display: flex;
-  align-items: center;
+  align-items: space-around;
   justify-content: space-between;
   flex-direction: column;
 
@@ -32,10 +32,6 @@ const RequestListStyle = css`
   overflow: auto;
   & + & {
     border-left: none;
-  }
-
-  div {
-    margin: 0 auto;
   }
 `;
 
@@ -58,19 +54,17 @@ export default function RequestPage() {
   }, []);
 
   return (
-    <>
-      <div css={RequestPageStyle}>
-        <div css={RequestListStyle}>
-          <div css={RequestTitleStyle}>나에게 온 요청</div>
-          <ProfileList datas={RequestForMe} person={person} setOpenModal={setOpenModal} />
-          {RequestForMe && openModal !== null && <ProfileModal data={RequestForMe[Number(openModal)]} />}
-        </div>
-        <div css={RequestListStyle}>
-          <div css={RequestTitleStyle}>내가 보낸 요청</div>
-          <ProfileList datas={RequestToMe} person={person} setOpenModal={setOpenModal} />
-          {RequestToMe && openModal !== null && <ProfileModal data={RequestToMe[Number(openModal)]} />}
-        </div>
+    <div css={RequestPageStyle}>
+      <div css={RequestListStyle}>
+        <div css={RequestTitleStyle}>나에게 온 요청</div>
+        <ProfileList datas={RequestForMe} person={person} setOpenModal={setOpenModal} />
+        {RequestForMe && openModal !== null && <ProfileModal data={RequestForMe[Number(openModal)]} />}
       </div>
-    </>
+      <div css={RequestListStyle}>
+        <div css={RequestTitleStyle}>내가 보낸 요청</div>
+        <ProfileList datas={RequestToMe} person={person} setOpenModal={setOpenModal} />
+        {RequestToMe && openModal !== null && <ProfileModal data={RequestToMe[Number(openModal)]} />}
+      </div>
+    </div>
   );
 }
