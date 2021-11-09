@@ -44,7 +44,7 @@ export const findChatRoomInfo = async ({ uid }) => {
     return { ...chatRoomId, member: filteredMemberData[idx] };
   });
   const promiseMessages = joinChatRooms.map((chatRoomId, idx) => {
-    return findMessages(chatRoomId);
+    return findMessages(chatRoomId.chatRoomId, 0);
   });
   const chatMessages = await Promise.all(promiseMessages);
   const filteredData = datas.map((unFildteredData, idx) => {
@@ -64,15 +64,18 @@ export const findJoinChatRooms = async ({ uid }) => {
   return datas;
 };
 
-export const findMessages = async ({ chatRoomId }) => {
+export const findMessages = async (chatRoomId, index: number) => {
   // chatRoomId에 대한 채팅들 모두 가져오기
   const query = {
     raw: true,
     attributes: ["uid", "message", "src", "isRead"],
     limit: 10,
-    where: { chatRoomId },
+    where: { chatRoomId: chatRoomId },
+    offset: 10 * index,
+    order: [["chatId", "DESC"]],
   };
-  const datas = await Chat.findAll(query);
+  console.log(index * 10);
+  const datas = await Chat.findAll(query as object);
   const data = datas.map((item) => {
     return {
       from: item.uid,
