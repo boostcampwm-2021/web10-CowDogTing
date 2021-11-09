@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "./index";
+import { Participant } from "./participant";
 
 interface ChatRoomAttributes {
   chatRoomId: number;
@@ -27,3 +28,13 @@ ChatRoom.init(
     timestamps: false,
   }
 );
+
+ChatRoom.hasMany(Participant, {
+  foreignKey: "chatRoomId",
+  sourceKey: "chatRoomId",
+});
+
+Participant.belongsTo(ChatRoom, {
+  foreignKey: "chatRoomId",
+  targetKey: "chatRoomId",
+});

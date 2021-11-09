@@ -5,7 +5,7 @@ import * as session from "express-session";
 import * as cookieParser from "cookie-parser";
 import * as passport from "passport";
 import * as cors from "cors";
-import apiRouter from "./api/auth";
+import apiRouter from "./api";
 import passportConfig from "./passport";
 
 dotenv.config();
