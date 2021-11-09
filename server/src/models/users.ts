@@ -34,7 +34,6 @@ export class Users extends Model<UserAttributes> {
   public age!: number;
 
   public sex!: string;
-
   public gid!: number;
 
   public static associations: {};
