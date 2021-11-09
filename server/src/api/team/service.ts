@@ -31,4 +31,20 @@ export const _updateTeam = async ({ teamInfo }) => {
   const gid = teamInfo.gid;
   return await Team.update({ ...teamInfo }, { where: { gid } });
 };
-export const _inviteTeam = async ({ gid, inviteID }) => {};
+export const _inviteTeam = async ({ inviteInfo }) => {
+  const gid = await _getGroupId({ teamName: inviteInfo.teamName });
+  try {
+    await Users.update({ gid: Number(gid) }, { where: { uid: inviteInfo.userId } });
+    return "success";
+  } catch (error) {
+    return new Error("업데이트 실패");
+  }
+};
+
+export const _getGroupId = async ({ teamName }) => {
+  const query = {
+    raw: true,
+    where: { name: teamName },
+  };
+  return await Team.findOne(query);
+};
