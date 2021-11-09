@@ -14,17 +14,11 @@ interface ChatAttributes {
 
 export class Chat extends Model<ChatAttributes> {
   public chatId!: number;
-
   public chatRoomId!: number;
-
   public isRead!: boolean;
-
   public message!: string;
-
   public src!: number;
-
   public uid!: string;
-
   public static associations: {};
 }
 

@@ -13,6 +13,7 @@ interface UserAttributes {
   age: number;
   sex: string;
   gid: number;
+  info: string;
 }
 
 export class Users extends Model<UserAttributes> {
@@ -26,7 +27,7 @@ export class Users extends Model<UserAttributes> {
   public age!: number;
   public sex!: string;
   public gid!: number;
-
+  public info!: string;
   public static associations: {};
 }
 
@@ -65,6 +66,9 @@ Users.init(
     sex: {
       type: DataTypes.STRING(30),
       allowNull: false,
+    },
+    info: {
+      type: DataTypes.STRING(100),
     },
     gid: {
       type: DataTypes.INTEGER,

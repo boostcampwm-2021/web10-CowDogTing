@@ -3,20 +3,18 @@ import { sequelize } from "./index";
 
 interface TeamAttributes {
   gid: number;
-  image: string;
+  image: number;
   name: string;
   description: string;
-  time: Date;
   location: string;
   leader: string;
 }
 
 export class Team extends Model<TeamAttributes> {
   public gid!: number;
-  public image!: string;
+  public image!: number;
   public name!: string;
   public description!: string;
-  public time!: Date;
   public location!: string;
   public leader!: string;
   public static associations: {};
@@ -31,7 +29,7 @@ Team.init(
       autoIncrement: true,
     },
     image: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     name: {
@@ -40,10 +38,6 @@ Team.init(
     },
     description: {
       type: DataTypes.STRING(100),
-      allowNull: true,
-    },
-    time: {
-      type: DataTypes.DATE,
       allowNull: true,
     },
     location: {
