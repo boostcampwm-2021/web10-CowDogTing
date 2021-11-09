@@ -10,6 +10,7 @@ import TeamInfoContainer from "../Organism/TeamInfoContainer";
 import TeamSettingMemberContainer from "../Organism/TeamSettingMemberContainer";
 import { getTeamPeople } from "../util/dummyData";
 import { PersonInfoType, TeamInfoType } from "../util/type";
+import InviteModal from "./InviteModal";
 
 const ProfileStyle = css`
   margin: 30px 0px;
@@ -24,8 +25,10 @@ const TeamSettingTemPlateStyle = css`
 `;
 function TeamSettingTemplate() {
   const [teamInfo, setTeamInfo] = useState<TeamInfoType | null>(null);
+  const [inviteModalState, setInviteModalState] = useState(false);
+
   const getTeamInfo = async () => {
-    const data = await getTeamPeople("태홍");
+    const data = await getTeamPeople(1);
     setTeamInfo(data);
   };
   useEffect(() => {
@@ -52,9 +55,17 @@ function TeamSettingTemplate() {
         })}
       </TeamSettingMemberContainer>
       <TeamButtonContainer>
-        <Button type="Medium">초대하기</Button>
+        <Button
+          type="Medium"
+          onClick={() => {
+            setInviteModalState((prev) => !prev);
+          }}
+        >
+          초대하기
+        </Button>
         <Button type="Medium">수정하기</Button>
       </TeamButtonContainer>
+      {inviteModalState && <InviteModal teamName={teamInfo?.id} />}
     </div>
   );
 }
