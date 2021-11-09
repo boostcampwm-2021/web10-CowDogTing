@@ -1,6 +1,5 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "./index";
-import { Users } from "./users";
 
 interface TeamAttributes {
   gid: number;
@@ -9,6 +8,7 @@ interface TeamAttributes {
   description: string;
   time: Date;
   location: string;
+  leader: string;
 }
 
 export class Team extends Model<TeamAttributes> {
@@ -18,6 +18,7 @@ export class Team extends Model<TeamAttributes> {
   public description!: string;
   public time!: Date;
   public location!: string;
+  public leader!: string;
   public static associations: {};
 }
 
@@ -46,6 +47,10 @@ Team.init(
       allowNull: true,
     },
     location: {
+      type: DataTypes.STRING(30),
+      allowNull: false,
+    },
+    leader: {
       type: DataTypes.STRING(30),
       allowNull: false,
     },

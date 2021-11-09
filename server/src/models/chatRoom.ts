@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
-import { EnterRoom } from "./enterRoom";
+import { Chat } from "./chat";
+import { Participant } from "./participant";
 import { sequelize } from "./index";
 import { Users } from "./users";
 
@@ -30,9 +31,14 @@ ChatRoom.init(
   }
 );
 
-Users.belongsToMany(ChatRoom, {
-  through: EnterRoom,
-});
 ChatRoom.belongsToMany(Users, {
-  through: EnterRoom,
+  as: "Participant",
+  through: Participant,
+  foreignKey: "chatRoomId",
+});
+
+Users.belongsToMany(ChatRoom, {
+  as: "Participant",
+  through: Participant,
+  foreignKey: "uid",
 });
