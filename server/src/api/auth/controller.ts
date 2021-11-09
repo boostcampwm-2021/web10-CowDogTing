@@ -42,3 +42,18 @@ export const handleLogOut = (req, res) => {
   });
   res.send(true);
 };
+
+export const handleIdValidation = async (req, res, next) => {
+  const uid = req.qeury.uid;
+  try {
+    const result = await findUser({ uid });
+    if (result) {
+      res.send(true);
+    }
+    if (!result) {
+      res.send(false);
+    }
+  } catch (e) {
+    next(e);
+  }
+};
