@@ -21,10 +21,13 @@ const ProfileStyle = css`
 
 export default function ProfileList({ datas, person, setOpenModal }: ProfileListType) {
   const handleModalClick = (e: React.MouseEvent) => {
-    const target: HTMLElement = e.target as HTMLElement;
-    const { id } = target.dataset;
-    console.log(id);
-    console.log(e.target);
+    const closestElement = (e.target as HTMLElement).closest(".Profile");
+    console.log(closestElement);
+    const { id } = (closestElement as HTMLElement).dataset;
+    // const target: HTMLElement = e.target as HTMLElement;
+    // const { id } = target.dataset;
+    // console.log(id);
+    // console.log(e.target);
     if (id === undefined) {
       setOpenModal(null);
       return;
@@ -37,9 +40,9 @@ export default function ProfileList({ datas, person, setOpenModal }: ProfileList
       {datas?.map((data, idx): React.ReactElement | undefined => {
         const sex = person > 1 ? "team" : data.sex;
         return (
-          <div css={ProfileStyle}>
-            <ProfileCard type={sex} idx={idx}>
-              <ProfileInfo data={data} idx={idx} />
+          <div css={ProfileStyle} className="Profile" data-id={idx}>
+            <ProfileCard type={sex}>
+              <ProfileInfo data={data} />
             </ProfileCard>
           </div>
         );

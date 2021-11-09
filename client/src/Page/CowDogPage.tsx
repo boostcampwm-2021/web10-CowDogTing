@@ -41,9 +41,9 @@ export default function CowDogPage() {
       </div>
 
       {datas && openModal !== null && (
-        <div ref={modalRef}>
-          <ProfileModal data={datas[Number(openModal)]} />
-        </div>
+        // <div ref={modalRef}>
+        <ProfileModal data={datas[Number(openModal)]} />
+        // </div>
       )}
     </div>
   );
