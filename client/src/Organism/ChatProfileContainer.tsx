@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable consistent-return */
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
@@ -30,8 +32,14 @@ function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileCon
       {chatsInfo?.data.map((data, idx) => {
         const memberType = data.member.length > 1 ? "team" : data.member[0].sex;
         const lastChatInfo = data.chatMessage[data.chatMessage.length - 1];
+        const lastChatUserIdx = data.member
+          .map((user, index) => {
+            if (user.id === lastChatInfo.from) return index;
+          })
+          .filter((item) => item !== undefined)[0];
+
         return (
-          <div className="chatProfile" data-id={idx}>
+          <div className="chatProfile" data-id={idx} data-userId={lastChatUserIdx}>
             <ProfileCard type={memberType} idx={idx}>
               <ProfileImageContainer>
                 <ProfileImage type="Small" image={dummyImage} />

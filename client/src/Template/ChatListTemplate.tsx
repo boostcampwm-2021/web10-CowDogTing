@@ -22,8 +22,14 @@ function ChatListTemplate() {
   const [clickedRoomIndex, setClickedRoomIndex] = useState(-1);
   const [openModal, setOpenModal] = useState<number | null>(null);
   const changeOpenModal = (event: React.MouseEvent) => {
-    const { id } = (event.target as HTMLElement).dataset;
+    const closestElement = (event.target as HTMLElement).closest(".chatProfile");
+    if (closestElement === null) return;
+
+    const { userid: id } = (closestElement as HTMLElement).dataset;
+
     if (id === undefined) {
+      setOpenModal(null);
+    } else if (Number(id) === openModal) {
       setOpenModal(null);
     } else if (id !== undefined) {
       setOpenModal(Number(id));
@@ -36,6 +42,8 @@ function ChatListTemplate() {
   useEffect(() => {
     getChatRoomData();
   }, []);
+
+  console.log(clickedRoomIndex);
 
   return (
     <div css={ChatListTemplateStyle} onClick={changeOpenModal}>
