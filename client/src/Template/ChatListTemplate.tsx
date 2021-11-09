@@ -32,6 +32,8 @@ function ChatListTemplate() {
       setOpenModal(null);
     } else if (Number(id) === openModal) {
       setOpenModal(null);
+    } else {
+      setOpenModal(Number(id));
     }
   };
   const getChatRoomData = async () => {
@@ -43,6 +45,7 @@ function ChatListTemplate() {
   }, []);
 
   console.log(clickedRoomIndex);
+  console.log(openModal);
 
   return (
     <div css={ChatListTemplateStyle} onClick={changeOpenModal}>
