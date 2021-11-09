@@ -1,14 +1,23 @@
 import { Team } from "../../models/team";
+import { Users } from "../../models/users";
 export const findTeam = async ({ gid }) => {
-  // const query = {
-  //   where: { gid },
-  //   include: {
-  //     model: Users,
-  //     attributes: ["uid", "location"],
-  //     where: { gid },
-  //   },
-  // };
-  // return await Team.findOne(query);
+  const query = {
+    raw: true,
+    where: { gid },
+    include: [
+      {
+        model: Users,
+        attributes: ["uid", "image", "location", "age", "sex"],
+      },
+    ],
+  };
+  const teamInfos = await Team.findAll(query);
+  const memberInfo = teamInfos.map((info) => {
+    return { id: info["User.uid"], image: info["User.image"], location: info["User.location"], age: info["User.age"], sex: info["User.sex"] };
+  });
+  const teamInfo = teamInfos[0];
+  const filteredTeamInfo = { image: teamInfo.image, id: teamInfo.name, info: teamInfo.description, location: teamInfo.location, leader: teamInfo.leader, member: memberInfo };
+  return filteredTeamInfo;
 };
 /*
 gid로 해당하는 Team에서 findOne
