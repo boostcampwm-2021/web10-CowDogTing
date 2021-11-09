@@ -18,13 +18,17 @@ Participant.init(
   {
     uid: {
       type: DataTypes.STRING(30),
-      allowNull: false,
-      primaryKey: true,
+      references: {
+        model: Users,
+        key: "uid",
+      },
     },
     chatRoomId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
+      references: {
+        model: ChatRoom,
+        key: "chatRoomId",
+      },
     },
   },
   {
@@ -35,3 +39,15 @@ Participant.init(
     timestamps: false,
   }
 );
+Users.hasMany(Participant, {
+  foreignKey: "uid",
+});
+Participant.belongsTo(Users, {
+  foreignKey: "uid",
+});
+Participant.belongsTo(ChatRoom, {
+  foreignKey: "chatRoomId",
+});
+ChatRoom.hasMany(Participant, {
+  foreignKey: "chatRoomId",
+});

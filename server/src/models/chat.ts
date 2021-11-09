@@ -64,6 +64,7 @@ Chat.init(
     tableName: "Chat",
     sequelize,
     freezeTableName: true,
+    timestamps: false,
   }
 );
 
