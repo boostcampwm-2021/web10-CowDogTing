@@ -10,6 +10,7 @@ export const getTeamInfo = async (req, res, next) => {
     next(error);
   }
 };
+
 export const createTeam = async (req, res, next) => {
   const teamInfo = req.body;
   try {
@@ -20,10 +21,18 @@ export const createTeam = async (req, res, next) => {
     next(error);
   }
 };
+
 export const updateTeam = async (req, res, next) => {
-  const teamInfo = res.teamInfo;
-  await _updateTeam({ teamInfo });
+  const teamInfo = req.body;
+  try {
+    const result = await _updateTeam({ teamInfo });
+    if (!result) res.send({ error: "팀 수정 실패" });
+    if (result) res.send({ success: "팀 수정 성공" });
+  } catch (error) {
+    next(error);
+  }
 };
+
 export const inviteTeam = async (req, res, next) => {
   // swagger에 잘못 나와있는거가틈. 팀 아이디가 없음
   const inviteInfo = req.body;

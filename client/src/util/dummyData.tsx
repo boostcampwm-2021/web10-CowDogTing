@@ -59,7 +59,7 @@ export async function getTeamPeople(gid: number): Promise<TeamInfoType> {
     info: "asdfsafd",
     location: "우만동",
     age: 23,
-    leader: false,
+    leader: "hansol",
     sex: "male",
     member: [
       {

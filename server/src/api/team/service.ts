@@ -1,3 +1,4 @@
+import { nextTick } from "process";
 import { Team } from "../../models/team";
 import { Users } from "../../models/users";
 export const findTeam = async ({ gid }) => {
@@ -24,8 +25,18 @@ export const _createTeam = async ({ teamInfo }) => {
   return await Team.create(teamInfo);
 };
 export const _updateTeam = async ({ teamInfo }) => {
-  const gid = teamInfo.gid;
-  return await Team.update({ ...teamInfo }, { where: { gid } });
+  const originTeamName = teamInfo.originTeamName;
+  const { gid } = await _getGroupId({ teamName: originTeamName });
+  const { name, description, location, leader } = teamInfo;
+  const updateTeamInfo = { name, description, location, leader };
+  console.log(updateTeamInfo);
+
+  try {
+    await Team.update(updateTeamInfo, { where: { gid } });
+    return "success";
+  } catch (error) {
+    return new Error("업데이트 실패");
+  }
 };
 export const _inviteTeam = async ({ inviteInfo }) => {
   const { gid } = await _getGroupId({ teamName: inviteInfo.teamName });

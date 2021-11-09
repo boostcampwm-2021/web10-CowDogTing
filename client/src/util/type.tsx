@@ -34,6 +34,7 @@ export type TeamInfoType = {
   location: string;
   age: number;
   sex: string;
+  leader: string;
   member?: PersonInfoType[] | null;
 };
 
