@@ -39,7 +39,7 @@ function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileCon
           .filter((item) => item !== undefined)[0];
 
         return (
-          <div className="chatProfile" data-id={idx} data-userId={lastChatUserIdx}>
+          <div className="chatProfile" data-id={idx} data-userid={lastChatUserIdx}>
             <ProfileCard type={memberType}>
               <ProfileImageContainer>
                 <ProfileImage type="Small" image={dummyImage} />

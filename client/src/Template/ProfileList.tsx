@@ -22,12 +22,8 @@ const ProfileStyle = css`
 export default function ProfileList({ datas, person, setOpenModal }: ProfileListType) {
   const handleModalClick = (e: React.MouseEvent) => {
     const closestElement = (e.target as HTMLElement).closest(".Profile");
-    console.log(closestElement);
+    if (!closestElement) return;
     const { id } = (closestElement as HTMLElement).dataset;
-    // const target: HTMLElement = e.target as HTMLElement;
-    // const { id } = target.dataset;
-    // console.log(id);
-    // console.log(e.target);
     if (id === undefined) {
       setOpenModal(null);
       return;

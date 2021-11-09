@@ -5,7 +5,7 @@ import { Input } from "../Atom/Input";
 import NavbarDiv from "../Atom/NavbarDiv";
 import DropDown from "../Molecules/DropDown";
 import SearchIcon from "../Atom/SearchIcon";
-import useModalEvent from "../Hook/useModalEvent";
+import useDropDownEvent from "../Hook/useDropDownEvent";
 
 const NavbarStyle = css`
   width: 100vw;
@@ -41,9 +41,9 @@ export default function Navbar() {
   const ageRef = useRef<HTMLDivElement>(null);
   const sexRef = useRef<HTMLDivElement>(null);
 
-  useModalEvent(locationRef, () => setLocationOpen(false));
-  useModalEvent(ageRef, () => setAgeOpen(false));
-  useModalEvent(sexRef, () => setSexOpen(false));
+  useDropDownEvent(locationRef, () => setLocationOpen(false));
+  useDropDownEvent(ageRef, () => setAgeOpen(false));
+  useDropDownEvent(sexRef, () => setSexOpen(false));
 
   const TogglelocationModal = () => {
     // setAgeOpen(false);

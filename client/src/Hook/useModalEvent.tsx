@@ -1,14 +1,11 @@
 /* eslint-disable no-console */
-import { RefObject, useEffect } from "react";
+import { useEffect } from "react";
 
-export default function useModalEvent(ref: RefObject<HTMLDivElement>, handler: (event: MouseEvent) => void) {
+export default function useModalEvent(handler: (event: MouseEvent) => void) {
   useEffect(() => {
     const listener = (event: MouseEvent): void => {
-      const target: HTMLElement = event.target as HTMLElement;
-
-      if (!ref.current || ref.current.contains(target)) {
-        return;
-      }
+      const closestElement = (event.target as HTMLElement).closest(".Profile");
+      if (closestElement) return;
       handler(event);
     };
     document.addEventListener("click", listener);
@@ -16,5 +13,5 @@ export default function useModalEvent(ref: RefObject<HTMLDivElement>, handler: (
     return () => {
       document.removeEventListener("click", listener);
     };
-  }, [ref, handler]);
+  }, [handler]);
 }

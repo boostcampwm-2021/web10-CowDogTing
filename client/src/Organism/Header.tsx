@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import MainHeaderLogo from "../Atom/MainHeaderLogo";
 import Menu from "../Atom/Menu";
 import UserIcon from "../Atom/UserIcon";
-import useModalEvent from "../Hook/useModalEvent";
+import useDropDownEvent from "../Hook/useDropDownEvent";
 import DropDown from "../Molecules/DropDown";
 
 const HeaderStyle = css`
@@ -30,8 +30,8 @@ export default function Header() {
   const menuRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
 
-  useModalEvent(menuRef, () => setMenuOpen(false));
-  useModalEvent(userRef, () => setUserOpen(false));
+  useDropDownEvent(menuRef, () => setMenuOpen(false));
+  useDropDownEvent(userRef, () => setUserOpen(false));
 
   const ToggleMenuModal = () => {
     setMenuOpen((isOpen) => !isOpen);

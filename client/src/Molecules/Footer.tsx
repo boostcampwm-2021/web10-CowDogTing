@@ -3,7 +3,7 @@
 import { css } from "@emotion/react";
 import { useRef, useState } from "react";
 import ChatIcon from "../Atom/ChatIcon";
-import useModalEvent from "../Hook/useModalEvent";
+import useDropDownEvent from "../Hook/useDropDownEvent";
 import DropDown from "./DropDown";
 
 const FooterStyle = css`
@@ -22,7 +22,7 @@ export default function Footer() {
   const [chatDropDown, setChatDropDown] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
 
-  useModalEvent(chatRef, () => setChatDropDown(false));
+  useDropDownEvent(chatRef, () => setChatDropDown(false));
   const ToggleChatDropDown = () => {
     setChatDropDown((isOpen) => !isOpen);
   };

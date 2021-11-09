@@ -3,7 +3,7 @@
 import { css } from "@emotion/react";
 import React, { useRef, useState } from "react";
 import UserIcon from "../Atom/UserIcon";
-import useModalEvent from "../Hook/useModalEvent";
+import useDropDownEvent from "../Hook/useDropDownEvent";
 import DropDown from "./DropDown";
 
 function MainHeaderRightSide() {
@@ -14,7 +14,7 @@ function MainHeaderRightSide() {
 
   const userRef = useRef<HTMLDivElement>(null);
 
-  useModalEvent(userRef, () => setUser(false));
+  useDropDownEvent(userRef, () => setUser(false));
   return (
     <div
       css={css`
