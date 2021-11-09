@@ -39,13 +39,16 @@ const RequestListStyle = css`
 export default function RequestPage() {
   const [RequestForMe, setRequestForMe] = useState<ProfileType[]>([]);
   const [RequestToMe, setRequestToMe] = useState<ProfileType[]>([]);
-  const [openModal, setOpenModal] = useState<number | null>(null);
+  const [openForModal, setOpenForModal] = useState<number | null>(null);
+  const [openToModal, setOpenToModal] = useState<number | null>(null);
 
   const myId = "123";
   const person = 1;
 
-  const modalRef = useRef<HTMLDivElement>(null);
-  useModalEvent(modalRef, () => setOpenModal(null));
+  const modalForRef = useRef<HTMLDivElement>(null);
+  useModalEvent(modalForRef, () => setOpenForModal(null));
+  const modalToRef = useRef<HTMLDivElement>(null);
+  useModalEvent(modalToRef, () => setOpenToModal(null));
 
   const getDatas = async () => {
     const item = await getRequestInfo();
@@ -55,6 +58,16 @@ export default function RequestPage() {
   };
 
   useEffect(() => {
+    if (openToModal === null) return;
+    setOpenForModal(null);
+  }, [openToModal]);
+
+  useEffect(() => {
+    if (openForModal === null) return;
+    setOpenToModal(null);
+  }, [openForModal]);
+
+  useEffect(() => {
     getDatas();
   }, []);
 
@@ -62,13 +75,13 @@ export default function RequestPage() {
     <div css={RequestPageStyle}>
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>나에게 온 요청</div>
-        <ProfileList datas={RequestForMe} person={person} setOpenModal={setOpenModal} />
-        <div ref={modalRef}>{RequestForMe && openModal !== null && <ProfileModal data={RequestForMe[Number(openModal)]} />}</div>
+        <ProfileList datas={RequestForMe} person={person} setOpenModal={setOpenForModal} />
+        <div ref={modalForRef}>{RequestForMe && openForModal !== null && <ProfileModal data={RequestForMe[Number(openForModal)]} />}</div>
       </div>
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>내가 보낸 요청</div>
-        <ProfileList datas={RequestToMe} person={person} setOpenModal={setOpenModal} />
-        <div ref={modalRef}>{RequestToMe && openModal !== null && <ProfileModal data={RequestToMe[Number(openModal)]} />}</div>
+        <ProfileList datas={RequestToMe} person={person} setOpenModal={setOpenToModal} />
+        <div ref={modalToRef}>{RequestToMe && openToModal !== null && <ProfileModal data={RequestToMe[Number(openToModal)]} />}</div>
       </div>
     </div>
   );
