@@ -6,7 +6,7 @@ import axios from "axios";
 import TeamCreateButtonContainer from "../Organism/TeamButtonContainer";
 import TeamInfoContainer from "../Organism/TeamInfoContainer";
 import InputLabel from "../Molecules/InputLabel";
-import LinkButton from "../Molecules/LinkButton";
+import { Button } from "../Atom/Button";
 
 const TeamCreatePageStyle = css`
   position: relative;
