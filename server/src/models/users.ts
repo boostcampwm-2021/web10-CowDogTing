@@ -17,21 +17,13 @@ interface UserAttributes {
 
 export class Users extends Model<UserAttributes> {
   public uid!: string;
-
   public password!: string;
-
   public location!: string;
-
   public github_id!: string;
-
   public naver_id!: string;
-
   public kakao_id!: string;
-
   public image!: number;
-
   public age!: number;
-
   public sex!: string;
   public gid!: number;
 
