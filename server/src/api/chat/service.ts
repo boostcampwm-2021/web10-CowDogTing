@@ -13,19 +13,19 @@ export const findChatRoomInfo = async ({ uid }) => {
         {
           model: Users,
         },
+        {
+          model: ChatRoom,
+        },
       ],
       where: chatRoomId,
       attribute: [],
     };
   };
-
   const joinChatRooms = await findJoinChatRooms({ uid });
-
-  const promiseArr = joinChatRooms.map((chatRoomId, idx) => {
+  const promiseArr = joinChatRooms.map((chatRoomId) => {
     return Participant.findAll(query({ chatRoomId }));
   });
   const memberData = await Promise.all(promiseArr);
-
   const filteredMemberData = memberData.map((chatRoomMember) => {
     return chatRoomMember.map((member) => {
       return {
@@ -39,10 +39,19 @@ export const findChatRoomInfo = async ({ uid }) => {
     });
   });
 
+  // chatMessage
   const datas = joinChatRooms.map((chatRoomId, idx) => {
     return { ...chatRoomId, member: filteredMemberData[idx] };
   });
-  return datas;
+  const promiseMessages = joinChatRooms.map((chatRoomId, idx) => {
+    return findMessages(chatRoomId);
+  });
+  const chatMessages = await Promise.all(promiseMessages);
+  const filteredData = datas.map((unFildteredData, idx) => {
+    return { ...unFildteredData, chatMessage: chatMessages[idx] };
+  });
+
+  return filteredData;
 };
 
 export const findJoinChatRooms = async ({ uid }) => {
@@ -58,23 +67,19 @@ export const findJoinChatRooms = async ({ uid }) => {
 export const findMessages = async ({ chatRoomId }) => {
   // chatRoomId에 대한 채팅들 모두 가져오기
   const query = {
-    attributes: ["uid", "message", "source"],
-    order: ["chatId", "ASC"],
+    raw: true,
+    attributes: ["uid", "message", "src", "isRead"],
     limit: 10,
     where: { chatRoomId },
-    include: [
-      {
-        // model: Image,
-        // where: { id : source },
-      },
-    ],
   };
-
   const datas = await Chat.findAll(query);
-  // data 가공 필요 => data 콘솔로 찍어봐야 할 수 있을 것 같음
   const data = datas.map((item) => {
-    // return {from : item.uid, message : item.message, source : item.Image.image};
+    return {
+      from: item.uid,
+      message: item.message,
+      source: item.src,
+      read: item.isRead,
+    };
   });
-
   return data;
 };
