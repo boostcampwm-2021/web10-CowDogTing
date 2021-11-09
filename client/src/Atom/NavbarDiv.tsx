@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import { css } from "@emotion/react";
 /** @jsxImportSource @emotion/react */
 
@@ -15,9 +14,10 @@ interface DivProps {
   children: string;
 }
 export default function NavbarDiv(props: DivProps) {
+  const { onClick, children } = props;
   return (
-    <div css={NavbarDivStyle} onClick={props.onClick} className="navbar-div">
-      {props.children}
+    <div css={NavbarDivStyle} onClick={onClick} className="navbar-div">
+      {children}
     </div>
   );
 }

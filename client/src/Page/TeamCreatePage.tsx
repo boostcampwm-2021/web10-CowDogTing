@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import { Link } from "react-router-dom";
 import TeamCreateButtonContainer from "../Organism/TeamButtonContainer";
 import TeamInfoContainer from "../Organism/TeamInfoContainer";
 import InputLabel from "../Molecules/InputLabel";
-import { Button } from "../Atom/Button";
+import LinkButton from "../Molecules/LinkButton";
 
 const TeamCreatePageStyle = css`
   position: relative;
@@ -26,12 +25,8 @@ function TeamCreatePage() {
         <InputLabel label="지역" />
       </TeamInfoContainer>
       <TeamCreateButtonContainer>
-        <Link to="/sub/teamSetting">
-          <Button type="Medium">생성</Button>
-        </Link>
-        <Link to="/sub/teamSetting">
-          <Button type="Medium">삭제</Button>
-        </Link>
+        <LinkButton url="/sub/teamSetting" type="Medium" content="생성" />
+        <LinkButton url="/sub/teamSetting" type="Medium" content="삭제" />
       </TeamCreateButtonContainer>
     </div>
   );

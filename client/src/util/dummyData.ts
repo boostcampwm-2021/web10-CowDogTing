@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-/* eslint-disable comma-dangle */
 
 import { ChatsInfoType, JoinChatsType, ProfileType, RequestsType, TeamInfoType } from "./type";
 import dummyImage from "../assets/meetingImage.png";
@@ -266,7 +265,6 @@ export async function getCowDogInfo(person: number): Promise<ProfileType[]> {
 /**
  * 채팅 정보 구하기
  */
-
 export async function getChatsInfo(): Promise<ChatsInfoType> {
   const data = {
     data: [

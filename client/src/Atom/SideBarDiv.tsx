@@ -1,5 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable comma-dangle */
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
@@ -21,9 +19,10 @@ interface SideBarDivProps {
   link: string;
 }
 export default function SideBarDiv(props: SideBarDivProps) {
+  const { link, menu } = props;
   return (
     <div css={SideBarDIv}>
-      <Link to={props.link}>{props.menu}</Link>
+      <Link to={link}>{menu}</Link>
     </div>
   );
 }

@@ -21,6 +21,7 @@ const ChatProfileContainerStyle = css`
 function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileContainerType) {
   const profileClickEvent = (e: React.MouseEvent) => {
     const closestElement = (e.target as HTMLElement).closest(".chatProfile");
+    if (!closestElement) return;
     const index = (closestElement as HTMLElement).dataset.id;
     setClickedRoomIndex(index);
   };

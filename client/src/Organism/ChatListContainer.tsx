@@ -1,13 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import { Link } from "react-router-dom";
 import { ChatListContainerType } from "../util/type";
 import ChatImageContainer from "./ChatImageContainer";
 import ChatDetail from "./ChatDetail";
 import ChatInput from "../Molecules/ChatInput";
 import ChatInputContainer from "./ChatInputContainer";
-import { Button } from "../Atom/Button";
+import LinkButton from "../Molecules/LinkButton";
 
 const ChatListContainerStyle = css`
   width: 50%;
@@ -27,9 +26,7 @@ function ChatListContainer({ chatInfo }: ChatListContainerType) {
           <ChatDetail chatRoomID={chatRoomId} />
           <ChatInputContainer>
             <ChatInput />
-            <Link to={`/ChatRoom?chatRoomId=${chatRoomId}`}>
-              <Button>추가기능</Button>
-            </Link>
+            <LinkButton url={`/ChatRoom?chatRoomId=${chatRoomId}`} type="Medium" content="추가기능" />
           </ChatInputContainer>
         </>
       )}

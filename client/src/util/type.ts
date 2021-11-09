@@ -17,34 +17,22 @@ export type InputLabelType = {
   placeholder?: string;
 };
 
-export type PersonInfoType = {
+export interface PersonInfoType {
   id: string;
   image: string;
   location: string;
   sex: string;
   age: number;
   info: string;
-};
+}
 
-export type TeamInfoType = {
-  image: string;
-  id: string;
-  info: string;
-  location: string;
-  age: number;
-  sex: string;
+export interface TeamInfoType extends PersonInfoType {
   member?: PersonInfoType[] | null;
-};
+}
 
-export type ProfileType = {
-  id: string;
-  image: string;
-  location: string;
-  sex: string;
-  age: number;
-  info: string;
+export interface ProfileType extends PersonInfoType {
   member?: PersonInfoType[];
-};
+}
 
 export type ProfileInfoDataType = {
   data: ProfileType;
@@ -136,4 +124,29 @@ export type ChatListContainerType = {
 
 export type ChatImageContainerType = {
   member?: PersonInfoType[];
+};
+
+export type NavDropDownType = {
+  DropDownList: Array<string>;
+  className: string;
+};
+
+export type LinkButtonType = {
+  url: string | undefined;
+  type: string;
+  content: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+};
+
+export type DropDownType = {
+  type: string;
+  className: string;
+};
+
+export type menuType = {
+  link?: string;
+  name: string;
+};
+export type menuListType = {
+  [key: string]: menuType[];
 };
