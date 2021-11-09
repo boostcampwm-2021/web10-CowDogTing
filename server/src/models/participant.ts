@@ -18,11 +18,19 @@ Participant.init(
       type: DataTypes.STRING(30),
       allowNull: false,
       primaryKey: true,
+      references: {
+        model: "Users",
+        key: "uid",
+      },
     },
     chatRoomId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
+      references: {
+        model: "ChatRoom",
+        key: "chatRoomId",
+      },
     },
   },
   {
