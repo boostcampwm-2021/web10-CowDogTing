@@ -1,6 +1,5 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "./index";
-import { SendRequest } from "./sendRequest";
 import { Users } from "./users";
 
 interface RequestAttributes {

@@ -8,7 +8,7 @@ interface ChatAttributes {
   chatRoomId: number;
   read: boolean;
   message: string;
-  source: string;
+  source: number;
   uid: string;
 }
 
@@ -21,7 +21,7 @@ export class Chat extends Model<ChatAttributes> {
 
   public message!: string;
 
-  public source!: string;
+  public source!: number;
 
   public uid!: string;
 
@@ -39,6 +39,10 @@ Chat.init(
     chatRoomId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "ChatRoom",
+        key: "chatRoomId",
+      },
     },
     read: {
       type: DataTypes.BOOLEAN,
@@ -48,7 +52,7 @@ Chat.init(
       type: DataTypes.STRING(100),
     },
     source: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.INTEGER,
     },
     uid: {
       type: DataTypes.STRING(30),
@@ -70,4 +74,13 @@ Users.hasMany(Chat, {
 Chat.belongsTo(Users, {
   targetKey: "uid",
   foreignKey: "uid",
+});
+
+ChatRoom.hasMany(Chat, {
+  sourceKey: "chatRoomId",
+  foreignKey: "chatRoomId",
+});
+Chat.belongsTo(ChatRoom, {
+  targetKey: "chatRoomId",
+  foreignKey: "chatRoomId",
 });

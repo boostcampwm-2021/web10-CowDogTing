@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { Team } from "./team";
 import { sequelize } from "./index";
+import { ChatRoom } from "./chatRoom";
 
 interface UserAttributes {
   uid: string;
@@ -27,10 +28,13 @@ export class Users extends Model<UserAttributes> {
   public naver_id!: string;
 
   public kakao_id!: string;
+
   public image!: number;
+
   public age!: number;
 
   public sex!: string;
+
   public gid!: number;
 
   public static associations: {};

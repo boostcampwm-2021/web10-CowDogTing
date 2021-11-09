@@ -1,35 +1,33 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "./index";
 
-interface SendRequestAttributes {
-  id: string;
-  requestId: number;
+interface ParticipantAttributes {
+  uid: string;
+  chatRoomId: number;
 }
 
-export class SendRequest extends Model<SendRequestAttributes> {
-  public id!: string;
-  public requestId!: number;
-
+export class Participant extends Model<ParticipantAttributes> {
+  public uid!: string;
+  public chatRoomId: number;
   public static associations: {};
 }
 
-SendRequest.init(
+Participant.init(
   {
-    id: {
+    uid: {
       type: DataTypes.STRING(30),
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
     },
-    requestId: {
+    chatRoomId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
     },
   },
   {
-    modelName: "SendRequest",
-    tableName: "SendRequest",
+    modelName: "Participant",
+    tableName: "Participant",
     sequelize,
     freezeTableName: true,
     timestamps: false,
