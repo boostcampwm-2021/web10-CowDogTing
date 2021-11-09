@@ -1,8 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import { Chat } from "./chat";
-import { Participant } from "./participant";
 import { sequelize } from "./index";
-import { Users } from "./users";
 
 interface ChatRoomAttributes {
   chatRoomId: number;
@@ -30,15 +27,3 @@ ChatRoom.init(
     timestamps: false,
   }
 );
-
-ChatRoom.belongsToMany(Users, {
-  as: "Participant",
-  through: Participant,
-  foreignKey: "chatRoomId",
-});
-
-Users.belongsToMany(ChatRoom, {
-  as: "Participant",
-  through: Participant,
-  foreignKey: "uid",
-});
