@@ -81,9 +81,11 @@ Users.init(
 
 Team.hasOne(Users, {
   sourceKey: "gid",
+  as: "member",
   foreignKey: "gid",
 });
 Users.belongsTo(Team, {
   foreignKey: "gid",
+  as: "member",
   targetKey: "gid",
 });

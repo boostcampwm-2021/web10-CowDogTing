@@ -1,9 +1,9 @@
-import { sequelize } from "./../../models/index";
 import { Op } from "sequelize";
 import { Request } from "./../../models/request";
 import { Chat } from "../../models/chat";
 import { findJoinChatRooms } from "../chat/service";
 import { Users } from "../../models/users";
+import { Team } from "../../models/team";
 
 export const findImage = async ({ imageID }) => {
   // imageID 에 대한 db 값 가져오기
@@ -48,16 +48,46 @@ export const findAllRequest = async ({ uid }) => {
       [Op.or]: [{ from: uid }, { to: uid }],
     },
   };
-  const requests = await Request.findAll(query);
-
-  return requests;
+  return await Request.findAll(query);
 };
 
 export const findUserInfo = async ({ uid }) => {
   const query = {
     attributes: [["uid", "id"], "image", "location", "sex", "age"],
+    // attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
     where: { uid },
   };
-  const userInfo = await Users.findOne(query as object);
-  return userInfo;
+  return await Users.findOne(query as object);
+};
+
+export const findAllProfile = async (people) => {
+  let query;
+  if (people == 1) {
+    query = {
+      attributes: [["uid", "id"], "image", "location", "sex", "age"],
+      // attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+    };
+    return await Users.findAll(query);
+  } else {
+    query = {
+      attributes: [["gid", "id"], "image", "location", ["description", "info"]],
+    };
+    const teamInfos = await Team.findAll(query as object);
+    const teamProfiles = await Promise.all(
+      teamInfos.map(async (teamInfo) => {
+        return { ...teamInfo["dataValues"], member: await getMember(teamInfo) };
+      })
+    );
+    return teamProfiles;
+  }
+};
+
+const getMember = async (teamInfo) => {
+  const gid = teamInfo.dataValues.id;
+  const query = {
+    attributes: [["uid", "id"], "image", "location", "sex", "age"],
+    where: { gid },
+  };
+  const memberData = await Users.findAll(query as object);
+  return memberData;
 };
