@@ -26,22 +26,23 @@ const bodyStyle = css`
 export default function ProfileList({ datas, person, setOpenModal }: ProfileListType) {
   const handleModalClick = (e: React.MouseEvent) => {
     const { id } = (e.target as HTMLElement).dataset;
+    console.log("???");
+    console.log(id);
     if (id === undefined) {
       setOpenModal(null);
       return;
     }
-
     setOpenModal((prev: number) => (prev === Number(id) ? null : Number(id)));
   };
   return (
     <div onClick={handleModalClick} css={bodyStyle}>
       <div css={ProfileListStyle}>
-        {datas?.map((data, idx): React.ReactElement | undefined => {
+        {datas?.map((data): React.ReactElement | undefined => {
           const sex = person > 1 ? "team" : data.sex;
           return (
             <div css={ProfileStyle}>
-              <ProfileCard type={sex} idx={idx}>
-                <ProfileInfo data={data} idx={idx} />
+              <ProfileCard type={sex}>
+                <ProfileInfo data={data} />
               </ProfileCard>
             </div>
           );

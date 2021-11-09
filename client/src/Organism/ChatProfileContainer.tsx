@@ -27,12 +27,12 @@ function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileCon
   };
   return (
     <div css={ChatProfileContainerStyle} onClick={profileClickEvent}>
-      {chatsInfo?.data.map((data, idx) => {
+      {chatsInfo?.data.map((data) => {
         const memberType = data.member.length > 1 ? "team" : data.member[0].sex;
         const lastChatInfo = data.chatMessage[data.chatMessage.length - 1];
         return (
-          <div className="chatProfile" data-id={idx}>
-            <ProfileCard type={memberType} idx={idx}>
+          <div className="chatProfile">
+            <ProfileCard type={memberType}>
               <ProfileImageContainer>
                 <ProfileImage type="Small" image={dummyImage} />
               </ProfileImageContainer>

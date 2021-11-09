@@ -5,6 +5,7 @@ export default function useModalEvent(ref: RefObject<HTMLDivElement>, handler: (
   useEffect(() => {
     const listener = (event: MouseEvent): void => {
       const target: HTMLElement = event.target as HTMLElement;
+
       if (!ref.current || ref.current.contains(target)) {
         return;
       }
