@@ -1,4 +1,6 @@
 import { Chat } from "../../models/chat";
+import { ChatRoom } from "../../models/chatRoom";
+import { Participant } from "../../models/participant";
 import { Users } from "../../models/users";
 
 export const findChatRoomInfo = async ({ uid }) => {
@@ -8,14 +10,22 @@ export const findChatRoomInfo = async ({ uid }) => {
     attributes: ["chatRoomId"],
     where: { uid },
     include: [
-      {
+      /*{
         model: Users,
-        // where: { chatRoomId },
+        as: "Users",
+      },*/
+      {
+        model: ChatRoom,
+        include: [
+          {
+            model: Chat,
+          },
+        ],
       },
     ],
   };
 
-  const datas = await Users.findAll(query);
+  const datas = await Participant.findAll(query);
   const data = datas.filter((item) => {});
 
   return data;

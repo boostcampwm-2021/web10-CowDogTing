@@ -1,8 +1,10 @@
 import { findChatRoomInfo, findMessages } from "./service";
 
 export const getChatsInfo = async (req, res) => {
-  const uid = req.user.uid;
-  const data = await findChatRoomInfo({ uid });
+  const uid = req.query.uid;
+  console.log(uid);
+  const data = await findChatRoomInfo({ uid }); //[chatroomId, member=[]]
+  //[chatroomId,member=[],chatMessages[]]
   res.send(data);
 };
 

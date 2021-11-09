@@ -6,9 +6,9 @@ import { Users } from "./users";
 interface ChatAttributes {
   chatId: number;
   chatRoomId: number;
-  read: boolean;
+  isRead: boolean;
   message: string;
-  source: number;
+  src: number;
   uid: string;
 }
 
@@ -17,11 +17,11 @@ export class Chat extends Model<ChatAttributes> {
 
   public chatRoomId!: number;
 
-  public read!: boolean;
+  public isRead!: boolean;
 
   public message!: string;
 
-  public source!: number;
+  public src!: number;
 
   public uid!: string;
 
@@ -44,14 +44,14 @@ Chat.init(
         key: "chatRoomId",
       },
     },
-    read: {
+    isRead: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
     message: {
       type: DataTypes.STRING(100),
     },
-    source: {
+    src: {
       type: DataTypes.INTEGER,
     },
     uid: {
