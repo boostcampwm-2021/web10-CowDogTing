@@ -1,6 +1,6 @@
 import { Image } from "../../models/image";
 
-console.log("======Create users Table======");
+console.log("======Create image Table======");
 const create_table_image = async () => {
   await Image.sync({ force: true })
     .then(() => {
