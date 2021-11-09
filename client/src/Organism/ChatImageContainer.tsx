@@ -35,7 +35,7 @@ function ChatImageContainer({ member }: ChatImageContainerType) {
       <ChatListHeader>
         <div css={ChatImageContainerStyle}>
           {member?.map((userInfo, idx) => (
-            <ProfileImage type="Mini" image={userInfo.image} data-id={idx} />
+            <ProfileImage type="Mini" image={userInfo.image} className="chatProfile" data-userid={idx} />
           ))}
         </div>
         <Button onClick={handleCloseRoomClick}>나가기</Button>
