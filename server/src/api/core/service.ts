@@ -35,3 +35,23 @@ const findAllChat = async ({ chatRoomId }) => {
   };
   return await Chat.count(query);
 };
+
+export const findAllRequest = async ({ uid }) => {
+  const query = {
+    attributes: ["from", "to", "state"],
+    include: [
+      {
+        model: Users,
+        as: "info",
+        attributes: ["uid", "image", "location", "sex", "age"],
+        // attributes: ["uid", "image", "location", "sex", "age", "info"]
+      },
+    ],
+    where: {
+      [Op.or]: [{ from: uid }, { to: uid }],
+    },
+  };
+  const requests = await Request.findAll(query);
+
+  return requests;
+};
