@@ -42,10 +42,6 @@ app.use(
 );
 app.use(morgan("dev"));
 app.use("/api", apiRouter);
-app.get("/", (req, res) => {
-  console.log("세션");
-  console.log(req.session);
-});
 
 app.use((err, req, res, next) => {
   res.locals.error = err;
