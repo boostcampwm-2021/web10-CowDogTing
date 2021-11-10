@@ -19,7 +19,6 @@ const mainHeaderStyle = css`
 function MainHeader() {
   return (
     <div css={mainHeaderStyle}>
-      {/* <div /> */}
       <MainHeaderRightSide />
       <MainHeaderCenter />
     </div>
