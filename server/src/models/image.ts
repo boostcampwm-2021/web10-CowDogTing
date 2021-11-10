@@ -1,35 +1,33 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "./index";
 
-interface SendRequestAttributes {
-  id: string;
-  requestId: number;
+interface ImageAttributes {
+  imageId: number;
+  image: string;
 }
 
-export class SendRequest extends Model<SendRequestAttributes> {
-  public id!: string;
-  public requestId!: number;
-
+export class Image extends Model<ImageAttributes> {
+  public imageId: number;
+  public image: string;
   public static associations: {};
 }
 
-SendRequest.init(
+Image.init(
   {
-    id: {
-      type: DataTypes.STRING(30),
-      allowNull: false,
+    imageId: {
+      type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    requestId: {
+    image: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
     },
   },
   {
-    modelName: "SendRequest",
-    tableName: "SendRequest",
+    modelName: "Image",
+    tableName: "Image",
     sequelize,
     freezeTableName: true,
     timestamps: false,

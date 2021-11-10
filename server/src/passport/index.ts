@@ -1,11 +1,12 @@
 import * as passport from "passport";
 import local from "./localStrategy";
-import { Users } from "../../models/users";
+import { Users } from "../models/users";
 
 export default () => {
   passport.serializeUser((user: Users, done) => {
+    console.log("in the serial");
     // 로그인 시 실행, req.session 객체에 어떤 데이터를 저장할지 정하는 메서드
-    done(null, user.uid); // 일단은 사용자 정보가 들어있다고 생각, 첫 번째 인수는 에러 발생시 사용, 두 번째 인수에는 저장하고 싶은 데이터를 넣는다.
+    return done(null, user.uid); // 일단은 사용자 정보가 들어있다고 생각, 첫 번째 인수는 에러 발생시 사용, 두 번째 인수에는 저장하고 싶은 데이터를 넣는다.
   });
 
   passport.deserializeUser((uid, done) => {
