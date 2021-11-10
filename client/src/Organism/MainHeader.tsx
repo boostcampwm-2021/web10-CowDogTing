@@ -4,9 +4,9 @@ import { css } from "@emotion/react";
 import MainHeaderCenter from "../Molecules/MainHeaderCenter";
 import MainHeaderRightSide from "../Molecules/MainHeaderRightSide";
 
+// display: flex;
+// justify-content: space-between;
 const mainHeaderStyle = css`
-  display: flex;
-  justify-content: space-between;
   width: 100vw;
   height: 30vh;
   .hide {
@@ -19,9 +19,9 @@ const mainHeaderStyle = css`
 function MainHeader() {
   return (
     <div css={mainHeaderStyle}>
-      <div />
-      <MainHeaderCenter />
+      {/* <div /> */}
       <MainHeaderRightSide />
+      <MainHeaderCenter />
     </div>
   );
 }
