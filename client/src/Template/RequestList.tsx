@@ -67,16 +67,19 @@ export default function RequestList({ datas, person, setOpenModal, type }: Reque
   return (
     <div css={ProfileListStyle} onClick={handleModalClick}>
       {datas?.map((data, idx): React.ReactElement | undefined => {
-        const sex = person > 1 ? "team" : "data";
+        const sex = person > 1 ? "team" : data.info.sex;
         return (
-          <div css={ProfileStyle} className="Profile" data-id={idx}>
-            <ProfileCard type={sex}>
-              <ProfileInfo data={data.info} />
-            </ProfileCard>
+          <div css={ProfileStyle}>
+            <div className="Profile" data-id={idx}>
+              <ProfileCard type={sex}>
+                <ProfileInfo data={data.info} />
+              </ProfileCard>
+            </div>
             <div css={ProfileSideStyle}>{CardButton(type, data.state)}</div>
           </div>
         );
       })}
+      <div css={ProfileStyle} /> {/* css용으로 넣어둠... 갑자기 이상하게 보여서..나는.. 디자이너가 아닌데... */}
     </div>
   );
 }
