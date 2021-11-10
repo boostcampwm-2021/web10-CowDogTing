@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migration_all": "ts-node ./src/migrations/createTableAll.ts",
+    "migration_all": "ts-node ./src/db/migrations/createTableAll.ts",
+    "data": "ts-node ./src/db/seeders/createDataAll.ts",
     "start": "nodemon ./src/www.ts",
     "build": "node ./src/www.ts"
   },
@@ -22,8 +23,7 @@
     "mysql2": "^2.3.2",
     "passport": "^0.5.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^6.9.0",
-    "sequelize-cli": "^6.2.0"
+    "sequelize": "^6.9.0"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.2",
@@ -41,6 +41,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "nodemon": "^2.0.14",
     "prettier": "^2.4.1",
+    "sequelize-cli": "^6.3.0",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
   }
