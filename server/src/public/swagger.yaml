@@ -371,7 +371,7 @@ paths:
                 type: boolean
               example:
                 true
-  /api/profile:
+  /api/core/profile:
     get:
       summary: 소개 프로필 가져오기
       parameters:
@@ -636,7 +636,7 @@ paths:
                           type: boolean
                         source:
                           type: number
-  /api/request/info:
+  /api/core/request:
     get:
       summary: 요청 목록 가져오기
       parameters:

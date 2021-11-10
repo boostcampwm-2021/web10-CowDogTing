@@ -23,7 +23,7 @@ const TeamSettingTemPlateStyle = css`
 `;
 
 function TeamSettingTemplate() {
-  const teamInfo = useRecoilValue(teamState);
+  const teamInfoState = useRecoilValue(teamState);
   const [inviteModalState, setInviteModalState] = useState(false);
 
   const teamNameRef = useRef<HTMLInputElement>(null);
@@ -39,16 +39,16 @@ function TeamSettingTemplate() {
 
   const clickUpdateButton: MouseEventHandler = async () => {
     if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current || !leaderRef.current) return;
-    if (teamInfo === null) return;
+    if (teamInfoState === null) return;
     const teamName = teamNameRef.current.value;
-    const teamInfoInput = teamInfoRef.current.value;
+    const teamInfo = teamInfoRef.current.value;
     const location = locationRef.current.value;
     const leader = leaderRef.current.value;
 
     await changeTeamInfo({
       beforeTeamName,
       teamName,
-      teamInfoInput,
+      teamInfo,
       location,
       leader,
     });
@@ -65,12 +65,12 @@ function TeamSettingTemplate() {
   return (
     <div css={TeamSettingTemPlateStyle}>
       <TeamInfoContainer>
-        <InputLabel label="팀명" placeholder={teamInfo?.id} refProps={teamNameRef} />
-        <InputLabel label="소개" placeholder={teamInfo?.info} refProps={teamInfoRef} />
-        <InputLabel label="지역" placeholder={teamInfo?.location} refProps={locationRef} />
-        <InputLabel label="팀 리더" placeholder={teamInfo?.leader} refProps={leaderRef} />
+        <InputLabel label="팀명" placeholder={teamInfoState?.id} refProps={teamNameRef} />
+        <InputLabel label="소개" placeholder={teamInfoState?.info} refProps={teamInfoRef} />
+        <InputLabel label="지역" placeholder={teamInfoState?.location} refProps={locationRef} />
+        <InputLabel label="팀 리더" placeholder={teamInfoState?.leader} refProps={leaderRef} />
       </TeamInfoContainer>
-      <ProfileList datas={teamInfo?.member} person={1} setOpenModal={() => console.log("1")} />
+      <ProfileList datas={teamInfoState?.member} person={1} setOpenModal={() => console.log("1")} />
       <TeamButtonContainer>
         <Button
           type="Medium"
@@ -84,7 +84,7 @@ function TeamSettingTemplate() {
           수정하기
         </Button>
       </TeamButtonContainer>
-      {inviteModalState && <InviteModal teamName={teamInfo?.id} />}
+      {inviteModalState && <InviteModal teamName={teamInfoState?.id} />}
     </div>
   );
 }

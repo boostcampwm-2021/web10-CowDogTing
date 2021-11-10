@@ -4,17 +4,19 @@ import { Users } from "../../db/models/users";
 export const findTeam = async ({ gid }) => {
   const query = {
     raw: true,
-    where: { gid: 1 },
+    where: { gid },
     include: [
       {
         model: Users,
+        as: "member",
+        attributes: ["uid", "image", "location", "age", "sex"],
       },
     ],
   };
   const teamInfos = await Team.findAll(query);
   console.log(teamInfos);
   const memberInfo = teamInfos.map((info) => {
-    return { id: info["User.uid"], image: info["User.image"], location: info["User.location"], age: info["User.age"], sex: info["User.sex"] };
+    return { id: info["member.uid"], image: info["member.image"], location: info["member.location"], age: info["member.age"], sex: info["member.sex"] };
   });
   const teamInfo = teamInfos[0];
   const filteredTeamInfo = { image: teamInfo.image, id: teamInfo.name, info: teamInfo.description, location: teamInfo.location, leader: teamInfo.leader, member: memberInfo };

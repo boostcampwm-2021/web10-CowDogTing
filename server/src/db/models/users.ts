@@ -39,7 +39,7 @@ Users.init(
       primaryKey: true,
     },
     password: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(100),
       allowNull: false,
     },
     location: {
@@ -57,7 +57,6 @@ Users.init(
     },
     image: {
       type: DataTypes.INTEGER,
-      allowNull: false,
     },
     age: {
       type: DataTypes.INTEGER,
