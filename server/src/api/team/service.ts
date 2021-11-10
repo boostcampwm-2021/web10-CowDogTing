@@ -1,4 +1,4 @@
-import { Team } from "../../models/team";
+import { Team } from "../../db/models/team";
 export const findTeam = async ({ gid }) => {
   // const query = {
   //   where: { gid },

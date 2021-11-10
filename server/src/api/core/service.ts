@@ -1,9 +1,9 @@
 import { Op } from "sequelize";
-import { Request } from "./../../models/request";
-import { Chat } from "../../models/chat";
+import { Request } from "../../db/models/request";
+import { Chat } from "../../db/models/chat";
 import { findJoinChatRooms } from "../chat/service";
-import { Users } from "../../models/users";
-import { Team } from "../../models/team";
+import { Users } from "../../db/models/users";
+import { Team } from "../../db/models/team";
 
 export const findImage = async ({ imageID }) => {
   // imageID 에 대한 db 값 가져오기

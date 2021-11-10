@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migration_all": "ts-node ./src/migrations/createTableAll.ts",
+    "migration_all": "ts-node ./src/db/migrations/createTableAll.ts",
+    "data": "ts-node ./src/db/seeders/createDataAll.ts",
     "start": "nodemon ./src/www.ts",
     "build": "node ./src/www.ts"
   },
