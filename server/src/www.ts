@@ -1,6 +1,6 @@
 import app from "./app";
 import { createServer } from "http";
-import { sequelize } from "./models";
+import { sequelize } from "./db/models";
 
 const port: number = Number(process.env.PORT) || 4000;
 

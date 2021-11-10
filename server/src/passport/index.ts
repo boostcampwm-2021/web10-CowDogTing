@@ -1,6 +1,6 @@
 import * as passport from "passport";
 import local from "./localStrategy";
-import { Users } from "../models/users";
+import { Users } from "../db/models/users";
 
 export default () => {
   passport.serializeUser((user: Users, done) => {

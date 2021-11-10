@@ -35,6 +35,15 @@ paths:
   /api/core/userInfo:
     get:
       summary: 유저 정보 획득
+      parameters: 
+      - name: uid   
+        in: query
+        required: true
+        description: 유저 아이디
+        schema:
+          type: string
+        example:
+          "my_id"
       responses:
         '200':
           description: 유저 정보
@@ -65,6 +74,15 @@ paths:
   /api/core/joinChatInfo:
     get:
       summary: 참여 채팅방 정보 가져오기 
+      parameters:
+      - name: uid
+        in: query
+        required: true
+        description: 유저 아이디
+        schema:
+          type: string
+        example:
+          "my_id"
       responses:
         '200':
           description: 참여 채팅방 정보
@@ -91,20 +109,25 @@ paths:
                   },
                 ]
   /api/auth/login:
-    post:
+    get:
       summary: 로그인 버튼 클릭(유저 정보 받아오기)
       parameters:
-        - name: ID_password
-          in: header
-          required: true
-          description: 아이디, 비밀번호
-          schema:
-            type: object
-            properties:
-              uid:
-                type: string
-              password:
-                type: string
+      - name: uid
+        in: query
+        required: true
+        description: 유저 아이디
+        schema:
+          type: string
+        example:
+          "my_id"
+      - name: password
+        in: query
+        required: true
+        description: 유저 비밀번호
+        schema:
+          type: string
+        example:
+          "my_pw"
       responses:
         '200':
           description: 유저 정보
@@ -114,7 +137,28 @@ paths:
                 type: boolean
               example:
                 true
-  /api/auth/join:
+  /api/auth/id-validation:
+    get:
+      summary: 회원가입(아이디 중복 검사)
+      parameters:
+        - name: uid
+          in: query
+          required: true
+          description: 유저 아이디
+          schema:
+            type: string
+          example:
+            "my_id"
+      responses:
+        '200':
+          description: 회원가입 아이디 중복 검사 확인
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
+  /api/auth/register:
     post:
       summary: 회원가입
       parameters:
@@ -129,12 +173,6 @@ paths:
                   type: string
                 password:
                   type: string
-                email:
-                  type: string
-                name:
-                  type: string
-                image:
-                  type: number
                 location:
                   type: string
                 sex:
@@ -154,28 +192,28 @@ paths:
     post:
       summary: 팀 생성
       parameters:
-        - name: teamInfo
-          in: header
-          required: true
-          description: 팀 정보
-          schema:
-            type: object
-            properties:
-              image:
-                type: number
-              id:
-                type: string
-              info:
-                type: string
-              location:
-                type: string
-              age:
-                type: number
-              leader:
-                type: string
-              sex:
-                type: string
+      - name: teamInfo
+        in: header
+        required: true
+        description: 팀 정보
+        schema:
+          type: object
+          properties:
+            description:
+              type: string
+            location:
+              type: string
+            leader:
+              type: string
+            name:
+              type: string
           example:
+            {
+              description: "설명",
+              location: "우만동",
+              leader: "alice",
+              name: "cowdog"
+            }
       responses:
         '200':
           description: 팀 생성 여부
@@ -189,14 +227,14 @@ paths:
     get:
       summary: 팀 정보 가져오기
       parameters:
-        - name: teamID
+        - name: teamId
           in: query
           description: 팀 아이디
           required: true
           schema:
             type: number
           example:
-            123
+            "1"
       responses:
         '200':
           description: 팀 정보
@@ -275,17 +313,24 @@ paths:
         schema:
           type: object
           properties:
-            id:
+            originTeamName:
               type: string
-            info:
+            name:
+              type: string
+            description:
               type: string
             location:
               type: string
-            image:
-              type: number
+            leader:
+              type: string
         example:
           {
-
+            originTeamName: "boo",
+            name: "cowdog",
+            description: "안녕하세요",
+            location: "대구",
+            leader: "alice"
+            
           }
       responses:
         '200':
@@ -308,8 +353,15 @@ paths:
         schema:
           type: object
           properties:
-            id:
+            teamName:
               type: string
+            userId:
+              type: string
+        example:
+          {
+            teamName: "cowdog",
+            userId: "ddatnew"
+          }
       responses:
         '200':
           description: 초대 성공 여부
@@ -375,6 +427,15 @@ paths:
   /api/chat/info:
     get:
       summary: 채팅방 정보 가져오기
+      parameters:
+      - name: uid
+        in: query
+        description: 아이디
+        required: true
+        schema:
+          type: string
+        example:
+          "my_id"
       responses:
         '200':
           description: 채팅방 정보
@@ -538,7 +599,7 @@ paths:
     get:
       summary: 채팅 내역 추가 가져오기
       parameters:
-      - name: ChatRoomID
+      - name: chatRoomID
         in: query
         description: 채팅방 정보
         required: true
@@ -578,6 +639,15 @@ paths:
   /api/request/info:
     get:
       summary: 요청 목록 가져오기
+      parameters:
+      - name: uid
+        in: query
+        description: 아이디
+        required: true
+        schema:
+          type: string
+        example:
+          "my_id"      
       responses:
         '200':
           description: 요청 목록

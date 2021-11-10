@@ -1,5 +1,6 @@
-import { Team } from "../../models/team";
-import { Users } from "../../models/users";
+import { Team } from "../../db/models/team";
+import { Users } from "../../db/models/users";
+
 export const findTeam = async ({ gid }) => {
   const query = {
     raw: true,

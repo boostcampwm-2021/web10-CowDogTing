@@ -6,13 +6,14 @@ interface RequestAttributes {
   requestId: number;
   to: string;
   state: string;
+  from: string;
 }
 
 export class Request extends Model<RequestAttributes> {
   public requestId!: number;
   public to!: string;
   public state!: string;
-
+  public from!: string;
   public static associations: {};
 }
 
@@ -31,10 +32,14 @@ Request.init(
       type: DataTypes.STRING(10),
       allowNull: false,
     },
+    from: {
+      type: DataTypes.STRING(30),
+    },
   },
   {
     modelName: "Request",
     tableName: "Request",
+    timestamps: false,
     sequelize,
     freezeTableName: true,
   }
@@ -46,5 +51,6 @@ Users.hasMany(Request, {
 });
 Request.belongsTo(Users, {
   foreignKey: "from",
+  as: "info",
   targetKey: "uid",
 });
