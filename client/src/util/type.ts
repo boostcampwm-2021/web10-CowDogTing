@@ -1,4 +1,4 @@
-import { RefObject } from "react";
+import { Dispatch, RefObject, SetStateAction } from "react";
 
 export type ButtonType = {
   type?: string;
@@ -156,6 +156,7 @@ export type DropDownType = {
   DropDownRef?: RefObject<HTMLDivElement>;
   type: string;
   className: string;
+  onClick?: Dispatch<SetStateAction<boolean>>;
 };
 
 export type menuType = {

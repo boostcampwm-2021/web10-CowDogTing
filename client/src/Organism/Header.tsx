@@ -26,6 +26,7 @@ const HeaderStyle = css`
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
+  const [meetingOpen, setMeetingOpen] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
@@ -44,7 +45,8 @@ export default function Header() {
     <div css={HeaderStyle} id="header">
       <div ref={menuRef}>
         <Menu onClick={() => ToggleMenuModal()} />
-        <DropDown type="Menu" className={menuOpen ? "show" : "hide"} />
+        <DropDown type="Menu" className={menuOpen ? "show" : "hide"} onClick={setMeetingOpen} />
+        <DropDown type="Meeting" className={meetingOpen ? "show" : "hide"} />
       </div>
       <Link to="/main">
         <MainHeaderLogo />
