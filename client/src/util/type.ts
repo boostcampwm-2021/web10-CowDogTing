@@ -27,8 +27,21 @@ export interface PersonInfoType {
   sex: string;
   age: number;
   info: string;
+  gid?: number | null;
 }
-
+export interface ChangeTeamInfoType {
+  beforeTeamName: string;
+  teamName: string;
+  teamInfoInput: string;
+  location: string;
+  leader: string;
+}
+export interface PostTeamType {
+  teamName: string;
+  teamInfo: string;
+  location: string;
+  leader: string;
+}
 export type TeamInfoType = {
   image: string;
   id: string;
