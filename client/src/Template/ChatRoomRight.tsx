@@ -34,6 +34,7 @@ export default function ChatRoomRight(props: { chatRoomID: number }) {
   const handleCloseRoomClick = () => {
     history.goBack();
   };
+
   return (
     <div style={{ width: "100%" }}>
       <div css={headerStyle}>

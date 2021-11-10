@@ -7,7 +7,9 @@ import { LinkButtonType } from "../util/type";
 function LinkButton({ url, type, content, onClick }: LinkButtonType) {
   return url ? (
     <Link to={url}>
-      <Button type={type}>{content}</Button>
+      <Button type={type} onClick={onClick}>
+        {content}
+      </Button>
     </Link>
   ) : (
     <Button type={type} onClick={onClick}>

@@ -19,7 +19,7 @@ const ProfileStyle = css`
   margin: 30px 0px;
 `;
 
-export default function ProfileList({ datas, person, setOpenModal }: ProfileListType) {
+export default function RequestList({ datas, person, setOpenModal }: ProfileListType) {
   const handleModalClick = (e: React.MouseEvent) => {
     const closestElement = (e.target as HTMLElement).closest(".Profile");
     if (!closestElement) return;

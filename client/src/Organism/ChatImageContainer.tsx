@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
+import { useHistory } from "react-router";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ChatImageContainerType } from "../util/type";
@@ -23,15 +24,21 @@ const ChatImageContainerStyle = css`
 `;
 
 function ChatImageContainer({ member }: ChatImageContainerType) {
+  const history = useHistory();
+
+  const handleCloseRoomClick = () => {
+    history.goBack();
+  };
+
   return (
     <>
       <ChatListHeader>
         <div css={ChatImageContainerStyle}>
           {member?.map((userInfo, idx) => (
-            <ProfileImage type="Mini" image={userInfo.image} data-id={idx} />
+            <ProfileImage type="Mini" image={userInfo.image} className="Profile" data-userid={idx} />
           ))}
         </div>
-        <Button>나가기</Button>
+        <Button onClick={handleCloseRoomClick}>나가기</Button>
       </ChatListHeader>
     </>
   );

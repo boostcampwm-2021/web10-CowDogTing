@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Input } from "../Atom/Input";
 import NavbarDiv from "../Atom/NavbarDiv";
 import DropDown from "../Molecules/DropDown";
 import SearchIcon from "../Atom/SearchIcon";
+import useDropDownEvent from "../Hook/useDropDownEvent";
 
 const NavbarStyle = css`
   width: 100vw;
@@ -32,36 +33,45 @@ const NavbarStyle = css`
   }
 `;
 export default function Navbar() {
-  const [locationDropdown, setLocationDropdown] = useState(false);
-  const [ageDropdwon, setAgeDropdown] = useState(false);
-  const [sexDropdwon, setSexDropdown] = useState(false);
+  const [locationDropdown, setLocationOpen] = useState(false);
+  const [ageDropdwon, setAgeOpen] = useState(false);
+  const [sexDropdwon, setSexOpen] = useState(false);
+
+  const locationRef = useRef<HTMLDivElement>(null);
+  const ageRef = useRef<HTMLDivElement>(null);
+  const sexRef = useRef<HTMLDivElement>(null);
+
+  useDropDownEvent(locationRef, () => setLocationOpen(false));
+  useDropDownEvent(ageRef, () => setAgeOpen(false));
+  useDropDownEvent(sexRef, () => setSexOpen(false));
+
   const TogglelocationModal = () => {
-    setLocationDropdown((isOpen) => !isOpen);
-    setAgeDropdown(false);
-    setSexDropdown(false);
+    // setAgeOpen(false);
+    // setSexOpen(false);
+    setLocationOpen((isOpen) => !isOpen);
   };
   const ToggleAgeModal = () => {
-    setAgeDropdown((isOpen) => !isOpen);
-    setLocationDropdown(false);
-    setSexDropdown(false);
+    // setLocationOpen(false);
+    // setSexOpen(false);
+    setAgeOpen((isOpen) => !isOpen);
   };
   const ToggleSexModal = () => {
-    setSexDropdown((isOpen) => !isOpen);
-    setLocationDropdown(false);
-    setAgeDropdown(false);
+    // setAgeOpen(false);
+    // setLocationOpen(false);
+    setSexOpen((isOpen) => !isOpen);
   };
 
   return (
     <div css={NavbarStyle}>
-      <div className="navbar-item">
+      <div className="navbar-item" data-id="location" ref={locationRef}>
         <NavbarDiv onClick={TogglelocationModal}>지역</NavbarDiv>
         <DropDown type="Location" className={locationDropdown ? "show" : "hide"} />
       </div>
-      <div className="navbar-item">
+      <div className="navbar-item" data-id="age" ref={ageRef}>
         <NavbarDiv onClick={ToggleAgeModal}>나이</NavbarDiv>
         <DropDown type="Age" className={ageDropdwon ? "show" : "hide"} />
       </div>
-      <div className="navbar-item">
+      <div className="navbar-item" data-id="sex" ref={sexRef}>
         <NavbarDiv onClick={ToggleSexModal}>성별</NavbarDiv>
         <DropDown type="Sex" className={sexDropdwon ? "show" : "hide"} />
       </div>

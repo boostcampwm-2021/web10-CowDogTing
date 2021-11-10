@@ -413,7 +413,7 @@ export async function getChatsInfo(): Promise<ChatsInfoType> {
             source: "image",
           },
           {
-            from: "3영진3",
+            from: "123",
             message: "ㅂㅇㅂㅇ",
             read: true,
             source: "image",

@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable consistent-return */
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
@@ -21,18 +23,22 @@ const ChatProfileContainerStyle = css`
 function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileContainerType) {
   const profileClickEvent = (e: React.MouseEvent) => {
     const closestElement = (e.target as HTMLElement).closest(".chatProfile");
+
     if (!closestElement) return;
+
     const index = (closestElement as HTMLElement).dataset.id;
     setClickedRoomIndex(index);
   };
+
   return (
     <div css={ChatProfileContainerStyle} onClick={profileClickEvent}>
       {chatsInfo?.data.map((data, idx) => {
         const memberType = data.member.length > 1 ? "team" : data.member[0].sex;
         const lastChatInfo = data.chatMessage[data.chatMessage.length - 1];
+
         return (
-          <div className="chatProfile" data-id={idx}>
-            <ProfileCard type={memberType} idx={idx}>
+          <div data-id={idx} className="chatProfile">
+            <ProfileCard type={memberType}>
               <ProfileImageContainer>
                 <ProfileImage type="Small" image={dummyImage} />
               </ProfileImageContainer>

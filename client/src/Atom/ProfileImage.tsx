@@ -26,6 +26,7 @@ const profileImageStyle = (props: ProfileImageType) => css`
   ${props.type === "Mini" && miniProfileImageStyle}
   background-image: url(${props.image as string});
   background-size: cover;
+  cursor: pointer;
 `;
 
 export const ProfileImage = styled.div`
