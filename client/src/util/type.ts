@@ -52,7 +52,7 @@ export type ProfileListType = {
   datas: PersonInfoType[] | ProfileType[] | null | undefined;
   person: number;
   setOpenModal: (prev: any) => void;
-  profileRef?: RefObject<HTMLDivElement>;
+  profileRef: RefObject<HTMLDivElement>;
 };
 
 export type LargeModalType = {
