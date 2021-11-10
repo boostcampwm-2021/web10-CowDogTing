@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
-import ProfileList from "../Template/ProfileList";
 import ProfileModal from "../Template/ProfileModal";
 import { getRequestInfo } from "../util/dummyData";
 import { ProfileType, RequestType } from "../util/type";
 import useModalEvent from "../Hook/useModalEvent";
+import RequestList from "../Template/RequestList";
 
 const RequestPageStyle = css`
   display: flex;
@@ -76,12 +76,12 @@ export default function RequestPage() {
     <div css={RequestPageStyle}>
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>나에게 온 요청</div>
-        <ProfileList datas={RequestForMe} person={person} setOpenModal={setOpenForModal} />
+        <RequestList datas={RequestForMe} person={person} setOpenModal={setOpenForModal} />
         <div ref={modalForRef}>{RequestForMe && openForModal !== null && <ProfileModal data={RequestForMe[Number(openForModal)]} />}</div>
       </div>
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>내가 보낸 요청</div>
-        <ProfileList datas={RequestToMe} person={person} setOpenModal={setOpenToModal} />
+        <RequestList datas={RequestToMe} person={person} setOpenModal={setOpenToModal} />
         <div ref={modalToRef}>{RequestToMe && openToModal !== null && <ProfileModal data={RequestToMe[Number(openToModal)]} />}</div>
       </div>
     </div>
