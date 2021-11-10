@@ -49,3 +49,17 @@ export const getCowDogInfo = async (person: number, index: number) => {
   const { data } = await axios.get(`${url}/api/core/profile?person=?${person}?index=${index}`);
   return data;
 };
+
+export const changeMyInfo = async ({ id, location, age, info }: { id: string; location: string; age: number; info: string }) => {
+  try {
+    await axios.post(`${url}/api/core/userInfo`, {
+      id,
+      location,
+      age,
+      info,
+    });
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
