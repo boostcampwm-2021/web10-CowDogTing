@@ -31,11 +31,18 @@ export default function Header() {
   const menuRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
 
-  useDropDownEvent(menuRef, () => setMenuOpen(false));
+  useDropDownEvent(menuRef, () => {
+    setMenuOpen(false);
+    setMeetingOpen(false);
+  });
   useDropDownEvent(userRef, () => setUserOpen(false));
 
   const ToggleMenuModal = () => {
     setMenuOpen((isOpen) => !isOpen);
+    setMeetingOpen(false);
+  };
+  const ToggleMeetingModal = () => {
+    setMeetingOpen((isOpen) => !isOpen);
   };
   const ToggleUserModal = () => {
     setUserOpen((isOpen) => !isOpen);
@@ -45,7 +52,7 @@ export default function Header() {
     <div css={HeaderStyle} id="header">
       <div ref={menuRef}>
         <Menu onClick={() => ToggleMenuModal()} />
-        <DropDown type="Menu" className={menuOpen ? "show" : "hide"} onClick={() => setMeetingOpen(true)} />
+        <DropDown type="Menu" className={menuOpen ? "show" : "hide"} onClick={() => ToggleMeetingModal()} />
         <DropDown type="Meeting" className={meetingOpen ? "show" : "hide"} />
       </div>
       <Link to="/main">
