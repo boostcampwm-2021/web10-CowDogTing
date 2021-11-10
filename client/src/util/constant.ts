@@ -13,6 +13,7 @@ export const MENU_LIST: menuListType = {
     { link: "/sub/CowDogPage?person=1", name: "소개팅 하러가기" },
     { link: "/sub/CowDogPage?person=2", name: "2:2 미팅" },
     { link: "/sub/CowDogPage?person=3", name: "3:3 미팅" },
+    { link: "/sub/CowDogPage?person=4", name: "4:4 미팅" },
     { link: "/", name: "이벤트" },
     { link: "/", name: "문의하기" },
   ],
