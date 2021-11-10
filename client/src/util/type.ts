@@ -15,16 +15,17 @@ export type ChildrenType = {
 export type InputLabelType = {
   label: string;
   placeholder?: string;
+  refProps?: React.MutableRefObject<HTMLInputElement | null>;
 };
 
-export type PersonInfoType = {
+export interface PersonInfoType {
   id: string;
   image: string;
   location: string;
   sex: string;
   age: number;
   info: string;
-};
+}
 
 export type TeamInfoType = {
   image: string;
@@ -33,18 +34,13 @@ export type TeamInfoType = {
   location: string;
   age: number;
   sex: string;
+  leader: string;
   member?: PersonInfoType[] | null;
 };
 
-export type ProfileType = {
-  id: string;
-  image: string;
-  location: string;
-  sex: string;
-  age: number;
-  info: string;
+export interface ProfileType extends PersonInfoType {
   member?: PersonInfoType[];
-};
+}
 
 export type ProfileInfoDataType = {
   data: ProfileType;
@@ -136,4 +132,29 @@ export type ChatListContainerType = {
 
 export type ChatImageContainerType = {
   member?: PersonInfoType[];
+};
+
+export type NavDropDownType = {
+  DropDownList: Array<string>;
+  className: string;
+};
+
+export type LinkButtonType = {
+  url: string | undefined;
+  type: string;
+  content: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+};
+
+export type DropDownType = {
+  type: string;
+  className: string;
+};
+
+export type menuType = {
+  link?: string;
+  name: string;
+};
+export type menuListType = {
+  [key: string]: menuType[];
 };

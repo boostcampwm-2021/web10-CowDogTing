@@ -57,8 +57,8 @@ Chat.init(
     modelName: "Chat",
     tableName: "Chat",
     sequelize,
-    freezeTableName: true,
     timestamps: false,
+    freezeTableName: true,
   }
 );
 

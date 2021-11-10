@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
@@ -18,6 +17,8 @@ const headerStyle = css`
 `;
 
 export default function ChatRoomRight(props: { chatRoomID: number }) {
+  const { chatRoomID } = props;
+
   const [member, setMember] = useState<PersonInfoType[] | null>(null);
   const history = useHistory();
 
@@ -28,7 +29,7 @@ export default function ChatRoomRight(props: { chatRoomID: number }) {
 
   useEffect(() => {
     getMember();
-  }, [props.chatRoomID]);
+  }, [chatRoomID]);
 
   const handleCloseRoomClick = () => {
     history.goBack();

@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-/* eslint-disable comma-dangle */
 
 import { ChatsInfoType, JoinChatsType, ProfileType, RequestsType, TeamInfoType } from "./type";
 import dummyImage from "../assets/meetingImage.png";
@@ -50,16 +49,16 @@ export async function createTeam(teamID: string, image: string, info: string, lo
 /**
  * 팀 정보 구하기
  */
-export async function getTeamPeople(teamID: string): Promise<TeamInfoType> {
-  //   const { data } = await axios.get(`localhost:3000?teamID=${teamID}`);
-  console.log(teamID);
+export async function getTeamPeople(gid: number): Promise<TeamInfoType> {
+  //   const { data } = await axios.get(`localhost:3000?teamID=${gid}`);
+  console.log(gid);
   const data = {
     image: "asfdadsf",
-    id: "팀명",
+    id: "ajou",
     info: "asdfsafd",
     location: "우만동",
     age: 23,
-    leader: false,
+    leader: "hansol",
     sex: "male",
     member: [
       {
@@ -266,7 +265,6 @@ export async function getCowDogInfo(person: number): Promise<ProfileType[]> {
 /**
  * 채팅 정보 구하기
  */
-
 export async function getChatsInfo(): Promise<ChatsInfoType> {
   const data = {
     data: [

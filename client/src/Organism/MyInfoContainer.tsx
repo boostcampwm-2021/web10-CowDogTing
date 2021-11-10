@@ -1,8 +1,9 @@
+/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
+// import TeamInfoImageContainer from "./TeamInfoImageContainer";
 
-/** @jsxImportSource @emotion/react */
 const MyInfoContainerStyle = css`
   width: 350px;
   height: 80vh;
@@ -27,23 +28,26 @@ const MyInfoContainerStyle = css`
 `;
 export default function MyInfoContainer() {
   return (
-    <div css={MyInfoContainerStyle}>
-      <div className="myinfo-header">
-        <span>내 프로필</span>
-        <Button type="medium">edit</Button>
+    <>
+      <div css={MyInfoContainerStyle}>
+        <div className="myinfo-header">
+          <span>내 프로필</span>
+          <Button type="medium">edit</Button>
+        </div>
+        <div className="myinfo">
+          <span>이름</span>
+          <Input placeholder="ID" autoComplete="off" />
+          <span>나이</span>
+          <Input placeholder="age" autoComplete="off" />
+          <span>주소</span>
+          <Input placeholder="address" autoComplete="off" />
+          <span>이메일</span>
+          <Input placeholder="e-mail" autoComplete="off" />
+          <span>소개</span>
+          <Input placeholder="소개" autoComplete="off" />
+        </div>
       </div>
-      <div className="myinfo">
-        <span>이름</span>
-        <Input placeholder="ID" autoComplete="off" />
-        <span>나이</span>
-        <Input placeholder="age" autoComplete="off" />
-        <span>주소</span>
-        <Input placeholder="address" autoComplete="off" />
-        <span>이메일</span>
-        <Input placeholder="e-mail" autoComplete="off" />
-        <span>소개</span>
-        <Input placeholder="소개" autoComplete="off" />
-      </div>
-    </div>
+      {/* <TeamInfoImageContainer image={teamImage} /> */}
+    </>
   );
 }

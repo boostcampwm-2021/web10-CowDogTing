@@ -1,10 +1,11 @@
+/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useState } from "react";
 import { Input } from "../Atom/Input";
 import NavbarDiv from "../Atom/NavbarDiv";
 import DropDown from "../Molecules/DropDown";
 import SearchIcon from "../Atom/SearchIcon";
-/** @jsxImportSource @emotion/react */
+
 const NavbarStyle = css`
   width: 100vw;
   height: 80px;

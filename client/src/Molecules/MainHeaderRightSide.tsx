@@ -1,8 +1,10 @@
+/** @jsxImportSource @emotion/react */
+
 import { css } from "@emotion/react";
 import React, { useState } from "react";
 import UserIcon from "../Atom/UserIcon";
 import DropDown from "./DropDown";
-/** @jsxImportSource @emotion/react */
+
 function MainHeaderRightSide() {
   const [UserOpen, setUser] = useState(false);
   const ToggleUserModal = () => {

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";

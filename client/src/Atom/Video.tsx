@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
@@ -11,5 +10,6 @@ const containerStyle = css`
 `;
 
 export default function Video({ member }: { member: PersonInfoType }) {
-  return <div css={containerStyle}>{member.id}</div>;
+  const { id } = member;
+  return <div css={containerStyle}>{id}</div>;
 }

@@ -9,7 +9,8 @@ export const getChatsInfo = async (req, res) => {
 };
 
 export const getChatMessage = async (req, res) => {
-  const chatRoomId = req.query.ChatRoomID;
-  const data = await findMessages({ chatRoomId });
+  const chatRoomId = req.query.chatRoomId;
+  const index = req.query.index;
+  const data = await findMessages(chatRoomId, index);
   res.send(data);
 };

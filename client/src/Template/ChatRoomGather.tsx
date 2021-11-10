@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
