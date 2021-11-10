@@ -9,7 +9,7 @@ import apiRouter from "./api";
 import passportConfig from "./passport";
 
 dotenv.config();
-
+const corsOptions = { origin: true, credentials: true };
 const app: express.Application = express();
 passportConfig();
 
@@ -34,7 +34,7 @@ app.use(
 app.use(express.static("src/public")); // API Test
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use("/api", apiRouter);
 

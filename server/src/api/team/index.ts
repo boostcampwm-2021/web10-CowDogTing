@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { isLoggedIn } from "../middlewares/isAuth";
 import { createTeam, getTeamInfo, inviteTeam, updateTeam } from "./controller";
 
 const teamRouter = Router();

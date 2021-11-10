@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { getImage, getJoinChatInfo, getRequest, getUserInfo, getProfile } from "./controller";
+import { isLoggedIn } from "../middlewares/isAuth";
 const coreRouter = Router();
 
 coreRouter.get("/image", getImage);
