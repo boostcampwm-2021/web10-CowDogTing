@@ -53,6 +53,12 @@ export type ProfileListType = {
   person: number;
   setOpenModal: (prev: any) => void;
 };
+export type RequestListType = {
+  datas?: PersonInfoType[] | null | ProfileType[];
+  person: number;
+  type: string;
+  setOpenModal: (prev: any) => void;
+};
 
 export type LargeModalType = {
   children: JSX.Element[];

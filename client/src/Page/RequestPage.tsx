@@ -53,7 +53,6 @@ export default function RequestPage() {
   const getDatas = async () => {
     const item = await getRequestInfo();
     item?.data.forEach((data: RequestType) => {
-      console.log(data);
       return data.from === myId ? setRequestForMe((prev) => [...prev, data.info]) : setRequestToMe((prev) => [...prev, data.info]);
     });
   };
@@ -76,12 +75,12 @@ export default function RequestPage() {
     <div css={RequestPageStyle}>
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>나에게 온 요청</div>
-        <RequestList datas={RequestForMe} person={person} setOpenModal={setOpenForModal} />
+        <RequestList datas={RequestForMe} person={person} setOpenModal={setOpenForModal} type="ForMe" />
         <div ref={modalForRef}>{RequestForMe && openForModal !== null && <ProfileModal data={RequestForMe[Number(openForModal)]} />}</div>
       </div>
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>내가 보낸 요청</div>
-        <RequestList datas={RequestToMe} person={person} setOpenModal={setOpenToModal} />
+        <RequestList datas={RequestToMe} person={person} setOpenModal={setOpenToModal} type="ToMe" />
         <div ref={modalToRef}>{RequestToMe && openToModal !== null && <ProfileModal data={RequestToMe[Number(openToModal)]} />}</div>
       </div>
     </div>
