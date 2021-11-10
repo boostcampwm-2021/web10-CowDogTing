@@ -1,7 +1,6 @@
+/* eslint-disable no-console */
 import axios from "axios";
 import { selector, selectorFamily } from "recoil";
-// import { selector, selectorFamily, useRecoilState, useRecoilValue } from "recoil";
-// import { testState } from "./Atom";
 
 export const testSelector = selector({
   key: "test",
@@ -24,9 +23,8 @@ export const fetchGet = selectorFamily({
   get:
     ({ url, query }: { url: string; query: string }) =>
     async (): Promise<any> => {
-      const { data } = await axios.get(`localhost:3000/${url}?${query}`);
+      // console.log(`${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}${url}${query}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}${url}${query}`);
       return data;
     },
 });
-// const fetchGetState = useRecoilValue(fetchGet({ url: "aaa", query: "aaa", atom: fool }));
-// const result = await fetchGetState();

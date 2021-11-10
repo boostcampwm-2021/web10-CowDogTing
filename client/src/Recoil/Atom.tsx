@@ -4,26 +4,44 @@ import { ChatInfoType, JoinChatsType, PersonInfoType, ProfileType, RequestType, 
 export const userState = atom<PersonInfoType>({
   key: "user",
   default: {
-    id: "",
-    image: "",
-    location: "",
-    sex: "",
-    age: 0,
-    info: "",
+    id: "yj",
+    image: "33",
+    location: "우만동",
+    sex: "male",
+    age: 25,
+    info: "안녕하세요",
+    gid: null,
   },
 });
 
 export const teamState = atom<TeamInfoType>({
   key: "teamState",
   default: {
-    id: "",
-    image: "",
-    location: "",
-    sex: "",
-    age: 0,
-    info: "",
+    id: "팀명",
+    image: "asdfasf",
+    location: "우만동",
+    sex: "male",
+    age: 23,
+    info: "asdfasfd",
     leader: "",
-    member: [],
+    member: [
+      {
+        id: "yj",
+        image: "Image",
+        location: "우만동",
+        age: 23,
+        sex: "male",
+        info: "안녕하세요",
+      },
+      {
+        id: "hansory",
+        image: "Image",
+        location: "우만동",
+        age: 23,
+        sex: "male",
+        info: "안녕하세요",
+      },
+    ],
   },
 });
 
