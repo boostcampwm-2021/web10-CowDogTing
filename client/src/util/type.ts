@@ -28,6 +28,7 @@ export interface PersonInfoType {
   age: number;
   info: string;
   gid?: number | null;
+  idx: number;
 }
 export interface PostTeamType {
   teamName: string;

@@ -44,3 +44,8 @@ export const registerUser = async ({ id, pw, location, age, sex }: registerInfo)
     sex,
   });
 };
+
+export const getCowDogInfo = async (person: number, index: number) => {
+  const { data } = await axios.get(`${url}/api/core/profile?person=?${person}?index=${index}`);
+  return data;
+};

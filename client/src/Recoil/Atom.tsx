@@ -11,6 +11,7 @@ export const userState = atom<PersonInfoType>({
     age: 0,
     info: "",
     gid: null,
+    idx: 0,
   },
 });
 
@@ -28,18 +29,14 @@ export const teamState = atom<TeamInfoType>({
   },
 });
 
-export const cowDogState = atom<{ datas: ProfileType[] }>({
+export const cowDogState = atom<ProfileType[]>({
   key: "cowDogState",
-  default: {
-    datas: [],
-  },
+  default: [],
 });
 
-export const chatState = atom<{ datas: ChatInfoType[] }>({
+export const chatState = atom<ChatInfoType[]>({
   key: "chatState",
-  default: {
-    datas: [],
-  },
+  default: [],
 });
 
 export const requestState = atom<{ datas: RequestType[] }>({
