@@ -49,9 +49,10 @@ export type ProfileInfoDataType = {
 };
 
 export type ProfileListType = {
-  datas?: PersonInfoType[] | null | ProfileType[];
+  datas: PersonInfoType[] | ProfileType[] | null | undefined;
   person: number;
   setOpenModal: (prev: any) => void;
+  profileRef?: RefObject<HTMLDivElement>;
 };
 
 export type LargeModalType = {

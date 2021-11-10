@@ -35,7 +35,6 @@ export default function ProfileList({ datas, person, setOpenModal }: ProfileList
     <div css={ProfileListStyle} onClick={handleModalClick}>
       {datas?.map((data, idx): React.ReactElement | undefined => {
         const sex = person > 1 ? "team" : data.sex;
-        console.log(data);
         return (
           <div css={ProfileStyle} className="Profile" data-id={idx}>
             <ProfileCard type={sex}>
@@ -47,3 +46,8 @@ export default function ProfileList({ datas, person, setOpenModal }: ProfileList
     </div>
   );
 }
+
+ProfileList.defaultProps = {
+  setOpenModal: () => {},
+  profileRef: null,
+};

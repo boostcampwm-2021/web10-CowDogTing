@@ -8,10 +8,8 @@ export default function useModalEvent(ref: RefObject<HTMLDivElement>, handler: (
       const closestElement = target.closest(".Profile");
       if (closestElement) return;
       if (!ref.current || ref.current.contains(target)) {
-        console.log(111);
         return;
       }
-      console.log(222);
       handler(event);
     };
     document.addEventListener("click", listener);
