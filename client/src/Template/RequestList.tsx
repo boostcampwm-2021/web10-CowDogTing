@@ -15,14 +15,31 @@ const ProfileListStyle = css`
   margin-bottom: 10px;
   height: 100vh;
 `;
-const ProfileFooterStyle = css`
+const ProfileSideStyle = css`
   display: flex;
-  width: 100%;
-  justify-content: space-between;
+  height: 60%;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
+  margin-left: 10px;
 `;
 const ProfileStyle = css`
+  display: flex;
+  align-items: center;
   margin: 30px 0px;
+`;
+const StateStyle = css`
+  width: 130px;
+  height: 100px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #fff;
+  cursor: default;
+  border: 2px solid #ffcfcf;
 `;
 function CardButton(type: string) {
   if (type === "ForMe") {
@@ -33,7 +50,7 @@ function CardButton(type: string) {
       </>
     );
   }
-  return <>대기중</>;
+  return <div css={StateStyle}>대기중</div>;
 }
 export default function RequestList({ datas, person, setOpenModal, type }: RequestListType) {
   const handleModalClick = (e: React.MouseEvent) => {
@@ -56,7 +73,7 @@ export default function RequestList({ datas, person, setOpenModal, type }: Reque
             <ProfileCard type={sex}>
               <ProfileInfo data={data} />
             </ProfileCard>
-            <div css={ProfileFooterStyle}>{CardButton(type)}</div>
+            <div css={ProfileSideStyle}>{CardButton(type)}</div>
           </div>
         );
       })}
