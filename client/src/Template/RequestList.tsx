@@ -41,7 +41,7 @@ const StateStyle = css`
   cursor: default;
   border: 2px solid #ffcfcf;
 `;
-function CardButton(type: string) {
+function CardButton(type: string, state: string) {
   if (type === "ForMe") {
     return (
       <>
@@ -50,7 +50,7 @@ function CardButton(type: string) {
       </>
     );
   }
-  return <div css={StateStyle}>대기중</div>;
+  return <div css={StateStyle}>{state}</div>;
 }
 export default function RequestList({ datas, person, setOpenModal, type }: RequestListType) {
   const handleModalClick = (e: React.MouseEvent) => {
@@ -67,13 +67,13 @@ export default function RequestList({ datas, person, setOpenModal, type }: Reque
   return (
     <div css={ProfileListStyle} onClick={handleModalClick}>
       {datas?.map((data, idx): React.ReactElement | undefined => {
-        const sex = person > 1 ? "team" : data.sex;
+        const sex = person > 1 ? "team" : "data";
         return (
           <div css={ProfileStyle} className="Profile" data-id={idx}>
             <ProfileCard type={sex}>
-              <ProfileInfo data={data} />
+              <ProfileInfo data={data.info} />
             </ProfileCard>
-            <div css={ProfileSideStyle}>{CardButton(type)}</div>
+            <div css={ProfileSideStyle}>{CardButton(type, data.state)}</div>
           </div>
         );
       })}

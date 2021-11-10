@@ -54,7 +54,7 @@ export type ProfileListType = {
   setOpenModal: (prev: any) => void;
 };
 export type RequestListType = {
-  datas?: PersonInfoType[] | null | ProfileType[];
+  datas?: RequestType[];
   person: number;
   type: string;
   setOpenModal: (prev: any) => void;
