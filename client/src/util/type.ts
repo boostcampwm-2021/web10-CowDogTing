@@ -116,9 +116,7 @@ export type joinChatType = {
   chatRoomID: number;
   notReadNum: number;
 };
-export type JoinChatsType = {
-  joinChatRooms: joinChatType[];
-};
+
 export type TeamImageContainerType = {
   image: string | ArrayBuffer | null;
 };
