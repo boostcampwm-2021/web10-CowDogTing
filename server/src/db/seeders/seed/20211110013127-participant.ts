@@ -31,7 +31,7 @@ const up = async (queryInterface) => {
   return await queryInterface.bulkInsert("Participant", participant, {});
 };
 
-const down = async (queryInterface, Sequelize) => {
+const down = async (queryInterface) => {
   return await queryInterface.bulkDelete("Participant", null, {});
 };
 

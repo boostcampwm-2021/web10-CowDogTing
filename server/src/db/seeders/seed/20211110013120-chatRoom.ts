@@ -16,7 +16,7 @@ const up = async (queryInterface) => {
   return await queryInterface.bulkInsert("ChatRoom", chatRoom, {});
 };
 
-const down = async (queryInterface, Sequelize) => {
+const down = async (queryInterface) => {
   return await queryInterface.bulkDelete("ChatRoom", null, {});
 };
 
