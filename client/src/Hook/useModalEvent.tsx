@@ -1,15 +1,32 @@
 /* eslint-disable no-console */
 import { RefObject, useEffect } from "react";
 
-export default function useModalEvent(ref: RefObject<HTMLDivElement>, handler: (event: MouseEvent) => void) {
+export default function useModalEvent(ref: RefObject<HTMLDivElement>, profileRef: RefObject<HTMLDivElement[]>, handler: (event: MouseEvent) => void) {
   useEffect(() => {
     const listener = (event: MouseEvent): void => {
+      let flag = false;
+
       const target: HTMLElement = event.target as HTMLElement;
-      const closestElement = target.closest(".Profile");
-      if (closestElement) return;
+
       if (!ref.current || ref.current.contains(target)) {
         return;
       }
+
+      if (profileRef.current === null) {
+        handler(event);
+        return;
+      }
+
+      profileRef.current.forEach((userRef) => {
+        if (flag) return;
+
+        if (userRef.contains(target)) {
+          flag = true;
+        }
+      });
+
+      if (flag) return;
+
       handler(event);
     };
     document.addEventListener("click", listener);

@@ -45,15 +45,16 @@ export default function RequestPage() {
   const myId = "123";
   const person = 1;
 
+  const profileForRef = useRef<HTMLDivElement[]>([]);
   const modalForRef = useRef<HTMLDivElement>(null);
-  useModalEvent(modalForRef, () => setOpenForModal(null));
+  useModalEvent(modalForRef, profileForRef, () => setOpenForModal(null));
+  const profileToRef = useRef<HTMLDivElement[]>([]);
   const modalToRef = useRef<HTMLDivElement>(null);
-  useModalEvent(modalToRef, () => setOpenToModal(null));
+  useModalEvent(modalToRef, profileToRef, () => setOpenToModal(null));
 
   const getDatas = async () => {
     const item = await getRequestInfo();
     item?.data.forEach((data: RequestType) => {
-      console.log(data);
       return data.from === myId ? setRequestForMe((prev) => [...prev, data.info]) : setRequestToMe((prev) => [...prev, data.info]);
     });
   };
@@ -76,12 +77,12 @@ export default function RequestPage() {
     <div css={RequestPageStyle}>
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>나에게 온 요청</div>
-        <ProfileList datas={RequestForMe} person={person} setOpenModal={setOpenForModal} />
+        <ProfileList datas={RequestForMe} person={person} setOpenModal={setOpenForModal} profileRef={profileForRef} />
         <div ref={modalForRef}>{RequestForMe && openForModal !== null && <ProfileModal data={RequestForMe[Number(openForModal)]} />}</div>
       </div>
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>내가 보낸 요청</div>
-        <ProfileList datas={RequestToMe} person={person} setOpenModal={setOpenToModal} />
+        <ProfileList datas={RequestToMe} person={person} setOpenModal={setOpenToModal} profileRef={profileToRef} />
         <div ref={modalToRef}>{RequestToMe && openToModal !== null && <ProfileModal data={RequestToMe[Number(openToModal)]} />}</div>
       </div>
     </div>

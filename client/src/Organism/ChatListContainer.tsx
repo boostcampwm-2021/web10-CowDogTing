@@ -16,11 +16,11 @@ const ChatListContainerStyle = css`
   align-items: center;
 `;
 
-function ChatListContainer({ chatInfo }: ChatListContainerType) {
+function ChatListContainer({ chatInfo, profileRef }: ChatListContainerType) {
   const chatRoomId = chatInfo?.chatRoomID;
   return (
     <div css={ChatListContainerStyle}>
-      <ChatImageContainer member={chatInfo?.member} />
+      <ChatImageContainer member={chatInfo?.member} profileRef={profileRef} />
       {chatRoomId !== undefined && (
         <>
           <ChatDetail chatRoomID={chatRoomId} />

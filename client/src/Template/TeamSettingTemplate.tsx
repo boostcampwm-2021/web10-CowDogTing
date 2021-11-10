@@ -27,6 +27,7 @@ function TeamSettingTemplate() {
   const teamInfoRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
   const leaderRef = useRef<HTMLInputElement>(null);
+  const profileRef = useRef<HTMLDivElement[]>([]);
 
   const clickUpdateButton: MouseEventHandler = () => {
     if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current || !leaderRef.current) return;
@@ -61,7 +62,7 @@ function TeamSettingTemplate() {
         <InputLabel label="지역" placeholder={teamInfo?.location} refProps={locationRef} />
         <InputLabel label="팀 리더" placeholder={teamInfo?.leader} refProps={leaderRef} />
       </TeamInfoContainer>
-      <ProfileList datas={teamInfo?.member} person={1} setOpenModal={() => console.log("1")} />
+      <ProfileList datas={teamInfo?.member} person={1} profileRef={profileRef} />
       <TeamButtonContainer>
         <Button
           type="Medium"
