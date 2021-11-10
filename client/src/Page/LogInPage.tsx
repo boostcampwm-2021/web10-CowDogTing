@@ -41,12 +41,16 @@ export default function LogInPage() {
   const idRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
 
+  // const history = useHistory();
+
   const clickLogin = async () => {
     if (!idRef.current || !pwRef.current) return;
     const id = idRef.current.value;
     const pw = pwRef.current.value;
     await postLogin({ id, pw });
-    location.href = "/";
+    window.location.replace("/main");
+    // history.push("/main");
+    // location.href = "/main";
   };
 
   return (

@@ -42,8 +42,8 @@ export default function CowDogPage() {
   };
 
   useEffect(() => {
-    if (datas[datas.length - 1].idx === undefined) return;
-    setDataIndex(datas[datas.length - 1].idx);
+    // if (datas[datas.length - 1].idx === undefined) return;
+    // setDataIndex(datas[datas.length - 1].idx);
   }, [datas]);
 
   useEffect(() => {
