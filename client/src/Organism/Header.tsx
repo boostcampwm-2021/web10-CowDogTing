@@ -45,7 +45,7 @@ export default function Header() {
     <div css={HeaderStyle} id="header">
       <div ref={menuRef}>
         <Menu onClick={() => ToggleMenuModal()} />
-        <DropDown type="Menu" className={menuOpen ? "show" : "hide"} onClick={setMeetingOpen} />
+        <DropDown type="Menu" className={menuOpen ? "show" : "hide"} onClick={() => setMeetingOpen(true)} />
         <DropDown type="Meeting" className={meetingOpen ? "show" : "hide"} />
       </div>
       <Link to="/main">
