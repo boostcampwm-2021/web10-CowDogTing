@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import ProfileCard from "../Atom/ProfileCard";
 import ProfileInfo from "../Atom/ProfileInfo";
 import { RequestListType } from "../util/type";
+import { Button } from "../Atom/Button";
 
 const ProfileListStyle = css`
   margin: 0 auto;
@@ -14,12 +15,27 @@ const ProfileListStyle = css`
   margin-bottom: 10px;
   height: 100vh;
 `;
-
+const ProfileFooterStyle = css`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
 const ProfileStyle = css`
   margin: 30px 0px;
 `;
-
-export default function RequestList({ datas, person, setOpenModal }: RequestListType) {
+function CardButton(type: string) {
+  if (type === "ForMe") {
+    return (
+      <>
+        <Button type="small">수락</Button>
+        <Button type="small">거절</Button>
+      </>
+    );
+  }
+  return <>대기중</>;
+}
+export default function RequestList({ datas, person, setOpenModal, type }: RequestListType) {
   const handleModalClick = (e: React.MouseEvent) => {
     const closestElement = (e.target as HTMLElement).closest(".Profile");
     if (!closestElement) return;
@@ -40,6 +56,7 @@ export default function RequestList({ datas, person, setOpenModal }: RequestList
             <ProfileCard type={sex}>
               <ProfileInfo data={data} />
             </ProfileCard>
+            <div css={ProfileFooterStyle}>{CardButton(type)}</div>
           </div>
         );
       })}
