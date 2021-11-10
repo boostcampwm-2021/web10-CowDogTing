@@ -57,7 +57,6 @@ Users.init(
     },
     image: {
       type: DataTypes.INTEGER,
-      allowNull: false,
     },
     age: {
       type: DataTypes.INTEGER,
