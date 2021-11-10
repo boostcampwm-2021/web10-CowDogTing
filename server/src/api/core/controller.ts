@@ -19,7 +19,7 @@ export const getRequest = async (req, res) => {
 };
 
 export const getUserInfo = async (req, res) => {
-  const uid: string = req.query.uid;
+  const uid: string = req.query.uid; // 미들웨어 추가
   const data = await findUserInfo({ uid });
   res.send(data);
 };

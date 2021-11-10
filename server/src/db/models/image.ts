@@ -20,7 +20,7 @@ Image.init(
       autoIncrement: true,
     },
     image: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(100),
       allowNull: false,
       primaryKey: true,
     },
