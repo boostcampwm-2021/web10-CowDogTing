@@ -34,12 +34,7 @@ app.use(
 app.use(express.static("src/public")); // API Test
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(
-  cors({
-    origin: true,
-    credentials: true,
-  })
-);
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(morgan("dev"));
 app.use("/api", apiRouter);
 

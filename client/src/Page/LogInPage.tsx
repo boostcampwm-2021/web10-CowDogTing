@@ -45,8 +45,7 @@ export default function LogInPage() {
     const id = idRef.current.value;
     const pw = pwRef.current.value;
     const url = `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}${process.env.REACT_APP_LOGIN_API_URL}`;
-    // eslint-disable-next-line no-console
-    postApi(url, { uid: id, password: pw });
+    await postApi(url, { uid: id, password: pw });
   };
 
   return (
