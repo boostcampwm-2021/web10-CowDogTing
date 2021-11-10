@@ -1,15 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import axios from "axios";
+// import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
+import { useRecoilValue } from "recoil";
 import { Button } from "../Atom/Button";
 import InputLabel from "../Molecules/InputLabel";
 import TeamButtonContainer from "../Organism/TeamButtonContainer";
 import TeamInfoContainer from "../Organism/TeamInfoContainer";
-import { getTeamPeople } from "../util/dummyData";
-import { TeamInfoType } from "../util/type";
+// import { getTeamPeople } from "../util/dummyData";
 import ProfileList from "./ProfileList";
 import InviteModal from "./InviteModal";
+import { teamState } from "../Recoil/Atom";
+import { changeTeamInfo } from "../util";
 
 const TeamSettingTemPlateStyle = css`
   display: flex;
@@ -19,40 +21,47 @@ const TeamSettingTemPlateStyle = css`
   flex-direction: column;
   align-items: center;
 `;
+
 function TeamSettingTemplate() {
-  const [teamInfo, setTeamInfo] = useState<TeamInfoType | null>(null);
+  const teamInfo = useRecoilValue(teamState);
   const [inviteModalState, setInviteModalState] = useState(false);
 
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
   const leaderRef = useRef<HTMLInputElement>(null);
+  let beforeTeamName = "";
 
-  const clickUpdateButton: MouseEventHandler = () => {
+  useEffect(() => {
+    if (teamNameRef.current === null) return;
+    beforeTeamName = teamNameRef.current.value;
+  }, [teamNameRef.current]);
+
+  const clickUpdateButton: MouseEventHandler = async () => {
     if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current || !leaderRef.current) return;
     if (teamInfo === null) return;
     const teamName = teamNameRef.current.value;
     const teamInfoInput = teamInfoRef.current.value;
     const location = locationRef.current.value;
     const leader = leaderRef.current.value;
-    // eslint-disable-next-line no-console
 
-    axios.post("http://localhost:4000/api/team/update", {
-      originTeamName: "ajouUniv",
-      name: teamName,
-      description: teamInfoInput,
+    await changeTeamInfo({
+      beforeTeamName,
+      teamName,
+      teamInfoInput,
       location,
       leader,
     });
   };
 
-  const getTeamInfo = async () => {
-    const data = await getTeamPeople(1);
-    setTeamInfo(data);
-  };
-  useEffect(() => {
-    getTeamInfo();
-  }, []);
+  // const getTeamInfo = async () => {
+  //   const data = await getTeamPeople(1);
+  //   setTeamInfo(data);
+  // };
+  // useEffect(() => {
+  //   getTeamInfo();
+  // }, []);
+
   return (
     <div css={TeamSettingTemPlateStyle}>
       <TeamInfoContainer>
