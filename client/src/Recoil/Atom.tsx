@@ -22,6 +22,7 @@ export const teamState = atom<TeamInfoType>({
     sex: "",
     age: 0,
     info: "",
+    leader: "",
     member: [],
   },
 });
