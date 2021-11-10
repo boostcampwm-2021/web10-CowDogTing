@@ -13,7 +13,8 @@ import { userState } from "./Recoil/Atom";
 
 function App() {
   const url = `${process.env.REACT_APP_GET_USER_INFO_API_URL}`;
-  const userInfo = useRecoilValue(fetchGet({ url, query: "?uid=test0" }));
+  console.log(url);
+  const userInfo = useRecoilValue(fetchGet({ url, query: "" }));
   const setUserInfo = useSetRecoilState(userState);
 
   useEffect(() => {

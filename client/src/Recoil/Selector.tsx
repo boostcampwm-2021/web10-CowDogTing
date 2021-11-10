@@ -23,7 +23,7 @@ export const fetchGet = selectorFamily({
   get:
     ({ url, query }: { url: string; query: string }) =>
     async (): Promise<any> => {
-      // console.log(`${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}${url}${query}`);
+      console.log(`${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}${url}${query}`);
       const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}${url}${query}`);
       return data;
     },

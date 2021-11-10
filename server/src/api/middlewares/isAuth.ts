@@ -1,9 +1,14 @@
 export const isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) {
+  console.log("1");
+  /*if (req.isAuthentiated()) {
+    // console.log(req.session.uid);
+    console.log("2");
     next();
   } else {
-    res.status(403).send("로그인 필요");
-  }
+    console.log("1");
+    next();
+  }*/
+  next();
 };
 
 export const isNotLoggedIn = (req, res, next) => {
@@ -11,6 +16,6 @@ export const isNotLoggedIn = (req, res, next) => {
     next();
   } else {
     const message = encodeURIComponent("로그인한 상태입니다");
-    res.redirect(`/error=${message}`);
+    // res.redirect(`/error=${message}`);
   }
 };

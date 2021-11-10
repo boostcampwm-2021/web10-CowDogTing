@@ -3,16 +3,21 @@ import { findUser, createUser } from "./service";
 
 export const handleRegister = async (req, res, next) => {
   const { uid, password, location, age, sex }: { uid: string; password: string; location: string; age: number; sex: string } = req.body;
+  console.log(uid, password, location, age, sex);
   try {
     const exUser = await findUser({ uid });
     if (exUser) {
-      return res.status(400).send({ test: "해당 아이디 존재" });
+      console.log("해당 아이디 존재");
+      return res.send({ test: "해당 아이디 존재" });
     }
     await createUser({ uid, password, location, age, sex });
+    console.log("test : 실패");
+    res.send({ test: "회원가입 성공" });
     // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
     // res.redirect("http://localhost:3000");
   } catch (error) {
-    res.status(400).send({ test: "회원가입 실패" });
+    console.log("test : 회원가입실패");
+    res.send({ test: "회원가입 실패" });
     return next(error);
   }
 };
@@ -23,15 +28,15 @@ export const handleLogin = (req, res, next) => {
       return next(authError);
     }
     if (!user) {
-      return res.status(400).send({ test: "회원정보 불일치", info: [info] });
+      return res.send({ test: "회원정보 불일치", info: [info] });
     }
-    return req.login(user, (loginError) => {
+    req.login(user, (loginError) => {
       if (loginError) {
         return next(loginError);
       }
-      // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-      // res.redirect("/api/redirect");
-      return res.send({ f: "wiw" });
+      req.session.save(() => {
+        res.send({ f: "wiw" });
+      });
     });
   })(req, res, next);
 };

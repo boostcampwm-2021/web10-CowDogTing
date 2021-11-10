@@ -7,9 +7,8 @@ import * as passport from "passport";
 import * as cors from "cors";
 import apiRouter from "./api";
 import passportConfig from "./passport";
-
+const fileStore = require("session-file-store")(session);
 dotenv.config();
-const corsOptions = { origin: true, credentials: true };
 const app: express.Application = express();
 passportConfig();
 
@@ -25,16 +24,23 @@ app.use(
     resave: true,
     saveUninitialized: false,
     secret: process.env.COOKIE_SECRET,
+    store: new fileStore(),
     cookie: {
       httpOnly: true,
       secure: false,
     },
   })
 );
+
 app.use(express.static("src/public")); // API Test
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 app.use(morgan("dev"));
 app.use("/api", apiRouter);
 

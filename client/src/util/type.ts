@@ -29,19 +29,16 @@ export interface PersonInfoType {
   info: string;
   gid?: number | null;
 }
-export interface ChangeTeamInfoType {
-  beforeTeamName: string;
-  teamName: string;
-  teamInfoInput: string;
-  location: string;
-  leader: string;
-}
 export interface PostTeamType {
   teamName: string;
   teamInfo: string;
   location: string;
   leader: string;
 }
+export interface ChangeTeamInfoType extends PostTeamType {
+  beforeTeamName: string;
+}
+
 export type TeamInfoType = {
   image: string;
   id: string;
@@ -179,3 +176,14 @@ export type menuType = {
 export type menuListType = {
   [key: string]: menuType[];
 };
+
+export interface loginInfo {
+  id: string;
+  pw: string;
+}
+
+export interface registerInfo extends loginInfo {
+  location: string;
+  age: number;
+  sex: string;
+}
