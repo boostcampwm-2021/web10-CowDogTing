@@ -31,14 +31,11 @@ const MyInfoContainerStyle = css`
 `;
 export default function MyInfoContainer() {
   const [myInfo, setMyInfo] = useRecoilState(userState);
-
   const { id, location, age, info } = myInfo;
   const idInputRef = useRef<HTMLInputElement>(null);
   const ageInputRef = useRef<HTMLInputElement>(null);
   const locationInputRef = useRef<HTMLInputElement>(null);
   const infoInputRef = useRef<HTMLInputElement>(null);
-
-  // 복붙
 
   const handleChangeMyInfo = async () => {
     if (!idInputRef.current || !ageInputRef.current || !locationInputRef.current || !infoInputRef.current) return;
