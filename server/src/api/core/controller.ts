@@ -29,16 +29,13 @@ export const getRequest = async (req, res) => {
 };
 
 export const getUserInfo = async (req, res) => {
-  console.log("req.user :", req.user);
-  console.log(req.session);
-
+  console.log(req.user);
   if (!req.user) {
     res.send(defaultUser);
+    return;
   }
-  const uid: string = req.user.uid; // 미들웨어 추가
-
+  const uid: string = req.user.uid;
   const data = await findUserInfo({ uid });
-  res.setHeader("Access-Control-Allow-Credentials", true);
   res.send(data);
 };
 
