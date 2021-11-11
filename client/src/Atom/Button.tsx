@@ -1,5 +1,3 @@
-/* eslint-disable no-return-assign */
-/* eslint-disable comma-dangle */
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { ButtonType } from "../util/type";
@@ -75,10 +73,6 @@ export const Button = styled.div`
   border-radius: 10px;
   cursor: pointer;
   background-color: #fff;
-
-  & + & {
-    der-top: none;
-  }
 
   &:hover {
     background-color: #ffcfcf;

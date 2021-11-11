@@ -1,5 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
@@ -11,11 +9,21 @@ const userIconStyle = css`
   height: 48px;
   cursor: pointer;
 `;
+
+const buttonStyle = css`
+  background: none;
+`;
+
 interface UserIconProps {
   onClick: () => void;
 }
 function UserIcon(props: UserIconProps) {
-  return <img alt="user Icon" src={userIcon} onClick={props.onClick} css={userIconStyle} />;
+  const { onClick } = props;
+  return (
+    <button type="button" onClick={onClick} css={buttonStyle}>
+      <img alt="user Icon" src={userIcon} css={userIconStyle} />
+    </button>
+  );
 }
 
 export default UserIcon;

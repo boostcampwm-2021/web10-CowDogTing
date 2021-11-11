@@ -1,8 +1,8 @@
-/* eslint-disable comma-dangle */
+/** @jsxImportSource @emotion/react */
+
 import { css } from "@emotion/react";
 import SideBarDiv from "../Atom/SideBarDiv";
 
-/** @jsxImportSource @emotion/react */
 const SideBarStyle = css`
   width: 10vw;
   height: 80vh;

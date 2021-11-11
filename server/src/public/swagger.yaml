@@ -1,0 +1,746 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: 'CowDogTing'
+  description: 'API 명세'
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/ddaynew365/CowDogTing/1.0.0
+  - description : API 명세
+    url: http://localhost:4000/
+paths:
+  /api/core/userInfo:
+    post:
+      summary: 유저 정보 변경
+      requestBody:
+        description: 아이디, 지역, 나이, 정보
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                location:
+                  type: string
+                age:
+                  type: number
+                info:
+                  type: string
+            example:
+              {
+                id: "newID",
+                location: "수원",
+                age: 14,
+                info: "안녕"
+              }
+      responses:
+        '200':
+          description: 유저 정보 변경 확인
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
+    get:
+      summary: 유저 정보 획득
+      responses:
+        '200':
+          description: 유저 정보
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  image:
+                    type: number
+                  location:
+                    type: string
+                  sex: 
+                    type: string
+                  age: 
+                    type: number
+                  info: 
+                    type: string
+              example:
+                id: "yj"
+                image: 33
+                location: "우만동"
+                sex: "male"
+                age: 25
+                info: "안녕하세요"
+        
+  /api/core/image:
+    get:
+      summary: 이미지 불러오기
+      parameters:
+        - name: imageID
+          in: query
+          required: true
+          description: 이미지 아이디
+          schema:
+            type: number
+          example:
+            23843900384290394
+      responses:
+        '200':
+          description: 이미지 파일
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  image:
+                    type: string
+  
+  /api/core/joinChatInfo:
+    get:
+      summary: 참여 채팅방 정보 가져오기 
+      responses:
+        '200':
+          description: 참여 채팅방 정보
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    chatRoomID:
+                      type: number
+                    notReadNum:
+                      type: number
+              example:
+                [
+                  {
+                    chatRoomID: 1,
+                    notReadNum: 3
+                  },
+                  {
+                    chatRoomID: 2,
+                    notReadNum: 2
+                  },
+                ]
+  /api/core/profile:
+    get:
+      summary: 소개 프로필 가져오기
+      parameters:
+      - name: person
+        in: query
+        description: 인원 수
+        required: true
+        schema:
+          type: number
+        example:
+          1
+      - name: index
+        in: query
+        description: 디비 번호
+        required: true
+        schema:
+          type: number
+        example:
+          1
+      responses:
+        '200':
+          description: 소개 프로필 데이터
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    image:
+                      type: number
+                    location:
+                      type: string
+                    sex:
+                      type: string
+                    age:
+                      type: number
+                    info:
+                      type: string
+                example:
+                  [
+                    {
+                      id: "yj",
+                      image: "Image",
+                      location: "우만동",
+                      sex: "female",
+                      age: 25,
+                      info: "안녕하세요",
+                    },
+                    {
+                      id: "hansory",
+                      image: "Image",
+                      location: "영통동",
+                      sex: "female",
+                      age: 20,
+                      info: "반가워요",
+                    }
+                  ]
+  /api/core/request:
+    get:
+      summary: 요청 목록 가져오기     
+      responses:
+        '200':
+          description: 요청 목록
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        from:
+                          type: string
+                        to:
+                          type: string
+                        info: 
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            image:
+                              type: string
+                            location:
+                              type: string
+                            sex:
+                              type: string
+                            age:
+                              type: number
+                            info:
+                              type: string
+                        state:
+                          type: string  
+              example:
+                [
+                  {
+                    from: "123",
+                    to: "yj",
+                    info: {
+                      id: "yj",
+                      image: "Image",
+                      location: "우만동",
+                      sex: "female",
+                      age: 25,
+                      info: "안녕하세요",
+                    },
+                    state: "대기중",
+                  },
+                  {
+                    from: "yj",
+                    to: "123",
+                    info: {
+                      id: "123",
+                      image: "Image",
+                      location: "우만동",
+                      sex: "female",
+                      age: 26,
+                      info: "안녕하세요",
+                      member: [],
+                    },
+                    state: "대기중",
+                  },
+                ]                  
+  /api/auth/register:
+    post:
+      summary: 회원가입
+      parameters:
+        - name: userInfo
+          in: header
+          required: true
+          description: 유저 정보
+          schema:
+            type: object
+            properties:
+                uid: 
+                  type: string
+                password:
+                  type: string
+                location:
+                  type: string
+                sex:
+                  type: string
+                age:
+                  type: number
+                info:
+                  type: string
+      responses:
+        '200':
+          description: 회원가입 성공 여부
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
+  /api/auth/login:
+    post:
+      summary: 로그인 버튼 클릭(유저 정보 받아오기)
+      # requestBody:
+      #   description: 아이디, 비밀번호
+      #   required: true
+      #   content:
+      #     application/json:
+      #       schema: 
+      #         type: object
+      #         properties:
+      #           uid:
+      #             type: string
+      #           password:
+      #             type: string
+      parameters:
+      - name: uid
+        in: header
+        required: true
+        description: 유저 아이디
+        schema:
+          type: string
+        example:
+          "my_id"
+      - name: password
+        in: header
+        required: true
+        description: 유저 비밀번호
+        schema:
+          type: string
+        example:
+          "my_pw"
+      responses:
+        '200':
+          description: 유저 정보
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
+  /api/auth/logout:
+    get:
+      summary: 로그아웃
+      responses:
+        '200':
+          description: 로그아웃 확인
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
+  /api/auth/id-validation:
+    get:
+      summary: 회원가입(아이디 중복 검사)
+      parameters:
+        - name: uid
+          in: query
+          required: true
+          description: 유저 아이디
+          schema:
+            type: string
+          example:
+            "my_id"
+      responses:
+        '200':
+          description: 회원가입 아이디 중복 검사 확인
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
+  /api/team/create:
+    post:
+      summary: 팀 생성
+      parameters:
+      - name: teamInfo
+        in: header
+        required: true
+        description: 팀 정보
+        schema:
+          type: object
+          properties:
+            description:
+              type: string
+            location:
+              type: string
+            leader:
+              type: string
+            name:
+              type: string
+          example:
+            {
+              description: "설명",
+              location: "우만동",
+              name: "cowdog"
+            }
+      responses:
+        '200':
+          description: 팀 생성 여부
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
+  /api/team/update:
+    post:
+      summary: 팀 정보 수정
+      parameters:
+      - name: teamInfo
+        in: header
+        description: 새로운 팀 정보
+        required: true
+        schema:
+          type: object
+          properties:
+            originTeamName:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            location:
+              type: string
+            leader:
+              type: string
+        example:
+          {
+            originTeamName: "boo",
+            name: "cowdog",
+            description: "안녕하세요",
+            location: "대구",
+            leader: "alice"
+            
+          }
+      responses:
+        '200':
+          description: 팀 정보 수정 성공 여부
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
+
+  /api/team/invite:
+    post:
+      summary: 팀원 초대하기
+      parameters:
+      - name: inviteID
+        in: header
+        description: 초대하려는 유저 아이디
+        required: true
+        schema:
+          type: object
+          properties:
+            teamName:
+              type: string
+            userId:
+              type: string
+        example:
+          {
+            teamName: "cowdog",
+            userId: "ddatnew"
+          }
+      responses:
+        '200':
+          description: 초대 성공 여부
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
+  /api/team/info:
+    get:
+      summary: 팀 정보 가져오기
+      parameters:
+        - name: teamId
+          in: query
+          description: 팀 아이디
+          required: true
+          schema:
+            type: number
+          example:
+            "1"
+      responses:
+        '200':
+          description: 팀 정보
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  id: 
+                    type: string
+                  info: 
+                    type: string
+                  location: 
+                    type: string
+                  age: 
+                    type: number
+                  leader: 
+                    type: string
+                  sex: 
+                    type: string
+                  image: 
+                    type: number
+                  member:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: 
+                          type: string
+                        image: 
+                          type: string
+                        location: 
+                          type: string
+                        age: 
+                          type: number
+                        sex: 
+                          type:  string
+                        info: 
+                          type: string
+              example:
+                {
+                  image: "asfdadsf",
+                  id: "팀명",
+                  info: "asdfsafd",
+                  location: "우만동",
+                  age: 23,
+                  leader: false,
+                  sex: "male",
+                  member: [
+                    {
+                      id: "yj",
+                      image: "Image",
+                      location: "우만동",
+                      age: 23,
+                      sex: "male",
+                      info: "안녕하세요",
+                    },
+                    {
+                      id: "hansory",
+                      image: "Image",
+                      location: "우만동",
+                      age: 23,
+                      sex: "male",
+                      info: "안녕하세요",
+                    },
+                  ],
+                }                
+  /api/chat/info:
+    get:
+      summary: 채팅방 정보 가져오기
+      responses:
+        '200':
+          description: 채팅방 정보
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        chatRoomID:
+                          type: number
+                        member:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              image:
+                                type: number
+                              location:
+                                type: string
+                              sex:
+                                type: string
+                              age:
+                                type: number
+                              info:
+                                type: string
+              example:
+                [
+                  {
+                    chatRoomID: 1,
+                    member: [
+                      {
+                        id: "영진",
+                        image: dummyImage,
+                        location: "우as만동",
+                        sex: "male",
+                        age: 25,
+                        info: "gggg",
+                      },
+                      {
+                        id: "222",
+                        image: dummyImage,
+                        location: "우fasd만동",
+                        sex: "male",
+                        age: 25,
+                        info: "fffff",
+                      },
+                      {
+                        id: "123",
+                        image: dummyImage,
+                        location: "asdf우만동",
+                        sex: "male",
+                        age: 25,
+                        info: "afsd",
+                      },
+                    ],
+                    chatMessage: [
+                      {
+                        from: "123",
+                        message: "ㅎㅇㅎㅇ",
+                        read: true,
+                        source: "image",
+                      },
+                      {
+                        from: "yj",
+                        message: "ㅎㅇㅎㅇ",
+                        read: true,
+                        source: "image",
+                      },
+                      {
+                        from: "123",
+                        message: "ㅎㅇㅎㅇ",
+                        read: true,
+                        source: "image",
+                      },
+                      {
+                        from: "123",
+                        message: "ㅎㅇㅎㅇ",
+                        read: true,
+                        source: "image",
+                      },
+                      {
+                        from: "yj",
+                        message: "ㅎㅇㅎㅇ",
+                        read: true,
+                        source: "image",
+                      },
+                      {
+                        from: "123",
+                        message: "ㅎㅇㅎㅇ",
+                        read: true,
+                        source: "image",
+                      },
+                      {
+                        from: "영진",
+                        message: "ㅎㅇㅎㅇ",
+                        read: true,
+                        source: "image",
+                      },
+                    ],
+                  },
+                  {
+                    chatRoomID: 2,
+                    member: [
+                      {
+                        id: "3영진3",
+                        image: dummyImage,
+                        location: "우as만동",
+                        sex: "male",
+                        age: 25,
+                        info: "gggg",
+                      },
+                      {
+                        id: "222",
+                        image: dummyImage,
+                        location: "우fasd만동",
+                        sex: "male",
+                        age: 25,
+                        info: "fffff",
+                      },
+                      {
+                        id: "123",
+                        image: dummyImage,
+                        location: "asdf우만동",
+                        sex: "male",
+                        age: 25,
+                        info: "afsd",
+                      },
+                    ],
+                    chatMessage: [
+                      {
+                        from: "123",
+                        message: "ㅎㅇㅎㅇ",
+                        read: true,
+                        source: "image",
+                      },
+                      {
+                        from: "123",
+                        message: "ㅎㅇㅎㅇ",
+                        read: true,
+                        source: "image",
+                      },
+                      {
+                        from: "3영진3",
+                        message: "ㅂㅇㅂㅇ",
+                        read: true,
+                        source: "image",
+                      },
+                    ],
+                  },
+                ]
+
+  /api/chat/messages:
+    get:
+      summary: 채팅 내역 추가 가져오기
+      parameters:
+      - name: chatRoomID
+        in: query
+        description: 채팅방 정보
+        required: true
+        schema:
+          type: number
+        example:
+          1
+      - name: index
+        in: query
+        description: 몇번째 페이지
+        required: true
+        schema:
+          type: number
+        example:
+          2
+      responses:
+        '200':
+          description: 채팅 내역
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  chatMessage:
+                    type: array
+                    items:
+                      type: object
+                      properties: 
+                        from:
+                          type: string
+                        message:
+                          type: string
+                        read:
+                          type: boolean
+                        source:
+                          type: number

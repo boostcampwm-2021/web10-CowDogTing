@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
@@ -38,7 +39,7 @@ const RightButton = (props: { visiable: boolean }) => css`
   ${props.visiable && { visibility: "hidden" }};
 `;
 
-export default function LargeModal({ index, children, datas, decreaseIndex, inCreaseIndex }: LargeModalType) {
+export default function LargeModal({ index, children, length, decreaseIndex, inCreaseIndex }: LargeModalType) {
   const inCrease = (e: React.MouseEvent<HTMLElement>): void => {
     inCreaseIndex(e);
   };
@@ -52,7 +53,7 @@ export default function LargeModal({ index, children, datas, decreaseIndex, inCr
       <div css={InfoContainer}>
         <div css={LeftButton({ visiable: index > 0 })} onClick={decrease} />
         {children[0]}
-        <div css={RightButton({ visiable: index + 1 === datas?.length })} onClick={inCrease} />
+        <div css={RightButton({ visiable: index + 1 === length })} onClick={inCrease} />
       </div>
       {children[1]}
     </Modal>

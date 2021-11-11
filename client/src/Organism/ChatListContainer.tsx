@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
+import { useRecoilValue } from "recoil";
 import { css } from "@emotion/react";
-import { Link } from "react-router-dom";
 import { ChatListContainerType } from "../util/type";
 import ChatImageContainer from "./ChatImageContainer";
 import ChatDetail from "./ChatDetail";
 import ChatInput from "../Molecules/ChatInput";
 import ChatInputContainer from "./ChatInputContainer";
-import { Button } from "../Atom/Button";
+import LinkButton from "../Molecules/LinkButton";
+import { chatTarget } from "../Recoil/Atom";
 
 const ChatListContainerStyle = css`
   width: 50%;
@@ -17,19 +18,18 @@ const ChatListContainerStyle = css`
   align-items: center;
 `;
 
-function ChatListContainer({ chatInfo }: ChatListContainerType) {
-  const chatRoomId = chatInfo?.chatRoomID;
+function ChatListContainer({ profileRef }: ChatListContainerType) {
+  const { chatRoomId } = useRecoilValue(chatTarget);
+
   return (
     <div css={ChatListContainerStyle}>
-      <ChatImageContainer member={chatInfo?.member} />
+      <ChatImageContainer profileRef={profileRef} />
       {chatRoomId !== undefined && (
         <>
-          <ChatDetail chatRoomID={chatRoomId} />
+          <ChatDetail />
           <ChatInputContainer>
             <ChatInput />
-            <Link to={`/ChatRoom?chatRoomId=${chatRoomId}`}>
-              <Button>추가기능</Button>
-            </Link>
+            <LinkButton url="/ChatRoom" type="Medium" content="추가기능" />
           </ChatInputContainer>
         </>
       )}

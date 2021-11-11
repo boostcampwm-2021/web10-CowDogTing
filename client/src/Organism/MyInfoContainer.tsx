@@ -1,8 +1,12 @@
+/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { useRef } from "react";
+import { useRecoilState } from "recoil";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
+import { userState } from "../Recoil/Atom";
+import { changeMyInfo } from "../util";
 
-/** @jsxImportSource @emotion/react */
 const MyInfoContainerStyle = css`
   width: 350px;
   height: 80vh;
@@ -26,24 +30,50 @@ const MyInfoContainerStyle = css`
   }
 `;
 export default function MyInfoContainer() {
+  const [myInfo, setMyInfo] = useRecoilState(userState);
+  const { id, location, age, info } = myInfo;
+  const idInputRef = useRef<HTMLInputElement>(null);
+  const ageInputRef = useRef<HTMLInputElement>(null);
+  const locationInputRef = useRef<HTMLInputElement>(null);
+  const infoInputRef = useRef<HTMLInputElement>(null);
+
+  const handleChangeMyInfo = async () => {
+    if (!idInputRef.current || !ageInputRef.current || !locationInputRef.current || !infoInputRef.current) return;
+
+    const data = await changeMyInfo({ id: idInputRef.current.value, location: locationInputRef.current.value, age: Number(ageInputRef.current.value), info: infoInputRef.current.value });
+
+    if (data) {
+      setMyInfo({
+        ...myInfo,
+        id: idInputRef.current.value,
+        location: locationInputRef.current.value,
+        age: Number(ageInputRef.current.value),
+        info: infoInputRef.current.value,
+      });
+    } else {
+      alert("myinfo 수정 실패");
+    }
+  };
   return (
-    <div css={MyInfoContainerStyle}>
-      <div className="myinfo-header">
-        <span>내 프로필</span>
-        <Button type="medium">edit</Button>
+    <>
+      <div css={MyInfoContainerStyle}>
+        <div className="myinfo-header">
+          <span>내 프로필</span>
+          <Button type="medium" onClick={handleChangeMyInfo}>
+            edit
+          </Button>
+        </div>
+        <div className="myinfo">
+          <span>이름</span>
+          <Input placeholder={id} autoComplete="off" ref={idInputRef} />
+          <span>나이</span>
+          <Input placeholder={String(age)} autoComplete="off" ref={ageInputRef} />
+          <span>주소</span>
+          <Input placeholder={location} autoComplete="off" ref={locationInputRef} />
+          <span>소개</span>
+          <Input placeholder={info} autoComplete="off" ref={infoInputRef} />
+        </div>
       </div>
-      <div className="myinfo">
-        <span>이름</span>
-        <Input placeholder="ID" autoComplete="off" />
-        <span>나이</span>
-        <Input placeholder="age" autoComplete="off" />
-        <span>주소</span>
-        <Input placeholder="address" autoComplete="off" />
-        <span>이메일</span>
-        <Input placeholder="e-mail" autoComplete="off" />
-        <span>소개</span>
-        <Input placeholder="소개" autoComplete="off" />
-      </div>
-    </div>
+    </>
   );
 }

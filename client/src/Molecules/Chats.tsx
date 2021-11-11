@@ -1,15 +1,16 @@
-/* eslint-disable react/destructuring-assignment */
 import React from "react";
+import { useRecoilValue } from "recoil";
 import Chat from "../Atom/Chat";
-import { MessageType } from "../util/type";
+import { chatTarget, userState } from "../Recoil/Atom";
 
-export default function Chats(props: { chats: MessageType[] | null }) {
-  const myID = "yj";
+export default function Chats() {
+  const { id: myId } = useRecoilValue(userState);
+  const { chatMessage: chats } = useRecoilValue(chatTarget);
 
   return (
     <>
-      {props.chats?.map((chat) => {
-        const type = chat.from === myID ? "Mine" : "Other";
+      {chats?.map((chat) => {
+        const type = chat.from === myId ? "Mine" : "Other";
         return <Chat type={type}>{[chat.from, chat.message]}</Chat>;
       })}
     </>
