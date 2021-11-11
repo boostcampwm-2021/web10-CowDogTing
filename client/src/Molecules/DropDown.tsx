@@ -64,7 +64,7 @@ const ChatDropDownStyle = css`
 const MeetingDropDownStyle = css`
   position: absolute;
   margin-left: 250px;
-  margin-top: 80px;
+  margin-top: 155px;
   ${BasicDropDownStyle}
 `;
 

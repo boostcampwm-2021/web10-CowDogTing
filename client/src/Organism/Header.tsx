@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import MainHeaderLogo from "../Atom/MainHeaderLogo";
 import Menu from "../Atom/Menu";
@@ -28,6 +28,17 @@ const HeaderStyle = css`
 `;
 
 export default function Header() {
+  const serarchParams = new URLSearchParams(useLocation().search);
+  const person = Number(serarchParams.get("person"));
+
+  useEffect(() => {
+    if (person === null) return;
+    DropDownOff();
+  }, [person]);
+  const DropDownOff = () => {
+    setMenuOpen(false);
+    setMeetingOpen(false);
+  };
   const [menuOpen, setMenuOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
   const [meetingOpen, setMeetingOpen] = useState(false);
@@ -37,10 +48,8 @@ export default function Header() {
 
   const menuRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
-
   useDropDownEvent(menuRef, () => {
-    setMenuOpen(false);
-    setMeetingOpen(false);
+    DropDownOff();
   });
   useDropDownEvent(userRef, () => setUserOpen(false));
 
@@ -69,8 +78,8 @@ export default function Header() {
       <div ref={menuRef}>
         <Menu onClick={() => ToggleMenuModal()} />
         <DropDown type="Menu" className={menuOpen ? "show" : "hide"} onClick={() => ToggleMeetingModal()} />
-        <DropDown type="Meeting" className={meetingOpen ? "show" : "hide"} />
       </div>
+      <DropDown type="Meeting" className={meetingOpen ? "show" : "hide"} />
       <Link to="/main">
         <MainHeaderLogo />
       </Link>

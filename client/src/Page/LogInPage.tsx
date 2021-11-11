@@ -1,3 +1,5 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-console */
 /* eslint-disable no-restricted-globals */
 /** @jsxImportSource @emotion/react */
 import React, { useRef } from "react";
