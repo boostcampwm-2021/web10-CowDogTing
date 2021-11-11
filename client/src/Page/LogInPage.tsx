@@ -1,10 +1,11 @@
+/* eslint-disable no-restricted-globals */
 /** @jsxImportSource @emotion/react */
 import React, { useRef } from "react";
-import axios from "axios";
 import { css } from "@emotion/react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
+import { postLogin } from "../util";
 
 const containerStyle = css`
   display: flex;
@@ -37,16 +38,19 @@ const SocialLoginButtonContainerStyle = css`
 export default function LogInPage() {
   const searchParams = new URLSearchParams(useLocation().search);
   const code = searchParams.get("code");
-  const idRef = useRef(null);
-  const pwRef = useRef(null);
+  const idRef = useRef<HTMLInputElement>(null);
+  const pwRef = useRef<HTMLInputElement>(null);
+
+  // const history = useHistory();
 
   const clickLogin = async () => {
-    if (idRef.current === null) return;
-    if (pwRef.current === null) return;
-    const id = (idRef.current as HTMLInputElement).value;
-    const pw = (pwRef.current as HTMLInputElement).value;
-    const response = await axios.post("http://localhost:4000/api/login", { uid: id, password: pw }, { withCredentials: true });
-    console.log(response);
+    if (!idRef.current || !pwRef.current) return;
+    const id = idRef.current.value;
+    const pw = pwRef.current.value;
+    await postLogin({ id, pw });
+    window.location.replace("/main");
+    // history.push("/main");
+    // location.href = "/main";
   };
 
   return (
@@ -55,7 +59,6 @@ export default function LogInPage() {
         <div css={titleStyle}>Sign in</div>
         <Input ref={idRef} placeholder="ID" autoComplete="off" />
         <Input ref={pwRef} placeholder="PW" type="password" autoComplete="off" />
-
         <div css={ButtonContainerStyle}>
           <Link to="/sub/Register">
             <Button type="Small">회원가입</Button>
@@ -64,7 +67,6 @@ export default function LogInPage() {
             로그인
           </Button>
         </div>
-
         {!code && (
           <div css={SocialLoginButtonContainerStyle}>
             <Button type="Long" color="#000000">

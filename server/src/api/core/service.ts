@@ -53,8 +53,8 @@ export const findAllRequest = async ({ uid }) => {
 
 export const findUserInfo = async ({ uid }) => {
   const query = {
-    attributes: [["uid", "id"], "image", "location", "sex", "age"],
-    // attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+    attributes: ["uid", "image", "location", "sex", "age", "gid"],
+    // attributes: [["uid", "id"], "image", "location", "sex", "age", "info", "gid"],
     where: { uid },
   };
   return await Users.findOne(query as object);

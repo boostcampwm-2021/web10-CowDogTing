@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
-import { ChatsInfoType, JoinChatsType, ProfileType, RequestsType, TeamInfoType } from "./type";
+// import { ChatsInfoType, joinChatType, ProfileType, RequestsType, TeamInfoType } from "./type";
+import { ChatsInfoType, joinChatType, ProfileType, RequestsType, TeamInfoType } from "./type";
 import dummyImage from "../assets/meetingImage.png";
 // import axios from "axios";
 
@@ -467,23 +468,21 @@ export async function getRequestInfo(): Promise<RequestsType> {
 /**
  * 참여한 채팅방 정보
  */
-export async function getJoinChatInfo(): Promise<JoinChatsType> {
-  const data = {
-    joinChatRooms: [
-      {
-        chatRoomID: 1,
-        notReadNum: 3,
-      },
-      {
-        chatRoomID: 2,
-        notReadNum: 4,
-      },
-      {
-        chatRoomID: 3,
-        notReadNum: 5,
-      },
-    ],
-  };
+export async function getJoinChatInfo(): Promise<joinChatType[]> {
+  const data = [
+    {
+      chatRoomID: 1,
+      notReadNum: 3,
+    },
+    {
+      chatRoomID: 2,
+      notReadNum: 4,
+    },
+    {
+      chatRoomID: 3,
+      notReadNum: 5,
+    },
+  ];
   return data;
 }
 

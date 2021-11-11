@@ -23,14 +23,32 @@ function ChatListTemplate() {
   const [clickedRoomIndex, setClickedRoomIndex] = useState(-1);
   const [openModal, setOpenModal] = useState<number | null>(null);
 
+  const profileRef = useRef<HTMLDivElement[]>([]);
   const modalRef = useRef<HTMLDivElement>(null);
-  useModalEvent(modalRef, () => setOpenModal(null));
+  useModalEvent(modalRef, profileRef, () => setOpenModal(null));
 
-  const changeOpenModal = (event: React.MouseEvent) => {
-    const closestElement = (event.target as HTMLElement).closest(".Profile");
-    if (closestElement === null) return;
+  const changeOpenModal = (e: React.MouseEvent) => {
+    if (profileRef.current === null) {
+      setOpenModal(null);
+      return;
+    }
+    const target: HTMLElement = e.target as HTMLElement;
+    if (modalRef.current?.contains(target)) {
+      return;
+    }
+    const clickCard = profileRef.current
+      .map((ref) => {
+        if (ref.contains(target)) return ref;
+        return null;
+      })
+      .filter((ref) => ref !== null)[0];
 
-    const { userid: id } = (closestElement as HTMLElement).dataset;
+    if (!clickCard) {
+      setOpenModal(null);
+      return;
+    }
+
+    const { id } = clickCard.dataset;
 
     if (Number(id) === openModal) {
       setOpenModal(null);
@@ -51,7 +69,7 @@ function ChatListTemplate() {
   return (
     <div css={ChatListTemplateStyle} onClick={changeOpenModal}>
       <ChatProfileContainer chatsInfo={chatsInfo} setClickedRoomIndex={setClickedRoomIndex} />
-      <ChatListContainer chatInfo={chatsInfo?.data[clickedRoomIndex]} />
+      <ChatListContainer chatInfo={chatsInfo?.data[clickedRoomIndex]} profileRef={profileRef} />
       <div ref={modalRef}>{chatsInfo && clickedRoomIndex !== -1 && openModal !== null && <ProfileModal data={chatsInfo.data[clickedRoomIndex].member[openModal]} />}</div>
     </div>
   );

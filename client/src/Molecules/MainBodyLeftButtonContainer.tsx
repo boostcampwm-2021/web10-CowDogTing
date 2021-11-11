@@ -20,6 +20,7 @@ function MainBodyLeftButtonContainer() {
     { link: "/sub/CowDogPage?person=1", name: "1:1 소개팅" },
     { link: "/sub/CowDogPage?person=2", name: "2:2 미팅" },
     { link: "/sub/CowDogPage?person=3", name: "3:3 미팅" },
+    { link: "/sub/CowDogPage?person=4", name: "4:4 미팅" },
     { link: "/sub/teamSetting", name: "팀 설정" },
   ];
 

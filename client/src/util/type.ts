@@ -27,6 +27,17 @@ export interface PersonInfoType {
   sex: string;
   age: number;
   info: string;
+  gid?: number | null;
+  idx?: number;
+}
+export interface PostTeamType {
+  teamName: string;
+  teamInfo: string;
+  location: string;
+  leader: string;
+}
+export interface ChangeTeamInfoType extends PostTeamType {
+  beforeTeamName: string;
 }
 
 export type TeamInfoType = {
@@ -49,9 +60,17 @@ export type ProfileInfoDataType = {
 };
 
 export type ProfileListType = {
-  datas?: PersonInfoType[] | null | ProfileType[];
+  datas: PersonInfoType[] | ProfileType[] | null | undefined;
   person: number;
   setOpenModal: (prev: any) => void;
+  profileRef: RefObject<HTMLDivElement[]>;
+};
+export type RequestListType = {
+  datas?: RequestType[];
+  person: number;
+  type: string;
+  setOpenModal: (prev: any) => void;
+  profileRef: RefObject<HTMLDivElement[]>;
 };
 
 export type LargeModalType = {
@@ -99,9 +118,7 @@ export type joinChatType = {
   chatRoomID: number;
   notReadNum: number;
 };
-export type JoinChatsType = {
-  joinChatRooms: joinChatType[];
-};
+
 export type TeamImageContainerType = {
   image: string | ArrayBuffer | null;
 };
@@ -128,10 +145,12 @@ export type ChatListInfoType = {
 
 export type ChatListContainerType = {
   chatInfo?: ChatInfoType;
+  profileRef: RefObject<HTMLDivElement[]>;
 };
 
 export type ChatImageContainerType = {
   member?: PersonInfoType[];
+  profileRef: RefObject<HTMLDivElement[]>;
 };
 
 export type NavDropDownType = {
@@ -150,6 +169,7 @@ export type DropDownType = {
   DropDownRef?: RefObject<HTMLDivElement>;
   type: string;
   className: string;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
 };
 
 export type menuType = {
@@ -159,3 +179,14 @@ export type menuType = {
 export type menuListType = {
   [key: string]: menuType[];
 };
+
+export interface loginInfo {
+  id: string;
+  pw: string;
+}
+
+export interface registerInfo extends loginInfo {
+  location: string;
+  age: number;
+  sex: string;
+}

@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { useHistory } from "react-router";
@@ -23,7 +25,7 @@ const ChatImageContainerStyle = css`
   justify-content: space-evenly;
 `;
 
-function ChatImageContainer({ member }: ChatImageContainerType) {
+function ChatImageContainer({ member, profileRef }: ChatImageContainerType) {
   const history = useHistory();
 
   const handleCloseRoomClick = () => {
@@ -35,7 +37,7 @@ function ChatImageContainer({ member }: ChatImageContainerType) {
       <ChatListHeader>
         <div css={ChatImageContainerStyle}>
           {member?.map((userInfo, idx) => (
-            <ProfileImage type="Mini" image={userInfo.image} className="Profile" data-userid={idx} />
+            <ProfileImage type="Mini" image={userInfo.image} ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx} />
           ))}
         </div>
         <Button onClick={handleCloseRoomClick}>나가기</Button>

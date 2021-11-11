@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { ChatInfoType, JoinChatsType, PersonInfoType, ProfileType, RequestType, TeamInfoType } from "../util/type";
+import { ChatInfoType, joinChatType, PersonInfoType, ProfileType, RequestType, TeamInfoType } from "../util/type";
 
 export const userState = atom<PersonInfoType>({
   key: "user",
@@ -10,6 +10,8 @@ export const userState = atom<PersonInfoType>({
     sex: "",
     age: 0,
     info: "",
+    gid: null,
+    idx: 0,
   },
 });
 
@@ -27,30 +29,22 @@ export const teamState = atom<TeamInfoType>({
   },
 });
 
-export const cowDogState = atom<{ datas: ProfileType[] }>({
+export const cowDogState = atom<ProfileType[]>({
   key: "cowDogState",
-  default: {
-    datas: [],
-  },
+  default: [],
 });
 
-export const chatState = atom<{ datas: ChatInfoType[] }>({
+export const chatState = atom<ChatInfoType[]>({
   key: "chatState",
-  default: {
-    datas: [],
-  },
+  default: [],
 });
 
-export const requestState = atom<{ datas: RequestType[] }>({
+export const requestState = atom<RequestType[]>({
   key: "requestState",
-  default: {
-    datas: [],
-  },
+  default: [],
 });
 
-export const joinChatRoomState = atom<JoinChatsType>({
+export const joinChatRoomState = atom<joinChatType[]>({
   key: "joinChatRoomState",
-  default: {
-    joinChatRooms: [],
-  },
+  default: [],
 });

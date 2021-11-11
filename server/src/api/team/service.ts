@@ -14,6 +14,7 @@ export const findTeam = async ({ gid }) => {
     ],
   };
   const teamInfos = await Team.findAll(query);
+  console.log(teamInfos);
   const memberInfo = teamInfos.map((info) => {
     return { id: info["member.uid"], image: info["member.image"], location: info["member.location"], age: info["member.age"], sex: info["member.sex"] };
   });
