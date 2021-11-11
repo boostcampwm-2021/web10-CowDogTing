@@ -1,7 +1,8 @@
 import { _createTeam, findTeam, _updateTeam, _inviteTeam } from "./service";
 
 export const getTeamInfo = async (req, res, next) => {
-  if (req.user) {
+  console.log(req.user);
+  if (!req.user) {
     res.send({ error: "로그인 안했음" });
     return;
   }
