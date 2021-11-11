@@ -3,28 +3,47 @@ import { ChangeTeamInfoType, loginInfo, PostTeamType, registerInfo } from "./typ
 
 const url = `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}`;
 
-export const changeTeamInfo = async ({ beforeTeamName, teamName, teamInfo, location, leader }: ChangeTeamInfoType) => {
-  await axios.post(`${url}/api/team/update`, {
-    originTeamName: beforeTeamName,
-    name: teamName,
-    description: teamInfo,
-    location,
-    leader,
-  });
+export const changeTeamInfo = async ({ teamName, teamInfo, location }: ChangeTeamInfoType) => {
+  const { data } = await axios.post(
+    `${url}/api/team/update`,
+    {
+      name: teamName,
+      description: teamInfo,
+      location,
+    },
+    { withCredentials: true }
+  );
+  return data;
 };
 
-export const createTeam = async ({ teamName, teamInfo, location, leader }: PostTeamType) => {
-  await axios.post(`${url}/api/team/create`, {
-    name: teamName,
-    description: teamInfo,
-    location,
-    leader,
-  });
+export const createTeam = async ({ teamName, teamInfo, location }: PostTeamType) => {
+  const {
+    data: { gid },
+  } = await axios.post(
+    `${url}/api/team/create`,
+    {
+      name: teamName,
+      description: teamInfo,
+      location,
+    },
+    { withCredentials: true }
+  );
+
+  return gid;
+};
+
+export const inviteTeam = async ({ userId }: { userId: string }) => {
+  const { data } = await axios.post(
+    `${url}/api/team/invite`,
+    {
+      userId,
+    },
+    { withCredentials: true }
+  );
+  return data;
 };
 
 export const postLogin = async ({ id, pw }: loginInfo) => {
-  console.log("로그인 버튼 클릭");
-  console.log(`${url}/api/auth/login`);
   await axios.post(
     `${url}/api/auth/login`,
     {

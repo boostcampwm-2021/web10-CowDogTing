@@ -34,11 +34,8 @@ export interface PostTeamType {
   teamName: string;
   teamInfo: string;
   location: string;
-  leader: string;
 }
-export interface ChangeTeamInfoType extends PostTeamType {
-  beforeTeamName: string;
-}
+export interface ChangeTeamInfoType extends PostTeamType {}
 
 export type TeamInfoType = {
   image: string;
