@@ -82,3 +82,7 @@ export const changeMyInfo = async ({ id, location, age, info }: { id: string; lo
     return false;
   }
 };
+export const logOutUser = async () => {
+  const { data } = await axios.get(`${url}/api/auth/logout`, { withCredentials: true });
+  return data;
+};

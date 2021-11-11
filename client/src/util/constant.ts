@@ -18,5 +18,6 @@ export const MENU_LIST: menuListType = {
     { link: "/sub/mypage/myinfo", name: "내 정보 보기" },
     { link: "/sub/mypage/likelist", name: "내가 고른 이상형" },
     { link: "/sub/teamSetting", name: "팀 설정하기" },
+    { link: "", name: "로그아웃" },
   ],
 };

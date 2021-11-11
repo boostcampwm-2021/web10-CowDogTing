@@ -5,14 +5,14 @@ import { Button } from "../Atom/Button";
 import { LinkButtonType } from "../util/type";
 
 function LinkButton({ url, type, content, onClick }: LinkButtonType) {
-  return url ? (
+  return url && url !== "" ? (
     <Link to={url}>
       <Button type={type} onClick={onClick}>
         {content}
       </Button>
     </Link>
   ) : (
-    <Button type={type} onClick={onClick}>
+    <Button type={type} onClick={onClick} className={content === "로그아웃" ? "logout" : ""}>
       {content}
     </Button>
   );
