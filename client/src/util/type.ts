@@ -49,9 +49,10 @@ export type ProfileInfoDataType = {
 };
 
 export type ProfileListType = {
-  datas?: PersonInfoType[] | null | ProfileType[];
+  datas: PersonInfoType[] | ProfileType[] | null | undefined;
   person: number;
   setOpenModal: (prev: any) => void;
+  profileRef: RefObject<HTMLDivElement[]>;
 };
 
 export type LargeModalType = {
@@ -128,10 +129,12 @@ export type ChatListInfoType = {
 
 export type ChatListContainerType = {
   chatInfo?: ChatInfoType;
+  profileRef: RefObject<HTMLDivElement[]>;
 };
 
 export type ChatImageContainerType = {
   member?: PersonInfoType[];
+  profileRef: RefObject<HTMLDivElement[]>;
 };
 
 export type NavDropDownType = {
