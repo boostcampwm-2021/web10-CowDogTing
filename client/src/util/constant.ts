@@ -8,21 +8,15 @@ export const MENU_LIST: menuListType = {
     { link: "/sub/chatList", name: "내 채팅 목록 보기" },
     { link: "/sub/Request", name: "채팅 요청 목록" },
   ],
-  Menu: [
-    { link: "/", name: "공지사항" },
-    { link: "/sub/CowDogPage?person=1", name: "소개팅 하러가기" },
-    { link: "/sub/CowDogPage?person=2", name: "2:2 미팅" },
-    { link: "/sub/CowDogPage?person=3", name: "3:3 미팅" },
-    { link: "/", name: "이벤트" },
-    { link: "/", name: "문의하기" },
-  ],
+  Menu: [{ link: "/", name: "공지사항" }, { link: "/sub/CowDogPage?person=1", name: "소개팅 하러가기" }, { name: "미팅 하러가기" }, { link: "/", name: "이벤트" }, { link: "/", name: "문의하기" }],
   Meeting: [
     { link: "/sub/CowDogPage?person=2", name: "2:2 미팅" },
     { link: "/sub/CowDogPage?person=3", name: "3:3 미팅" },
+    { link: "/sub/CowDogPage?person=4", name: "4:4 미팅" },
   ],
   User: [
     { link: "/sub/mypage/myinfo", name: "내 정보 보기" },
     { link: "/sub/mypage/likelist", name: "내가 고른 이상형" },
-    { link: "/sub/teamCreate", name: "팀 설정하기" },
+    { link: "/sub/teamSetting", name: "팀 설정하기" },
   ],
 };

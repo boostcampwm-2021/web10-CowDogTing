@@ -2,11 +2,11 @@
 import React, { MouseEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import TeamCreateButtonContainer from "../Organism/TeamButtonContainer";
 import TeamInfoContainer from "../Organism/TeamInfoContainer";
 import InputLabel from "../Molecules/InputLabel";
 import { Button } from "../Atom/Button";
+import { createTeam } from "../util";
 
 const TeamCreatePageStyle = css`
   position: relative;
@@ -23,20 +23,15 @@ function TeamCreatePage() {
   const locationRef = useRef<HTMLInputElement>(null);
   const leaderRef = useRef<HTMLInputElement>(null);
 
-  const clickCreateButton: MouseEventHandler = () => {
+  const clickCreateButton: MouseEventHandler = async () => {
     if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current || !leaderRef.current) return;
 
     const teamName = teamNameRef.current.value;
     const teamInfo = teamInfoRef.current.value;
     const location = locationRef.current.value;
     const leader = leaderRef.current.value;
-    // eslint-disable-next-line no-console
-    axios.post("http://localhost:4000/api/team/create", {
-      name: teamName,
-      description: teamInfo,
-      location,
-      leader,
-    });
+
+    await createTeam({ teamName, teamInfo, location, leader });
   };
 
   return (

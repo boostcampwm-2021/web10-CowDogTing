@@ -1,10 +1,11 @@
+/* eslint-disable no-restricted-globals */
 /** @jsxImportSource @emotion/react */
 
 import React, { useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
-import { postApi } from "../util/utilFunc";
+import { registerUser } from "../util";
 
 const RegisterContainerStyle = css`
   width: 450px;
@@ -43,12 +44,12 @@ export default function RegisterPage() {
     if (!idRef.current || !pwRef.current || !locationRef.current || !ageRef.current || !sexRef.current) return;
     const id = idRef.current.value;
     const pw = pwRef.current.value;
-    const location = locationRef.current.value;
+    const loc = locationRef.current.value;
     const age = ageRef.current.value;
     const sex = sexRef.current.value;
 
-    const postUrl = `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}${process.env.REACT_APP_REGISTER_API_URL}`;
-    postApi(postUrl, { uid: id, password: pw, location, age, sex });
+    await registerUser({ id, pw, location: loc, age: Number(age), sex });
+    location.href = "/";
   };
 
   return (

@@ -1,10 +1,11 @@
+/* eslint-disable no-restricted-globals */
 /** @jsxImportSource @emotion/react */
 import React, { useRef } from "react";
 import { css } from "@emotion/react";
 import { Link, useLocation } from "react-router-dom";
-import { postApi } from "../util/utilFunc";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
+import { postLogin } from "../util";
 
 const containerStyle = css`
   display: flex;
@@ -40,12 +41,16 @@ export default function LogInPage() {
   const idRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
 
+  // const history = useHistory();
+
   const clickLogin = async () => {
     if (!idRef.current || !pwRef.current) return;
     const id = idRef.current.value;
     const pw = pwRef.current.value;
-    const url = `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}${process.env.REACT_APP_LOGIN_API_URL}`;
-    await postApi(url, { uid: id, password: pw });
+    await postLogin({ id, pw });
+    window.location.replace("/main");
+    // history.push("/main");
+    // location.href = "/main";
   };
 
   return (

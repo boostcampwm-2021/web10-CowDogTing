@@ -60,8 +60,9 @@ const ChatDropDownStyle = css`
 `;
 const MeetingDropDownStyle = css`
   position: absolute;
-  margin-left: 150px;
-  margin-bottom: 150px;
+  margin-left: 250px;
+  margin-top: 80px;
+  ${BasicDropDownStyle}
 `;
 
 const DropDownStyle = (props: { type: string; className: string }) => css`
@@ -83,15 +84,13 @@ const DropDownContainer = styled.div`
 `;
 
 export default function DropDown(props: DropDownType) {
-  const { type, className } = props;
+  const { type, className, onClick } = props;
 
   const list = MENU_LIST[type];
 
   return (
     <DropDownContainer type={type} className={className}>
-      {list.map((menu) => (
-        <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} />
-      ))}
+      {list.map((menu) => (menu.name === "미팅 하러가기" ? <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} onClick={onClick} /> : <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} />))}
     </DropDownContainer>
   );
 }

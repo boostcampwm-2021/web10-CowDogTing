@@ -6,13 +6,12 @@ export const handleRegister = async (req, res, next) => {
   try {
     const exUser = await findUser({ uid });
     if (exUser) {
-      return res.status(400).send({ test: "해당 아이디 존재" });
+      return res.send({ test: "해당 아이디 존재" });
     }
     await createUser({ uid, password, location, age, sex });
-    // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-    // res.redirect("http://localhost:3000");
+    return res.send({ test: "회원가입 성공" });
   } catch (error) {
-    res.status(400).send({ test: "회원가입 실패" });
+    console.error(error);
     return next(error);
   }
 };
@@ -20,18 +19,18 @@ export const handleRegister = async (req, res, next) => {
 export const handleLogin = (req, res, next) => {
   passport.authenticate("local", (authError, user, info) => {
     if (authError) {
+      console.error(authError);
       return next(authError);
     }
     if (!user) {
-      return res.status(400).send({ test: "회원정보 불일치", info: [info] });
+      return res.send({ test: "회원정보 불일치", info: [info] });
     }
     return req.login(user, (loginError) => {
       if (loginError) {
+        console.error(loginError);
         return next(loginError);
       }
-      // res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-      // res.redirect("/api/redirect");
-      return res.send({ f: "wiw" });
+      return res.send(user);
     });
   })(req, res, next);
 };

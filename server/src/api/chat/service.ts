@@ -7,6 +7,7 @@ export const findChatRoomInfo = async ({ uid }) => {
   // uid로 chatRoom 정보 가져오고
   // join으로 chatRoom에 대한 user 정보 가져오기
   const query = ({ chatRoomId }) => {
+    console.log(chatRoomId);
     return {
       raw: true,
       include: [
@@ -21,11 +22,14 @@ export const findChatRoomInfo = async ({ uid }) => {
       attribute: [],
     };
   };
+  console.log({ uid });
   const joinChatRooms = await findJoinChatRooms({ uid });
+  console.log(joinChatRooms);
   const promiseArr = joinChatRooms.map((chatRoomId) => {
     return Participant.findAll(query({ chatRoomId }));
   });
   const memberData = await Promise.all(promiseArr);
+  console.log(memberData);
   const filteredMemberData = memberData.map((chatRoomMember) => {
     return chatRoomMember.map((member) => {
       return {
@@ -55,6 +59,7 @@ export const findChatRoomInfo = async ({ uid }) => {
 };
 
 export const findJoinChatRooms = async ({ uid }) => {
+  console.log(uid);
   const query = {
     attributes: ["chatRoomId"],
     where: { uid },

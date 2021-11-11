@@ -8,7 +8,7 @@ import { Button } from "../Atom/Button";
 
 const inviteModalStyle = css`
   position: absolute;
-  z-z-index: 30;
+  z-index: 30;
   left: 300px;
   top: 300px;
   width: 400px;

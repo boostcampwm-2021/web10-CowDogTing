@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
-import ProfileList from "../Template/ProfileList";
 import ProfileModal from "../Template/ProfileModal";
 import { getRequestInfo } from "../util/dummyData";
-import { ProfileType, RequestType } from "../util/type";
+import { RequestType } from "../util/type";
 import useModalEvent from "../Hook/useModalEvent";
+import RequestList from "../Template/RequestList";
 
 const RequestPageStyle = css`
   display: flex;
@@ -37,8 +37,8 @@ const RequestListStyle = css`
 `;
 
 export default function RequestPage() {
-  const [RequestForMe, setRequestForMe] = useState<ProfileType[]>([]);
-  const [RequestToMe, setRequestToMe] = useState<ProfileType[]>([]);
+  const [RequestForMe, setRequestForMe] = useState<RequestType[]>([]);
+  const [RequestToMe, setRequestToMe] = useState<RequestType[]>([]);
   const [openForModal, setOpenForModal] = useState<number | null>(null);
   const [openToModal, setOpenToModal] = useState<number | null>(null);
 
@@ -55,7 +55,7 @@ export default function RequestPage() {
   const getDatas = async () => {
     const item = await getRequestInfo();
     item?.data.forEach((data: RequestType) => {
-      return data.from === myId ? setRequestForMe((prev) => [...prev, data.info]) : setRequestToMe((prev) => [...prev, data.info]);
+      return data.from === myId ? setRequestForMe((prev) => [...prev, data]) : setRequestToMe((prev) => [...prev, data]);
     });
   };
 
@@ -77,13 +77,13 @@ export default function RequestPage() {
     <div css={RequestPageStyle}>
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>나에게 온 요청</div>
-        <ProfileList datas={RequestForMe} person={person} setOpenModal={setOpenForModal} profileRef={profileForRef} />
-        <div ref={modalForRef}>{RequestForMe && openForModal !== null && <ProfileModal data={RequestForMe[Number(openForModal)]} />}</div>
+        <RequestList datas={RequestForMe} person={person} setOpenModal={setOpenForModal} type="ForMe" profileRef={profileForRef} />
+        <div ref={modalForRef}>{RequestForMe && openForModal !== null && <ProfileModal data={RequestForMe[Number(openForModal)].info} />}</div>
       </div>
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>내가 보낸 요청</div>
-        <ProfileList datas={RequestToMe} person={person} setOpenModal={setOpenToModal} profileRef={profileToRef} />
-        <div ref={modalToRef}>{RequestToMe && openToModal !== null && <ProfileModal data={RequestToMe[Number(openToModal)]} />}</div>
+        <RequestList datas={RequestToMe} person={person} setOpenModal={setOpenToModal} type="ToMe" profileRef={profileForRef} />
+        <div ref={modalToRef}>{RequestToMe && openToModal !== null && <ProfileModal data={RequestToMe[Number(openToModal)].info} />}</div>
       </div>
     </div>
   );
