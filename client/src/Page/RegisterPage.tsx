@@ -1,3 +1,7 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable use-isnan */
+/* eslint-disable no-console */
+/* eslint-disable no-alert */
 /* eslint-disable no-restricted-globals */
 /** @jsxImportSource @emotion/react */
 
@@ -6,6 +10,7 @@ import { css } from "@emotion/react";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
 import { registerUser } from "../util";
+import { registerInfo } from "../util/type";
 
 const RegisterContainerStyle = css`
   width: 450px;
@@ -29,7 +34,13 @@ const passwordCheckContainerStyle = css`
   display: flex;
   justify-content: space-between;
 `;
-
+const sexInfoStyle = css`
+  width: 300px;
+  height: 50px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+`;
 export default function RegisterPage() {
   const [firstPassword, setFirstPassword] = useState<string>("");
   const [secondPassword, setSecondPassword] = useState<string>("");
@@ -38,16 +49,24 @@ export default function RegisterPage() {
   const pwRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
-  const sexRef = useRef<HTMLInputElement>(null);
-
+  const [sexSelected, setSexSelected] = useState<string>("");
+  const checkInput = ({ id, pw, location, age, sex }: registerInfo): boolean => {
+    if (id === "" || pw === "" || location === "" || age === NaN || sex === "") {
+      alert("모든 입력값을 제대로 입력해 주십시오.");
+      return false;
+    }
+    return true;
+  };
   const clickRegister = async () => {
-    if (!idRef.current || !pwRef.current || !locationRef.current || !ageRef.current || !sexRef.current) return;
+    if (!idRef.current || !pwRef.current || !locationRef.current || !ageRef.current || sexSelected === "") return;
+
     const id = idRef.current.value;
     const pw = pwRef.current.value;
     const loc = locationRef.current.value;
     const age = ageRef.current.value;
-    const sex = sexRef.current.value;
-
+    const sex = sexSelected;
+    const check = checkInput({ id, pw, location: loc, age: Number(age), sex });
+    if (!check) return;
     await registerUser({ id, pw, location: loc, age: Number(age), sex });
     location.href = "/";
   };
@@ -91,7 +110,20 @@ export default function RegisterPage() {
         <div>Age</div>
         <Input ref={ageRef} placeholder="Age" autoComplete="off" />
         <div>Sex</div>
-        <Input ref={sexRef} placeholder="Sex" autoComplete="off" />
+        <div css={sexInfoStyle}>
+          <div>
+            <label htmlFor="male">남성</label>
+            <input id="male" type="radio" value="남성" name="sex" onChange={(e) => setSexSelected(e.target.value)} />
+          </div>
+          <div>
+            <label htmlFor="female">여성</label>
+            <input id="female" type="radio" value="여성" name="sex" onChange={(e) => setSexSelected(e.target.value)} />
+          </div>
+          <div>
+            <label htmlFor="female">기타</label>
+            <input id="etc" type="radio" value="기타" name="sex" onChange={(e) => setSexSelected(e.target.value)} />
+          </div>
+        </div>
         <Button type="Long" onClick={clickRegister}>
           {" "}
           회원가입{" "}
