@@ -10,6 +10,7 @@ export default () => {
   });
 
   passport.deserializeUser((uid, done) => {
+    console.log("desrializeUser");
     // 매 요청시 실행, passport.session 미들웨어가 이 메서드를 호출, serializeUser의 done 메서드의 두번째 인수로 넣었던 데이터가 deserializeUser의 매개변수가 된다.
     Users.findOne({ where: { uid } }) // 데이터베이스에서  사용자 정보 조회
       .then((user) => done(null, user)) // 조회한 정보를 req.user에 저장
