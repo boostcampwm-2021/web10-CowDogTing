@@ -47,8 +47,10 @@ export default function LogInPage() {
     if (!idRef.current || !pwRef.current) return;
     const id = idRef.current.value;
     const pw = pwRef.current.value;
-    await postLogin({ id, pw });
-    window.location.replace("/main");
+    const isLogIn = await postLogin({ id, pw });
+    console.log(isLogIn);
+    if (isLogIn) window.location.replace("/main");
+    else alert("실패했지롱");
     // history.push("/main");
     // location.href = "/main";
   };

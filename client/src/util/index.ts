@@ -44,7 +44,7 @@ export const inviteTeam = async ({ userId }: { userId: string }) => {
 };
 
 export const postLogin = async ({ id, pw }: loginInfo) => {
-  await axios.post(
+  const { data } = await axios.post(
     `${url}${process.env.REACT_APP_LOGIN_API_URL}`,
     {
       uid: id,
@@ -52,6 +52,12 @@ export const postLogin = async ({ id, pw }: loginInfo) => {
     },
     { withCredentials: true }
   );
+  return data;
+  try {
+    return true;
+  } catch (err) {
+    return false;
+  }
 };
 
 export const registerUser = async ({ id, pw, location, age, sex }: registerInfo) => {
