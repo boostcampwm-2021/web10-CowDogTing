@@ -50,6 +50,7 @@ export const getUserInfo = async (req, res) => {
 };
 
 export const getProfile = async (req, res) => {
+  console.log(req.query);
   const person: number = Number(req.query.person);
   const index: number = Number(req.query.index);
   const data = await findAllProfile(person, index);
@@ -57,12 +58,14 @@ export const getProfile = async (req, res) => {
 };
 
 export const postUserUpdate = async (req, res, next) => {
-  const oldId = req.user.id;
-  const { uid, location, age, info } = req.body;
+  const oldId = req.user.uid;
+  const { id: uid, location, age, info } = req.body;
   try {
     await updateUser(oldId, { uid, location, age, info });
+    console.log("??");
     return res.send(true);
   } catch (error) {
+    console.log("error");
     return next(error);
   }
 };

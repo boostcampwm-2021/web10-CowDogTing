@@ -103,7 +103,10 @@ export const findUserInfo = async ({ uid }) => {
 
 export const findAllProfile = async (person: number, index: number) => {
   let query;
+  console.log(person);
   if (person === 1) {
+    console.log(person);
+    console.log(index);
     query = {
       raw: true,
       attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],

@@ -36,7 +36,7 @@ export const createTeam = async ({ teamName, teamInfo, location }: PostTeamType)
 
 export const inviteTeam = async ({ userId }: { userId: string }) => {
   const { data } = await axios.post(
-    `${url}${process.env.REACT_APP_TEAM_IVITE_API_URL}`,
+    `${url}${process.env.REACT_APP_TEAM_INVITE_API_URL}`,
     {
       userId,
     },
@@ -74,7 +74,7 @@ export const registerUser = async ({ id, pw, location, age, sex, info }: registe
 };
 
 export const getCowDogInfo = async (person: number, index: number) => {
-  const { data } = await axios.get(`${url}${process.env.REACT_APP_GET_PROFILE_API_URL}?person=?${person}?index=${index}`);
+  const { data } = await axios.get(`${url}${process.env.REACT_APP_GET_PROFILE_API_URL}?person=${person}&index=${index}`);
   return data;
 };
 
@@ -85,12 +85,18 @@ export const getChatMessage = async ({ index, chatRoomId }: { index: number; cha
 };
 export const changeMyInfo = async ({ id, location, age, info }: { id: string; location: string; age: number; info: string }) => {
   try {
-    await axios.post(`${url}${process.env.REACT_APP_GET_USER_INFO_API_URL}`, {
-      id,
-      location,
-      age,
-      info,
-    });
+    await axios.post(
+      `${url}${process.env.REACT_APP_GET_USER_INFO_API_URL}`,
+      {
+        id,
+        location,
+        age,
+        info,
+      },
+      {
+        withCredentials: true,
+      }
+    );
     return true;
   } catch (err) {
     return false;
