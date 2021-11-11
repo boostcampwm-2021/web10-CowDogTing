@@ -39,10 +39,18 @@ export const createTeam = async (req, res, next) => {
 
 export const updateTeam = async (req, res, next) => {
   const teamInfo = req.body;
+  if (!req.user) {
+    res.send({ error: "로그인 되어있지 않음" });
+    return;
+  }
+  const { gid } = req.user;
   try {
-    const result = await _updateTeam({ teamInfo });
+    const result = await _updateTeam({ gid, ...teamInfo });
     if (!result) res.send({ error: "팀 수정 실패" });
-    if (result) res.send({ success: "팀 수정 성공" });
+    if (result) {
+      const data = { id: teamInfo.name, info: teamInfo.description, location: teamInfo.location };
+      res.send(data);
+    }
   } catch (error) {
     next(error);
   }

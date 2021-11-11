@@ -28,11 +28,10 @@ export const _createTeam = async (teamInfo: any) => {
   await Users.update({ gid: gid }, { where: { uid: teamInfo.leader } });
   return gid;
 };
-export const _updateTeam = async ({ teamInfo }) => {
-  const originTeamName = teamInfo.originTeamName;
-  const { gid } = await _getGroupId({ teamName: originTeamName });
-  const { name, description, location, leader } = teamInfo;
-  const updateTeamInfo = { name, description, location, leader };
+export const _updateTeam = async (teamInfo: any) => {
+  const { gid } = teamInfo;
+  const { name, description, location } = teamInfo;
+  const updateTeamInfo = { name, description, location };
   try {
     await Team.update(updateTeamInfo, { where: { gid } });
     return "success";
