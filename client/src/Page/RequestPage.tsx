@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
+import { useRecoilValue } from "recoil";
 import ProfileModal from "../Template/ProfileModal";
-import { getRequestInfo } from "../util/dummyData";
 import { RequestType } from "../util/type";
 import useModalEvent from "../Hook/useModalEvent";
 import RequestList from "../Template/RequestList";
+import { requestState } from "../Recoil/Atom";
 
 const RequestPageStyle = css`
   display: flex;
@@ -37,6 +38,8 @@ const RequestListStyle = css`
 `;
 
 export default function RequestPage() {
+  const requestDatas = useRecoilValue(requestState);
+
   const [RequestForMe, setRequestForMe] = useState<RequestType[]>([]);
   const [RequestToMe, setRequestToMe] = useState<RequestType[]>([]);
   const [openForModal, setOpenForModal] = useState<number | null>(null);
@@ -52,9 +55,8 @@ export default function RequestPage() {
   const modalToRef = useRef<HTMLDivElement>(null);
   useModalEvent(modalToRef, profileToRef, () => setOpenToModal(null));
 
-  const getDatas = async () => {
-    const item = await getRequestInfo();
-    item?.data.forEach((data: RequestType) => {
+  const getDatas = () => {
+    requestDatas?.forEach((data: RequestType) => {
       return data.from === myId ? setRequestForMe((prev) => [...prev, data]) : setRequestToMe((prev) => [...prev, data]);
     });
   };
@@ -71,7 +73,7 @@ export default function RequestPage() {
 
   useEffect(() => {
     getDatas();
-  }, []);
+  }, [requestDatas]);
 
   return (
     <div css={RequestPageStyle}>
