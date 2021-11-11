@@ -35,15 +35,6 @@ paths:
   /api/core/userInfo:
     get:
       summary: 유저 정보 획득
-      parameters: 
-      - name: uid   
-        in: query
-        required: true
-        description: 유저 아이디
-        schema:
-          type: string
-        example:
-          "my_id"
       responses:
         '200':
           description: 유저 정보
@@ -427,15 +418,6 @@ paths:
   /api/chat/info:
     get:
       summary: 채팅방 정보 가져오기
-      parameters:
-      - name: uid
-        in: query
-        description: 아이디
-        required: true
-        schema:
-          type: string
-        example:
-          "my_id"
       responses:
         '200':
           description: 채팅방 정보
@@ -638,16 +620,7 @@ paths:
                           type: number
   /api/core/request:
     get:
-      summary: 요청 목록 가져오기
-      parameters:
-      - name: uid
-        in: query
-        description: 아이디
-        required: true
-        schema:
-          type: string
-        example:
-          "my_id"      
+      summary: 요청 목록 가져오기     
       responses:
         '200':
           description: 요청 목록

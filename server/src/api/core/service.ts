@@ -40,7 +40,7 @@ export const findAllRequest = async ({ uid }) => {
       {
         model: Users,
         as: "info",
-        attributes: ["uid", "image", "location", "sex", "age"],
+        attributes: [["uid", "id"], "image", "location", "sex", "age"],
         // attributes: ["uid", "image", "location", "sex", "age", "info"] // 나중에 info 컬럼 추가시 해당 열 사용
       },
     ],
@@ -48,12 +48,12 @@ export const findAllRequest = async ({ uid }) => {
       [Op.or]: [{ from: uid }, { to: uid }],
     },
   };
-  return await Request.findAll(query);
+  return await Request.findAll(query as object);
 };
 
 export const findUserInfo = async ({ uid }) => {
   const query = {
-    attributes: ["uid", "image", "location", "sex", "age", "gid"],
+    attributes: [["uid", "id"], "image", "location", "sex", "age", "gid"],
     // attributes: [["uid", "id"], "image", "location", "sex", "age", "info", "gid"],
     where: { uid },
   };
