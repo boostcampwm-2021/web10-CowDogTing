@@ -1,7 +1,16 @@
 import { _createTeam, findTeam, _updateTeam, _inviteTeam } from "./service";
 
 export const getTeamInfo = async (req, res, next) => {
-  const gid = req.query.teamId;
+  if (req.user) {
+    res.send({ error: "로그인 안했음" });
+    return;
+  }
+  const gid = req.user.gid;
+  if (gid === null) {
+    res.send({ error: "팀 없음" });
+    return;
+  }
+
   try {
     const data = await findTeam({ gid });
     if (!data) res.send({ error: "팀 찾기 실패" });
