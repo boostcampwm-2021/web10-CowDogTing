@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import ChatProfileContainer from "../Organism/ChatProfileContainer";
 import ChatListContainer from "../Organism/ChatListContainer";
-import { getChatsInfo } from "../util/dummyData";
-import { ChatsInfoType } from "../util/type";
 import ProfileModal from "./ProfileModal";
 import useModalEvent from "../Hook/useModalEvent";
+import { fetchGet } from "../Recoil/Selector";
+import { chatsState } from "../Recoil/Atom";
 
 const ChatListTemplateStyle = css`
   width: 80vw;
@@ -19,7 +20,10 @@ const ChatListTemplateStyle = css`
 `;
 
 function ChatListTemplate() {
-  const [chatsInfo, setChatsInfo] = useState<ChatsInfoType | null>(null);
+  const chatInfoUrl = `${process.env.REACT_APP_GET_CHAT_INFO_API_URL}`;
+  const chatsInfo = useRecoilValue(fetchGet({ url: chatInfoUrl, query: "" }));
+  const setChatsInfo = useSetRecoilState(chatsState);
+
   const [clickedRoomIndex, setClickedRoomIndex] = useState(-1);
   const [openModal, setOpenModal] = useState<number | null>(null);
 
@@ -57,14 +61,9 @@ function ChatListTemplate() {
     }
   };
 
-  const getChatRoomData = async () => {
-    const data = await getChatsInfo();
-    setChatsInfo(data);
-  };
-
   useEffect(() => {
-    getChatRoomData();
-  }, []);
+    setChatsInfo(chatsInfo);
+  }, [chatsInfo]);
 
   return (
     <div css={ChatListTemplateStyle} onClick={changeOpenModal}>

@@ -34,7 +34,7 @@ export const cowDogState = atom<ProfileType[]>({
   default: [],
 });
 
-export const chatState = atom<ChatInfoType[]>({
+export const chatsState = atom<ChatInfoType[]>({
   key: "chatState",
   default: [],
 });
