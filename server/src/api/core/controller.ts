@@ -11,6 +11,7 @@ const defaultUser = {
 };
 
 const defaultRequest = {};
+const defaultJoinChatRoom = {};
 
 export const getImage = async (req, res) => {
   const imageID = req.query.imageID;
@@ -19,7 +20,12 @@ export const getImage = async (req, res) => {
 };
 
 export const getJoinChatInfo = async (req, res) => {
-  const uid: string = req.query.uid;
+  if (!req.user) {
+    res.send(defaultJoinChatRoom);
+    return;
+  }
+  const uid: string = req.user.uid;
+  console.log(uid);
   const data = await findChatRoomNotReadNum({ uid });
   res.send(data);
 };
