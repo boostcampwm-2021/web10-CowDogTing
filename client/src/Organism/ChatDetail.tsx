@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import { css } from "@emotion/react";
-import { getChatsInfo } from "../util/dummyData";
 import { MessageType } from "../util/type";
 import Chats from "../Molecules/Chats";
+import { chatsState } from "../Recoil/Atom";
 
 const ChatContainerStyle = css`
   width: 100%;
@@ -14,9 +15,9 @@ const ChatContainerStyle = css`
 
 export default function ChatDetail({ chatRoomID }: { chatRoomID: number | undefined }) {
   const [chats, setChats] = useState<MessageType[] | null>(null);
+  const datas = useRecoilValue(chatsState);
 
   const getChats = async () => {
-    const { data: datas } = await getChatsInfo();
     setChats(datas.filter((data) => data.chatRoomID === chatRoomID)[0].chatMessage);
   };
   useEffect(() => {
