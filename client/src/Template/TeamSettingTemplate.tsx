@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 // import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
-import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
-import { useRecoilValue } from "recoil";
+import React, { MouseEventHandler, useRef, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Button } from "../Atom/Button";
 import InputLabel from "../Molecules/InputLabel";
 import TeamButtonContainer from "../Organism/TeamButtonContainer";
@@ -10,7 +10,7 @@ import TeamInfoContainer from "../Organism/TeamInfoContainer";
 // import { getTeamPeople } from "../util/dummyData";
 import ProfileList from "./ProfileList";
 import InviteModal from "./InviteModal";
-import { teamState } from "../Recoil/Atom";
+import { teamState, userState } from "../Recoil/Atom";
 import { changeTeamInfo } from "../util";
 
 const TeamSettingTemPlateStyle = css`
@@ -23,42 +23,43 @@ const TeamSettingTemPlateStyle = css`
 `;
 
 function TeamSettingTemplate() {
-  const teamInfoState = useRecoilValue(teamState);
+  const [teamInfoState, setTeamInfoState] = useRecoilState(teamState);
+  const userInfoState = useRecoilValue(userState);
   const [inviteModalState, setInviteModalState] = useState(false);
 
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
-  let beforeTeamName = "";
 
-  useEffect(() => {
-    if (teamNameRef.current === null) return;
-    beforeTeamName = teamNameRef.current.value;
-  }, [teamNameRef.current]);
   const profileRef = useRef<HTMLDivElement[]>([]);
-
+  const resetInput = () => {
+    if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current) return;
+    teamNameRef.current.value = "";
+    teamInfoRef.current.value = "";
+    locationRef.current.value = "";
+  };
   const clickUpdateButton: MouseEventHandler = async () => {
     if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current) return;
-    if (teamInfoState === null) return;
+    if (teamInfoState.id === "") return;
+    if (teamInfoState.leader !== userInfoState.id) {
+      // eslint-disable-next-line no-alert
+      alert("팀 리더가 아닙니다");
+    }
     const teamName = teamNameRef.current.value;
     const teamInfo = teamInfoRef.current.value;
     const location = locationRef.current.value;
 
-    await changeTeamInfo({
-      beforeTeamName,
+    const result = await changeTeamInfo({
       teamName,
       teamInfo,
       location,
     });
+    setTeamInfoState((prev) => {
+      return { ...prev, ...result };
+    });
+    resetInput();
+    // eslint-disable-next-line no-console
   };
-
-  // const getTeamInfo = async () => {
-  //   const data = await getTeamPeople(1);
-  //   setTeamInfo(data);
-  // };
-  // useEffect(() => {
-  //   getTeamInfo();
-  // }, []);
 
   return (
     <div css={TeamSettingTemPlateStyle}>

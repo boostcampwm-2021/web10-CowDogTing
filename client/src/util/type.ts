@@ -35,9 +35,7 @@ export interface PostTeamType {
   teamInfo: string;
   location: string;
 }
-export interface ChangeTeamInfoType extends PostTeamType {
-  beforeTeamName: string;
-}
+export interface ChangeTeamInfoType extends PostTeamType {}
 
 export type TeamInfoType = {
   image: string;

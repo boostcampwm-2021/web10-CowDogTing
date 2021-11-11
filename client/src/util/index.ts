@@ -3,13 +3,17 @@ import { ChangeTeamInfoType, loginInfo, PostTeamType, registerInfo } from "./typ
 
 const url = `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}`;
 
-export const changeTeamInfo = async ({ beforeTeamName, teamName, teamInfo, location }: ChangeTeamInfoType) => {
-  await axios.post(`${url}/api/team/update`, {
-    originTeamName: beforeTeamName,
-    name: teamName,
-    description: teamInfo,
-    location,
-  });
+export const changeTeamInfo = async ({ teamName, teamInfo, location }: ChangeTeamInfoType) => {
+  const { data } = await axios.post(
+    `${url}/api/team/update`,
+    {
+      name: teamName,
+      description: teamInfo,
+      location,
+    },
+    { withCredentials: true }
+  );
+  return data;
 };
 
 export const createTeam = async ({ teamName, teamInfo, location }: PostTeamType) => {
