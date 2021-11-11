@@ -8,6 +8,7 @@ export default function useDropDownEvent(ref: RefObject<HTMLDivElement>, handler
       if (!ref.current || ref.current.contains(target)) {
         return;
       }
+      console.log(ref.current);
       handler(event);
     };
     document.addEventListener("click", listener);

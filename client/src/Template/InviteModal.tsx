@@ -7,12 +7,20 @@ import InputLabel from "../Molecules/InputLabel";
 import { Button } from "../Atom/Button";
 
 const inviteModalStyle = css`
-  position: absolute;
+  position: fixed;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   z-index: 30;
-  left: 300px;
-  top: 300px;
+  top: 0px;
+  top: 30%;
+  left: 35%;
   width: 400px;
-  height: 400px;
+  height: 300px;
+  border: 2px solid #ffcfcf;
+  border-radius: 10px;
+  background-color: #fff;
 `;
 
 export default function InviteModal({ teamName }: { teamName: string | undefined }) {

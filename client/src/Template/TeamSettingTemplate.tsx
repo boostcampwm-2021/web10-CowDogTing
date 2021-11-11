@@ -12,6 +12,7 @@ import ProfileList from "./ProfileList";
 import InviteModal from "./InviteModal";
 import { teamState } from "../Recoil/Atom";
 import { changeTeamInfo } from "../util";
+import useDropDownEvent from "../Hook/useDropDownEvent";
 
 const TeamSettingTemPlateStyle = css`
   display: flex;
@@ -30,8 +31,9 @@ function TeamSettingTemplate() {
   const teamInfoRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
   const leaderRef = useRef<HTMLInputElement>(null);
+  const modalRef = useRef<HTMLInputElement>(null);
   let beforeTeamName = "";
-
+  useDropDownEvent(modalRef, () => setInviteModalState(false));
   useEffect(() => {
     if (teamNameRef.current === null) return;
     beforeTeamName = teamNameRef.current.value;
@@ -73,19 +75,21 @@ function TeamSettingTemplate() {
       </TeamInfoContainer>
       <ProfileList datas={teamInfoState?.member} person={1} profileRef={profileRef} />
       <TeamButtonContainer>
-        <Button
-          type="Medium"
-          onClick={() => {
-            setInviteModalState((prev) => !prev);
-          }}
-        >
-          초대하기
-        </Button>
+        <div ref={modalRef}>
+          <Button
+            type="Medium"
+            onClick={() => {
+              setInviteModalState((prev) => !prev);
+            }}
+          >
+            초대하기
+          </Button>
+          {inviteModalState && <InviteModal teamName={teamInfoState?.id} />}
+        </div>
         <Button type="Medium" onClick={clickUpdateButton}>
           수정하기
         </Button>
       </TeamButtonContainer>
-      {inviteModalState && <InviteModal teamName={teamInfoState?.id} />}
     </div>
   );
 }

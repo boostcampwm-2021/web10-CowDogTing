@@ -6,8 +6,9 @@ import { InputLabelType } from "../util/type";
 
 const InputLabelStyle = css`
   margin: 1% 2%;
-  width: 150px;
-  height: 300px;
+  width: 300px;
+  height: 150px;
+  text-align: center;
 `;
 
 const LabelStyle = css`
