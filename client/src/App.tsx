@@ -11,29 +11,29 @@ import Footer from "./Molecules/Footer";
 import ChatRoom from "./Page/ChatRoom";
 import { fetchGet } from "./Recoil/Selector";
 // import { joinChatRoomState, requestState, userState } from "./Recoil/Atom";
-import { userState } from "./Recoil/Atom";
+import { requestState, userState } from "./Recoil/Atom";
 
 function App() {
-  const url = `${process.env.REACT_APP_GET_USER_INFO_API_URL}`;
-
-  const userInfo = useRecoilValue(fetchGet({ url, query: "" }));
-  // const requestInfo = useRecoilValue(fetchGet({ url: "api/core/request", query: `?uid=${userInfo.uid}` }));
+  const userUrl = `${process.env.REACT_APP_GET_USER_INFO_API_URL}`;
+  const requestUrl = `${process.env.REACT_APP_GET_REQUEST_API_URL}`;
+  const userInfo = useRecoilValue(fetchGet({ url: userUrl, query: "" }));
+  const requestInfo = useRecoilValue(fetchGet({ url: requestUrl, query: "" }));
   // const joinChatInfo = useRecoilValue(fetchGet({ url: "/api/core/joinChatInfo", query: `?uid=${userInfo.uid}` }));
 
   const setUserInfo = useSetRecoilState(userState);
-  // const setRequestInfo = useSetRecoilState(requestState);
+  const setRequestInfo = useSetRecoilState(requestState);
   // const setJoinChatInfo = useSetRecoilState(joinChatRoomState);
 
   const getInitData = async () => {
     setUserInfo(userInfo);
-    // setRequestInfo(requestInfo);
+    setRequestInfo(requestInfo);
     // setJoinChatInfo(joinChatInfo);
   };
 
   useEffect(() => {
     if (userInfo.uid === "") return;
     getInitData();
-  }, [userInfo]);
+  }, [userInfo, requestInfo]);
 
   return (
     <>
