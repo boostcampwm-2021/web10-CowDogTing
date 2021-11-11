@@ -1,14 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import { css } from "@emotion/react";
-import { getChatsInfo } from "../util/dummyData";
 import { PersonInfoType } from "../util/type";
 import { Button } from "../Atom/Button";
 import ChatRoomBasic from "../Molecules/ChatRoomBasic";
 import ChatRoomGame from "../Molecules/ChatRoomGame";
 import ChatRoomGather from "./ChatRoomGather";
 import ChatRoomFooter from "../Molecules/ChatRoomFooter";
+import { chatsState } from "../Recoil/Atom";
 
 const headerStyle = css`
   display: flex;
@@ -18,13 +19,13 @@ const headerStyle = css`
 
 export default function ChatRoomRight(props: { chatRoomID: number }) {
   const { chatRoomID } = props;
+  const chatsInfo = useRecoilValue(chatsState);
 
   const [member, setMember] = useState<PersonInfoType[] | null>(null);
   const history = useHistory();
 
   const getMember = async () => {
-    const { data: datas } = await getChatsInfo();
-    setMember(datas.filter((data) => data.chatRoomID === props.chatRoomID)[0].member);
+    setMember(chatsInfo.filter((data) => data.chatRoomID === props.chatRoomID)[0].member);
   };
 
   useEffect(() => {

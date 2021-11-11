@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import ProfileModal from "../Template/ProfileModal";
-import { getRequestInfo } from "../util/dummyData";
 import { RequestType } from "../util/type";
 import useModalEvent from "../Hook/useModalEvent";
 import RequestList from "../Template/RequestList";
+import { profileModalDatas, requestState } from "../Recoil/Atom";
 
 const RequestPageStyle = css`
   display: flex;
@@ -37,6 +38,9 @@ const RequestListStyle = css`
 `;
 
 export default function RequestPage() {
+  const requestDatas = useRecoilValue(requestState);
+  const setModalDatas = useSetRecoilState(profileModalDatas);
+
   const [RequestForMe, setRequestForMe] = useState<RequestType[]>([]);
   const [RequestToMe, setRequestToMe] = useState<RequestType[]>([]);
   const [openForModal, setOpenForModal] = useState<number | null>(null);
@@ -48,42 +52,54 @@ export default function RequestPage() {
   const profileForRef = useRef<HTMLDivElement[]>([]);
   const modalForRef = useRef<HTMLDivElement>(null);
   useModalEvent(modalForRef, profileForRef, () => setOpenForModal(null));
+
   const profileToRef = useRef<HTMLDivElement[]>([]);
   const modalToRef = useRef<HTMLDivElement>(null);
   useModalEvent(modalToRef, profileToRef, () => setOpenToModal(null));
 
-  const getDatas = async () => {
-    const item = await getRequestInfo();
-    item?.data.forEach((data: RequestType) => {
+  const getDatas = () => {
+    requestDatas?.forEach((data: RequestType) => {
       return data.from === myId ? setRequestForMe((prev) => [...prev, data]) : setRequestToMe((prev) => [...prev, data]);
     });
   };
 
   useEffect(() => {
     if (openToModal === null) return;
+    setModalDatas(() => {
+      const datas = RequestForMe[Number(openToModal)].info;
+      const { member } = datas;
+      const teamPerson = member || [];
+      return [datas, ...teamPerson];
+    });
     setOpenForModal(null);
   }, [openToModal]);
 
   useEffect(() => {
     if (openForModal === null) return;
+    setModalDatas(() => {
+      const datas = RequestForMe[Number(openForModal)].info;
+      const { member } = datas;
+      const teamPerson = member || [];
+      return [datas, ...teamPerson];
+    });
     setOpenToModal(null);
   }, [openForModal]);
 
   useEffect(() => {
     getDatas();
-  }, []);
+  }, [requestDatas]);
 
   return (
     <div css={RequestPageStyle}>
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>나에게 온 요청</div>
         <RequestList datas={RequestForMe} person={person} setOpenModal={setOpenForModal} type="ForMe" profileRef={profileForRef} />
-        <div ref={modalForRef}>{RequestForMe && openForModal !== null && <ProfileModal data={RequestForMe[Number(openForModal)].info} />}</div>
+        <div ref={modalForRef}>{RequestForMe && openForModal !== null && <ProfileModal />}</div>
       </div>
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>내가 보낸 요청</div>
         <RequestList datas={RequestToMe} person={person} setOpenModal={setOpenToModal} type="ToMe" profileRef={profileToRef} />
-        <div ref={modalToRef}>{RequestToMe && openToModal !== null && <ProfileModal data={RequestToMe[Number(openToModal)].info} />}</div>
+        <div ref={modalToRef}>{RequestToMe && openToModal !== null && <ProfileModal />}</div>
       </div>
     </div>
   );

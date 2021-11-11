@@ -17,7 +17,8 @@ const OtherChatStyle = css`
 
 const MySendStyle = css`
   display: flex;
-  justify-content: end;
+  flex-direction: column;
+  align-items: flex-end;
 `;
 
 const ChatTypeStyle = (props: { type: string }) => css`
