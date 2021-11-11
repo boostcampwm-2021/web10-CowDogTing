@@ -75,7 +75,7 @@ export type RequestListType = {
 
 export type LargeModalType = {
   children: JSX.Element[];
-  datas: ProfileType[] | String[] | null;
+  length: number;
   decreaseIndex: (e: React.MouseEvent<HTMLElement>) => void;
   inCreaseIndex: (e: React.MouseEvent<HTMLElement>) => void;
   index: number;

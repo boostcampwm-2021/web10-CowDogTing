@@ -17,23 +17,16 @@ export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element
   const [request, setRequest] = useState<boolean>(false);
 
   useEffect(() => {
-    if (datas === null) return;
-    setRequestTarget(datas[0]);
-  }, [datas]);
-
-  useEffect(() => {
     const { member } = data;
     const teamPerson = member || [];
     setTarget(data);
     setIndex(0);
     setDatas([data, ...teamPerson]);
-    if (datas) console.log(datas);
   }, [data]);
 
   useEffect(() => {
-    if (datas) {
-      setTarget(datas[index]);
-    }
+    if (datas === null) return;
+    setTarget(datas[index]);
   }, [index]);
 
   const inCreaseIndex = (): void => {
@@ -48,15 +41,15 @@ export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element
 
   const requestChat = (): void => {
     if (datas === null) return;
-    console.log(datas[0]);
     console.log("소켓연동 후");
+    setRequestTarget(datas[0]);
     setRequest(true);
   };
   if (!target) return <div>로딩중...</div>;
 
   return (
     <>
-      <LargeModal index={index} datas={datas} inCreaseIndex={inCreaseIndex} decreaseIndex={decreaseIndex}>
+      <LargeModal index={index} length={datas?.length ?? 0} inCreaseIndex={inCreaseIndex} decreaseIndex={decreaseIndex}>
         <ProfileInfo data={target} />
         <Button type="Large" onClick={requestChat}>
           채팅 신청하기
