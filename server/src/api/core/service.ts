@@ -60,9 +60,9 @@ export const findUserInfo = async ({ uid }) => {
   return await Users.findOne(query as object);
 };
 
-export const findAllProfile = async (people) => {
+export const findAllProfile = async (person: number) => {
   let query;
-  if (people == 1) {
+  if (person === 1) {
     query = {
       attributes: [["uid", "id"], "image", "location", "sex", "age"],
       // attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
