@@ -16,6 +16,9 @@ const RegisterContainerStyle = css`
   width: 450px;
   margin: 0 auto;
   margin-top: 50px;
+  select {
+    height: 50px;
+  }
 `;
 
 const IdContainerStyle = css`
@@ -34,20 +37,24 @@ const passwordCheckContainerStyle = css`
   display: flex;
   justify-content: space-between;
 `;
-const sexInfoStyle = css`
+const InfoStyle = css`
   width: 300px;
   height: 50px;
   align-items: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  border: 2px solid #ffcfcf;
+  margin-bottom: 20px;
+  text-align: center;
 `;
+
 export default function RegisterPage() {
   const [firstPassword, setFirstPassword] = useState<string>("");
   const [secondPassword, setSecondPassword] = useState<string>("");
   const [passwordCheck, setPasswordCheck] = useState<boolean>(true);
   const idRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
-  const locationRef = useRef<HTMLInputElement>(null);
+  const [locSelected, setLocSelected] = useState<string>("");
   const ageRef = useRef<HTMLInputElement>(null);
   const [sexSelected, setSexSelected] = useState<string>("");
   const checkInput = ({ id, pw, location, age, sex }: registerInfo): boolean => {
@@ -58,11 +65,12 @@ export default function RegisterPage() {
     return true;
   };
   const clickRegister = async () => {
-    if (!idRef.current || !pwRef.current || !locationRef.current || !ageRef.current || sexSelected === "") return;
+    console.log(locSelected, sexSelected);
+    if (!idRef.current || !pwRef.current || !locSelected || !ageRef.current || sexSelected === "") return;
 
     const id = idRef.current.value;
     const pw = pwRef.current.value;
-    const loc = locationRef.current.value;
+    const loc = locSelected;
     const age = ageRef.current.value;
     const sex = sexSelected;
     const check = checkInput({ id, pw, location: loc, age: Number(age), sex });
@@ -106,11 +114,23 @@ export default function RegisterPage() {
           onKeyUp={() => setPasswordCheck(firstPassword === secondPassword)}
         />
         <div>Location</div>
-        <Input ref={locationRef} placeholder="Location" autoComplete="off" />
+        <select css={InfoStyle} onChange={(e) => setLocSelected(e.target.value)}>
+          <option selected value="" disabled>
+            거주지를 선택해주세요.
+          </option>
+          <option value="서울">서울</option>
+          <option value="경기">경기</option>
+          <option value="인천">인천</option>
+          <option value="대구">대구</option>
+          <option value="대전">대전</option>
+          <option value="광주">광주</option>
+          <option value="부산">부산</option>
+          <option value="울산">울산</option>
+        </select>
         <div>Age</div>
         <Input ref={ageRef} placeholder="Age" autoComplete="off" />
         <div>Sex</div>
-        <div css={sexInfoStyle}>
+        <div css={InfoStyle}>
           <div>
             <label htmlFor="male">남성</label>
             <input id="male" type="radio" value="남성" name="sex" onChange={(e) => setSexSelected(e.target.value)} />
