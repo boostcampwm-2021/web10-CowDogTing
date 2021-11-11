@@ -72,14 +72,13 @@ export type RequestListType = {
 
 export type LargeModalType = {
   children: JSX.Element[];
-  datas: ProfileType[] | String[] | null;
+  length: number;
   decreaseIndex: (e: React.MouseEvent<HTMLElement>) => void;
   inCreaseIndex: (e: React.MouseEvent<HTMLElement>) => void;
   index: number;
 };
 
 export type SmallModalType = {
-  data: ProfileType;
   setRequest: (current: boolean) => void;
 };
 
@@ -91,13 +90,9 @@ export type MessageType = {
 };
 
 export type ChatInfoType = {
-  chatRoomID: number;
+  chatRoomId: number;
   member: PersonInfoType[];
   chatMessage: MessageType[];
-};
-
-export type ChatsInfoType = {
-  data: ChatInfoType[];
 };
 
 export type RequestType = {
@@ -112,7 +107,7 @@ export type RequestsType = {
 };
 
 export type joinChatType = {
-  chatRoomID: number;
+  chatRoomId: number;
   notReadNum: number;
 };
 
@@ -126,7 +121,7 @@ export type ProfileImageType = {
 };
 
 export type ChatProfileContainerType = {
-  chatsInfo: ChatsInfoType | null;
+  chatsInfo: ChatInfoType[] | null;
   setClickedRoomIndex: Function;
 };
 
@@ -141,12 +136,10 @@ export type ChatListInfoType = {
 };
 
 export type ChatListContainerType = {
-  chatInfo?: ChatInfoType;
   profileRef: RefObject<HTMLDivElement[]>;
 };
 
 export type ChatImageContainerType = {
-  member?: PersonInfoType[];
   profileRef: RefObject<HTMLDivElement[]>;
 };
 
@@ -188,4 +181,5 @@ export interface registerInfo extends loginInfo {
   location: string;
   age: number;
   sex: string;
+  info: string;
 }

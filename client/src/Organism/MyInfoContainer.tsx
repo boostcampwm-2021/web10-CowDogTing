@@ -51,7 +51,7 @@ export default function MyInfoContainer() {
         info: infoInputRef.current.value,
       });
     } else {
-      console.log("myInfo 수정 실패");
+      alert("myinfo 수정 실패");
     }
   };
   return (

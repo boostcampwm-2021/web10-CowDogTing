@@ -21,3 +21,13 @@ export const MENU_LIST: menuListType = {
     { link: "", name: "로그아웃" },
   ],
 };
+
+export function getGameDatas() {
+  const data = ["캐치마인드"];
+  return data;
+}
+
+export function getGatherCharacter() {
+  const data = ["1", "2", "3", "4", "5"];
+  return data;
+}

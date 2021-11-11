@@ -2,6 +2,7 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { ProfileImageType } from "../util/type";
+import meetingImage from "../assets/meetingImage.png";
 
 const bigProfileImageStyle = css`
   width: 300px;
@@ -24,7 +25,7 @@ const profileImageStyle = (props: ProfileImageType) => css`
   ${props.type === "Big" && bigProfileImageStyle}
   ${props.type === "Small" && smallProfileImageStyle}
   ${props.type === "Mini" && miniProfileImageStyle}
-  background-image: url(${props.image as string});
+  background-image: url(${meetingImage});
   background-size: cover;
   cursor: pointer;
 `;

@@ -3,11 +3,13 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { useHistory } from "react-router";
+import { useRecoilValue } from "recoil";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ChatImageContainerType } from "../util/type";
 import { ProfileImage } from "../Atom/ProfileImage";
 import { Button } from "../Atom/Button";
+import { chatTarget } from "../Recoil/Atom";
 
 const ChatListHeader = styled.div`
   display: flex;
@@ -25,7 +27,8 @@ const ChatImageContainerStyle = css`
   justify-content: space-evenly;
 `;
 
-function ChatImageContainer({ member, profileRef }: ChatImageContainerType) {
+function ChatImageContainer({ profileRef }: ChatImageContainerType) {
+  const { member } = useRecoilValue(chatTarget);
   const history = useHistory();
 
   const handleCloseRoomClick = () => {

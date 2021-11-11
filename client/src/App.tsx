@@ -10,7 +10,6 @@ import Page from "./Page/Page";
 import Footer from "./Molecules/Footer";
 import ChatRoom from "./Page/ChatRoom";
 import { fetchGet } from "./Recoil/Selector";
-// import { joinChatRoomState, requestState, userState } from "./Recoil/Atom";
 import { joinChatRoomState, requestState, userState } from "./Recoil/Atom";
 
 function App() {

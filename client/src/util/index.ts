@@ -1,4 +1,6 @@
 import axios from "axios";
+// import { useRecoilState } from "recoil";
+// import { userState } from "../Recoil/Atom";
 import { ChangeTeamInfoType, loginInfo, PostTeamType, registerInfo } from "./type";
 
 const url = `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}`;
@@ -60,13 +62,14 @@ export const postLogin = async ({ id, pw }: loginInfo) => {
   }
 };
 
-export const registerUser = async ({ id, pw, location, age, sex }: registerInfo) => {
+export const registerUser = async ({ id, pw, location, age, sex, info }: registerInfo) => {
   await axios.post(`${url}${process.env.REACT_APP_REGISTER_API_URL}`, {
     uid: id,
     password: pw,
     location,
     age,
     sex,
+    info,
   });
 };
 
@@ -75,6 +78,11 @@ export const getCowDogInfo = async (person: number, index: number) => {
   return data;
 };
 
+export const getChatMessage = async ({ index, chatRoomId }: { index: number; chatRoomId: number }) => {
+  const { data } = await axios.get(`${url}${process.env.REACT_APP_GET_CHAT_MESSAGES_API_URL}?chatRoomId=${chatRoomId}&index=${index}`);
+  console.log(data);
+  return data;
+};
 export const changeMyInfo = async ({ id, location, age, info }: { id: string; location: string; age: number; info: string }) => {
   try {
     await axios.post(`${url}${process.env.REACT_APP_GET_USER_INFO_API_URL}`, {
@@ -89,6 +97,6 @@ export const changeMyInfo = async ({ id, location, age, info }: { id: string; lo
   }
 };
 export const logOutUser = async () => {
-  const { data } = await axios.get(`${url}/api/auth/logout`, { withCredentials: true });
+  const { data } = await axios.get(`${url}${process.env.REACT_APP_LOGOUT_API_URL}`, { withCredentials: true });
   return data;
 };

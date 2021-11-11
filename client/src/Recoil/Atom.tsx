@@ -34,7 +34,7 @@ export const cowDogState = atom<ProfileType[]>({
   default: [],
 });
 
-export const chatState = atom<ChatInfoType[]>({
+export const chatsState = atom<ChatInfoType[]>({
   key: "chatState",
   default: [],
 });
@@ -47,4 +47,32 @@ export const requestState = atom<RequestType[]>({
 export const joinChatRoomState = atom<joinChatType[]>({
   key: "joinChatRoomState",
   default: [],
+});
+
+export const requestTarget = atom<ProfileType>({
+  key: "requestTarget",
+  default: {
+    id: "",
+    image: "",
+    location: "",
+    sex: "",
+    age: 0,
+    info: "",
+    gid: null,
+    idx: 0,
+  },
+});
+
+export const profileModalDatas = atom<ProfileType[]>({
+  key: "profileModalDatas",
+  default: [],
+});
+
+export const chatTarget = atom<ChatInfoType>({
+  key: "chatTargets",
+  default: {
+    chatRoomId: 0,
+    member: [],
+    chatMessage: [],
+  },
 });

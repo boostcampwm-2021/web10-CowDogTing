@@ -58,8 +58,10 @@ export default function RegisterPage() {
   const [locSelected, setLocSelected] = useState<string>("");
   const ageRef = useRef<HTMLInputElement>(null);
   const [sexSelected, setSexSelected] = useState<string>("");
-  const checkInput = ({ id, pw, location, age, sex }: registerInfo): boolean => {
-    if (id === "" || pw === "" || location === "" || age === NaN || sex === "") {
+  const infoRef = useRef<HTMLInputElement>(null);
+
+  const checkInput = ({ id, pw, location, age, sex, info }: registerInfo): boolean => {
+    if (id === "" || pw === "" || location === "" || age === NaN || sex === "" || info === "") {
       alert("모든 입력값을 제대로 입력해 주십시오.");
       return false;
     }
@@ -67,16 +69,18 @@ export default function RegisterPage() {
   };
   const clickRegister = async () => {
     console.log(locSelected, sexSelected);
-    if (!idRef.current || !pwRef.current || !locSelected || !ageRef.current || sexSelected === "") return;
+    if (!idRef.current || !pwRef.current || !locSelected || !ageRef.current || !infoRef.current || sexSelected === "") return;
 
     const id = idRef.current.value;
     const pw = pwRef.current.value;
     const loc = locSelected;
     const age = ageRef.current.value;
-    const sex = sexSelected;
-    const check = checkInput({ id, pw, location: loc, age: Number(age), sex });
+    const sex = sexSelected === "남성" ? "male" : "female";
+    const info = infoRef.current.value;
+
+    const check = checkInput({ id, pw, location: loc, age: Number(age), sex, info });
     if (!check) return;
-    await registerUser({ id, pw, location: loc, age: Number(age), sex });
+    await registerUser({ id, pw, location: loc, age: Number(age), sex, info });
     location.href = "/";
   };
 
@@ -145,6 +149,8 @@ export default function RegisterPage() {
             <input id="etc" type="radio" value="기타" name="sex" onChange={(e) => setSexSelected(e.target.value)} />
           </div>
         </div>
+        <div>Introduce</div>
+        <Input ref={infoRef} placeholder="Introduce" autoComplete="off" />
         <Button type="Long" onClick={clickRegister}>
           {" "}
           회원가입{" "}

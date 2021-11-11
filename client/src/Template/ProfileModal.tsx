@@ -1,30 +1,28 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import ProfileInfo from "../Atom/ProfileInfo";
-import { ProfileInfoDataType, ProfileType } from "../util/type";
+import { ProfileType } from "../util/type";
 import LargeModal from "../Organism/LargeModal";
 import { Button } from "../Atom/Button";
 import RequestModal from "./RequestModal";
+import { profileModalDatas, requestTarget } from "../Recoil/Atom";
 
-export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element {
+export default function ProfileModal(): JSX.Element {
+  const setRequestTarget = useSetRecoilState(requestTarget);
+  const datas = useRecoilValue(profileModalDatas);
   const [index, setIndex] = useState<number>(0);
-  const [target, setTarget] = useState<ProfileType | null>(data);
-  const [datas, setDatas] = useState<ProfileType[] | null>(null);
+  const [target, setTarget] = useState<ProfileType | null>(datas[0]);
   const [request, setRequest] = useState<boolean>(false);
 
   useEffect(() => {
-    const { member } = data;
-    const teamPerson = member || [];
-    setTarget(data);
+    setTarget(datas[0]);
     setIndex(0);
-    setDatas([data, ...teamPerson]);
-    if (datas) console.log(datas);
-  }, [data]);
+  }, [datas]);
 
   useEffect(() => {
-    if (datas) {
-      setTarget(datas[index]);
-    }
+    if (datas === null) return;
+    setTarget(datas[index]);
   }, [index]);
 
   const inCreaseIndex = (): void => {
@@ -39,21 +37,21 @@ export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element
 
   const requestChat = (): void => {
     if (datas === null) return;
-    console.log(datas[0]);
     console.log("소켓연동 후");
+    setRequestTarget(datas[0]);
     setRequest(true);
   };
   if (!target) return <div>로딩중...</div>;
 
   return (
     <>
-      <LargeModal index={index} datas={datas} inCreaseIndex={inCreaseIndex} decreaseIndex={decreaseIndex}>
+      <LargeModal index={index} length={datas?.length ?? 0} inCreaseIndex={inCreaseIndex} decreaseIndex={decreaseIndex}>
         <ProfileInfo data={target} />
         <Button type="Large" onClick={requestChat}>
           채팅 신청하기
         </Button>
       </LargeModal>
-      {request && datas && <RequestModal data={datas[0]} setRequest={setRequest} />}
+      {request && <RequestModal setRequest={setRequest} />}
     </>
   );
 }

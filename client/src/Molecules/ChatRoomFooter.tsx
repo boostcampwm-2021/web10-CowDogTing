@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { css } from "@emotion/react";
 import VideoSupport from "./VideoSupport";
 import { Button } from "../Atom/Button";
-import { getGameDatas, getGatherCharacter } from "../util/dummyData";
+import { getGameDatas, getGatherCharacter } from "../util/constant";
 import LargeModal from "../Organism/LargeModal";
 import LinkButton from "./LinkButton";
 import useDropDownEvent from "../Hook/useDropDownEvent";
@@ -78,7 +78,7 @@ export default function ChatRoomFooter() {
             게임하기
           </Button>
           {openGame && (
-            <LargeModal index={index} datas={datas} inCreaseIndex={inCreaseIndex} decreaseIndex={decreaseIndex}>
+            <LargeModal index={index} length={datas?.length ?? 0} inCreaseIndex={inCreaseIndex} decreaseIndex={decreaseIndex}>
               <div>게임{index}</div>
               <LinkButton url={gameURL} type="Large" onClick={handleCloseButtonClick} content="게임 시작하기" />
             </LargeModal>
@@ -90,7 +90,7 @@ export default function ChatRoomFooter() {
             게더타운
           </Button>
           {openGather && (
-            <LargeModal index={index} datas={datas} inCreaseIndex={inCreaseIndex} decreaseIndex={decreaseIndex}>
+            <LargeModal index={index} length={datas?.length ?? 0} inCreaseIndex={inCreaseIndex} decreaseIndex={decreaseIndex}>
               <div css={CharacterStyle({ index })} />
               <LinkButton url={gatherURL} type="Large" onClick={handleCloseButtonClick} content="게임 시작하기" />
             </LargeModal>
