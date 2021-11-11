@@ -67,3 +67,12 @@ export const profileModalDatas = atom<ProfileType[]>({
   key: "profileModalDatas",
   default: [],
 });
+
+export const chatTarget = atom<ChatInfoType>({
+  key: "chatTarget",
+  default: {
+    chatRoomId: 0,
+    member: [],
+    chatMessage: [],
+  },
+});
