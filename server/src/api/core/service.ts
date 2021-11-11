@@ -1,4 +1,4 @@
-import { Op } from "sequelize";
+import { Op, fn } from "sequelize";
 import { Request } from "../../db/models/request";
 import { Chat } from "../../db/models/chat";
 import { findJoinChatRooms } from "../chat/service";
@@ -60,17 +60,27 @@ export const findUserInfo = async ({ uid }) => {
   return await Users.findOne(query as object);
 };
 
-export const findAllProfile = async (people) => {
+export const findAllProfile = async (person) => {
   let query;
-  if (people == 1) {
+  if (person == 1) {
     query = {
-      attributes: [["uid", "id"], "image", "location", "sex", "age"],
-      // attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+      attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
     };
     return await Users.findAll(query);
   } else {
     query = {
       attributes: [["gid", "id"], "image", "location", ["description", "info"]],
+      include: [
+        {
+          model: Users,
+          as: "member",
+          attributes: [[fn("COUNT", "gid"), "Count"], "gid"],
+          group: ["gid"],
+        },
+      ],
+      // where: {
+      //   Users.gid
+      // }
     };
     const teamInfos = await Team.findAll(query as object);
     const teamProfiles = await Promise.all(
@@ -90,4 +100,8 @@ const getMember = async (teamInfo) => {
   };
   const memberData = await Users.findAll(query as object);
   return memberData;
+};
+
+export const updateUser = async (oldId: string, { uid, location, age, info }: { uid: string; location: string; age: number; info: string }) => {
+  await Users.update({ uid, location, age, info }, { where: { uid: oldId } });
 };
