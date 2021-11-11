@@ -21,17 +21,15 @@ function TeamCreatePage() {
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
-  const leaderRef = useRef<HTMLInputElement>(null);
 
   const clickCreateButton: MouseEventHandler = async () => {
-    if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current || !leaderRef.current) return;
+    if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current) return;
 
     const teamName = teamNameRef.current.value;
     const teamInfo = teamInfoRef.current.value;
     const location = locationRef.current.value;
-    const leader = leaderRef.current.value;
 
-    await createTeam({ teamName, teamInfo, location, leader });
+    await createTeam({ teamName, teamInfo, location });
   };
 
   return (
@@ -40,7 +38,6 @@ function TeamCreatePage() {
         <InputLabel label="팀명" refProps={teamNameRef} />
         <InputLabel label="소개" refProps={teamInfoRef} />
         <InputLabel label="지역" refProps={locationRef} />
-        <InputLabel label="리더 ID" refProps={leaderRef} />
       </TeamInfoContainer>
       <TeamCreateButtonContainer>
         <Link to="/sub/teamSetting">

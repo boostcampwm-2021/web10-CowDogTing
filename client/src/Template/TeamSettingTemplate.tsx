@@ -29,7 +29,6 @@ function TeamSettingTemplate() {
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
-  const leaderRef = useRef<HTMLInputElement>(null);
   let beforeTeamName = "";
 
   useEffect(() => {
@@ -39,19 +38,17 @@ function TeamSettingTemplate() {
   const profileRef = useRef<HTMLDivElement[]>([]);
 
   const clickUpdateButton: MouseEventHandler = async () => {
-    if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current || !leaderRef.current) return;
+    if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current) return;
     if (teamInfoState === null) return;
     const teamName = teamNameRef.current.value;
     const teamInfo = teamInfoRef.current.value;
     const location = locationRef.current.value;
-    const leader = leaderRef.current.value;
 
     await changeTeamInfo({
       beforeTeamName,
       teamName,
       teamInfo,
       location,
-      leader,
     });
   };
 
@@ -69,7 +66,6 @@ function TeamSettingTemplate() {
         <InputLabel label="팀명" placeholder={teamInfoState?.id} refProps={teamNameRef} />
         <InputLabel label="소개" placeholder={teamInfoState?.info} refProps={teamInfoRef} />
         <InputLabel label="지역" placeholder={teamInfoState?.location} refProps={locationRef} />
-        <InputLabel label="팀 리더" placeholder={teamInfoState?.leader} refProps={leaderRef} />
       </TeamInfoContainer>
       <ProfileList datas={teamInfoState?.member} person={1} profileRef={profileRef} />
       <TeamButtonContainer>
