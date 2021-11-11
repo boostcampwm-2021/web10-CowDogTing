@@ -6,28 +6,28 @@ interface UserAttributes {
   uid: string;
   password: string;
   location: string;
-  github_id: string;
-  naver_id: string;
-  kakao_id: string;
-  image: number;
+  github_id?: string | null;
+  naver_id?: string | null;
+  kakao_id?: string | null;
+  image?: number | null;
   age: number;
   sex: string;
-  gid: number;
-  info: string;
+  gid?: number | null;
+  info?: string | null;
 }
 
 export class Users extends Model<UserAttributes> {
   public uid!: string;
   public password!: string;
   public location!: string;
-  public github_id!: string;
-  public naver_id!: string;
-  public kakao_id!: string;
-  public image!: number;
+  public github_id?: string | null;
+  public naver_id?: string | null;
+  public kakao_id?: string | null;
+  public image?: number | null;
   public age!: number;
   public sex!: string;
-  public gid!: number;
-  public info!: string;
+  public gid?: number | null;
+  public info?: string | null;
   public static associations: {};
 }
 
