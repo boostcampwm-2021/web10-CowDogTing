@@ -2,11 +2,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { profileModalDatas, requestState, userState } from "../Recoil/Atom";
 import ProfileModal from "../Template/ProfileModal";
 import { RequestType } from "../util/type";
 import useModalEvent from "../Hook/useModalEvent";
 import RequestList from "../Template/RequestList";
-import { profileModalDatas, requestState } from "../Recoil/Atom";
 
 const RequestPageStyle = css`
   display: flex;
@@ -38,6 +38,7 @@ const RequestListStyle = css`
 `;
 
 export default function RequestPage() {
+  const { id: myId } = useRecoilValue(userState);
   const requestDatas = useRecoilValue(requestState);
   const setModalDatas = useSetRecoilState(profileModalDatas);
 
@@ -46,7 +47,6 @@ export default function RequestPage() {
   const [openForModal, setOpenForModal] = useState<number | null>(null);
   const [openToModal, setOpenToModal] = useState<number | null>(null);
 
-  const myId = "123";
   const person = 1;
 
   const profileForRef = useRef<HTMLDivElement[]>([]);
@@ -58,8 +58,9 @@ export default function RequestPage() {
   useModalEvent(modalToRef, profileToRef, () => setOpenToModal(null));
 
   const getDatas = () => {
+    console.log(requestDatas);
     requestDatas?.forEach((data: RequestType) => {
-      return data.from === myId ? setRequestForMe((prev) => [...prev, data]) : setRequestToMe((prev) => [...prev, data]);
+      return data.from !== myId ? setRequestForMe((prev) => [...prev, data]) : setRequestToMe((prev) => [...prev, data]);
     });
   };
 
