@@ -6,6 +6,7 @@ import { useRecoilValue } from "recoil";
 import UserIcon from "../Atom/UserIcon";
 import useDropDownEvent from "../Hook/useDropDownEvent";
 import { userState } from "../Recoil/Atom";
+import { logOutUser } from "../util";
 import DropDown from "./DropDown";
 import LinkButton from "./LinkButton";
 
@@ -19,6 +20,14 @@ const MainHeaderRightContainer = css`
 function MainHeaderRightSide() {
   const userInfo = useRecoilValue(userState);
   const { id } = userInfo;
+  const LogOut = async () => {
+    const data = await logOutUser();
+    if (data) {
+      window.location.replace("/main");
+    } else {
+      alert("실패 ㅋㅋ");
+    }
+  };
 
   const [userOpen, setUser] = useState(false);
   const ToggleUserModal = () => {
@@ -26,7 +35,6 @@ function MainHeaderRightSide() {
   };
 
   const userRef = useRef<HTMLDivElement>(null);
-
   useDropDownEvent(userRef, () => setUser(false));
   return (
     <>
@@ -36,7 +44,7 @@ function MainHeaderRightSide() {
         ) : (
           <div ref={userRef}>
             <UserIcon onClick={() => ToggleUserModal()} />
-            <DropDown type="User" className={userOpen ? "show" : "hide"} />
+            <DropDown type="User" className={userOpen ? "show" : "hide"} onClick={() => LogOut()} />
           </div>
         )}
       </div>

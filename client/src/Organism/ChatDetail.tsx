@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React, { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import React, { useEffect, useRef, useState } from "react";
+import { useRecoilState } from "recoil";
 import { css } from "@emotion/react";
-import { MessageType } from "../util/type";
 import Chats from "../Molecules/Chats";
-import { chatsState } from "../Recoil/Atom";
+import { chatTarget } from "../Recoil/Atom";
+import { getChatMessage } from "../util";
 
 const ChatContainerStyle = css`
   width: 100%;
@@ -12,21 +12,41 @@ const ChatContainerStyle = css`
   padding: 10px 20px 0;
   overflow: auto;
 `;
+export default function ChatDetail() {
+  const [chatInfo, setChatInfo] = useRecoilState(chatTarget);
+  const { chatRoomId, chatMessage: chats } = chatInfo;
+  const [dataIndex, setDataIndex] = useState<number>(1);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-export default function ChatDetail({ chatRoomID }: { chatRoomID: number | undefined }) {
-  const [chats, setChats] = useState<MessageType[] | null>(null);
-  const datas = useRecoilValue(chatsState);
+  const test = async (e: React.UIEvent<HTMLElement>) => {
+    const { scrollTop } = e.currentTarget;
 
-  const getChats = async () => {
-    setChats(datas.filter((data) => data.chatRoomID === chatRoomID)[0].chatMessage);
+    if (scrollTop === 0) {
+      const chatMessages = await getChatMessage({ index: dataIndex, chatRoomId });
+      setChatInfo((prev) => {
+        return {
+          ...prev,
+          chatMessage: [...chatMessages, ...chats],
+        };
+      });
+      setDataIndex((prev) => prev + 1);
+    }
   };
+
   useEffect(() => {
-    getChats();
-  }, [chatRoomID]);
+    setDataIndex(1);
+  }, [chatRoomId]);
+
+  useEffect(() => {
+    const target = containerRef.current;
+    if (target === null) return;
+    const scrollValue = target.scrollHeight - target.clientHeight;
+    target.scrollTo({ top: scrollValue });
+  }, [chatRoomId]);
 
   return (
-    <div css={ChatContainerStyle}>
-      <Chats chats={chats} />
+    <div ref={containerRef} css={ChatContainerStyle} onScroll={test}>
+      <Chats />
     </div>
   );
 }

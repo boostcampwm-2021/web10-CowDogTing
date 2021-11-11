@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
@@ -7,7 +8,7 @@ import ChatListContainer from "../Organism/ChatListContainer";
 import ProfileModal from "./ProfileModal";
 import useModalEvent from "../Hook/useModalEvent";
 import { fetchGet } from "../Recoil/Selector";
-import { chatsState, profileModalDatas } from "../Recoil/Atom";
+import { chatsState, chatTarget, profileModalDatas } from "../Recoil/Atom";
 
 const ChatListTemplateStyle = css`
   width: 80vw;
@@ -23,6 +24,8 @@ function ChatListTemplate() {
   const chatInfoUrl = `${process.env.REACT_APP_GET_CHAT_INFO_API_URL}`;
   const chatsData = useRecoilValue(fetchGet({ url: chatInfoUrl, query: "" }));
   const [chatsInfo, setChatsInfo] = useRecoilState(chatsState);
+  const setChatInfo = useSetRecoilState(chatTarget);
+
   const setModalDatas = useSetRecoilState(profileModalDatas);
 
   const [clickedRoomIndex, setClickedRoomIndex] = useState(-1);
@@ -68,7 +71,6 @@ function ChatListTemplate() {
 
   useEffect(() => {
     setChatsInfo(chatsData);
-    console.log(chatsInfo);
   }, [chatsData]);
 
   useEffect(() => {
@@ -83,10 +85,15 @@ function ChatListTemplate() {
     });
   }, [openModal]);
 
+  useEffect(() => {
+    if (clickedRoomIndex === -1) return;
+    setChatInfo(chatsInfo[clickedRoomIndex]);
+  }, [clickedRoomIndex]);
+
   return (
     <div css={ChatListTemplateStyle} onClick={changeOpenModal}>
       <ChatProfileContainer chatsInfo={chatsInfo} setClickedRoomIndex={setClickedRoomIndex} />
-      <ChatListContainer chatInfo={chatsInfo[clickedRoomIndex]} profileRef={profileRef} />
+      <ChatListContainer profileRef={profileRef} />
       <div ref={modalRef}>{chatsInfo && clickedRoomIndex !== -1 && openModal !== null && <ProfileModal />}</div>
     </div>
   );

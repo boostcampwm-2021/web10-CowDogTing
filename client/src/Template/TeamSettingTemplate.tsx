@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 // import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
@@ -23,25 +24,40 @@ const TeamSettingTemPlateStyle = css`
   align-items: center;
 `;
 
+const InfoStyle = css`
+  width: 300px;
+  height: 50px;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  border: 2px solid #ffcfcf;
+  margin-bottom: 20px;
+  text-align: center;
+  margin-left: 7px;
+`;
+const LabelStyle = css`
+  height: 20%;
+  width: 90%;
+`;
 function TeamSettingTemplate() {
   const [teamInfoState, setTeamInfoState] = useRecoilState(teamState);
   const userInfoState = useRecoilValue(userState);
   const [inviteModalState, setInviteModalState] = useState(false);
+  const [locSelected, setLocSelected] = useState<string>("");
 
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);
-  const locationRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLInputElement>(null);
   useDropDownEvent(modalRef, () => setInviteModalState(false));
   const profileRef = useRef<HTMLDivElement[]>([]);
   const resetInput = () => {
-    if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current) return;
+    if (!teamNameRef.current || !teamInfoRef.current || locSelected === "") return;
     teamNameRef.current.value = "";
     teamInfoRef.current.value = "";
-    locationRef.current.value = "";
+    setLocSelected("");
   };
   const clickUpdateButton: MouseEventHandler = async () => {
-    if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current) return;
+    if (!teamNameRef.current || !teamInfoRef.current || locSelected === "") return;
     if (teamInfoState.id === "") return;
     if (teamInfoState.leader !== userInfoState.id) {
       // eslint-disable-next-line no-alert
@@ -49,7 +65,7 @@ function TeamSettingTemplate() {
     }
     const teamName = teamNameRef.current.value;
     const teamInfo = teamInfoRef.current.value;
-    const location = locationRef.current.value;
+    const location = locSelected;
 
     const result = await changeTeamInfo({
       teamName,
@@ -68,7 +84,22 @@ function TeamSettingTemplate() {
       <TeamInfoContainer>
         <InputLabel label="팀명" placeholder={teamInfoState?.id} refProps={teamNameRef} />
         <InputLabel label="소개" placeholder={teamInfoState?.info} refProps={teamInfoRef} />
-        <InputLabel label="지역" placeholder={teamInfoState?.location} refProps={locationRef} />
+        <div id="location">
+          <p css={LabelStyle}>지역</p>
+          <select css={InfoStyle} onChange={(e) => setLocSelected(e.target.value)}>
+            <option selected value={teamInfoState?.id} disabled>
+              거주지를 선택해주세요.
+            </option>
+            <option value="서울">서울</option>
+            <option value="경기">경기</option>
+            <option value="인천">인천</option>
+            <option value="대구">대구</option>
+            <option value="대전">대전</option>
+            <option value="광주">광주</option>
+            <option value="부산">부산</option>
+            <option value="울산">울산</option>
+          </select>
+        </div>
       </TeamInfoContainer>
       <ProfileList datas={teamInfoState?.member} person={1} profileRef={profileRef} />
       <TeamButtonContainer>

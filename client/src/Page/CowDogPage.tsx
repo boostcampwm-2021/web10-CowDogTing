@@ -17,13 +17,16 @@ const ListContainer = css`
 export default function CowDogPage() {
   const setModalDatas = useSetRecoilState(profileModalDatas);
   const [datas, setDatas] = useRecoilState(cowDogState);
+
   const [openModal, setOpenModal] = useState<number | null>(null);
   const [dataIndex, setDataIndex] = useState<number>(0);
+
   const searchParams = new URLSearchParams(useLocation().search);
   const person = Number(searchParams.get("person"));
 
   const profileRef = useRef<HTMLDivElement[]>([]);
   const modalRef = useRef<HTMLDivElement>(null);
+
   useModalEvent(modalRef, profileRef, () => {
     setOpenModal(null);
   });
@@ -35,10 +38,10 @@ export default function CowDogPage() {
 
   const addDatas = async () => {
     const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
-
     if (scrollTop + clientHeight >= scrollHeight) {
       const item = await getCowDogInfo(person, dataIndex);
       setDatas([...datas, ...item]);
+      setDataIndex((prev) => prev + 1);
     }
   };
 
@@ -57,11 +60,6 @@ export default function CowDogPage() {
   }, [openModal]);
 
   useEffect(() => {
-    // if (datas[datas.length - 1].idx === undefined) return;
-    // setDataIndex(datas[datas.length - 1].idx);
-  }, [datas]);
-
-  useEffect(() => {
     getDatas();
     setDataIndex(0);
   }, [person]);
@@ -71,7 +69,7 @@ export default function CowDogPage() {
     return () => {
       document.removeEventListener("scroll", addDatas);
     };
-  }, []);
+  }, [dataIndex]);
 
   return (
     <div>

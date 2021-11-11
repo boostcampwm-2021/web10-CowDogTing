@@ -90,7 +90,7 @@ export type MessageType = {
 };
 
 export type ChatInfoType = {
-  chatRoomID: number;
+  chatRoomId: number;
   member: PersonInfoType[];
   chatMessage: MessageType[];
 };
@@ -107,7 +107,7 @@ export type RequestsType = {
 };
 
 export type joinChatType = {
-  chatRoomID: number;
+  chatRoomId: number;
   notReadNum: number;
 };
 
@@ -136,12 +136,10 @@ export type ChatListInfoType = {
 };
 
 export type ChatListContainerType = {
-  chatInfo?: ChatInfoType;
   profileRef: RefObject<HTMLDivElement[]>;
 };
 
 export type ChatImageContainerType = {
-  member?: PersonInfoType[];
   profileRef: RefObject<HTMLDivElement[]>;
 };
 
@@ -155,6 +153,7 @@ export type LinkButtonType = {
   type: string;
   content: string;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
+  refProps?: RefObject<HTMLDivElement>;
 };
 
 export type DropDownType = {
@@ -162,6 +161,7 @@ export type DropDownType = {
   type: string;
   className: string;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
+  refProps?: RefObject<HTMLDivElement>;
 };
 
 export type menuType = {
