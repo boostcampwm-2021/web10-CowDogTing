@@ -10,6 +10,8 @@ const defaultUser = {
   gid: null,
 };
 
+const defaultRequest = {};
+
 export const getImage = async (req, res) => {
   const imageID = req.query.imageID;
   const data = await findImage({ imageID });
@@ -23,13 +25,16 @@ export const getJoinChatInfo = async (req, res) => {
 };
 
 export const getRequest = async (req, res) => {
-  const uid: string = req.query.uid;
+  if (!req.user) {
+    res.send(defaultRequest);
+    return;
+  }
+  const uid: string = req.user.uid;
   const data = await findAllRequest({ uid });
   res.send(data);
 };
 
 export const getUserInfo = async (req, res) => {
-  console.log(req.user);
   if (!req.user) {
     res.send(defaultUser);
     return;
