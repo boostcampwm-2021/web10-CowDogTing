@@ -32,6 +32,17 @@ export const createTeam = async ({ teamName, teamInfo, location }: PostTeamType)
   return gid;
 };
 
+export const inviteTeam = async ({ userId }: { userId: string }) => {
+  const { data } = await axios.post(
+    `${url}/api/team/invite`,
+    {
+      userId,
+    },
+    { withCredentials: true }
+  );
+  return data;
+};
+
 export const postLogin = async ({ id, pw }: loginInfo) => {
   await axios.post(
     `${url}/api/auth/login`,

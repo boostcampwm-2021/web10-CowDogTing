@@ -82,7 +82,7 @@ function TeamSettingTemplate() {
           수정하기
         </Button>
       </TeamButtonContainer>
-      {inviteModalState && <InviteModal teamName={teamInfoState?.id} />}
+      {inviteModalState && <InviteModal />}
     </div>
   );
 }
