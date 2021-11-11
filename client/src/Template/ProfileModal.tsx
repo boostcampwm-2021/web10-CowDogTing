@@ -1,16 +1,25 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import ProfileInfo from "../Atom/ProfileInfo";
 import { ProfileInfoDataType, ProfileType } from "../util/type";
 import LargeModal from "../Organism/LargeModal";
 import { Button } from "../Atom/Button";
 import RequestModal from "./RequestModal";
+import { requestTarget } from "../Recoil/Atom";
 
 export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element {
+  const setRequestTarget = useSetRecoilState(requestTarget);
+
   const [index, setIndex] = useState<number>(0);
   const [target, setTarget] = useState<ProfileType | null>(data);
   const [datas, setDatas] = useState<ProfileType[] | null>(null);
   const [request, setRequest] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (datas === null) return;
+    setRequestTarget(datas[0]);
+  }, [datas]);
 
   useEffect(() => {
     const { member } = data;
@@ -53,7 +62,7 @@ export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element
           채팅 신청하기
         </Button>
       </LargeModal>
-      {request && datas && <RequestModal data={datas[0]} setRequest={setRequest} />}
+      {request && datas && <RequestModal setRequest={setRequest} />}
     </>
   );
 }

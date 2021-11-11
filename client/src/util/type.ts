@@ -82,7 +82,6 @@ export type LargeModalType = {
 };
 
 export type SmallModalType = {
-  data: ProfileType;
   setRequest: (current: boolean) => void;
 };
 

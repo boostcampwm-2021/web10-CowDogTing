@@ -48,3 +48,17 @@ export const joinChatRoomState = atom<joinChatType[]>({
   key: "joinChatRoomState",
   default: [],
 });
+
+export const requestTarget = atom<ProfileType>({
+  key: "requestTarget",
+  default: {
+    id: "",
+    image: "",
+    location: "",
+    sex: "",
+    age: 0,
+    info: "",
+    gid: null,
+    idx: 0,
+  },
+});
