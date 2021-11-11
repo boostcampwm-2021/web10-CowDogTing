@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
@@ -52,15 +54,26 @@ function CardButton(type: string, state: string) {
   }
   return <div css={StateStyle}>{state}</div>;
 }
-export default function RequestList({ datas, person, setOpenModal, type }: RequestListType) {
+export default function RequestList({ datas, person, setOpenModal, type, profileRef }: RequestListType) {
   const handleModalClick = (e: React.MouseEvent) => {
-    const closestElement = (e.target as HTMLElement).closest(".Profile");
-    if (!closestElement) return;
-    const { id } = (closestElement as HTMLElement).dataset;
-    if (id === undefined) {
+    if (profileRef.current === null) {
       setOpenModal(null);
       return;
     }
+    const target: HTMLElement = e.target as HTMLElement;
+    const clickCard = profileRef.current
+      .map((ref) => {
+        if (ref.contains(target)) return ref;
+        return null;
+      })
+      .filter((ref) => ref !== null)[0];
+
+    if (!clickCard) {
+      setOpenModal(null);
+      return;
+    }
+
+    const { id } = clickCard.dataset;
 
     setOpenModal((prev: number) => (prev === Number(id) ? null : Number(id)));
   };
@@ -69,12 +82,10 @@ export default function RequestList({ datas, person, setOpenModal, type }: Reque
       {datas?.map((data, idx): React.ReactElement | undefined => {
         const sex = person > 1 ? "team" : data.info.sex;
         return (
-          <div css={ProfileStyle}>
-            <div className="Profile" data-id={idx}>
-              <ProfileCard type={sex}>
-                <ProfileInfo data={data.info} />
-              </ProfileCard>
-            </div>
+          <div css={ProfileStyle} ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx}>
+            <ProfileCard type={sex}>
+              <ProfileInfo data={data.info} />
+            </ProfileCard>
             <div css={ProfileSideStyle}>{CardButton(type, data.state)}</div>
           </div>
         );

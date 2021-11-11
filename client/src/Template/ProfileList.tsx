@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
@@ -19,15 +21,26 @@ const ProfileStyle = css`
   margin: 30px 0px;
 `;
 
-export default function ProfileList({ datas, person, setOpenModal }: ProfileListType) {
+export default function ProfileList({ datas, person, setOpenModal, profileRef }: ProfileListType) {
   const handleModalClick = (e: React.MouseEvent) => {
-    const closestElement = (e.target as HTMLElement).closest(".Profile");
-    if (!closestElement) return;
-    const { id } = (closestElement as HTMLElement).dataset;
-    if (id === undefined) {
+    if (profileRef.current === null) {
       setOpenModal(null);
       return;
     }
+    const target: HTMLElement = e.target as HTMLElement;
+    const clickCard = profileRef.current
+      .map((ref) => {
+        if (ref.contains(target)) return ref;
+        return null;
+      })
+      .filter((ref) => ref !== null)[0];
+
+    if (!clickCard) {
+      setOpenModal(null);
+      return;
+    }
+
+    const { id } = clickCard.dataset;
 
     setOpenModal((prev: number) => (prev === Number(id) ? null : Number(id)));
   };
@@ -35,9 +48,8 @@ export default function ProfileList({ datas, person, setOpenModal }: ProfileList
     <div css={ProfileListStyle} onClick={handleModalClick}>
       {datas?.map((data, idx): React.ReactElement | undefined => {
         const sex = person > 1 ? "team" : data.sex;
-        console.log(data);
         return (
-          <div css={ProfileStyle} className="Profile" data-id={idx}>
+          <div css={ProfileStyle} ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx}>
             <ProfileCard type={sex}>
               <ProfileInfo data={data} />
             </ProfileCard>
@@ -47,3 +59,7 @@ export default function ProfileList({ datas, person, setOpenModal }: ProfileList
     </div>
   );
 }
+
+ProfileList.defaultProps = {
+  setOpenModal: () => {},
+};

@@ -24,8 +24,9 @@ export default function CowDogPage() {
   const searchParams = new URLSearchParams(useLocation().search);
   const person = Number(searchParams.get("person"));
 
+  const profileRef = useRef<HTMLDivElement[]>([]);
   const modalRef = useRef<HTMLDivElement>(null);
-  useModalEvent(modalRef, () => setOpenModal(null));
+  useModalEvent(modalRef, profileRef, () => setOpenModal(null));
 
   const getDatas = async () => {
     const item = await getCowDogInfo(person, dataIndex);
@@ -61,7 +62,7 @@ export default function CowDogPage() {
     <div>
       <Navbar />
       <div css={ListContainer}>
-        <ProfileList datas={datas} person={person} setOpenModal={setOpenModal} />
+        <ProfileList datas={datas} person={person} setOpenModal={setOpenModal} profileRef={profileRef} />
         <div ref={modalRef}>{datas && openModal !== null && <ProfileModal data={datas[Number(openModal)]} />}</div>
       </div>
     </div>
