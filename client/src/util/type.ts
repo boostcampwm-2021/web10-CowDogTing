@@ -95,10 +95,6 @@ export type ChatInfoType = {
   chatMessage: MessageType[];
 };
 
-export type ChatsInfoType = {
-  data: ChatInfoType[];
-};
-
 export type RequestType = {
   from: string;
   to: string;
@@ -125,7 +121,7 @@ export type ProfileImageType = {
 };
 
 export type ChatProfileContainerType = {
-  chatsInfo: ChatsInfoType | null;
+  chatsInfo: ChatInfoType[] | null;
   setClickedRoomIndex: Function;
 };
 
