@@ -28,6 +28,7 @@ const ProfileSideStyle = css`
 const ProfileStyle = css`
   display: flex;
   align-items: center;
+  max-height: 200px;
   margin: 30px 0px;
 `;
 const StateStyle = css`
