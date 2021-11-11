@@ -1,15 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useRef, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router-dom";
 import Navbar from "../Organism/Navbar";
 import ProfileList from "../Template/ProfileList";
 import ProfileModal from "../Template/ProfileModal";
-// import { getCowDogInfo } from "../util/dummyData";
-// import { ProfileType } from "../util/type";
 import useModalEvent from "../Hook/useModalEvent";
-import { cowDogState } from "../Recoil/Atom";
+import { cowDogState, profileModalDatas } from "../Recoil/Atom";
 import { getCowDogInfo } from "../util";
 
 const ListContainer = css`
@@ -17,7 +15,7 @@ const ListContainer = css`
 `;
 
 export default function CowDogPage() {
-  // const [datas, setDatas] = useState<ProfileType[] | null>(null);
+  const setModalDatas = useSetRecoilState(profileModalDatas);
   const [datas, setDatas] = useRecoilState(cowDogState);
   const [openModal, setOpenModal] = useState<number | null>(null);
   const [dataIndex, setDataIndex] = useState<number>(0);
@@ -26,7 +24,9 @@ export default function CowDogPage() {
 
   const profileRef = useRef<HTMLDivElement[]>([]);
   const modalRef = useRef<HTMLDivElement>(null);
-  useModalEvent(modalRef, profileRef, () => setOpenModal(null));
+  useModalEvent(modalRef, profileRef, () => {
+    setOpenModal(null);
+  });
 
   const getDatas = async () => {
     const item = await getCowDogInfo(person, dataIndex);
@@ -41,6 +41,20 @@ export default function CowDogPage() {
       setDatas([...datas, ...item]);
     }
   };
+
+  useEffect(() => {
+    if (openModal === null) {
+      setModalDatas([]);
+      return;
+    }
+
+    setModalDatas(() => {
+      const data = datas[Number(openModal)];
+      const { member } = data;
+      const teamPerson = member || [];
+      return [data, ...teamPerson];
+    });
+  }, [openModal]);
 
   useEffect(() => {
     // if (datas[datas.length - 1].idx === undefined) return;
@@ -58,12 +72,13 @@ export default function CowDogPage() {
       document.removeEventListener("scroll", addDatas);
     };
   }, []);
+
   return (
     <div>
       <Navbar />
       <div css={ListContainer}>
         <ProfileList datas={datas} person={person} setOpenModal={setOpenModal} profileRef={profileRef} />
-        <div ref={modalRef}>{datas && openModal !== null && <ProfileModal data={datas[Number(openModal)]} />}</div>
+        <div ref={modalRef}>{datas && openModal !== null && <ProfileModal />}</div>
       </div>
     </div>
   );

@@ -62,3 +62,8 @@ export const requestTarget = atom<ProfileType>({
     idx: 0,
   },
 });
+
+export const profileModalDatas = atom<ProfileType[]>({
+  key: "profileModalDatas",
+  default: [],
+});

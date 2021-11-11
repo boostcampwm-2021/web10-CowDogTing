@@ -7,7 +7,7 @@ import ChatListContainer from "../Organism/ChatListContainer";
 import ProfileModal from "./ProfileModal";
 import useModalEvent from "../Hook/useModalEvent";
 import { fetchGet } from "../Recoil/Selector";
-import { chatsState } from "../Recoil/Atom";
+import { chatsState, profileModalDatas } from "../Recoil/Atom";
 
 const ChatListTemplateStyle = css`
   width: 80vw;
@@ -23,23 +23,28 @@ function ChatListTemplate() {
   const chatInfoUrl = `${process.env.REACT_APP_GET_CHAT_INFO_API_URL}`;
   const chatsInfo = useRecoilValue(fetchGet({ url: chatInfoUrl, query: "" }));
   const setChatsInfo = useSetRecoilState(chatsState);
+  const setModalDatas = useSetRecoilState(profileModalDatas);
 
   const [clickedRoomIndex, setClickedRoomIndex] = useState(-1);
   const [openModal, setOpenModal] = useState<number | null>(null);
 
   const profileRef = useRef<HTMLDivElement[]>([]);
   const modalRef = useRef<HTMLDivElement>(null);
-  useModalEvent(modalRef, profileRef, () => setOpenModal(null));
+  useModalEvent(modalRef, profileRef, () => {
+    setOpenModal(null);
+  });
 
   const changeOpenModal = (e: React.MouseEvent) => {
     if (profileRef.current === null) {
       setOpenModal(null);
       return;
     }
+
     const target: HTMLElement = e.target as HTMLElement;
     if (modalRef.current?.contains(target)) {
       return;
     }
+
     const clickCard = profileRef.current
       .map((ref) => {
         if (ref.contains(target)) return ref;
@@ -65,11 +70,24 @@ function ChatListTemplate() {
     setChatsInfo(chatsInfo);
   }, [chatsInfo]);
 
+  useEffect(() => {
+    if (openModal === null) {
+      setModalDatas([]);
+      return;
+    }
+    setModalDatas(() => {
+      const datas = chatsInfo.data[clickedRoomIndex].member[Number(openModal)];
+      const { member } = datas;
+      const teamPerson = member || [];
+      return [datas, ...teamPerson];
+    });
+  }, [openModal]);
+
   return (
     <div css={ChatListTemplateStyle} onClick={changeOpenModal}>
       <ChatProfileContainer chatsInfo={chatsInfo} setClickedRoomIndex={setClickedRoomIndex} />
       <ChatListContainer chatInfo={chatsInfo?.data[clickedRoomIndex]} profileRef={profileRef} />
-      <div ref={modalRef}>{chatsInfo && clickedRoomIndex !== -1 && openModal !== null && <ProfileModal data={chatsInfo.data[clickedRoomIndex].member[openModal]} />}</div>
+      <div ref={modalRef}>{chatsInfo && clickedRoomIndex !== -1 && openModal !== null && <ProfileModal />}</div>
     </div>
   );
 }

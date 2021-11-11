@@ -1,28 +1,24 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import ProfileInfo from "../Atom/ProfileInfo";
-import { ProfileInfoDataType, ProfileType } from "../util/type";
+import { ProfileType } from "../util/type";
 import LargeModal from "../Organism/LargeModal";
 import { Button } from "../Atom/Button";
 import RequestModal from "./RequestModal";
-import { requestTarget } from "../Recoil/Atom";
+import { profileModalDatas, requestTarget } from "../Recoil/Atom";
 
-export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element {
+export default function ProfileModal(): JSX.Element {
   const setRequestTarget = useSetRecoilState(requestTarget);
-
+  const datas = useRecoilValue(profileModalDatas);
   const [index, setIndex] = useState<number>(0);
-  const [target, setTarget] = useState<ProfileType | null>(data);
-  const [datas, setDatas] = useState<ProfileType[] | null>(null);
+  const [target, setTarget] = useState<ProfileType | null>(datas[0]);
   const [request, setRequest] = useState<boolean>(false);
 
   useEffect(() => {
-    const { member } = data;
-    const teamPerson = member || [];
-    setTarget(data);
+    setTarget(datas[0]);
     setIndex(0);
-    setDatas([data, ...teamPerson]);
-  }, [data]);
+  }, [datas]);
 
   useEffect(() => {
     if (datas === null) return;
@@ -55,7 +51,7 @@ export default function ProfileModal({ data }: ProfileInfoDataType): JSX.Element
           채팅 신청하기
         </Button>
       </LargeModal>
-      {request && datas && <RequestModal setRequest={setRequest} />}
+      {request && <RequestModal setRequest={setRequest} />}
     </>
   );
 }
