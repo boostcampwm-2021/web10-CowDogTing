@@ -1,4 +1,6 @@
 import axios from "axios";
+// import { useRecoilState } from "recoil";
+// import { userState } from "../Recoil/Atom";
 import { ChangeTeamInfoType, loginInfo, PostTeamType, registerInfo } from "./type";
 
 const url = `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}`;
@@ -70,6 +72,11 @@ export const getCowDogInfo = async (person: number, index: number) => {
   return data;
 };
 
+export const getChatMessage = async ({ index, chatRoomId }: { index: number; chatRoomId: number }) => {
+  const { data } = await axios.get(`${url}/api/chat/messages?chatRoomId=${chatRoomId}&index=${index}`);
+  console.log(data);
+  return data;
+};
 export const changeMyInfo = async ({ id, location, age, info }: { id: string; location: string; age: number; info: string }) => {
   try {
     await axios.post(`${url}/api/core/userInfo`, {
@@ -83,3 +90,10 @@ export const changeMyInfo = async ({ id, location, age, info }: { id: string; lo
     return false;
   }
 };
+
+// export const checkLogIn = () => {
+//   const { id } = useRecoilState(userState);
+//   if (id === null) {
+//     window.location.replace("/main");
+//   }
+// };

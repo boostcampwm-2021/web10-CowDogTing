@@ -27,7 +27,6 @@ function TeamSettingTemplate() {
   const [teamInfoState, setTeamInfoState] = useRecoilState(teamState);
   const userInfoState = useRecoilValue(userState);
   const [inviteModalState, setInviteModalState] = useState(false);
-
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
