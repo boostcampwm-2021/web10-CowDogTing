@@ -13,7 +13,9 @@ export const changeTeamInfo = async ({ beforeTeamName, teamName, teamInfo, locat
 };
 
 export const createTeam = async ({ teamName, teamInfo, location }: PostTeamType) => {
-  await axios.post(
+  const {
+    data: { gid },
+  } = await axios.post(
     `${url}/api/team/create`,
     {
       name: teamName,
@@ -22,11 +24,11 @@ export const createTeam = async ({ teamName, teamInfo, location }: PostTeamType)
     },
     { withCredentials: true }
   );
+
+  return gid;
 };
 
 export const postLogin = async ({ id, pw }: loginInfo) => {
-  console.log("로그인 버튼 클릭");
-  console.log(`${url}/api/auth/login`);
   await axios.post(
     `${url}/api/auth/login`,
     {
