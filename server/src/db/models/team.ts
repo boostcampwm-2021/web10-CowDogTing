@@ -3,9 +3,9 @@ import { sequelize } from "./index";
 
 interface TeamAttributes {
   gid: number;
-  image: number;
+  image?: number | null;
   name: string;
-  description: string;
+  description?: string | null;
   location: string;
   leader: string;
 }
@@ -30,7 +30,6 @@ Team.init(
     },
     image: {
       type: DataTypes.INTEGER,
-      allowNull: true,
     },
     name: {
       type: DataTypes.STRING(30),
@@ -38,7 +37,6 @@ Team.init(
     },
     description: {
       type: DataTypes.STRING(100),
-      allowNull: true,
     },
     location: {
       type: DataTypes.STRING(30),

@@ -1,4 +1,4 @@
-import { Op, col } from "sequelize";
+import { Op, literal } from "sequelize";
 import { Request } from "../../db/models/request";
 import { Chat } from "../../db/models/chat";
 import { findJoinChatRooms } from "../chat/service";
@@ -44,7 +44,7 @@ export const findAllRequest = async ({ uid }) => {
       {
         model: Users,
         as: "info",
-        attributes: [["uid", "id"], "image", "location", "sex", "age"],
+        attributes: [["uid", "id"], "image", "location", "sex", "age", "info"], // 나중에 info 컬럼 추가시 해당 열 사용
       },
     ],
     where: {
@@ -95,8 +95,7 @@ export const result_from = (users: any[]) => {
 
 export const findUserInfo = async ({ uid }) => {
   const query = {
-    attributes: [["uid", "id"], "image", "location", "sex", "age", "gid"],
-    // attributes: [["uid", "id"], "image", "location", "sex", "age", "info", "gid"],
+    attributes: [["uid", "id"], "image", "location", "sex", "age", "info", "gid"],
     where: { uid },
   };
   return await Users.findOne(query as object);
@@ -106,34 +105,49 @@ export const findAllProfile = async (person: number, index: number) => {
   let query;
   if (person === 1) {
     query = {
-      attributes: [["uid", "id"], "image", "location", "sex", "age"],
+      raw: true,
+      attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
       offset: 10 * index,
       limit: 10,
-      // attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
     };
     return await Users.findAll(query);
   } else {
+    const teamIds = await findTeam(person);
     query = {
-      attributes: [["id", "id"], "image", "location", ["description", "info"]],
+      raw: true,
+      attributes: [["gid", "id"], "image", "location", ["description", "info"]],
+      where: { gid: { [Op.or]: teamIds } },
       offset: 10 * index,
       limit: 10,
     };
     const teamInfos = await Team.findAll(query as object);
-    const teamProfiles = await Promise.all(
-      teamInfos.map(async (teamInfo) => {
-        return { ...teamInfo["dataValues"], member: await getMember(teamInfo) };
-      })
-    );
-    return teamProfiles;
+    console.log(teamInfos);
+    return teamInfos;
   }
 };
 
-const getMember = async (teamInfo) => {
-  const gid = teamInfo.dataValues.id;
+const findTeam = async (person) => {
   const query = {
-    attributes: [["uid", "id"], "image", "location", "sex", "age"],
-    where: { gid },
+    raw: true,
+    attributes: ["gid"],
+    include: [
+      {
+        model: Users,
+        as: "member",
+        attributes: [],
+      },
+    ],
+    group: ["member.gid"],
+    having: literal(`COUNT(member.uid) = ${person}`),
   };
-  const memberData = await Users.findAll(query as object);
-  return memberData;
+  const resultArr = await Team.findAll(query as object);
+  const teamId = resultArr.map((result) => {
+    return result.gid;
+  });
+  console.log(teamId);
+  return teamId;
+};
+
+export const updateUser = async (oldId: string, { uid, location, age, info }: { uid: string; location: string; age: number; info: string }) => {
+  await Users.update({ uid, location, age, info }, { where: { uid: oldId } });
 };

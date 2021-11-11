@@ -1,4 +1,4 @@
-import { findImage, findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile } from "./service";
+import { findImage, findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser } from "./service";
 
 const defaultUser = {
   id: "",
@@ -54,4 +54,15 @@ export const getProfile = async (req, res) => {
   const index: number = Number(req.query.index);
   const data = await findAllProfile(person, index);
   res.send(data);
+};
+
+export const postUserUpdate = async (req, res, next) => {
+  const oldId = req.user.id;
+  const { uid, location, age, info } = req.body;
+  try {
+    await updateUser(oldId, { uid, location, age, info });
+    return res.send(true);
+  } catch (error) {
+    return next(error);
+  }
 };
