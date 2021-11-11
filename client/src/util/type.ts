@@ -25,6 +25,7 @@ export interface PersonInfoType {
   sex: string;
   age: number;
   info: string;
+  gid?: null | number;
 }
 
 export type TeamInfoType = {

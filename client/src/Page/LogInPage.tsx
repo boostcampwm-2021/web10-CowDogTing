@@ -45,7 +45,12 @@ export default function LogInPage() {
     if (pwRef.current === null) return;
     const id = (idRef.current as HTMLInputElement).value;
     const pw = (pwRef.current as HTMLInputElement).value;
-    const response = await axios.post("http://localhost:4000/api/login", { uid: id, password: pw }, { withCredentials: true });
+    const response = await axios.post("http://localhost:4000/api/auth/login", { uid: id, password: pw }, { withCredentials: true });
+    console.log(response);
+  };
+
+  const clickTest = async () => {
+    const response = await axios.get("http://localhost:4000/api/core/userInfo?uid=test0", { withCredentials: true });
     console.log(response);
   };
 
@@ -62,6 +67,9 @@ export default function LogInPage() {
           </Link>
           <Button type="Small" onClick={clickLogin}>
             로그인
+          </Button>
+          <Button type="Small" onClick={clickTest}>
+            테스트
           </Button>
         </div>
 
