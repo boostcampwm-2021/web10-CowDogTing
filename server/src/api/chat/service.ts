@@ -72,21 +72,20 @@ export const findMessages = async (chatRoomId, index: number) => {
   // chatRoomId에 대한 채팅들 모두 가져오기
   const query = {
     raw: true,
-    attributes: ["uid", "message", "src", "isRead"],
+    attributes: [["uid", "from"], "message", ["src", "source"], ["isRead", "read"]],
     limit: 10,
     where: { chatRoomId: chatRoomId },
     offset: 10 * index,
     order: [["chatId", "DESC"]],
   };
-  console.log(index * 10);
-  const datas = await Chat.findAll(query as object);
-  const data = datas.map((item) => {
-    return {
-      from: item.uid,
-      message: item.message,
-      source: item.src,
-      read: item.isRead,
-    };
-  });
+  const data = await Chat.findAll(query as object);
+  // const data = datas.map((item) => {
+  //   return {
+  //     from: item.uid,
+  //     message: item.message,
+  //     source: item.src,
+  //     read: item.isRead,
+  //   };
+  // });
   return data;
 };
