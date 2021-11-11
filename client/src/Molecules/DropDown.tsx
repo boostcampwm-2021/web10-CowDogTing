@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { DropDownType } from "../util/type";
+import { DropDownType, menuType } from "../util/type";
 import LinkButton from "./LinkButton";
 import { MENU_LIST } from "../util/constant";
 
@@ -46,6 +46,9 @@ const BasicDropDownStyle = css`
 const UserDropDownStyle = css`
   margin-left: -200px;
   ${BasicDropDownStyle}
+  .logout {
+    ${borderBottom}
+  }
 `;
 
 const NavDropDownStyle = css`
@@ -61,7 +64,7 @@ const ChatDropDownStyle = css`
 const MeetingDropDownStyle = css`
   position: absolute;
   margin-left: 250px;
-  margin-top: 80px;
+  margin-top: 155px;
   ${BasicDropDownStyle}
 `;
 
@@ -87,10 +90,16 @@ export default function DropDown(props: DropDownType) {
   const { type, className, onClick } = props;
 
   const list = MENU_LIST[type];
+  const ElementOnClick = ["미팅 하러가기", "로그아웃"]; // onClick 이벤트가 있는 것들을 여기 배열에 추가해주면 됨.
+
+  const getElement = (menu: menuType) => {
+    if (ElementOnClick.includes(menu.name)) return <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} onClick={onClick} />;
+    return <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} />;
+  };
 
   return (
     <DropDownContainer type={type} className={className}>
-      {list.map((menu) => (menu.name === "미팅 하러가기" ? <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} onClick={onClick} /> : <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} />))}
+      {list.map((menu) => getElement(menu))}
     </DropDownContainer>
   );
 }

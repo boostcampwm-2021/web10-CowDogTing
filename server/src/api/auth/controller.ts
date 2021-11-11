@@ -23,14 +23,14 @@ export const handleLogin = (req, res, next) => {
       return next(authError);
     }
     if (!user) {
-      return res.send({ test: "회원정보 불일치", info: [info] });
+      return res.send(false);
     }
     return req.login(user, (loginError) => {
       if (loginError) {
         console.error(loginError);
         return next(loginError);
       }
-      return res.send(user);
+      return res.send(true);
     });
   })(req, res, next);
 };

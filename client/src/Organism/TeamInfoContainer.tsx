@@ -13,6 +13,7 @@ const TeamInfoContainerStyle = css`
   width: 60vw;
   height: 60vh;
   border: 1px solid #b0c2ff;
+  align-items: center;
 `;
 
 function TeamInfoContainer({ children }: ChildrenType) {
