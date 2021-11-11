@@ -5,7 +5,7 @@ const url = `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_
 
 export const changeTeamInfo = async ({ teamName, teamInfo, location }: ChangeTeamInfoType) => {
   const { data } = await axios.post(
-    `${url}/api/team/update`,
+    `${url}${process.env.REACT_APP_TEAM_UPDATE_API_URL}`,
     {
       name: teamName,
       description: teamInfo,
@@ -20,7 +20,7 @@ export const createTeam = async ({ teamName, teamInfo, location }: PostTeamType)
   const {
     data: { gid },
   } = await axios.post(
-    `${url}/api/team/create`,
+    `${url}${process.env.REACT_APP_TEAM_CREATE_API_URL}`,
     {
       name: teamName,
       description: teamInfo,
@@ -34,7 +34,7 @@ export const createTeam = async ({ teamName, teamInfo, location }: PostTeamType)
 
 export const inviteTeam = async ({ userId }: { userId: string }) => {
   const { data } = await axios.post(
-    `${url}/api/team/invite`,
+    `${url}${process.env.REACT_APP_TEAM_IVITE_API_URL}`,
     {
       userId,
     },
@@ -45,7 +45,7 @@ export const inviteTeam = async ({ userId }: { userId: string }) => {
 
 export const postLogin = async ({ id, pw }: loginInfo) => {
   await axios.post(
-    `${url}/api/auth/login`,
+    `${url}${process.env.REACT_APP_LOGIN_API_URL}`,
     {
       uid: id,
       password: pw,
@@ -55,7 +55,7 @@ export const postLogin = async ({ id, pw }: loginInfo) => {
 };
 
 export const registerUser = async ({ id, pw, location, age, sex }: registerInfo) => {
-  await axios.post(`${url}/api/auth/register`, {
+  await axios.post(`${url}${process.env.REACT_APP_REGISTER_API_URL}`, {
     uid: id,
     password: pw,
     location,
@@ -65,13 +65,13 @@ export const registerUser = async ({ id, pw, location, age, sex }: registerInfo)
 };
 
 export const getCowDogInfo = async (person: number, index: number) => {
-  const { data } = await axios.get(`${url}/api/core/profile?person=?${person}?index=${index}`);
+  const { data } = await axios.get(`${url}${process.env.REACT_APP_GET_PROFILE_API_URL}?person=?${person}?index=${index}`);
   return data;
 };
 
 export const changeMyInfo = async ({ id, location, age, info }: { id: string; location: string; age: number; info: string }) => {
   try {
-    await axios.post(`${url}/api/core/userInfo`, {
+    await axios.post(`${url}${process.env.REACT_APP_GET_USER_INFO_API_URL}`, {
       id,
       location,
       age,
