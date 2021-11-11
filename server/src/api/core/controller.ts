@@ -51,6 +51,7 @@ export const getUserInfo = async (req, res) => {
 
 export const getProfile = async (req, res) => {
   const person: number = Number(req.query.person);
-  const data = await findAllProfile(person);
+  const index: number = Number(req.query.index);
+  const data = await findAllProfile(person, index);
   res.send(data);
 };

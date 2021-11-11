@@ -90,10 +90,3 @@ export const changeMyInfo = async ({ id, location, age, info }: { id: string; lo
     return false;
   }
 };
-
-// export const checkLogIn = () => {
-//   const { id } = useRecoilState(userState);
-//   if (id === null) {
-//     window.location.replace("/main");
-//   }
-// };

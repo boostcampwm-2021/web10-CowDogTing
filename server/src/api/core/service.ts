@@ -102,17 +102,21 @@ export const findUserInfo = async ({ uid }) => {
   return await Users.findOne(query as object);
 };
 
-export const findAllProfile = async (person: number) => {
+export const findAllProfile = async (person: number, index: number) => {
   let query;
   if (person === 1) {
     query = {
       attributes: [["uid", "id"], "image", "location", "sex", "age"],
+      offset: 10 * index,
+      limit: 10,
       // attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
     };
     return await Users.findAll(query);
   } else {
     query = {
       attributes: [["id", "id"], "image", "location", ["description", "info"]],
+      offset: 10 * index,
+      limit: 10,
     };
     const teamInfos = await Team.findAll(query as object);
     const teamProfiles = await Promise.all(
