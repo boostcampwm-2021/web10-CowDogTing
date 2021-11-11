@@ -36,6 +36,8 @@ function TeamCreatePage() {
     setUserInfo((prev) => {
       return { ...prev, gid };
     });
+
+    window.location.replace("/sub/teamSetting");
   };
 
   return (

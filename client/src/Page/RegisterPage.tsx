@@ -73,7 +73,7 @@ export default function RegisterPage() {
     const pw = pwRef.current.value;
     const loc = locSelected;
     const age = ageRef.current.value;
-    const sex = sexSelected;
+    const sex = sexSelected === "남성" ? "male" : "female";
     const check = checkInput({ id, pw, location: loc, age: Number(age), sex });
     if (!check) return;
     await registerUser({ id, pw, location: loc, age: Number(age), sex });
