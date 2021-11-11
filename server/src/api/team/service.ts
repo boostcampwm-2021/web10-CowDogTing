@@ -39,10 +39,9 @@ export const _updateTeam = async (teamInfo: any) => {
     return new Error("업데이트 실패");
   }
 };
-export const _inviteTeam = async ({ inviteInfo }) => {
-  const { gid } = await _getGroupId({ teamName: inviteInfo.teamName });
+export const _inviteTeam = async ({ gid, userId }) => {
   try {
-    await Users.update({ gid }, { where: { uid: inviteInfo.userId } });
+    await Users.update({ gid }, { where: { uid: userId } });
     return "success";
   } catch (error) {
     return new Error("업데이트 실패");
