@@ -22,8 +22,13 @@ export const getTeamInfo = async (req, res, next) => {
 
 export const createTeam = async (req, res, next) => {
   const teamInfo = req.body;
+  if (!req.user) {
+    res.send({ error: "로그인 하지 않음" });
+    return;
+  }
   try {
-    const result = await _createTeam({ teamInfo });
+    const { uid } = req.user;
+    const result = await _createTeam({ ...teamInfo, leader: uid });
     if (!result) res.send({ error: "팀 생성 실패" });
     if (result) res.send({ success: "팀 생성 성공" });
   } catch (error) {

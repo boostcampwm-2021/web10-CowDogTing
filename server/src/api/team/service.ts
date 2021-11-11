@@ -14,7 +14,6 @@ export const findTeam = async ({ gid }) => {
     ],
   };
   const teamInfos = await Team.findAll(query);
-  console.log(teamInfos);
   const memberInfo = teamInfos.map((info) => {
     return { id: info["member.uid"], image: info["member.image"], location: info["member.location"], age: info["member.age"], sex: info["member.sex"] };
   });
@@ -23,16 +22,16 @@ export const findTeam = async ({ gid }) => {
   return filteredTeamInfo;
 };
 
-export const _createTeam = async ({ teamInfo }) => {
-  return await Team.create(teamInfo);
+export const _createTeam = async (teamInfo: any) => {
+  const team = await Team.create(teamInfo);
+  await Users.update({ gid: team.getDataValue("gid") }, { where: { uid: teamInfo.leader } });
+  return teamInfo;
 };
 export const _updateTeam = async ({ teamInfo }) => {
   const originTeamName = teamInfo.originTeamName;
   const { gid } = await _getGroupId({ teamName: originTeamName });
   const { name, description, location, leader } = teamInfo;
   const updateTeamInfo = { name, description, location, leader };
-  console.log(updateTeamInfo);
-
   try {
     await Team.update(updateTeamInfo, { where: { gid } });
     return "success";
