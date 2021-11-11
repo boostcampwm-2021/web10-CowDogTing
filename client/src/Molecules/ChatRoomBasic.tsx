@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
@@ -17,9 +16,10 @@ const containerStyle = css`
 `;
 
 export default function ChatRoomBasic(props: { member: PersonInfoType[] | null }) {
+  const { member } = props;
   return (
     <div css={containerStyle}>
-      {props.member?.map((person) => (
+      {member?.map((person) => (
         <Video member={person} />
       ))}
     </div>

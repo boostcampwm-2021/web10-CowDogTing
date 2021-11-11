@@ -1,4 +1,5 @@
-/* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
@@ -8,46 +9,58 @@ import { ProfileListType } from "../util/type";
 
 const ProfileListStyle = css`
   margin: 0 auto;
-  width: 100%;
+  width: 70%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
   margin-bottom: 10px;
-`;
-
-const ProfileStyle = css`
-  margin: 30px 0px;
-`;
-
-const bodyStyle = css`
-  width: 100%;
   height: 100vh;
 `;
 
-export default function ProfileList({ datas, person, setOpenModal }: ProfileListType) {
+const ProfileStyle = css`
+  max-height: 200px;
+  margin: 30px 0px;
+`;
+
+export default function ProfileList({ datas, person, setOpenModal, profileRef }: ProfileListType) {
   const handleModalClick = (e: React.MouseEvent) => {
-    const { id } = (e.target as HTMLElement).dataset;
-    if (id === undefined) {
+    if (profileRef.current === null) {
+      setOpenModal(null);
+      return;
+    }
+    const target: HTMLElement = e.target as HTMLElement;
+    const clickCard = profileRef.current
+      .map((ref) => {
+        if (ref.contains(target)) return ref;
+        return null;
+      })
+      .filter((ref) => ref !== null)[0];
+
+    if (!clickCard) {
       setOpenModal(null);
       return;
     }
 
+    const { id } = clickCard.dataset;
+
     setOpenModal((prev: number) => (prev === Number(id) ? null : Number(id)));
   };
   return (
-    <div onClick={handleModalClick} css={bodyStyle}>
-      <div css={ProfileListStyle}>
-        {datas?.map((data, idx): React.ReactElement | undefined => {
-          const sex = person > 1 ? "team" : data.sex;
-          return (
-            <div css={ProfileStyle}>
-              <ProfileCard type={sex} idx={idx}>
-                <ProfileInfo data={data} idx={idx} />
-              </ProfileCard>
-            </div>
-          );
-        })}
-      </div>
+    <div css={ProfileListStyle} onClick={handleModalClick}>
+      {datas?.map((data, idx): React.ReactElement | undefined => {
+        const sex = person > 1 ? "team" : data.sex;
+        return (
+          <div css={ProfileStyle} ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx}>
+            <ProfileCard type={sex}>
+              <ProfileInfo data={data} />
+            </ProfileCard>
+          </div>
+        );
+      })}
     </div>
   );
 }
+
+ProfileList.defaultProps = {
+  setOpenModal: () => {},
+};

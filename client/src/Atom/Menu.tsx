@@ -1,5 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import MenuImg from "../assets/Menu.png";
@@ -9,15 +7,19 @@ const MenuStyle = css`
   height: 71px;
   cursor: pointer;
 `;
+const buttonStyle = css`
+  background: none;
+`;
 interface MenuProps {
   onClick: () => void;
 }
 export default function Menu(props: MenuProps) {
+  const { onClick } = props;
   return (
     <>
-      <div css={MenuStyle}>
-        <img src={MenuImg} alt="Menu" onClick={props.onClick} />
-      </div>
+      <button type="button" css={buttonStyle} onClick={onClick}>
+        <img src={MenuImg} alt="Menu" css={MenuStyle} />
+      </button>
     </>
   );
 }

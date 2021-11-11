@@ -1,6 +1,14 @@
-import * as express from 'express';
+import { Router } from "express";
+import authRouter from "./auth";
+import chatRouter from "./chat";
+import coreRouter from "./core";
+import teamRouter from "./team";
 
-const apiRouter = express.Router();
-/* http method */
+const router = Router();
 
-export default apiRouter;
+router.use("/auth", authRouter);
+router.use("/chat", chatRouter);
+router.use("/team", teamRouter);
+router.use("/core", coreRouter);
+
+export default router;

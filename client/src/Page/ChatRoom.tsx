@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import { useLocation } from "react-router-dom";
 import ChatRoomLeft from "../Template/ChatRoomLeft";
 import ChatRoomRight from "../Template/ChatRoomRight";
 
@@ -12,15 +11,12 @@ const ChatRoomStyle = css`
 `;
 
 export default function ChatRoom() {
-  const searchParams = new URLSearchParams(useLocation().search);
-  const chatRoomID = Number(searchParams.get("chatRoomId"));
-
   return (
     <div style={{ display: "flex", width: "100vw" }}>
       <div css={ChatRoomStyle}>
-        <ChatRoomLeft chatRoomID={chatRoomID} />
+        <ChatRoomLeft />
       </div>
-      <ChatRoomRight chatRoomID={chatRoomID} />
+      <ChatRoomRight />
     </div>
   );
 }

@@ -1,11 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
+import React, { MouseEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 import TeamCreateButtonContainer from "../Organism/TeamButtonContainer";
 import TeamInfoContainer from "../Organism/TeamInfoContainer";
 import InputLabel from "../Molecules/InputLabel";
 import { Button } from "../Atom/Button";
+import { createTeam } from "../util";
+import { userState } from "../Recoil/Atom";
 
 const TeamCreatePageStyle = css`
   position: relative;
@@ -17,17 +20,38 @@ const TeamCreatePageStyle = css`
 `;
 
 function TeamCreatePage() {
+  const teamNameRef = useRef<HTMLInputElement>(null);
+  const teamInfoRef = useRef<HTMLInputElement>(null);
+  const locationRef = useRef<HTMLInputElement>(null);
+  const setUserInfo = useSetRecoilState(userState);
+
+  const clickCreateButton: MouseEventHandler = async () => {
+    if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current) return;
+
+    const teamName = teamNameRef.current.value;
+    const teamInfo = teamInfoRef.current.value;
+    const location = locationRef.current.value;
+
+    const gid = await createTeam({ teamName, teamInfo, location });
+    setUserInfo((prev) => {
+      return { ...prev, gid };
+    });
+
+    window.location.replace("/sub/teamSetting");
+  };
+
   return (
     <div css={TeamCreatePageStyle}>
       <TeamInfoContainer>
-        <InputLabel label="팀명" />
-        <InputLabel label="소개" />
-        <InputLabel label="가능시간" />
-        <InputLabel label="지역" />
+        <InputLabel label="팀명" refProps={teamNameRef} />
+        <InputLabel label="소개" refProps={teamInfoRef} />
+        <InputLabel label="지역" refProps={locationRef} />
       </TeamInfoContainer>
       <TeamCreateButtonContainer>
         <Link to="/sub/teamSetting">
-          <Button type="Medium">생성</Button>
+          <Button type="Medium" onClick={clickCreateButton}>
+            생성
+          </Button>
         </Link>
         <Link to="/sub/teamSetting">
           <Button type="Medium">삭제</Button>

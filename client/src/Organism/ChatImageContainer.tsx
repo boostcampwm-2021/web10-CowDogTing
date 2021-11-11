@@ -1,10 +1,15 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
 /** @jsxImportSource @emotion/react */
 import React from "react";
+import { useHistory } from "react-router";
+import { useRecoilValue } from "recoil";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ChatImageContainerType } from "../util/type";
 import { ProfileImage } from "../Atom/ProfileImage";
 import { Button } from "../Atom/Button";
+import { chatTarget } from "../Recoil/Atom";
 
 const ChatListHeader = styled.div`
   display: flex;
@@ -22,16 +27,23 @@ const ChatImageContainerStyle = css`
   justify-content: space-evenly;
 `;
 
-function ChatImageContainer({ member }: ChatImageContainerType) {
+function ChatImageContainer({ profileRef }: ChatImageContainerType) {
+  const { member } = useRecoilValue(chatTarget);
+  const history = useHistory();
+
+  const handleCloseRoomClick = () => {
+    history.goBack();
+  };
+
   return (
     <>
       <ChatListHeader>
         <div css={ChatImageContainerStyle}>
           {member?.map((userInfo, idx) => (
-            <ProfileImage type="Mini" image={userInfo.image} data-id={idx} />
+            <ProfileImage type="Mini" image={userInfo.image} ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx} />
           ))}
         </div>
-        <Button>나가기</Button>
+        <Button onClick={handleCloseRoomClick}>나가기</Button>
       </ChatListHeader>
     </>
   );
