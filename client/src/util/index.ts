@@ -54,13 +54,14 @@ export const postLogin = async ({ id, pw }: loginInfo) => {
   );
 };
 
-export const registerUser = async ({ id, pw, location, age, sex }: registerInfo) => {
+export const registerUser = async ({ id, pw, location, age, sex, info }: registerInfo) => {
   await axios.post(`${url}/api/auth/register`, {
     uid: id,
     password: pw,
     location,
     age,
     sex,
+    info,
   });
 };
 

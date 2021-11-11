@@ -185,4 +185,5 @@ export interface registerInfo extends loginInfo {
   location: string;
   age: number;
   sex: string;
+  info: string;
 }
