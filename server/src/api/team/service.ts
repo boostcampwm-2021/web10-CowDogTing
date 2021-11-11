@@ -24,8 +24,9 @@ export const findTeam = async ({ gid }) => {
 
 export const _createTeam = async (teamInfo: any) => {
   const team = await Team.create(teamInfo);
-  await Users.update({ gid: team.getDataValue("gid") }, { where: { uid: teamInfo.leader } });
-  return teamInfo;
+  const gid = team.getDataValue("gid");
+  await Users.update({ gid: gid }, { where: { uid: teamInfo.leader } });
+  return gid;
 };
 export const _updateTeam = async ({ teamInfo }) => {
   const originTeamName = teamInfo.originTeamName;

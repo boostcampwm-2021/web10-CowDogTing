@@ -28,9 +28,9 @@ export const createTeam = async (req, res, next) => {
   }
   try {
     const { uid } = req.user;
-    const result = await _createTeam({ ...teamInfo, leader: uid });
+    const result = await _createTeam({ ...teamInfo, leader: uid }); //resut:gid
     if (!result) res.send({ error: "팀 생성 실패" });
-    if (result) res.send({ success: "팀 생성 성공" });
+    if (result) res.send({ gid: result });
   } catch (error) {
     next(error);
   }
