@@ -2,11 +2,13 @@
 import React, { MouseEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 import TeamCreateButtonContainer from "../Organism/TeamButtonContainer";
 import TeamInfoContainer from "../Organism/TeamInfoContainer";
 import InputLabel from "../Molecules/InputLabel";
 import { Button } from "../Atom/Button";
 import { createTeam } from "../util";
+import { userState } from "../Recoil/Atom";
 
 const TeamCreatePageStyle = css`
   position: relative;
@@ -21,17 +23,19 @@ function TeamCreatePage() {
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
-  const leaderRef = useRef<HTMLInputElement>(null);
+  const setUserInfo = useSetRecoilState(userState);
 
   const clickCreateButton: MouseEventHandler = async () => {
-    if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current || !leaderRef.current) return;
+    if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current) return;
 
     const teamName = teamNameRef.current.value;
     const teamInfo = teamInfoRef.current.value;
     const location = locationRef.current.value;
-    const leader = leaderRef.current.value;
 
-    await createTeam({ teamName, teamInfo, location, leader });
+    const gid = await createTeam({ teamName, teamInfo, location });
+    setUserInfo((prev) => {
+      return { ...prev, gid };
+    });
   };
 
   return (
@@ -40,7 +44,6 @@ function TeamCreatePage() {
         <InputLabel label="팀명" refProps={teamNameRef} />
         <InputLabel label="소개" refProps={teamInfoRef} />
         <InputLabel label="지역" refProps={locationRef} />
-        <InputLabel label="리더 ID" refProps={leaderRef} />
       </TeamInfoContainer>
       <TeamCreateButtonContainer>
         <Link to="/sub/teamSetting">

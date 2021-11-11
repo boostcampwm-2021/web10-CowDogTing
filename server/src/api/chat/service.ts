@@ -4,8 +4,12 @@ import { Participant } from "../../db/models/participant";
 import { Users } from "../../db/models/users";
 
 export const findChatRoomInfo = async ({ uid }) => {
-  // uid로 chatRoom 정보 가져오고
-  // join으로 chatRoom에 대한 user 정보 가져오기
+  // const joinChatRooms = await findJoinChatRooms({ uid });
+  // console.log(joinChatRooms);
+  // const query = () => {
+
+  // }}
+
   const query = ({ chatRoomId }) => {
     console.log(chatRoomId);
     return {
@@ -22,14 +26,11 @@ export const findChatRoomInfo = async ({ uid }) => {
       attribute: [],
     };
   };
-  console.log({ uid });
   const joinChatRooms = await findJoinChatRooms({ uid });
-  console.log(joinChatRooms);
   const promiseArr = joinChatRooms.map((chatRoomId) => {
     return Participant.findAll(query({ chatRoomId }));
   });
   const memberData = await Promise.all(promiseArr);
-  console.log(memberData);
   const filteredMemberData = memberData.map((chatRoomMember) => {
     return chatRoomMember.map((member) => {
       return {
@@ -42,7 +43,6 @@ export const findChatRoomInfo = async ({ uid }) => {
       };
     });
   });
-
   // chatMessage
   const datas = joinChatRooms.map((chatRoomId, idx) => {
     return { ...chatRoomId, member: filteredMemberData[idx] };
@@ -54,7 +54,6 @@ export const findChatRoomInfo = async ({ uid }) => {
   const filteredData = datas.map((unFildteredData, idx) => {
     return { ...unFildteredData, chatMessage: chatMessages[idx] };
   });
-
   return filteredData;
 };
 

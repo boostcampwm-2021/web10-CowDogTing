@@ -52,6 +52,7 @@ export default function RegisterPage() {
   const [firstPassword, setFirstPassword] = useState<string>("");
   const [secondPassword, setSecondPassword] = useState<string>("");
   const [passwordCheck, setPasswordCheck] = useState<boolean>(true);
+
   const idRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
   const [locSelected, setLocSelected] = useState<string>("");

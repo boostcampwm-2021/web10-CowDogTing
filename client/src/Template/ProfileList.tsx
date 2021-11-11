@@ -18,6 +18,7 @@ const ProfileListStyle = css`
 `;
 
 const ProfileStyle = css`
+  max-height: 200px;
   margin: 30px 0px;
 `;
 

@@ -2,9 +2,9 @@
 /** @jsxImportSource @emotion/react */
 import React, { MouseEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
-import axios from "axios";
 import InputLabel from "../Molecules/InputLabel";
 import { Button } from "../Atom/Button";
+import { inviteTeam } from "../util";
 
 const inviteModalStyle = css`
   position: fixed;
@@ -23,16 +23,16 @@ const inviteModalStyle = css`
   background-color: #fff;
 `;
 
-export default function InviteModal({ teamName }: { teamName: string | undefined }) {
+export default function InviteModal() {
   const userIdRef = useRef<HTMLInputElement>(null);
-  const clickInvite: MouseEventHandler = () => {
+
+  const clickInvite: MouseEventHandler = async () => {
     if (userIdRef.current === null) return;
     const inviteUserId = userIdRef.current.value;
+    const result = await inviteTeam({ userId: inviteUserId });
     // eslint-disable-next-line no-console
-    axios.post("http://localhost:4000/api/team/invite", {
-      teamName,
-      userId: inviteUserId,
-    });
+    console.log(result);
+    window.location.replace("/sub/teamSetting");
   };
   return (
     <div css={inviteModalStyle}>

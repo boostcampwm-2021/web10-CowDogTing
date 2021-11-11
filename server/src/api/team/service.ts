@@ -14,7 +14,6 @@ export const findTeam = async ({ gid }) => {
     ],
   };
   const teamInfos = await Team.findAll(query);
-  console.log(teamInfos);
   const memberInfo = teamInfos.map((info) => {
     return { id: info["member.uid"], image: info["member.image"], location: info["member.location"], age: info["member.age"], sex: info["member.sex"] };
   });
@@ -23,16 +22,16 @@ export const findTeam = async ({ gid }) => {
   return filteredTeamInfo;
 };
 
-export const _createTeam = async ({ teamInfo }) => {
-  return await Team.create(teamInfo);
+export const _createTeam = async (teamInfo: any) => {
+  const team = await Team.create(teamInfo);
+  const gid = team.getDataValue("gid");
+  await Users.update({ gid: gid }, { where: { uid: teamInfo.leader } });
+  return gid;
 };
-export const _updateTeam = async ({ teamInfo }) => {
-  const originTeamName = teamInfo.originTeamName;
-  const { gid } = await _getGroupId({ teamName: originTeamName });
-  const { name, description, location, leader } = teamInfo;
-  const updateTeamInfo = { name, description, location, leader };
-  console.log(updateTeamInfo);
-
+export const _updateTeam = async (teamInfo: any) => {
+  const { gid } = teamInfo;
+  const { name, description, location } = teamInfo;
+  const updateTeamInfo = { name, description, location };
   try {
     await Team.update(updateTeamInfo, { where: { gid } });
     return "success";
@@ -40,10 +39,9 @@ export const _updateTeam = async ({ teamInfo }) => {
     return new Error("업데이트 실패");
   }
 };
-export const _inviteTeam = async ({ inviteInfo }) => {
-  const { gid } = await _getGroupId({ teamName: inviteInfo.teamName });
+export const _inviteTeam = async ({ gid, userId }) => {
   try {
-    await Users.update({ gid }, { where: { uid: inviteInfo.userId } });
+    await Users.update({ gid }, { where: { uid: userId } });
     return "success";
   } catch (error) {
     return new Error("업데이트 실패");
