@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { css } from "@emotion/react";
 import VideoSupport from "./VideoSupport";
 import { Button } from "../Atom/Button";
-import { getGameDatas, getGatherCharacter } from "../util/dummyData";
+import { getGameDatas, getGatherCharacter } from "../util/constant";
 import LargeModal from "../Organism/LargeModal";
 import LinkButton from "./LinkButton";
 import useDropDownEvent from "../Hook/useDropDownEvent";
