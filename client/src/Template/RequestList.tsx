@@ -6,7 +6,7 @@ import { css } from "@emotion/react";
 import ProfileCard from "../Atom/ProfileCard";
 import ProfileInfo from "../Atom/ProfileInfo";
 import { RequestListType } from "../util/type";
-import { Button } from "../Atom/Button";
+import { CardButton } from "../Atom/RequestButton";
 
 const ProfileListStyle = css`
   margin: 0 auto;
@@ -31,30 +31,7 @@ const ProfileStyle = css`
   max-height: 200px;
   margin: 30px 0px;
 `;
-const StateStyle = css`
-  width: 130px;
-  height: 100px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  background-color: #fff;
-  cursor: default;
-  border: 2px solid #ffcfcf;
-`;
-function CardButton(type: string, state: string) {
-  if (type === "ForMe") {
-    return (
-      <>
-        <Button type="small">수락</Button>
-        <Button type="small">거절</Button>
-      </>
-    );
-  }
-  return <div css={StateStyle}>{state}</div>;
-}
+
 export default function RequestList({ datas, person, setOpenModal, type, profileRef }: RequestListType) {
   const handleModalClick = (e: React.MouseEvent) => {
     if (profileRef.current === null) {
