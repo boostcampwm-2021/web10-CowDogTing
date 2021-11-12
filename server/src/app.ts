@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(
   express.urlencoded({
     extended: false,
-  })
+  }),
 );
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
@@ -29,7 +29,7 @@ app.use(
       httpOnly: true,
       secure: false,
     },
-  })
+  }),
 );
 app.use(express.static("src/public")); // API Test
 app.use(passport.initialize());
@@ -38,7 +38,7 @@ app.use(
   cors({
     origin: true,
     credentials: true,
-  })
+  }),
 );
 app.use(morgan("dev"));
 app.use("/api", apiRouter);
