@@ -7,10 +7,8 @@ export const getChatsInfo = async (req: Request, res: Response) => {
     return;
   }
   const uid = String(req.user.uid);
-  // const { uid } = req.user;
   console.log(uid);
-  const data = await findChatRoomInfo({ uid }); //[chatroomId, member=[]]
-  //[chatroomId,member=[],chatMessages[]]
+  const data = await findChatRoomInfo({ uid });
   res.send(data);
 };
 

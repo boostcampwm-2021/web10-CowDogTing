@@ -5,8 +5,8 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { createTeam } from "../util/data";
 import { errorState, userState } from "../Recoil/Atom";
 import { checkLogin, passToLoginPage } from "../util";
-import TeamInfo from "../Container/TeamInfo";
-import TeamCreateButtonContainer from "../Container/TeamCreateButtonContainer";
+import TeamInfo from "../Organism/TeamInfo";
+import TeamCreateButtonContainer from "../Molecules/TeamCreateButtonContainer";
 
 const TeamCreatePageStyle = css`
   position: relative;

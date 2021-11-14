@@ -5,7 +5,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
-import InfoContainer from "./InfoContainer";
+import InfoContainer from "../Container/InfoContainer";
 import { errorState, userState } from "../Recoil/Atom";
 import { changeMyInfo } from "../util/data";
 

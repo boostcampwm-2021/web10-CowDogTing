@@ -1,15 +1,13 @@
 import { Chat } from "../../db/models/chat";
 import { ChatRoom } from "../../db/models/chatRoom";
-import { Participant } from "../../db/models/participant";
+import { Participant, ParticipantAttributes } from "../../db/models/participant";
 import { Users } from "../../db/models/users";
 
+interface infoAttribute extends ParticipantAttributes {
+  [key: string]: string | number | null | undefined;
+}
+
 export const findChatRoomInfo = async ({ uid }: { uid: string }) => {
-  // const joinChatRooms = await findJoinChatRooms({ uid });
-  // console.log(joinChatRooms);
-  // const query = () => {
-
-  // }
-
   const query = ({ chatRoomId }: { chatRoomId: Participant }) => {
     console.log(chatRoomId);
     return {
@@ -32,14 +30,14 @@ export const findChatRoomInfo = async ({ uid }: { uid: string }) => {
   });
   const memberData = await Promise.all(promiseArr);
   const filteredMemberData = memberData.map((chatRoomMember) => {
-    return chatRoomMember.map((member) => {
+    return (chatRoomMember as unknown as infoAttribute[]).map((member: infoAttribute) => {
       return {
-        // id: member["User.uid"],
-        // image: member["User.image"],
-        // location: member["User.location"],
-        // sex: member["User.sex"],
-        // age: member["User.age"],
-        // info: member["User.info"],
+        id: member["User.uid"],
+        image: member["User.image"],
+        location: member["User.location"],
+        sex: member["User.sex"],
+        age: member["User.age"],
+        info: member["User.info"],
       };
     });
   });
@@ -78,13 +76,5 @@ export const findMessages = async (chatRoomId: number, index: number) => {
     order: [["chatId", "DESC"]],
   };
   const data = await Chat.findAll(query as object);
-  // const data = datas.map((item) => {
-  //   return {
-  //     from: item.uid,
-  //     message: item.message,
-  //     source: item.src,
-  //     read: item.isRead,
-  //   };
-  // });
   return data;
 };

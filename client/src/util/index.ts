@@ -1,6 +1,4 @@
 import { RefObject } from "react";
-// import { useRecoilValue } from "recoil";
-// import { userState } from "../Recoil/Atom";
 import { PersonInfoType } from "./type";
 
 export const handleModalClick = (e: React.MouseEvent, refs: RefObject<HTMLDivElement[]>, handler: (value: any) => void) => {
@@ -8,6 +6,7 @@ export const handleModalClick = (e: React.MouseEvent, refs: RefObject<HTMLDivEle
     handler(null);
     return;
   }
+
   const target: HTMLElement = e.target as HTMLElement;
 
   const clickCard = refs.current
@@ -16,9 +15,9 @@ export const handleModalClick = (e: React.MouseEvent, refs: RefObject<HTMLDivEle
       return null;
     })
     .filter((ref) => ref)[0];
-
   if (!clickCard) {
     handler(null);
+
     return;
   }
 

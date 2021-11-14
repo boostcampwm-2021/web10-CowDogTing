@@ -63,8 +63,7 @@ export type ProfileListType = {
   profileRef: RefObject<HTMLDivElement[]>;
 };
 export type RequestListType = {
-  datas?: RequestType[];
-  person: number;
+  datas: RequestType[];
   type: string;
   setOpenModal: (prev: any) => void;
   profileRef: RefObject<HTMLDivElement[]>;

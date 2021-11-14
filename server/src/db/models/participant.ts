@@ -3,7 +3,7 @@ import { ChatRoom } from "./chatRoom";
 import { sequelize } from "./index";
 import { Users } from "./users";
 
-interface ParticipantAttributes {
+export interface ParticipantAttributes {
   uid: string;
   chatRoomId: number;
 }

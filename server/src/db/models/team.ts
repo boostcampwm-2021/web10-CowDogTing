@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "./index";
 
-interface TeamAttributes {
+export interface TeamAttributes {
   gid: number;
   image?: number | null;
   name: string;
@@ -53,5 +53,5 @@ Team.init(
     sequelize,
     freezeTableName: true,
     timestamps: false,
-  }
+  },
 );

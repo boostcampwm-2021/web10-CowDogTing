@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import LocationDropDown from "../Atom/LocationDropDown";
 import InputLabel from "../Molecules/InputLabel";
 import { teamState } from "../Recoil/Atom";
-import InfoContainer from "./InfoContainer";
+import InfoContainer from "../Container/InfoContainer";
 
 const LabelStyle = css`
   height: 20%;

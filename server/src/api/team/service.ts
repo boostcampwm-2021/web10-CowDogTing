@@ -1,6 +1,9 @@
-import { Team } from "../../db/models/team";
+import { Team, TeamAttributes } from "../../db/models/team";
 import { Users } from "../../db/models/users";
 
+interface infoAttribute extends TeamAttributes {
+  [key: string]: string | number | null | undefined;
+}
 export const findTeam = async ({ gid }: { gid: number }) => {
   const query = {
     raw: true,
@@ -13,9 +16,10 @@ export const findTeam = async ({ gid }: { gid: number }) => {
       },
     ],
   };
-  const teamInfos = await Team.findAll(query);
-  const memberInfo = teamInfos.map((info) => {
-    // return { id: info["member.uid"], image: info["member.image"], location: info["member.location"], age: info["member.age"], sex: info["member.sex"] };
+
+  const teamInfos = await Team.findAll(query as object);
+  const memberInfo = (teamInfos as unknown as infoAttribute[]).map((info: infoAttribute) => {
+    return { id: info["member.uid"], image: info["member.image"], location: info["member.location"], age: info["member.age"], sex: info["member.sex"] };
   });
   const teamInfo = teamInfos[0];
   const filteredTeamInfo = { image: teamInfo.image, id: teamInfo.name, info: teamInfo.description, location: teamInfo.location, leader: teamInfo.leader, member: memberInfo };

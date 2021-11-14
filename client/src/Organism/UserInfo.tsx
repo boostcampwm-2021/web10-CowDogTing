@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import TeamInfoImageContainer from "../Organism/TeamInfoImageContainer";
+import TeamInfoImageContainer from "./TeamInfoImageContainer";
 import UserInfoContainer from "./UserInfoContainer";
-import teamImage from "../../assets/meetingImage.png";
+import teamImage from "../assets/meetingImage.png";
 
 const MyInfoStyle = css`
   padding-left: 50px;

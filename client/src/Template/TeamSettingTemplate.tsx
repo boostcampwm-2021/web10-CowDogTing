@@ -5,8 +5,8 @@ import { css } from "@emotion/react";
 import ProfileList from "./ProfileList";
 import { errorState, teamState, userState } from "../Recoil/Atom";
 import { changeTeamInfo } from "../util/data";
-import TeamInfo from "../Container/TeamInfo";
-import TeamSettingButtonContainer from "../Container/TeamSettingButtonContainer";
+import TeamInfo from "../Organism/TeamInfo";
+import TeamSettingButtonContainer from "../Molecules/TeamSettingButtonContainer";
 
 const TeamSettingTemPlateStyle = css`
   display: flex;

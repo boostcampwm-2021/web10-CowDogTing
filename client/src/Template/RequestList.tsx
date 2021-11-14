@@ -33,11 +33,11 @@ const ProfileStyle = css`
   margin: 30px 0px;
 `;
 
-export default function RequestList({ datas, person, setOpenModal, type, profileRef }: RequestListType) {
+export default function RequestList({ datas, setOpenModal, type, profileRef }: RequestListType) {
   return (
     <div css={ProfileListStyle} onClick={(e) => handleModalClick(e, profileRef, setOpenModal)}>
       {datas?.map((data, idx): React.ReactElement | undefined => {
-        const sex = person > 1 ? "team" : data.info.sex;
+        const { sex } = data.info;
         return (
           <div css={ProfileStyle} ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx}>
             <ProfileCard type={sex}>

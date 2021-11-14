@@ -1,7 +1,7 @@
 import { MouseEventHandler } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../Atom/Button";
-import TeamButtonContainer from "../Organism/TeamButtonContainer";
+import TeamButtonContainer from "../Container/TeamButtonContainer";
 
 export default function TeamCreateButtonContainer({ clickCreateButton }: { clickCreateButton: MouseEventHandler }) {
   return (
