@@ -1,14 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React, { MouseEventHandler, useRef, useState } from "react";
 import { css } from "@emotion/react";
-import { Link } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import TeamCreateButtonContainer from "../Organism/TeamButtonContainer";
-import { Button } from "../Atom/Button";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { createTeam } from "../util/data";
 import { errorState, userState } from "../Recoil/Atom";
 import { checkLogin, passToLoginPage } from "../util";
 import TeamInfo from "../Container/TeamInfo";
+import TeamCreateButtonContainer from "../Container/TeamCreateButtonContainer";
 
 const TeamCreatePageStyle = css`
   position: relative;
@@ -34,7 +32,8 @@ function TeamCreatePage() {
     const teamInfo = teamInfoRef.current.value;
     const location = locSelected;
 
-    if (!checkLogin()) passToLoginPage();
+    const userInfo = useRecoilValue(userState);
+    if (!checkLogin(userInfo)) passToLoginPage();
 
     if (teamName === "") {
       setErrorValue({ errorStr: "팀 이름을 입력해 주세요", timeOut: 1000 });
@@ -56,16 +55,7 @@ function TeamCreatePage() {
   return (
     <div css={TeamCreatePageStyle}>
       <TeamInfo setLocSelected={setLocSelected} teamNameRef={teamNameRef} teamInfoRef={teamInfoRef} />
-      <TeamCreateButtonContainer>
-        <Link to="/sub/teamSetting">
-          <Button type="Medium" onClick={clickCreateButton}>
-            생성
-          </Button>
-        </Link>
-        <Link to="/sub/teamSetting">
-          <Button type="Medium">삭제</Button>
-        </Link>
-      </TeamCreateButtonContainer>
+      <TeamCreateButtonContainer clickCreateButton={clickCreateButton} />
     </div>
   );
 }

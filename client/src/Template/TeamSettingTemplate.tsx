@@ -1,15 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import React, { MouseEventHandler, useRef, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
-import { Button } from "../Atom/Button";
-import TeamButtonContainer from "../Organism/TeamButtonContainer";
 import ProfileList from "./ProfileList";
-import InviteModal from "./InviteModal";
-import { teamState, userState } from "../Recoil/Atom";
+import { errorState, teamState, userState } from "../Recoil/Atom";
 import { changeTeamInfo } from "../util/data";
-import useDropDownCloseEvent from "../Hook/useDropDownCloseEvent";
 import TeamInfo from "../Container/TeamInfo";
+import TeamSettingButtonContainer from "../Container/TeamSettingButtonContainer";
 
 const TeamSettingTemPlateStyle = css`
   display: flex;
@@ -23,16 +20,11 @@ const TeamSettingTemPlateStyle = css`
 function TeamSettingTemplate() {
   const [teamInfoState, setTeamInfoState] = useRecoilState(teamState);
   const userInfoState = useRecoilValue(userState);
-
   const [locSelected, setLocSelected] = useState<string>("");
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);
-
-  const [inviteModalState, setInviteModalState] = useState(false);
-  const modalRef = useRef<HTMLInputElement>(null);
-  useDropDownCloseEvent(modalRef, () => setInviteModalState(false));
-
   const profileRef = useRef<HTMLDivElement[]>([]);
+  const setErrorValue = useSetRecoilState(errorState);
 
   const resetInput = () => {
     if (!teamNameRef.current || !teamInfoRef.current || !locSelected) return;
@@ -47,7 +39,7 @@ function TeamSettingTemplate() {
     if (!teamInfoState.id) return;
     if (teamInfoState.leader !== userInfoState.id) {
       // eslint-disable-next-line no-alert
-      alert("팀 리더가 아닙니다");
+      setErrorValue({ errorStr: "팀 리더가 아닙니다", timeOut: 1000 });
       return;
     }
 
@@ -70,22 +62,7 @@ function TeamSettingTemplate() {
     <div css={TeamSettingTemPlateStyle}>
       <TeamInfo setLocSelected={setLocSelected} teamNameRef={teamNameRef} teamInfoRef={teamInfoRef} />
       <ProfileList datas={teamInfoState?.member} person={1} profileRef={profileRef} />
-      <TeamButtonContainer>
-        <div ref={modalRef}>
-          <Button
-            type="Medium"
-            onClick={() => {
-              setInviteModalState((prev) => !prev);
-            }}
-          >
-            초대하기
-          </Button>
-          {inviteModalState && <InviteModal />}
-        </div>
-        <Button type="Medium" onClick={clickUpdateButton}>
-          수정하기g
-        </Button>
-      </TeamButtonContainer>
+      <TeamSettingButtonContainer clickUpdateButton={clickUpdateButton} />
     </div>
   );
 }

@@ -57,7 +57,8 @@ export default function RequestPage() {
   const profileToRef = useRef<HTMLDivElement[]>([]);
   const modalToRef = useRef<HTMLDivElement>(null);
   useModalCloseEvent(modalToRef, profileToRef, () => setOpenToModal(null));
-  if (!checkLogin()) passToLoginPage();
+  const userInfo = useRecoilValue(userState);
+  if (!checkLogin(userInfo)) passToLoginPage();
 
   const getDatas = () => {
     console.log(requestDatas);

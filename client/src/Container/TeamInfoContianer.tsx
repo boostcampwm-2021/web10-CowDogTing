@@ -5,16 +5,7 @@ import { useRecoilValue } from "recoil";
 import LocationDropDown from "../Atom/LocationDropDown";
 import InputLabel from "../Molecules/InputLabel";
 import { teamState } from "../Recoil/Atom";
-
-// const TeamInfoContainerStyle = css`
-//   display: flex;
-//   min-height: 450px;
-//   min-width: 640px;
-//   width: 60vw;
-//   height: 60vh;
-//   border: 1px solid #b0c2ff;
-//   align-items: center;
-// `;
+import InfoContainer from "./InfoContainer";
 
 const LabelStyle = css`
   height: 20%;
@@ -26,13 +17,13 @@ export default function TeamInfoContainer({ teamNameRef, teamInfoRef, setLocSele
   const { id, info } = teamInfoState;
 
   return (
-    <>
+    <InfoContainer>
       <InputLabel label="팀명" placeholder={id} refProps={teamNameRef} />
       <InputLabel label="소개" placeholder={info} refProps={teamInfoRef} />
       <div id="location">
         <p css={LabelStyle}>지역</p>
         <LocationDropDown setLocSelected={setLocSelected} id={id} />
       </div>
-    </>
+    </InfoContainer>
   );
 }

@@ -47,13 +47,13 @@ export default function UserInfoContainer() {
         </Button>
       </div>
       <InfoContainer>
-        <span>이름</span>
+        <p>이름</p>
         <Input placeholder={id} autoComplete="off" ref={(el) => (refArray.current[0] = el as HTMLInputElement)} />
-        <span>나이</span>
+        <p>나이</p>
         <Input placeholder={String(age)} autoComplete="off" ref={(el) => (refArray.current[1] = el as HTMLInputElement)} />
-        <span>주소</span>
+        <p>주소</p>
         <Input placeholder={location} autoComplete="off" ref={(el) => (refArray.current[2] = el as HTMLInputElement)} />
-        <span>소개</span>
+        <p>소개</p>
         <Input placeholder={info} autoComplete="off" ref={(el) => (refArray.current[3] = el as HTMLInputElement)} />
       </InfoContainer>
     </div>

@@ -14,15 +14,11 @@ function TeamSettingPage() {
   const setTeamInfo = useSetRecoilState(teamState);
   const teamSelector = useRecoilValue(fetchGet({ url: teamInfoUrl, query: "" }));
 
-  if (!checkLogin()) passToLoginPage();
+  if (!checkLogin(userInfo)) passToLoginPage();
 
   useEffect(() => {
     setTeamInfo(teamSelector);
   }, [teamSelector]);
-
-  useEffect(() => {
-    if (!checkLogin()) passToLoginPage();
-  }, []);
 
   return <>{gid ? <TeamSettingTemplate /> : <TeamCreatePage />}</>;
 }

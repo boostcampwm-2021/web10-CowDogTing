@@ -1,6 +1,7 @@
 import { RefObject } from "react";
-import { useRecoilValue } from "recoil";
-import { userState } from "../Recoil/Atom";
+// import { useRecoilValue } from "recoil";
+// import { userState } from "../Recoil/Atom";
+import { PersonInfoType } from "./type";
 
 export const handleModalClick = (e: React.MouseEvent, refs: RefObject<HTMLDivElement[]>, handler: (value: any) => void) => {
   if (!refs.current) {
@@ -30,7 +31,6 @@ export const passToLoginPage = () => {
   window.location.href = "/sub/login";
 };
 
-export const checkLogin = () => {
-  const userInfo = useRecoilValue(userState);
+export const checkLogin = (userInfo: PersonInfoType) => {
   return userInfo.id !== "";
 };
