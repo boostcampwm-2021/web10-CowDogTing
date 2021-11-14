@@ -1,16 +1,17 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import ProfileInfo from "../Atom/ProfileInfo";
-import { ProfileType } from "../util/type";
-import LargeModal from "../Organism/LargeModal";
 import { Button } from "../Atom/Button";
+import ProfileInfo from "../Atom/ProfileInfo";
+import LargeModal from "../Organism/LargeModal";
 import RequestModal from "./RequestModal";
 import { profileModalDatas, requestTarget } from "../Recoil/Atom";
+import { ProfileType } from "../util/type";
 
 export default function ProfileModal(): JSX.Element {
   const setRequestTarget = useSetRecoilState(requestTarget);
   const datas = useRecoilValue(profileModalDatas);
+
   const [index, setIndex] = useState<number>(0);
   const [target, setTarget] = useState<ProfileType | null>(datas[0]);
   const [request, setRequest] = useState<boolean>(false);

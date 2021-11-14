@@ -7,8 +7,8 @@ import ChatProfileContainer from "../Organism/ChatProfileContainer";
 import ChatListContainer from "../Organism/ChatListContainer";
 import ProfileModal from "./ProfileModal";
 import useModalEvent from "../Hook/useModalEvent";
-import { fetchGet } from "../Recoil/Selector";
 import { chatsState, chatTarget, profileModalDatas } from "../Recoil/Atom";
+import { fetchGet } from "../Recoil/Selector";
 
 const ChatListTemplateStyle = css`
   width: 80vw;
@@ -25,7 +25,6 @@ function ChatListTemplate() {
   const chatsData = useRecoilValue(fetchGet({ url: chatInfoUrl, query: "" }));
   const [chatsInfo, setChatsInfo] = useRecoilState(chatsState);
   const setChatInfo = useSetRecoilState(chatTarget);
-
   const setModalDatas = useSetRecoilState(profileModalDatas);
 
   const [clickedRoomIndex, setClickedRoomIndex] = useState(-1);

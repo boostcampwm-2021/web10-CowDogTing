@@ -1,9 +1,8 @@
-/* eslint-disable react/destructuring-assignment */
 /** @jsxImportSource @emotion/react */
 import React, { MouseEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
-import InputLabel from "../Molecules/InputLabel";
 import { Button } from "../Atom/Button";
+import InputLabel from "../Molecules/InputLabel";
 import { inviteTeam } from "../util";
 
 const inviteModalStyle = css`

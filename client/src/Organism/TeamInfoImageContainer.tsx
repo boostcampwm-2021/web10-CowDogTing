@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import React, { ChangeEvent, ChangeEventHandler, useEffect, useRef, useState } from "react";
+import { css } from "@emotion/react";
 import { ProfileImage } from "../Atom/ProfileImage";
 import { TeamImageContainerType } from "../util/type";
 
@@ -19,15 +19,17 @@ function TeamInfoImageContainer({ image }: TeamImageContainerType) {
   const initBlob = new Blob();
   const imageInputTag = useRef<HTMLInputElement | null>(null);
   const [profileImage, setProfileImage] = useState<string | ArrayBuffer | null>(image);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [imageFile, setImageFile] = useState<Blob>(initBlob);
+
   const clickImageTag = () => {
     (imageInputTag.current as HTMLInputElement).click();
   };
+
   const changeImage: ChangeEventHandler<HTMLInputElement> = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files === null) return;
     setImageFile(event.target.files[0]);
   };
+
   useEffect(() => {
     if (imageFile === initBlob) return;
     const reader = new FileReader();

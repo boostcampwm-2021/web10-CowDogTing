@@ -2,9 +2,7 @@
 /* eslint-disable use-isnan */
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
-/* eslint-disable no-restricted-globals */
 /** @jsxImportSource @emotion/react */
-
 import React, { useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { Button } from "../Atom/Button";
@@ -81,7 +79,7 @@ export default function RegisterPage() {
     const check = checkInput({ id, pw, location: loc, age: Number(age), sex, info });
     if (!check) return;
     await registerUser({ id, pw, location: loc, age: Number(age), sex, info });
-    location.href = "/";
+    window.location.href = "/";
   };
 
   return (

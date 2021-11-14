@@ -4,8 +4,6 @@ import { css } from "@emotion/react";
 import MainHeaderCenter from "../Molecules/MainHeaderCenter";
 import MainHeaderRightSide from "../Molecules/MainHeaderRightSide";
 
-// display: flex;
-// justify-content: space-between;
 const mainHeaderStyle = css`
   width: 100vw;
   height: 30vh;

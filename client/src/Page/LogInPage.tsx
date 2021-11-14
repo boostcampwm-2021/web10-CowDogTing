@@ -43,8 +43,6 @@ export default function LogInPage() {
   const idRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
 
-  // const history = useHistory();
-
   const clickLogin = async () => {
     if (!idRef.current || !pwRef.current) return;
     const id = idRef.current.value;
@@ -53,8 +51,6 @@ export default function LogInPage() {
     console.log(isLogIn);
     if (isLogIn) window.location.replace("/main");
     else alert("실패했지롱");
-    // history.push("/main");
-    // location.href = "/main";
   };
 
   return (

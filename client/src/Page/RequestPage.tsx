@@ -2,11 +2,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { profileModalDatas, requestState, userState } from "../Recoil/Atom";
 import ProfileModal from "../Template/ProfileModal";
+import RequestList from "../Template/RequestList";
 import { RequestType } from "../util/type";
 import useModalEvent from "../Hook/useModalEvent";
-import RequestList from "../Template/RequestList";
+import { profileModalDatas, requestState, userState } from "../Recoil/Atom";
 
 const RequestPageStyle = css`
   display: flex;

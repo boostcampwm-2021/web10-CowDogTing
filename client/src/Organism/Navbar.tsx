@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import { useRef, useState } from "react";
+import { css } from "@emotion/react";
 import { Input } from "../Atom/Input";
 import NavbarDiv from "../Atom/NavbarDiv";
-import DropDown from "../Molecules/DropDown";
 import SearchIcon from "../Atom/SearchIcon";
+import DropDown from "../Molecules/DropDown";
 import useDropDownEvent from "../Hook/useDropDownEvent";
 
 const NavbarStyle = css`
@@ -46,18 +46,12 @@ export default function Navbar() {
   useDropDownEvent(sexRef, () => setSexOpen(false));
 
   const TogglelocationModal = () => {
-    // setAgeOpen(false);
-    // setSexOpen(false);
     setLocationOpen((isOpen) => !isOpen);
   };
   const ToggleAgeModal = () => {
-    // setLocationOpen(false);
-    // setSexOpen(false);
     setAgeOpen((isOpen) => !isOpen);
   };
   const ToggleSexModal = () => {
-    // setAgeOpen(false);
-    // setLocationOpen(false);
     setSexOpen((isOpen) => !isOpen);
   };
 

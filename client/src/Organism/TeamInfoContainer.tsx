@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
+import TeamInfoImageContainer from "./TeamInfoImageContainer";
 import TeamInputContainer from "./TeamInputContainer";
 import { ChildrenType } from "../util/type";
 import teamImage from "../assets/meetingImage.png";
-import TeamInfoImageContainer from "./TeamInfoImageContainer";
 
 const TeamInfoContainerStyle = css`
   display: flex;
