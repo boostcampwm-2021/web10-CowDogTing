@@ -7,8 +7,8 @@ interface ImageAttributes {
 }
 
 export class Image extends Model<ImageAttributes> {
-  public imageId: number;
-  public image: string;
+  public imageId!: number;
+  public image!: string;
   public static associations: {};
 }
 
@@ -31,5 +31,5 @@ Image.init(
     sequelize,
     freezeTableName: true,
     timestamps: false,
-  }
+  },
 );
