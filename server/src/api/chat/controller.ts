@@ -2,7 +2,7 @@ import { findChatRoomInfo, findMessages } from "./service";
 
 export const getChatsInfo = async (req, res) => {
   if (!req.user) {
-    res.send({ error: "로그인을 하지 않았습니다" });
+    res.status(401).send({ error: "로그인을 하지 않았습니다" });
     return;
   }
   const { uid } = req.user;

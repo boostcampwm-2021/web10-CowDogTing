@@ -6,10 +6,10 @@ export const handleRegister = async (req, res, next) => {
   try {
     const exUser = await findUser({ uid });
     if (exUser) {
-      return res.send({ test: "해당 아이디 존재" });
+      return res.status(401).send({ error: "해당 아이디 존재" });
     }
     await createUser({ uid, password, location, age, sex });
-    return res.send({ test: "회원가입 성공" });
+    return res.status(200).send({ success: "회원가입 성공" });
   } catch (error) {
     console.error(error);
     return next(error);
@@ -19,18 +19,16 @@ export const handleRegister = async (req, res, next) => {
 export const handleLogin = (req, res, next) => {
   passport.authenticate("local", (authError, user, info) => {
     if (authError) {
-      console.error(authError);
       return next(authError);
     }
     if (!user) {
-      return res.send(false);
+      return res.status(401).send(false);
     }
     return req.login(user, (loginError) => {
       if (loginError) {
-        console.error(loginError);
         return next(loginError);
       }
-      return res.send(true);
+      return res.status(200).send(true);
     });
   })(req, res, next);
 };
@@ -51,7 +49,7 @@ export const handleIdValidation = async (req, res, next) => {
       res.send(true);
     }
     if (!result) {
-      res.send(false);
+      res.status(401).send(false);
     }
   } catch (e) {
     next(e);
