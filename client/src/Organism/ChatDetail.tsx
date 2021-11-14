@@ -35,9 +35,6 @@ export default function ChatDetail() {
 
   useEffect(() => {
     setDataIndex(1);
-  }, [chatRoomId]);
-
-  useEffect(() => {
     const target = containerRef.current;
     if (!target) return;
     const scrollValue = target.scrollHeight - target.clientHeight;

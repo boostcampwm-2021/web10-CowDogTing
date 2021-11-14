@@ -56,6 +56,24 @@ const NavDropDownStyle = css`
     ${navStyle}
   }
 `;
+const LocationDropDownStyle = css`
+  position: relative;
+  left: -650px;
+  top: 80px;
+  ${NavDropDownStyle}
+`;
+const AgeDropDownStyle = css`
+  position: relative;
+  left: -400px;
+  top: 80px;
+  ${NavDropDownStyle}
+`;
+const SexDropDownStyle = css`
+  position: relative;
+  left: -250px;
+  top: 80px;
+  ${NavDropDownStyle}
+`;
 const ChatDropDownStyle = css`
   margin-top: -180px;
   margin-left: -180px;
@@ -72,9 +90,9 @@ const DropDownStyle = (props: { type: string; className: string }) => css`
   ${props.type === "Menu" && BasicDropDownStyle}
   ${props.type === "Meeting" && MeetingDropDownStyle}
   ${props.type === "User" && UserDropDownStyle}
-  ${props.type === "Location" && NavDropDownStyle}
-  ${props.type === "Age" && NavDropDownStyle}
-  ${props.type === "Sex" && NavDropDownStyle}
+  ${props.type === "Location" && LocationDropDownStyle}
+  ${props.type === "Age" && AgeDropDownStyle}
+  ${props.type === "Sex" && SexDropDownStyle}
   ${props.type === "Chat" && ChatDropDownStyle}
 `;
 

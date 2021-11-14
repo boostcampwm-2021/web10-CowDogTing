@@ -71,12 +71,11 @@ export default function Navbar() {
         );
       })}
 
-      <div ref={dropDownRef}>{dropDownToggle && <DropDown type={dropDownToggle} className="show" />}</div>
-
       <div className="navbar-item">
         <Input />
         <SearchIcon />
       </div>
+      <div ref={dropDownRef}>{dropDownToggle && <DropDown type={dropDownToggle} className="show" />}</div>
     </div>
   );
 }

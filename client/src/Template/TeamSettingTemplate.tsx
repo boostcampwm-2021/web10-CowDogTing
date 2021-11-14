@@ -38,7 +38,6 @@ function TeamSettingTemplate() {
     if (!teamNameRef.current || !teamInfoRef.current || !locSelected) return;
     if (!teamInfoState.id) return;
     if (teamInfoState.leader !== userInfoState.id) {
-      // eslint-disable-next-line no-alert
       setErrorValue({ errorStr: "팀 리더가 아닙니다", timeOut: 1000 });
       return;
     }
@@ -52,6 +51,10 @@ function TeamSettingTemplate() {
       teamInfo,
       location,
     });
+    if (result === "error") {
+      setErrorValue({ errorStr: "팀 정보 수정에 실패했습니다.", timeOut: 1000 });
+      return;
+    }
     setTeamInfoState((prev) => {
       return { ...prev, ...result };
     });
