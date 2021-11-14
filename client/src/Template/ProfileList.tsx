@@ -6,6 +6,7 @@ import { css } from "@emotion/react";
 import ProfileCard from "../Atom/ProfileCard";
 import ProfileInfo from "../Atom/ProfileInfo";
 import { ProfileListType } from "../util/type";
+import { handleModalClick } from "../util";
 
 const ProfileListStyle = css`
   margin: 0 auto;
@@ -23,30 +24,8 @@ const ProfileStyle = css`
 `;
 
 export default function ProfileList({ datas, person, setOpenModal, profileRef }: ProfileListType) {
-  const handleModalClick = (e: React.MouseEvent) => {
-    if (!profileRef.current) {
-      setOpenModal(null);
-      return;
-    }
-    const target: HTMLElement = e.target as HTMLElement;
-    const clickCard = profileRef.current
-      .map((ref) => {
-        if (ref.contains(target)) return ref;
-        return null;
-      })
-      .filter((ref) => ref)[0];
-
-    if (!clickCard) {
-      setOpenModal(null);
-      return;
-    }
-
-    const { id } = clickCard.dataset;
-
-    setOpenModal((prev: number) => (prev === Number(id) ? null : Number(id)));
-  };
   return (
-    <div css={ProfileListStyle} onClick={handleModalClick}>
+    <div css={ProfileListStyle} onClick={(e) => handleModalClick(e, profileRef, setOpenModal)}>
       {datas?.map((data, idx): React.ReactElement | undefined => {
         const sex = person > 1 ? "team" : data.sex;
         return (

@@ -5,9 +5,11 @@
 import React, { useRef } from "react";
 import { css } from "@emotion/react";
 import { Link, useLocation } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
 import { postLogin } from "../util/data";
+import { errorState } from "../Recoil/Atom";
 
 const containerStyle = css`
   display: flex;
@@ -42,15 +44,23 @@ export default function LogInPage() {
   const code = searchParams.get("code");
   const idRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
+  const setErrorValue = useSetRecoilState(errorState);
 
   const clickLogin = async () => {
     if (!idRef.current || !pwRef.current) return;
     const id = idRef.current.value;
+    if (id === "") {
+      setErrorValue({ errorStr: "아이디를 입력해 주세요", timeOut: 1000 });
+      return;
+    }
     const pw = pwRef.current.value;
+    if (pw === "") {
+      setErrorValue({ errorStr: "비밀번호를 입력해 주세요", timeOut: 1000 });
+      return;
+    }
     const isLogIn = await postLogin({ id, pw });
-    console.log(isLogIn);
+    if (!isLogIn) setErrorValue({ errorStr: "아이디,비밀번호를 확인해 주세요", timeOut: 1000 });
     if (isLogIn) window.location.replace("/main");
-    else alert("실패했지롱");
   };
 
   return (

@@ -16,19 +16,22 @@ export const changeTeamInfo = async ({ teamName, teamInfo, location }: ChangeTea
 };
 
 export const createTeam = async ({ teamName, teamInfo, location }: PostTeamType) => {
-  const {
-    data: { gid },
-  } = await axios.post(
-    TEAM_CREATE_API_URL,
-    {
-      name: teamName,
-      description: teamInfo,
-      location,
-    },
-    { withCredentials: true }
-  );
-
-  return gid;
+  try {
+    const {
+      data: { gid },
+    } = await axios.post(
+      TEAM_CREATE_API_URL,
+      {
+        name: teamName,
+        description: teamInfo,
+        location,
+      },
+      { withCredentials: true }
+    );
+    return gid;
+  } catch (error) {
+    return -1;
+  }
 };
 
 export const inviteTeam = async ({ userId }: { userId: string }) => {

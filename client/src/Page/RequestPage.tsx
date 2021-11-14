@@ -5,7 +5,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import ProfileModal from "../Template/ProfileModal";
 import RequestList from "../Template/RequestList";
 import { RequestType } from "../util/type";
-import useModalEvent from "../Hook/useModalEvent";
+import useModalCloseEvent from "../Hook/useModalCloseEvent";
 import { profileModalDatas, requestState, userState } from "../Recoil/Atom";
 
 const RequestPageStyle = css`
@@ -51,11 +51,11 @@ export default function RequestPage() {
 
   const profileForRef = useRef<HTMLDivElement[]>([]);
   const modalForRef = useRef<HTMLDivElement>(null);
-  useModalEvent(modalForRef, profileForRef, () => setOpenForModal(null));
+  useModalCloseEvent(modalForRef, profileForRef, () => setOpenForModal(null));
 
   const profileToRef = useRef<HTMLDivElement[]>([]);
   const modalToRef = useRef<HTMLDivElement>(null);
-  useModalEvent(modalToRef, profileToRef, () => setOpenToModal(null));
+  useModalCloseEvent(modalToRef, profileToRef, () => setOpenToModal(null));
 
   const getDatas = () => {
     console.log(requestDatas);

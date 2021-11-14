@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 import { css } from "@emotion/react";
 import ChatIcon from "../Atom/ChatIcon";
-import useDropDownEvent from "../Hook/useDropDownEvent";
+import useDropDownCloseEvent from "../Hook/useDropDownCloseEvent";
 import DropDown from "./DropDown";
 
 const FooterStyle = css`
@@ -21,7 +21,7 @@ export default function Footer() {
   const [chatDropDown, setChatDropDown] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
 
-  useDropDownEvent(chatRef, () => setChatDropDown(false));
+  useDropDownCloseEvent(chatRef, () => setChatDropDown(false));
   const ToggleChatDropDown = () => {
     setChatDropDown((isOpen) => !isOpen);
   };

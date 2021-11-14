@@ -6,10 +6,12 @@
 /** @jsxImportSource @emotion/react */
 import React, { useRef, useState } from "react";
 import { css } from "@emotion/react";
+import { useSetRecoilState } from "recoil";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
 import { registerUser } from "../util/data";
 import { registerInfo } from "../util/type";
+import { errorState } from "../Recoil/Atom";
 // import { checkEmptyStringValue } from "../util";
 
 const RegisterContainerStyle = css`
@@ -56,7 +58,7 @@ export default function RegisterPage() {
   const [locSelected, setLocSelected] = useState<string>("");
   const [sexSelected, setSexSelected] = useState<string>("");
   const refArray = useRef<HTMLInputElement[]>([]);
-  // refArray.current
+  const setErrorValue = useSetRecoilState(errorState);
 
   const checkInput = ({ id, pw, location, age, sex, info }: registerInfo): boolean => {
     if (!id || !pw || !location || age === NaN || !sex || !info) {
@@ -77,7 +79,10 @@ export default function RegisterPage() {
     const info = refArray.current[3].value;
 
     const check = checkInput({ id, pw, location: loc, age: Number(age), sex, info });
-    if (!check) return;
+    if (!check) {
+      setErrorValue({ errorStr: "모든 입력을 확인해 주세요", timeOut: 1000 });
+      return;
+    }
     await registerUser({ id, pw, location: loc, age: Number(age), sex, info });
     window.location.href = "/";
   };

@@ -11,6 +11,7 @@ import Footer from "./Molecules/Footer";
 import ChatRoom from "./Page/ChatRoom";
 import { fetchGet } from "./Recoil/Selector";
 import { joinChatRoomState, requestState, userState } from "./Recoil/Atom";
+import ErrorModal from "./Template/ErrorModal";
 
 function App() {
   const userUrl = `${process.env.REACT_APP_GET_USER_INFO_API_URL}`;
@@ -45,6 +46,7 @@ function App() {
         <Redirect path="*" to="/main" />
       </Switch>
       <Footer />
+      <ErrorModal />
     </>
   );
 }

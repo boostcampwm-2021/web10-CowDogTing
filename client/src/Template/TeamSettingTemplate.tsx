@@ -10,7 +10,7 @@ import ProfileList from "./ProfileList";
 import InviteModal from "./InviteModal";
 import { teamState, userState } from "../Recoil/Atom";
 import { changeTeamInfo } from "../util/data";
-import useDropDownEvent from "../Hook/useDropDownEvent";
+import useDropDownCloseEvent from "../Hook/useDropDownCloseEvent";
 
 const TeamSettingTemPlateStyle = css`
   display: flex;
@@ -47,7 +47,7 @@ function TeamSettingTemplate() {
 
   const [inviteModalState, setInviteModalState] = useState(false);
   const modalRef = useRef<HTMLInputElement>(null);
-  useDropDownEvent(modalRef, () => setInviteModalState(false));
+  useDropDownCloseEvent(modalRef, () => setInviteModalState(false));
 
   const profileRef = useRef<HTMLDivElement[]>([]);
 

@@ -9,6 +9,7 @@ import ChatInput from "../Molecules/ChatInput";
 import ChatInputContainer from "./ChatInputContainer";
 import LinkButton from "../Molecules/LinkButton";
 import { chatTarget } from "../Recoil/Atom";
+import { handleModalClick } from "../util";
 
 const ChatListContainerStyle = css`
   width: 50%;
@@ -18,11 +19,11 @@ const ChatListContainerStyle = css`
   align-items: center;
 `;
 
-function ChatListContainer({ profileRef }: ChatListContainerType) {
+function ChatListContainer({ profileRef, setOpenModal }: ChatListContainerType) {
   const { chatRoomId } = useRecoilValue(chatTarget);
 
   return (
-    <div css={ChatListContainerStyle}>
+    <div css={ChatListContainerStyle} onClick={(e) => handleModalClick(e, profileRef, setOpenModal)}>
       <ChatImageContainer profileRef={profileRef} />
       {chatRoomId && (
         <>

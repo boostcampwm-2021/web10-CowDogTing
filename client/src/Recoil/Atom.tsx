@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { ChatInfoType, joinChatType, PersonInfoType, ProfileType, RequestType, TeamInfoType } from "../util/type";
+import { ChatInfoType, ErrorType, joinChatType, PersonInfoType, ProfileType, RequestType, TeamInfoType } from "../util/type";
 
 export const userState = atom<PersonInfoType>({
   key: "user",
@@ -74,5 +74,13 @@ export const chatTarget = atom<ChatInfoType>({
     chatRoomId: 0,
     member: [],
     chatMessage: [],
+  },
+});
+
+export const errorState = atom<ErrorType>({
+  key: "errorState",
+  default: {
+    errorStr: "",
+    timeOut: 2000,
   },
 });

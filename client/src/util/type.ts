@@ -137,6 +137,7 @@ export type ChatListInfoType = {
 
 export type ChatListContainerType = {
   profileRef: RefObject<HTMLDivElement[]>;
+  setOpenModal: (prev: any) => void;
 };
 
 export type ChatImageContainerType = {
@@ -183,3 +184,8 @@ export interface registerInfo extends loginInfo {
   sex: string;
   info: string;
 }
+
+export type ErrorType = {
+  errorStr: string;
+  timeOut: number;
+};

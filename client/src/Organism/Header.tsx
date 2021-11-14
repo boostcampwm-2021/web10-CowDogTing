@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import MainHeaderLogo from "../Atom/MainHeaderLogo";
 import Menu from "../Atom/Menu";
 import UserIcon from "../Atom/UserIcon";
-import useDropDownEvent from "../Hook/useDropDownEvent";
+import useDropDownCloseEvent from "../Hook/useDropDownCloseEvent";
 import DropDown from "../Molecules/DropDown";
 import LinkButton from "../Molecules/LinkButton";
 import { userState } from "../Recoil/Atom";
@@ -48,10 +48,10 @@ export default function Header() {
 
   const menuRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
-  useDropDownEvent(menuRef, () => {
+  useDropDownCloseEvent(menuRef, () => {
     DropDownOff();
   });
-  useDropDownEvent(userRef, () => setUserOpen(false));
+  useDropDownCloseEvent(userRef, () => setUserOpen(false));
 
   const ToggleMenuModal = () => {
     setMenuOpen((isOpen) => !isOpen);

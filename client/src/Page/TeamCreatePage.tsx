@@ -8,7 +8,7 @@ import TeamInfoContainer from "../Organism/TeamInfoContainer";
 import InputLabel from "../Molecules/InputLabel";
 import { Button } from "../Atom/Button";
 import { createTeam } from "../util/data";
-import { userState } from "../Recoil/Atom";
+import { errorState, userState } from "../Recoil/Atom";
 
 const TeamCreatePageStyle = css`
   position: relative;
@@ -24,6 +24,7 @@ function TeamCreatePage() {
   const teamInfoRef = useRef<HTMLInputElement>(null);
   const locationRef = useRef<HTMLInputElement>(null);
   const setUserInfo = useSetRecoilState(userState);
+  const setErrorValue = useSetRecoilState(errorState);
 
   const clickCreateButton: MouseEventHandler = async () => {
     if (!teamNameRef.current || !teamInfoRef.current || !locationRef.current) return;
@@ -31,8 +32,16 @@ function TeamCreatePage() {
     const teamName = teamNameRef.current.value;
     const teamInfo = teamInfoRef.current.value;
     const location = locationRef.current.value;
+    if (teamName === "") {
+      setErrorValue({ errorStr: "팀 이름을 입력해 주세요", timeOut: 1000 });
+      return;
+    }
 
     const gid = await createTeam({ teamName, teamInfo, location });
+    if (gid === -1) {
+      setErrorValue({ errorStr: "팀 생성에 실패했습니다", timeOut: 1000 });
+      return;
+    }
     setUserInfo((prev) => {
       return { ...prev, gid };
     });

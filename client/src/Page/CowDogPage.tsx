@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 import Navbar from "../Organism/Navbar";
 import ProfileList from "../Template/ProfileList";
 import ProfileModal from "../Template/ProfileModal";
-import useModalEvent from "../Hook/useModalEvent";
+import useModalCloseEvent from "../Hook/useModalCloseEvent";
 import { cowDogState, profileModalDatas } from "../Recoil/Atom";
 import { getCowDogInfo } from "../util/data";
 
@@ -27,7 +27,7 @@ export default function CowDogPage() {
   const profileRef = useRef<HTMLDivElement[]>([]);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  useModalEvent(modalRef, profileRef, () => {
+  useModalCloseEvent(modalRef, profileRef, () => {
     setOpenModal(null);
   });
 
@@ -46,7 +46,7 @@ export default function CowDogPage() {
   };
 
   useEffect(() => {
-    if (!openModal) {
+    if (openModal === null) {
       setModalDatas([]);
       return;
     }
@@ -76,7 +76,7 @@ export default function CowDogPage() {
       <Navbar />
       <div css={ListContainer}>
         <ProfileList datas={datas} person={person} setOpenModal={setOpenModal} profileRef={profileRef} />
-        <div ref={modalRef}>{datas && openModal && <ProfileModal />}</div>
+        <div ref={modalRef}>{datas && openModal !== null && <ProfileModal />}</div>
       </div>
     </div>
   );
