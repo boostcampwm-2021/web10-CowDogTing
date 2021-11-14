@@ -26,7 +26,7 @@ export default function InviteModal() {
   const userIdRef = useRef<HTMLInputElement>(null);
 
   const clickInvite: MouseEventHandler = async () => {
-    if (userIdRef.current === null) return;
+    if (!userIdRef.current) return;
     const inviteUserId = userIdRef.current.value;
     const result = await inviteTeam({ userId: inviteUserId });
     // eslint-disable-next-line no-console

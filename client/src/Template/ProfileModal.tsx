@@ -22,7 +22,7 @@ export default function ProfileModal(): JSX.Element {
   }, [datas]);
 
   useEffect(() => {
-    if (datas === null) return;
+    if (!datas) return;
     setTarget(datas[index]);
   }, [index]);
 
@@ -37,7 +37,7 @@ export default function ProfileModal(): JSX.Element {
   };
 
   const requestChat = (): void => {
-    if (datas === null) return;
+    if (!datas) return;
     console.log("소켓연동 후");
     setRequestTarget(datas[0]);
     setRequest(true);

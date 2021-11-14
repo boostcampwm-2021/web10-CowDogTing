@@ -52,15 +52,19 @@ function TeamSettingTemplate() {
   const profileRef = useRef<HTMLDivElement[]>([]);
 
   const resetInput = () => {
-    if (!teamNameRef.current || !teamInfoRef.current || locSelected === "") return;
+    // if (checkNull(teamNameRef.current) || checkNull(teamInfoRef.current) || checkEmptyStringValue(locSelected)) return;
+
+    if (!teamNameRef.current || !teamInfoRef.current || !locSelected) return;
+
     teamNameRef.current.value = "";
     teamInfoRef.current.value = "";
     setLocSelected("");
   };
 
   const clickUpdateButton: MouseEventHandler = async () => {
-    if (!teamNameRef.current || !teamInfoRef.current || locSelected === "") return;
-    if (teamInfoState.id === "") return;
+    // if (checkNull(teamNameRef.current) || checkNull(teamInfoRef.current) || checkEmptyStringValue(locSelected)) return;
+    if (!teamNameRef.current || !teamInfoRef.current || !locSelected) return;
+    if (!teamInfoState.id) return;
     if (teamInfoState.leader !== userInfoState.id) {
       // eslint-disable-next-line no-alert
       alert("팀 리더가 아닙니다");

@@ -24,7 +24,7 @@ function ChatListContainer({ profileRef }: ChatListContainerType) {
   return (
     <div css={ChatListContainerStyle}>
       <ChatImageContainer profileRef={profileRef} />
-      {chatRoomId !== undefined && (
+      {chatRoomId && (
         <>
           <ChatDetail />
           <ChatInputContainer>

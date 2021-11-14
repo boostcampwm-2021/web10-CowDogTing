@@ -37,7 +37,7 @@ function ChatListTemplate() {
   });
 
   const changeOpenModal = (e: React.MouseEvent) => {
-    if (profileRef.current === null) {
+    if (!profileRef.current) {
       setOpenModal(null);
       return;
     }
@@ -52,7 +52,7 @@ function ChatListTemplate() {
         if (ref.contains(target)) return ref;
         return null;
       })
-      .filter((ref) => ref !== null)[0];
+      .filter((ref) => ref)[0];
 
     if (!clickCard) {
       setOpenModal(null);
@@ -73,7 +73,7 @@ function ChatListTemplate() {
   }, [chatsData]);
 
   useEffect(() => {
-    if (openModal === null) {
+    if (!openModal) {
       setModalDatas([]);
       return;
     }
@@ -93,7 +93,7 @@ function ChatListTemplate() {
     <div css={ChatListTemplateStyle} onClick={changeOpenModal}>
       <ChatProfileContainer chatsInfo={chatsInfo} setClickedRoomIndex={setClickedRoomIndex} />
       <ChatListContainer profileRef={profileRef} />
-      <div ref={modalRef}>{chatsInfo && clickedRoomIndex !== -1 && openModal !== null && <ProfileModal />}</div>
+      <div ref={modalRef}>{chatsInfo && clickedRoomIndex !== -1 && openModal && <ProfileModal />}</div>
     </div>
   );
 }

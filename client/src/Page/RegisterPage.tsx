@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable use-isnan */
 /* eslint-disable no-console */
@@ -9,6 +10,7 @@ import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
 import { registerUser } from "../util/data";
 import { registerInfo } from "../util/type";
+// import { checkEmptyStringValue } from "../util";
 
 const RegisterContainerStyle = css`
   width: 450px;
@@ -51,30 +53,28 @@ export default function RegisterPage() {
   const [secondPassword, setSecondPassword] = useState<string>("");
   const [passwordCheck, setPasswordCheck] = useState<boolean>(true);
 
-  const idRef = useRef<HTMLInputElement>(null);
-  const pwRef = useRef<HTMLInputElement>(null);
   const [locSelected, setLocSelected] = useState<string>("");
-  const ageRef = useRef<HTMLInputElement>(null);
   const [sexSelected, setSexSelected] = useState<string>("");
-  const infoRef = useRef<HTMLInputElement>(null);
+  const refArray = useRef<HTMLInputElement[]>([]);
+  // refArray.current
 
   const checkInput = ({ id, pw, location, age, sex, info }: registerInfo): boolean => {
-    if (id === "" || pw === "" || location === "" || age === NaN || sex === "" || info === "") {
+    if (!id || !pw || !location || age === NaN || !sex || !info) {
       alert("모든 입력값을 제대로 입력해 주십시오.");
       return false;
     }
     return true;
   };
-  const clickRegister = async () => {
-    console.log(locSelected, sexSelected);
-    if (!idRef.current || !pwRef.current || !locSelected || !ageRef.current || !infoRef.current || sexSelected === "") return;
 
-    const id = idRef.current.value;
-    const pw = pwRef.current.value;
+  const clickRegister = async () => {
+    if (!refArray.current[0] || !refArray.current[1] || !refArray.current[2] || !refArray.current[3] || !locSelected || !sexSelected) return;
+
+    const id = refArray.current[0].value;
+    const pw = refArray.current[1].value;
     const loc = locSelected;
-    const age = ageRef.current.value;
     const sex = sexSelected === "남성" ? "male" : "female";
-    const info = infoRef.current.value;
+    const age = refArray.current[2].value;
+    const info = refArray.current[3].value;
 
     const check = checkInput({ id, pw, location: loc, age: Number(age), sex, info });
     if (!check) return;
@@ -87,12 +87,12 @@ export default function RegisterPage() {
       <div css={RegisterContainerStyle}>
         <div>ID</div>
         <div css={IdContainerStyle}>
-          <Input ref={idRef} placeholder="ID" autoComplete="off" />
+          <Input ref={(el) => (refArray.current[0] = el as HTMLInputElement)} placeholder="ID" autoComplete="off" />
           <Button type="Small"> 중복 체크 </Button>
         </div>
         <div>Password</div>
         <Input
-          ref={pwRef}
+          ref={(el) => (refArray.current[1] = el as HTMLInputElement)}
           placeholder="Password"
           type="password"
           autoComplete="off"
@@ -131,7 +131,7 @@ export default function RegisterPage() {
           <option value="울산">울산</option>
         </select>
         <div>Age</div>
-        <Input ref={ageRef} placeholder="Age" autoComplete="off" />
+        <Input ref={(el) => (refArray.current[2] = el as HTMLInputElement)} placeholder="Age" autoComplete="off" />
         <div>Sex</div>
         <div css={InfoStyle}>
           <div>
@@ -148,7 +148,7 @@ export default function RegisterPage() {
           </div>
         </div>
         <div>Introduce</div>
-        <Input ref={infoRef} placeholder="Introduce" autoComplete="off" />
+        <Input ref={(el) => (refArray.current[3] = el as HTMLInputElement)} placeholder="Introduce" autoComplete="off" />
         <Button type="Long" onClick={clickRegister}>
           {" "}
           회원가입{" "}

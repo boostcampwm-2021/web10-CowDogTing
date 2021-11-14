@@ -46,7 +46,7 @@ export default function CowDogPage() {
   };
 
   useEffect(() => {
-    if (openModal === null) {
+    if (!openModal) {
       setModalDatas([]);
       return;
     }
@@ -76,7 +76,7 @@ export default function CowDogPage() {
       <Navbar />
       <div css={ListContainer}>
         <ProfileList datas={datas} person={person} setOpenModal={setOpenModal} profileRef={profileRef} />
-        <div ref={modalRef}>{datas && openModal !== null && <ProfileModal />}</div>
+        <div ref={modalRef}>{datas && openModal && <ProfileModal />}</div>
       </div>
     </div>
   );

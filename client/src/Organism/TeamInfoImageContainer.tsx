@@ -26,7 +26,7 @@ function TeamInfoImageContainer({ image }: TeamImageContainerType) {
   };
 
   const changeImage: ChangeEventHandler<HTMLInputElement> = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files === null) return;
+    if (!event.target.files) return;
     setImageFile(event.target.files[0]);
   };
 

@@ -12,7 +12,7 @@ export default function useModalEvent(ref: RefObject<HTMLDivElement>, profileRef
         return;
       }
 
-      if (profileRef.current === null) {
+      if (!profileRef.current) {
         handler(event);
         return;
       }

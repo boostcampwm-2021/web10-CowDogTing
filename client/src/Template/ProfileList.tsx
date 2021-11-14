@@ -24,7 +24,7 @@ const ProfileStyle = css`
 
 export default function ProfileList({ datas, person, setOpenModal, profileRef }: ProfileListType) {
   const handleModalClick = (e: React.MouseEvent) => {
-    if (profileRef.current === null) {
+    if (!profileRef.current) {
       setOpenModal(null);
       return;
     }
@@ -34,7 +34,7 @@ export default function ProfileList({ datas, person, setOpenModal, profileRef }:
         if (ref.contains(target)) return ref;
         return null;
       })
-      .filter((ref) => ref !== null)[0];
+      .filter((ref) => ref)[0];
 
     if (!clickCard) {
       setOpenModal(null);

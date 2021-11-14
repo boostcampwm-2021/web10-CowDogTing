@@ -32,7 +32,7 @@ export default function Header() {
   const person = Number(serarchParams.get("person"));
 
   useEffect(() => {
-    if (person === null) return;
+    if (!person) return;
     DropDownOff();
   }, [person]);
   const DropDownOff = () => {

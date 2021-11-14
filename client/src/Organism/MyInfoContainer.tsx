@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 /** @jsxImportSource @emotion/react */
 import { useRef } from "react";
 import { css } from "@emotion/react";
@@ -32,23 +33,19 @@ const MyInfoContainerStyle = css`
 export default function MyInfoContainer() {
   const [myInfo, setMyInfo] = useRecoilState(userState);
   const { id, location, age, info } = myInfo;
-  const idInputRef = useRef<HTMLInputElement>(null);
-  const ageInputRef = useRef<HTMLInputElement>(null);
-  const locationInputRef = useRef<HTMLInputElement>(null);
-  const infoInputRef = useRef<HTMLInputElement>(null);
+
+  const refArray = useRef<HTMLInputElement[]>([]);
 
   const handleChangeMyInfo = async () => {
-    if (!idInputRef.current || !ageInputRef.current || !locationInputRef.current || !infoInputRef.current) return;
+    if (!refArray.current[0] || !refArray.current[1] || !refArray.current[2] || !refArray.current[3]) return;
 
-    const data = await changeMyInfo({ id: idInputRef.current.value, location: locationInputRef.current.value, age: Number(ageInputRef.current.value), info: infoInputRef.current.value });
+    const changeInfo = { id: refArray.current[0].value, location: refArray.current[1].value, age: Number(refArray.current[2].value), info: refArray.current[3].value };
+    const data = await changeMyInfo(changeInfo);
 
     if (data) {
       setMyInfo({
         ...myInfo,
-        id: idInputRef.current.value,
-        location: locationInputRef.current.value,
-        age: Number(ageInputRef.current.value),
-        info: infoInputRef.current.value,
+        ...changeInfo,
       });
     } else {
       alert("myinfo 수정 실패");
@@ -65,13 +62,13 @@ export default function MyInfoContainer() {
         </div>
         <div className="myinfo">
           <span>이름</span>
-          <Input placeholder={id} autoComplete="off" ref={idInputRef} />
+          <Input placeholder={id} autoComplete="off" ref={(el) => (refArray.current[0] = el as HTMLInputElement)} />
           <span>나이</span>
-          <Input placeholder={String(age)} autoComplete="off" ref={ageInputRef} />
+          <Input placeholder={String(age)} autoComplete="off" ref={(el) => (refArray.current[1] = el as HTMLInputElement)} />
           <span>주소</span>
-          <Input placeholder={location} autoComplete="off" ref={locationInputRef} />
+          <Input placeholder={location} autoComplete="off" ref={(el) => (refArray.current[2] = el as HTMLInputElement)} />
           <span>소개</span>
-          <Input placeholder={info} autoComplete="off" ref={infoInputRef} />
+          <Input placeholder={info} autoComplete="off" ref={(el) => (refArray.current[3] = el as HTMLInputElement)} />
         </div>
       </div>
     </>

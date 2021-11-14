@@ -65,7 +65,7 @@ export default function RequestPage() {
   };
 
   useEffect(() => {
-    if (openToModal === null) return;
+    if (!openToModal) return;
     setModalDatas(() => {
       const datas = RequestForMe[Number(openToModal)].info;
       const { member } = datas;
@@ -76,7 +76,7 @@ export default function RequestPage() {
   }, [openToModal]);
 
   useEffect(() => {
-    if (openForModal === null) return;
+    if (!openForModal) return;
     setModalDatas(() => {
       const datas = RequestForMe[Number(openForModal)].info;
       const { member } = datas;
@@ -95,12 +95,12 @@ export default function RequestPage() {
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>나에게 온 요청</div>
         <RequestList datas={RequestForMe} person={person} setOpenModal={setOpenForModal} type="ForMe" profileRef={profileForRef} />
-        <div ref={modalForRef}>{RequestForMe && openForModal !== null && <ProfileModal />}</div>
+        <div ref={modalForRef}>{RequestForMe && openForModal && <ProfileModal />}</div>
       </div>
       <div css={RequestListStyle}>
         <div css={RequestTitleStyle}>내가 보낸 요청</div>
         <RequestList datas={RequestToMe} person={person} setOpenModal={setOpenToModal} type="ToMe" profileRef={profileToRef} />
-        <div ref={modalToRef}>{RequestToMe && openToModal !== null && <ProfileModal />}</div>
+        <div ref={modalToRef}>{RequestToMe && openToModal && <ProfileModal />}</div>
       </div>
     </div>
   );
