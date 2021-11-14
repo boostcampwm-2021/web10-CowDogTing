@@ -26,9 +26,13 @@ function App() {
   const setJoinChatInfo = useSetRecoilState(joinChatRoomState);
 
   const getInitData = async () => {
-    setUserInfo(userInfo);
-    setRequestInfo(requestInfo);
-    setJoinChatInfo(joinChatInfo);
+    try {
+      setUserInfo(userInfo);
+      setRequestInfo(requestInfo);
+      setJoinChatInfo(joinChatInfo);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {

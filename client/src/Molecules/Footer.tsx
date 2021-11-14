@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import ChatIcon from "../Atom/ChatIcon";
 import useDropDownCloseEvent from "../Hook/useDropDownCloseEvent";
 import DropDown from "./DropDown";
+import { checkLogin, passToLoginPage } from "../util";
 
 const FooterStyle = css`
   z-index: 998;
@@ -25,10 +26,11 @@ export default function Footer() {
   const ToggleChatDropDown = () => {
     setChatDropDown((isOpen) => !isOpen);
   };
+
   return (
     <div css={FooterStyle} ref={chatRef}>
       <DropDown type="Chat" className={chatDropDown ? "show" : "hide"} />
-      <ChatIcon onClick={ToggleChatDropDown} />
+      <ChatIcon onClick={() => (checkLogin() ? ToggleChatDropDown() : passToLoginPage())} />
     </div>
   );
 }

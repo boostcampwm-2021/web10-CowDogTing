@@ -1,5 +1,6 @@
-import { AxiosResponse } from "axios";
 import { RefObject } from "react";
+import { useRecoilValue } from "recoil";
+import { userState } from "../Recoil/Atom";
 
 export const handleModalClick = (e: React.MouseEvent, refs: RefObject<HTMLDivElement[]>, handler: (value: any) => void) => {
   if (!refs.current) {
@@ -25,9 +26,11 @@ export const handleModalClick = (e: React.MouseEvent, refs: RefObject<HTMLDivEle
   handler((prev: number) => (prev === Number(id) ? null : Number(id)));
 };
 
-export const responseCheck = (response: AxiosResponse) => {
-  if (response.status >= 400) {
-    return new Error("error");
-  }
-  return "";
+export const passToLoginPage = () => {
+  window.location.href = "/sub/login";
+};
+
+export const checkLogin = () => {
+  const userInfo = useRecoilValue(userState);
+  return userInfo.id !== "";
 };
