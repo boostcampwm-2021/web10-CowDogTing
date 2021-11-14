@@ -5,8 +5,8 @@ import { css } from "@emotion/react";
 import { Button } from "../Atom/Button";
 import ProfileInfo from "../Atom/ProfileInfo";
 import { Modal } from "../Molecules/Modal";
-import { SmallModalType } from "../util/type";
 import { requestTarget } from "../Recoil/Atom";
+import { SmallModalType } from "../util/type";
 
 const textStyle = css`
   margin: 15px 0;
@@ -14,6 +14,7 @@ const textStyle = css`
 
 export default function RequestModal({ setRequest }: SmallModalType) {
   const data = useRecoilValue(requestTarget);
+
   const requestModalClose = (): void => {
     setRequest(false);
   };

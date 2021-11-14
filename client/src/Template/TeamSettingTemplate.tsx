@@ -1,14 +1,11 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-// import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 import React, { MouseEventHandler, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { css } from "@emotion/react";
 import { Button } from "../Atom/Button";
 import InputLabel from "../Molecules/InputLabel";
 import TeamButtonContainer from "../Organism/TeamButtonContainer";
 import TeamInfoContainer from "../Organism/TeamInfoContainer";
-// import { getTeamPeople } from "../util/dummyData";
 import ProfileList from "./ProfileList";
 import InviteModal from "./InviteModal";
 import { teamState, userState } from "../Recoil/Atom";
@@ -39,30 +36,37 @@ const LabelStyle = css`
   height: 20%;
   width: 90%;
 `;
+
 function TeamSettingTemplate() {
   const [teamInfoState, setTeamInfoState] = useRecoilState(teamState);
   const userInfoState = useRecoilValue(userState);
-  const [inviteModalState, setInviteModalState] = useState(false);
-  const [locSelected, setLocSelected] = useState<string>("");
 
+  const [locSelected, setLocSelected] = useState<string>("");
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);
+
+  const [inviteModalState, setInviteModalState] = useState(false);
   const modalRef = useRef<HTMLInputElement>(null);
   useDropDownEvent(modalRef, () => setInviteModalState(false));
+
   const profileRef = useRef<HTMLDivElement[]>([]);
+
   const resetInput = () => {
     if (!teamNameRef.current || !teamInfoRef.current || locSelected === "") return;
     teamNameRef.current.value = "";
     teamInfoRef.current.value = "";
     setLocSelected("");
   };
+
   const clickUpdateButton: MouseEventHandler = async () => {
     if (!teamNameRef.current || !teamInfoRef.current || locSelected === "") return;
     if (teamInfoState.id === "") return;
     if (teamInfoState.leader !== userInfoState.id) {
       // eslint-disable-next-line no-alert
       alert("팀 리더가 아닙니다");
+      return;
     }
+
     const teamName = teamNameRef.current.value;
     const teamInfo = teamInfoRef.current.value;
     const location = locSelected;
@@ -76,7 +80,6 @@ function TeamSettingTemplate() {
       return { ...prev, ...result };
     });
     resetInput();
-    // eslint-disable-next-line no-console
   };
 
   return (
