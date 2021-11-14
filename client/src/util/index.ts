@@ -1,6 +1,4 @@
 import axios from "axios";
-// import { useRecoilState } from "recoil";
-// import { userState } from "../Recoil/Atom";
 import { ChangeTeamInfoType, loginInfo, PostTeamType, registerInfo } from "./type";
 
 const url = `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}`;
