@@ -7,25 +7,24 @@ import { Team } from "../../db/models/team";
 import { sequelize } from "../../db/models";
 const { QueryTypes } = require("sequelize");
 
-export const findImage = async ({ imageID }) => {
+export const findImage = async ({ imageID }: { imageID: string }) => {
   // imageID 에 대한 db 값 가져오기
 };
 
-export const findChatRoomNotReadNum = async ({ uid }) => {
+export const findChatRoomNotReadNum = async ({ uid }: { uid: string }) => {
   const joinCathRoom = await findJoinChatRooms({ uid }); // chat의 service와 중복 => 나중에 공통으로
-  console.log(joinCathRoom);
   const chatList = await Promise.all(
     joinCathRoom.map(async (RoomNum) => {
       return {
         ...RoomNum,
         notReadNum: await findAllChat(RoomNum),
       };
-    })
+    }),
   );
   return chatList;
 };
 
-const findAllChat = async ({ chatRoomId }) => {
+const findAllChat = async ({ chatRoomId }: { chatRoomId: number }) => {
   const query = {
     where: {
       isRead: 0,
@@ -35,7 +34,7 @@ const findAllChat = async ({ chatRoomId }) => {
   return await Chat.count(query);
 };
 
-export const findAllRequest = async ({ uid }) => {
+export const findAllRequest = async ({ uid }: { uid: string }) => {
   //from: 나  -> 내가 보낸 요청 -> to의 정보  => 항상 from의 정보 gdgd => gdgd 정보 나옴
   //to : 나 -> 나에게 온 요청  -> from 의 정보  ㅇㅇ 맞음
   const query_to = {
@@ -93,7 +92,7 @@ export const result_from = (users: any[]) => {
   });
 };
 
-export const findUserInfo = async ({ uid }) => {
+export const findUserInfo = async ({ uid }: { uid: string }) => {
   const query = {
     attributes: [["uid", "id"], "image", "location", "sex", "age", "info", "gid"],
     where: { uid },
@@ -113,7 +112,7 @@ export const findAllProfile = async (person: number, index: number) => {
       offset: 10 * index,
       limit: 10,
     };
-    return await Users.findAll(query);
+    return await Users.findAll(query as object);
   } else {
     const teamIds = await findTeam(person);
     query = {
@@ -129,7 +128,7 @@ export const findAllProfile = async (person: number, index: number) => {
   }
 };
 
-const findTeam = async (person) => {
+const findTeam = async (person: number) => {
   const query = {
     raw: true,
     attributes: ["gid"],

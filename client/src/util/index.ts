@@ -80,7 +80,6 @@ export const getCowDogInfo = async (person: number, index: number) => {
 
 export const getChatMessage = async ({ index, chatRoomId }: { index: number; chatRoomId: number }) => {
   const { data } = await axios.get(`${url}${process.env.REACT_APP_GET_CHAT_MESSAGES_API_URL}?chatRoomId=${chatRoomId}&index=${index}`);
-  console.log(data);
   return data;
 };
 export const changeMyInfo = async ({ id, location, age, info }: { id: string; location: string; age: number; info: string }) => {

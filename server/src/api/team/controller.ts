@@ -1,11 +1,12 @@
+import { NextFunction, Request, Response } from "express";
 import { _createTeam, findTeam, _updateTeam, _inviteTeam } from "./service";
 
-export const getTeamInfo = async (req, res, next) => {
+export const getTeamInfo = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.user) {
     res.send({ error: "로그인 안했음" });
     return;
   }
-  const gid = req.user.gid;
+  const gid = Number(req.user.gid);
   if (gid === null) {
     res.send({ error: "팀 없음" });
     return;
@@ -20,7 +21,7 @@ export const getTeamInfo = async (req, res, next) => {
   }
 };
 
-export const createTeam = async (req, res, next) => {
+export const createTeam = async (req: Request, res: Response, next: NextFunction) => {
   const teamInfo = req.body;
   if (!req.user) {
     res.send({ error: "로그인 하지 않음" });
@@ -36,7 +37,7 @@ export const createTeam = async (req, res, next) => {
   }
 };
 
-export const updateTeam = async (req, res, next) => {
+export const updateTeam = async (req: Request, res: Response, next: NextFunction) => {
   const teamInfo = req.body;
   if (!req.user) {
     res.send({ error: "로그인 되어있지 않음" });
@@ -55,14 +56,14 @@ export const updateTeam = async (req, res, next) => {
   }
 };
 
-export const inviteTeam = async (req, res, next) => {
+export const inviteTeam = async (req: Request, res: Response, next: NextFunction) => {
   // swagger에 잘못 나와있는거가틈. 팀 아이디가 없음
   const inviteInfo = req.body;
   if (!req.user) {
     res.send({ error: "로그인 되어있지 않음" });
     return;
   }
-  const { gid } = req.user;
+  const gid = Number(req.user.gid);
   const { userId } = inviteInfo;
   try {
     const result = await _inviteTeam({ gid, userId });
