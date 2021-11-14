@@ -83,7 +83,7 @@ function TeamSettingTemplate() {
           {inviteModalState && <InviteModal />}
         </div>
         <Button type="Medium" onClick={clickUpdateButton}>
-          수정하기
+          수정하기g
         </Button>
       </TeamButtonContainer>
     </div>

@@ -3,14 +3,14 @@ import { ChatRoom } from "../../db/models/chatRoom";
 import { Participant } from "../../db/models/participant";
 import { Users } from "../../db/models/users";
 
-export const findChatRoomInfo = async ({ uid }) => {
+export const findChatRoomInfo = async ({ uid }: { uid: string }) => {
   // const joinChatRooms = await findJoinChatRooms({ uid });
   // console.log(joinChatRooms);
   // const query = () => {
 
-  // }}
+  // }
 
-  const query = ({ chatRoomId }) => {
+  const query = ({ chatRoomId }: { chatRoomId: Participant }) => {
     console.log(chatRoomId);
     return {
       raw: true,
@@ -34,12 +34,12 @@ export const findChatRoomInfo = async ({ uid }) => {
   const filteredMemberData = memberData.map((chatRoomMember) => {
     return chatRoomMember.map((member) => {
       return {
-        id: member["User.uid"],
-        image: member["User.image"],
-        location: member["User.location"],
-        sex: member["User.sex"],
-        age: member["User.age"],
-        info: member["User.info"],
+        // id: member["User.uid"],
+        // image: member["User.image"],
+        // location: member["User.location"],
+        // sex: member["User.sex"],
+        // age: member["User.age"],
+        // info: member["User.info"],
       };
     });
   });
@@ -57,8 +57,7 @@ export const findChatRoomInfo = async ({ uid }) => {
   return filteredData;
 };
 
-export const findJoinChatRooms = async ({ uid }) => {
-  console.log(uid);
+export const findJoinChatRooms = async ({ uid }: { uid: string }) => {
   const query = {
     attributes: ["chatRoomId"],
     where: { uid },
@@ -68,7 +67,7 @@ export const findJoinChatRooms = async ({ uid }) => {
   return datas;
 };
 
-export const findMessages = async (chatRoomId, index: number) => {
+export const findMessages = async (chatRoomId: number, index: number) => {
   // chatRoomId에 대한 채팅들 모두 가져오기
   const query = {
     raw: true,

@@ -1,7 +1,8 @@
+import { NextFunction, Request, Response } from "express";
 import * as passport from "passport";
 import { findUser, createUser } from "./service";
 
-export const handleRegister = async (req, res, next) => {
+export const handleRegister = async (req: Request, res: Response, next: NextFunction) => {
   const { uid, password, location, age, sex }: { uid: string; password: string; location: string; age: number; sex: string } = req.body;
   try {
     const exUser = await findUser({ uid });
@@ -16,7 +17,7 @@ export const handleRegister = async (req, res, next) => {
   }
 };
 
-export const handleLogin = (req, res, next) => {
+export const handleLogin = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate("local", (authError, user, info) => {
     if (authError) {
       return next(authError);
@@ -33,7 +34,7 @@ export const handleLogin = (req, res, next) => {
   })(req, res, next);
 };
 
-export const handleLogOut = (req, res) => {
+export const handleLogOut = (req: Request, res: Response) => {
   req.logout();
   req.session.destroy(() => {
     req.session;
@@ -41,8 +42,8 @@ export const handleLogOut = (req, res) => {
   res.send(true);
 };
 
-export const handleIdValidation = async (req, res, next) => {
-  const uid = req.qeury.uid;
+export const handleIdValidation = async (req: Request, res: Response, next: NextFunction) => {
+  const uid = String(req.query.uid);
   try {
     const result = await findUser({ uid });
     if (result) {

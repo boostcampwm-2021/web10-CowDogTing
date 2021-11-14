@@ -10,7 +10,7 @@ interface ParticipantAttributes {
 
 export class Participant extends Model<ParticipantAttributes> {
   public uid!: string;
-  public chatRoomId: number;
+  public chatRoomId!: number;
   public static associations: {};
 }
 
@@ -37,7 +37,7 @@ Participant.init(
     sequelize,
     freezeTableName: true,
     timestamps: false,
-  }
+  },
 );
 Users.hasMany(Participant, {
   foreignKey: "uid",
