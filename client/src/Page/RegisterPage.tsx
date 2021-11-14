@@ -83,7 +83,13 @@ export default function RegisterPage() {
       setErrorValue({ errorStr: "모든 입력을 확인해 주세요", timeOut: 1000 });
       return;
     }
-    await registerUser({ id, pw, location: loc, age: Number(age), sex, info });
+    const result = await registerUser({ id, pw, location: loc, age: Number(age), sex, info });
+    if (result === "error") {
+      if (!check) {
+        setErrorValue({ errorStr: "회원 가입에 실패했습니다", timeOut: 1000 });
+        return;
+      }
+    }
     window.location.href = "/";
   };
 

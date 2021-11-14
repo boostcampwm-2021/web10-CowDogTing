@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { RefObject } from "react";
 
 export const handleModalClick = (e: React.MouseEvent, refs: RefObject<HTMLDivElement[]>, handler: (value: any) => void) => {
@@ -22,4 +23,11 @@ export const handleModalClick = (e: React.MouseEvent, refs: RefObject<HTMLDivEle
   const { id } = clickCard.dataset;
 
   handler((prev: number) => (prev === Number(id) ? null : Number(id)));
+};
+
+export const responseCheck = (response: AxiosResponse) => {
+  if (response.status >= 400) {
+    return new Error("error");
+  }
+  return "";
 };

@@ -58,9 +58,13 @@ export default function LogInPage() {
       setErrorValue({ errorStr: "비밀번호를 입력해 주세요", timeOut: 1000 });
       return;
     }
-    const isLogIn = await postLogin({ id, pw });
-    if (!isLogIn) setErrorValue({ errorStr: "아이디,비밀번호를 확인해 주세요", timeOut: 1000 });
-    if (isLogIn) window.location.replace("/main");
+    const response = await postLogin({ id, pw });
+    console.log(response);
+    if (response === "error") {
+      setErrorValue({ errorStr: "아이디,비밀번호를 확인해 주세요", timeOut: 1000 });
+      return;
+    }
+    if (response !== "error") window.location.replace("/main");
   };
 
   return (

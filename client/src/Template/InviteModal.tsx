@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import React, { MouseEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
+import { useSetRecoilState } from "recoil";
 import { Button } from "../Atom/Button";
 import InputLabel from "../Molecules/InputLabel";
 import { inviteTeam } from "../util/data";
+import { errorState } from "../Recoil/Atom";
 
 const inviteModalStyle = css`
   position: fixed;
@@ -24,11 +26,22 @@ const inviteModalStyle = css`
 
 export default function InviteModal() {
   const userIdRef = useRef<HTMLInputElement>(null);
+  const setErrorValue = useSetRecoilState(errorState);
 
   const clickInvite: MouseEventHandler = async () => {
-    if (!userIdRef.current) return;
+    if (!userIdRef.current) {
+      return;
+    }
     const inviteUserId = userIdRef.current.value;
+    if (inviteUserId === "") {
+      setErrorValue({ errorStr: "초대할 아이디를 입력해 주세요", timeOut: 1000 });
+      return;
+    }
     const result = await inviteTeam({ userId: inviteUserId });
+    if (result === "error") {
+      setErrorValue({ errorStr: "초대 실패했습니다", timeOut: 1000 });
+      return;
+    }
     // eslint-disable-next-line no-console
     console.log(result);
     window.location.replace("/sub/teamSetting");

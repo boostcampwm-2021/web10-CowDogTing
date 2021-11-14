@@ -38,7 +38,7 @@ function TeamCreatePage() {
     }
 
     const gid = await createTeam({ teamName, teamInfo, location });
-    if (gid === -1) {
+    if (gid === "error") {
       setErrorValue({ errorStr: "팀 생성에 실패했습니다", timeOut: 1000 });
       return;
     }

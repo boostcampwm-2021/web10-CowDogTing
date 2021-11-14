@@ -2,10 +2,10 @@
 /** @jsxImportSource @emotion/react */
 import { useRef } from "react";
 import { css } from "@emotion/react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
-import { userState } from "../Recoil/Atom";
+import { errorState, userState } from "../Recoil/Atom";
 import { changeMyInfo } from "../util/data";
 
 const MyInfoContainerStyle = css`
@@ -33,6 +33,7 @@ const MyInfoContainerStyle = css`
 export default function MyInfoContainer() {
   const [myInfo, setMyInfo] = useRecoilState(userState);
   const { id, location, age, info } = myInfo;
+  const setErrorValue = useSetRecoilState(errorState);
 
   const refArray = useRef<HTMLInputElement[]>([]);
 
@@ -40,15 +41,15 @@ export default function MyInfoContainer() {
     if (!refArray.current[0] || !refArray.current[1] || !refArray.current[2] || !refArray.current[3]) return;
 
     const changeInfo = { id: refArray.current[0].value, location: refArray.current[1].value, age: Number(refArray.current[2].value), info: refArray.current[3].value };
-    const data = await changeMyInfo(changeInfo);
+    const result = await changeMyInfo(changeInfo);
 
-    if (data) {
+    if (result === "success") {
       setMyInfo({
         ...myInfo,
         ...changeInfo,
       });
-    } else {
-      alert("myinfo 수정 실패");
+    } else if (result === "error") {
+      setErrorValue({ errorStr: "내 정보 수정에 실패했습니다", timeOut: 1000 });
     }
   };
   return (
