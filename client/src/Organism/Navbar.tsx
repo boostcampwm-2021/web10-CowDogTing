@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-return-assign */
 /** @jsxImportSource @emotion/react */
 import { useRef, useState } from "react";
 import { css } from "@emotion/react";
@@ -5,7 +7,7 @@ import { Input } from "../Atom/Input";
 import NavbarDiv from "../Atom/NavbarDiv";
 import SearchIcon from "../Atom/SearchIcon";
 import DropDown from "../Molecules/DropDown";
-import useDropDownCloseEvent from "../Hook/useDropDownCloseEvent";
+import useModalCloseEvent from "../Hook/useModalCloseEvent";
 
 const NavbarStyle = css`
   width: 100vw;
@@ -32,43 +34,45 @@ const NavbarStyle = css`
     }
   }
 `;
+
+const list = [
+  { id: "Location", name: "지역" },
+  { id: "Age", name: "나이" },
+  { id: "Sex", name: "성별" },
+];
+
 export default function Navbar() {
-  const [locationDropdown, setLocationOpen] = useState(false);
-  const [ageDropdwon, setAgeOpen] = useState(false);
-  const [sexDropdwon, setSexOpen] = useState(false);
+  const [dropDownToggle, setDropDownToggle] = useState("");
 
-  const locationRef = useRef<HTMLDivElement>(null);
-  const ageRef = useRef<HTMLDivElement>(null);
-  const sexRef = useRef<HTMLDivElement>(null);
+  const navBarRef = useRef<HTMLDivElement[]>([]);
+  const dropDownRef = useRef<HTMLDivElement>(null);
 
-  useDropDownCloseEvent(locationRef, () => setLocationOpen(false));
-  useDropDownCloseEvent(ageRef, () => setAgeOpen(false));
-  useDropDownCloseEvent(sexRef, () => setSexOpen(false));
+  const handleDropDownClick: React.MouseEventHandler = (event: React.MouseEvent) => {
+    const target: HTMLElement = event.target as HTMLElement;
 
-  const TogglelocationModal = () => {
-    setLocationOpen((isOpen) => !isOpen);
+    navBarRef.current.forEach((ref, index) => {
+      if (ref.contains(target)) {
+        const target = list[index].id;
+        setDropDownToggle((prev) => (prev === target ? "" : target));
+      }
+    });
   };
-  const ToggleAgeModal = () => {
-    setAgeOpen((isOpen) => !isOpen);
-  };
-  const ToggleSexModal = () => {
-    setSexOpen((isOpen) => !isOpen);
-  };
+
+  useModalCloseEvent(dropDownRef, navBarRef, () => setDropDownToggle(""));
 
   return (
-    <div css={NavbarStyle}>
-      <div className="navbar-item" data-id="location" ref={locationRef}>
-        <NavbarDiv onClick={TogglelocationModal}>지역</NavbarDiv>
-        <DropDown type="Location" className={locationDropdown ? "show" : "hide"} />
-      </div>
-      <div className="navbar-item" data-id="age" ref={ageRef}>
-        <NavbarDiv onClick={ToggleAgeModal}>나이</NavbarDiv>
-        <DropDown type="Age" className={ageDropdwon ? "show" : "hide"} />
-      </div>
-      <div className="navbar-item" data-id="sex" ref={sexRef}>
-        <NavbarDiv onClick={ToggleSexModal}>성별</NavbarDiv>
-        <DropDown type="Sex" className={sexDropdwon ? "show" : "hide"} />
-      </div>
+    <div css={NavbarStyle} onClick={(event) => handleDropDownClick(event)}>
+      {list.map((item, idx) => {
+        const { name } = item;
+        return (
+          <div className="navbar-item" data-id={idx} ref={(el) => ((navBarRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)}>
+            <NavbarDiv>{name}</NavbarDiv>
+          </div>
+        );
+      })}
+
+      <div ref={dropDownRef}>{dropDownToggle && <DropDown type={dropDownToggle} className="show" />}</div>
+
       <div className="navbar-item">
         <Input />
         <SearchIcon />

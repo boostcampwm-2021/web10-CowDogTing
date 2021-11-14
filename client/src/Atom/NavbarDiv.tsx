@@ -10,13 +10,12 @@ const NavbarDivStyle = css`
   align-items: center;
 `;
 interface DivProps {
-  onClick: () => void;
   children: string;
 }
 export default function NavbarDiv(props: DivProps) {
-  const { onClick, children } = props;
+  const { children } = props;
   return (
-    <div css={NavbarDivStyle} onClick={onClick} className="navbar-div">
+    <div css={NavbarDivStyle} className="navbar-div">
       {children}
     </div>
   );

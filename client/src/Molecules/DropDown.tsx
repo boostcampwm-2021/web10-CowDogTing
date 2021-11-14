@@ -87,13 +87,13 @@ const DropDownContainer = styled.div`
 `;
 
 export default function DropDown(props: DropDownType) {
-  const { type, className, onClick } = props;
+  const { type, className } = props;
 
   const list = MENU_LIST[type];
   const ElementOnClick = ["미팅 하러가기", "로그아웃"]; // onClick 이벤트가 있는 것들을 여기 배열에 추가해주면 됨.
 
   const getElement = (menu: menuType) => {
-    if (ElementOnClick.includes(menu.name)) return <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} onClick={onClick} />;
+    if (ElementOnClick.includes(menu.name)) return <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} />;
     return <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} />;
   };
 
