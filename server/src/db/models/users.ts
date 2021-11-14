@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import { Team } from "./team";
 import { sequelize } from "./index";
 
-interface UserAttributes {
+export interface UserAttributes {
   uid: string;
   password: string;
   location: string;
@@ -79,7 +79,7 @@ Users.init(
     sequelize,
     freezeTableName: true,
     timestamps: false,
-  }
+  },
 );
 
 Team.hasOne(Users, {
