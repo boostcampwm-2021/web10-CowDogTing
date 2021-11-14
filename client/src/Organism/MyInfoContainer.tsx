@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
 import { userState } from "../Recoil/Atom";
-import { changeMyInfo } from "../util";
+import { changeMyInfo } from "../util/data";
 
 const MyInfoContainerStyle = css`
   width: 350px;

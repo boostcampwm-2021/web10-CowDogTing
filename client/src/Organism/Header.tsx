@@ -10,7 +10,7 @@ import useDropDownEvent from "../Hook/useDropDownEvent";
 import DropDown from "../Molecules/DropDown";
 import LinkButton from "../Molecules/LinkButton";
 import { userState } from "../Recoil/Atom";
-import { logOutUser } from "../util";
+import { logOutUser } from "../util/data";
 
 const HeaderStyle = css`
   display: flex;

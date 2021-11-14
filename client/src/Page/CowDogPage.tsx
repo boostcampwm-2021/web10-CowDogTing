@@ -8,7 +8,7 @@ import ProfileList from "../Template/ProfileList";
 import ProfileModal from "../Template/ProfileModal";
 import useModalEvent from "../Hook/useModalEvent";
 import { cowDogState, profileModalDatas } from "../Recoil/Atom";
-import { getCowDogInfo } from "../util";
+import { getCowDogInfo } from "../util/data";
 
 const ListContainer = css`
   margin: 0 auto;

@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { css } from "@emotion/react";
 import Chats from "../Molecules/Chats";
 import { chatTarget } from "../Recoil/Atom";
-import { getChatMessage } from "../util";
+import { getChatMessage } from "../util/data";
 
 const ChatContainerStyle = css`
   width: 100%;

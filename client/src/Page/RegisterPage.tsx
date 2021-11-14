@@ -7,7 +7,7 @@ import React, { useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
-import { registerUser } from "../util";
+import { registerUser } from "../util/data";
 import { registerInfo } from "../util/type";
 
 const RegisterContainerStyle = css`

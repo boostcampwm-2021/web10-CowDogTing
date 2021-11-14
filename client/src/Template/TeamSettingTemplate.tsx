@@ -9,7 +9,7 @@ import TeamInfoContainer from "../Organism/TeamInfoContainer";
 import ProfileList from "./ProfileList";
 import InviteModal from "./InviteModal";
 import { teamState, userState } from "../Recoil/Atom";
-import { changeTeamInfo } from "../util";
+import { changeTeamInfo } from "../util/data";
 import useDropDownEvent from "../Hook/useDropDownEvent";
 
 const TeamSettingTemPlateStyle = css`

@@ -3,7 +3,7 @@ import React, { MouseEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
 import { Button } from "../Atom/Button";
 import InputLabel from "../Molecules/InputLabel";
-import { inviteTeam } from "../util";
+import { inviteTeam } from "../util/data";
 
 const inviteModalStyle = css`
   position: fixed;

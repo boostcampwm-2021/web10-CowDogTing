@@ -7,7 +7,7 @@ import TeamCreateButtonContainer from "../Organism/TeamButtonContainer";
 import TeamInfoContainer from "../Organism/TeamInfoContainer";
 import InputLabel from "../Molecules/InputLabel";
 import { Button } from "../Atom/Button";
-import { createTeam } from "../util";
+import { createTeam } from "../util/data";
 import { userState } from "../Recoil/Atom";
 
 const TeamCreatePageStyle = css`

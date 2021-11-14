@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import UserIcon from "../Atom/UserIcon";
 import useDropDownEvent from "../Hook/useDropDownEvent";
 import { userState } from "../Recoil/Atom";
-import { logOutUser } from "../util";
+import { logOutUser } from "../util/data";
 import DropDown from "./DropDown";
 import LinkButton from "./LinkButton";
 

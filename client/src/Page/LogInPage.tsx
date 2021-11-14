@@ -7,7 +7,7 @@ import { css } from "@emotion/react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
-import { postLogin } from "../util";
+import { postLogin } from "../util/data";
 
 const containerStyle = css`
   display: flex;
