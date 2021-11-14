@@ -1,7 +1,7 @@
 import { Team } from "../../db/models/team";
 import { Users } from "../../db/models/users";
 
-export const findTeam = async ({ gid }) => {
+export const findTeam = async ({ gid }: { gid: number }) => {
   const query = {
     raw: true,
     where: { gid },
@@ -15,7 +15,7 @@ export const findTeam = async ({ gid }) => {
   };
   const teamInfos = await Team.findAll(query);
   const memberInfo = teamInfos.map((info) => {
-    return { id: info["member.uid"], image: info["member.image"], location: info["member.location"], age: info["member.age"], sex: info["member.sex"] };
+    // return { id: info["member.uid"], image: info["member.image"], location: info["member.location"], age: info["member.age"], sex: info["member.sex"] };
   });
   const teamInfo = teamInfos[0];
   const filteredTeamInfo = { image: teamInfo.image, id: teamInfo.name, info: teamInfo.description, location: teamInfo.location, leader: teamInfo.leader, member: memberInfo };
@@ -39,7 +39,7 @@ export const _updateTeam = async (teamInfo: any) => {
     return new Error("업데이트 실패");
   }
 };
-export const _inviteTeam = async ({ gid, userId }) => {
+export const _inviteTeam = async ({ gid, userId }: { gid: number; userId: string }) => {
   try {
     await Users.update({ gid }, { where: { uid: userId } });
     return "success";
@@ -48,7 +48,7 @@ export const _inviteTeam = async ({ gid, userId }) => {
   }
 };
 
-export const _getGroupId = async ({ teamName }) => {
+export const _getGroupId = async ({ teamName }: { teamName: string }) => {
   const query = {
     raw: true,
     attributes: ["gid"],
