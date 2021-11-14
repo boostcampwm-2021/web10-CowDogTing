@@ -9,6 +9,7 @@ import ProfileModal from "../Template/ProfileModal";
 import useModalCloseEvent from "../Hook/useModalCloseEvent";
 import { cowDogState, profileModalDatas } from "../Recoil/Atom";
 import { getCowDogInfo } from "../util/data";
+import { checkLogin, passToLoginPage } from "../util";
 
 const ListContainer = css`
   margin: 0 auto;
@@ -26,6 +27,7 @@ export default function CowDogPage() {
 
   const profileRef = useRef<HTMLDivElement[]>([]);
   const modalRef = useRef<HTMLDivElement>(null);
+  if (!checkLogin()) passToLoginPage();
 
   useModalCloseEvent(modalRef, profileRef, () => {
     setOpenModal(null);

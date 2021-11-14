@@ -7,6 +7,7 @@ import RequestList from "../Template/RequestList";
 import { RequestType } from "../util/type";
 import useModalCloseEvent from "../Hook/useModalCloseEvent";
 import { profileModalDatas, requestState, userState } from "../Recoil/Atom";
+import { checkLogin, passToLoginPage } from "../util";
 
 const RequestPageStyle = css`
   display: flex;
@@ -56,6 +57,7 @@ export default function RequestPage() {
   const profileToRef = useRef<HTMLDivElement[]>([]);
   const modalToRef = useRef<HTMLDivElement>(null);
   useModalCloseEvent(modalToRef, profileToRef, () => setOpenToModal(null));
+  if (!checkLogin()) passToLoginPage();
 
   const getDatas = () => {
     console.log(requestDatas);

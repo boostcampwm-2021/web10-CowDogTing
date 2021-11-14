@@ -59,12 +59,13 @@ export default function LogInPage() {
       return;
     }
     const response = await postLogin({ id, pw });
-    console.log(response);
+
     if (response === "error") {
       setErrorValue({ errorStr: "아이디,비밀번호를 확인해 주세요", timeOut: 1000 });
       return;
     }
-    if (response !== "error") window.location.replace("/main");
+
+    window.location.replace("/main");
   };
 
   return (
