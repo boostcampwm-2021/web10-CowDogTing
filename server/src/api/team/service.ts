@@ -45,8 +45,11 @@ export const _updateTeam = async (teamInfo: any) => {
 };
 export const _inviteTeam = async ({ gid, userId }: { gid: number; userId: string }) => {
   try {
-    await Users.update({ gid }, { where: { uid: userId } });
-    return "success";
+    const checkNum = await Users.count({ where: { gid } });
+    if (checkNum > 4) return false;
+    const checkUser = await Users.findOne({ where: { uid: userId } });
+    if (!checkUser) return false;
+    return await Users.update({ gid }, { where: { uid: userId }, returning: true });
   } catch (error) {
     return new Error("업데이트 실패");
   }

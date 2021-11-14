@@ -9,7 +9,6 @@ interface infoAttribute extends ParticipantAttributes {
 
 export const findChatRoomInfo = async ({ uid }: { uid: string }) => {
   const query = ({ chatRoomId }: { chatRoomId: Participant }) => {
-    console.log(chatRoomId);
     return {
       raw: true,
       include: [

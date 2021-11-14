@@ -12,7 +12,7 @@ export const findImage = async ({ imageID }: { imageID: string }) => {
 };
 
 export const findChatRoomNotReadNum = async ({ uid }: { uid: string }) => {
-  const joinCathRoom = await findJoinChatRooms({ uid }); // chat의 service와 중복 => 나중에 공통으로
+  const joinCathRoom = await findJoinChatRooms({ uid });
   const chatList = await Promise.all(
     joinCathRoom.map(async (RoomNum) => {
       return {
@@ -35,43 +35,23 @@ const findAllChat = async ({ chatRoomId }: { chatRoomId: number }) => {
 };
 
 export const findAllRequest = async ({ uid }: { uid: string }) => {
-  //from: 나  -> 내가 보낸 요청 -> to의 정보  => 항상 from의 정보 gdgd => gdgd 정보 나옴
-  //to : 나 -> 나에게 온 요청  -> from 의 정보  ㅇㅇ 맞음
   const query_to = {
     attributes: ["from", "to", "state"],
     include: [
       {
         model: Users,
         as: "info",
-        attributes: [["uid", "id"], "image", "location", "sex", "age", "info"], // 나중에 info 컬럼 추가시 해당 열 사용
+        attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
       },
     ],
     where: {
       to: uid,
     },
   };
-  //to가 외래키 -> from : gdgd  -> to 연결되는거 아님?
-  // const query_from = {
-  //   attributes: ["from", "to", "state"],
-  //   include: [
-  //     {
-  //       model: Users,
-  //       as: "info",
-  //       attributes: [["uid", "id"], "image", "location", "sex", "age"],
-  //       where: {
-  //       },
-  //     },
-  //   ],
-  //   where: {
-  //     from: uid,
-  //   },
-  // };
   const query_from = `select * from Request inner join Users on Request.to = Users.uid where Request.from = "${uid}"`;
   const result_to = await Request.findAll(query_to as object);
-  console.log(result_to);
   const users = await sequelize.query(query_from, { type: QueryTypes.SELECT });
   const filtered = result_from(users);
-  console.log(filtered);
   return [...result_to, ...filtered];
 };
 
@@ -102,10 +82,7 @@ export const findUserInfo = async ({ uid }: { uid: string }) => {
 
 export const findAllProfile = async (person: number, index: number) => {
   let query;
-  console.log(person);
   if (person === 1) {
-    console.log(person);
-    console.log(index);
     query = {
       raw: true,
       attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
@@ -146,7 +123,6 @@ const findTeam = async (person: number) => {
   const teamId = resultArr.map((result) => {
     return result.gid;
   });
-  console.log(teamId);
   return teamId;
 };
 

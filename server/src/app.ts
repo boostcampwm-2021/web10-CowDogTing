@@ -32,7 +32,7 @@ app.use(
     },
   }),
 );
-app.use(express.static("src/public")); // API Test
+app.use(express.static("src/public"));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(
@@ -46,8 +46,6 @@ app.use("/api", apiRouter);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.locals.error = err;
-  // const status = err.status || 500;
-  // res.status(status);
 });
 
 export default app;

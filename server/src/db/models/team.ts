@@ -12,9 +12,9 @@ export interface TeamAttributes {
 
 export class Team extends Model<TeamAttributes> {
   public gid!: number;
-  public image!: number;
+  public image?: number;
   public name!: string;
-  public description!: string;
+  public description?: string;
   public location!: string;
   public leader!: string;
   public static associations: {};

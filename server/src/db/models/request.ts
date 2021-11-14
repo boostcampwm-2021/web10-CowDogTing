@@ -35,6 +35,7 @@ Request.init(
     },
     from: {
       type: DataTypes.STRING(30),
+      allowNull: false,
     },
   },
   {
@@ -43,7 +44,7 @@ Request.init(
     timestamps: false,
     sequelize,
     freezeTableName: true,
-  }
+  },
 );
 
 Users.hasMany(Request, {
