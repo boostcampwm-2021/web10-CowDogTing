@@ -231,3 +231,28 @@ const deleteRequest = async ({ from, to }: { from: string; to: string }) => {
     },
   });
 };
+
+export const _acceptRequest = async ({ from, to }: { from: string; to: string }) => {
+  if (isNumber(to)) {
+    acceptRequestTeam({ from: Number(from), to: Number(to) });
+  } else {
+    acceptRequestUser({ from, to });
+  }
+};
+
+const acceptRequestTeam = async ({ from, to }: { from: number; to: number }) => {};
+
+const acceptRequestUser = async ({ from, to }: { from: string; to: string }) => {
+  await updateRequestAccept({ from, to });
+};
+
+const updateRequestAccept = async ({ from, to }: { from: string; to: string }) => {
+  await Request.update(
+    { state: "accept" },
+    {
+      where: {
+        [Op.and]: [{ from, to }],
+      },
+    },
+  );
+};

@@ -1,7 +1,8 @@
 import express = require("express");
 import { Server } from "socket.io";
 
-const SocketMap = new Map<string, string>();
+export const SocketMap = new Map<string, string>();
+
 export const socketInit = (server: any, app: express.Application) => {
   const io = new Server(server, {
     cors: {
