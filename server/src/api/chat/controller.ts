@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { isUser } from "../middlewares/isUser";
-import { findChatRoomInfo, findMessages } from "./service";
+import { findChatRoomsInfo, findMessages } from "./service";
 
 export const getChatsInfo = async (req: Request, res: Response) => {
   if (!req.user) return res.status(401).send({ error: "로그인을 하지 않았습니다" });
   const uid = String(req.user!.uid);
-  const data = await findChatRoomInfo({ uid });
+  const data = await findChatRoomsInfo({ uid });
   res.send(data);
 };
 
