@@ -7,7 +7,7 @@ import LargeModal from "../Organism/LargeModal";
 import RequestModal from "./RequestModal";
 import { profileModalDatas, requestState, requestTarget, userState } from "../Recoil/Atom";
 import { ProfileType } from "../util/type";
-import { requestChat } from "../util";
+import { requestChat } from "../util/data";
 
 export default function ProfileModal(): JSX.Element {
   const setRequestTarget = useSetRecoilState(requestTarget);
@@ -40,7 +40,7 @@ export default function ProfileModal(): JSX.Element {
   };
 
   const handleRequestClick = (): void => {
-    const res = requestChat(datas[0]);
+    const res = requestChat({ from: myId, to: datas[0].id });
 
     if (!res) {
       console.log("error 처리");

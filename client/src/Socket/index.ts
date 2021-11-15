@@ -18,4 +18,18 @@ export default class ClientSocket {
   setUid(id: string) {
     this.socket?.emit("setUid", id);
   }
+
+  addEvent({ handleReceiveRequestEvent, handleReceiveDenyEvent, handleReceiveAcceptEvent, handleReceiveChatEvent }: { handleReceiveRequestEvent: any; handleReceiveDenyEvent: any; handleReceiveAcceptEvent: any; handleReceiveChatEvent: any }) {
+    this.socket?.on("receiveRequest", handleReceiveRequestEvent);
+    this.socket?.on("receiveDenyRequest", handleReceiveDenyEvent);
+    this.socket?.on("receiveAcceptRequest", handleReceiveAcceptEvent);
+    this.socket?.on("receiveChat", handleReceiveChatEvent);
+  }
+
+  deleteEvent({ handleReceiveRequestEvent, handleReceiveDenyEvent, handleReceiveAcceptEvent, handleReceiveChatEvent }: { handleReceiveRequestEvent: any; handleReceiveDenyEvent: any; handleReceiveAcceptEvent: any; handleReceiveChatEvent: any }) {
+    this.socket?.off("receiveRequest", handleReceiveRequestEvent);
+    this.socket?.off("receiveDenyRequest", handleReceiveDenyEvent);
+    this.socket?.off("receiveAcceptRequest", handleReceiveAcceptEvent);
+    this.socket?.off("receiveChat", handleReceiveChatEvent);
+  }
 }
