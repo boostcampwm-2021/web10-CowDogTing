@@ -7,6 +7,7 @@ import LargeModal from "../Organism/LargeModal";
 import RequestModal from "./RequestModal";
 import { profileModalDatas, requestTarget } from "../Recoil/Atom";
 import { ProfileType } from "../util/type";
+import { requestChat } from "../util";
 
 export default function ProfileModal(): JSX.Element {
   const setRequestTarget = useSetRecoilState(requestTarget);
@@ -36,9 +37,13 @@ export default function ProfileModal(): JSX.Element {
     setTarget(datas ? datas[index] : null);
   };
 
-  const requestChat = (): void => {
-    if (!datas) return;
-    console.log("소켓연동 후");
+  const handleRequestClick = (): void => {
+    const res = requestChat(datas[0]);
+
+    if (!res) {
+      console.log("error 처리");
+      return;
+    }
     setRequestTarget(datas[0]);
     setRequest(true);
   };
@@ -48,7 +53,7 @@ export default function ProfileModal(): JSX.Element {
     <>
       <LargeModal index={index} length={datas?.length ?? 0} inCreaseIndex={inCreaseIndex} decreaseIndex={decreaseIndex}>
         <ProfileInfo data={target} />
-        <Button type="Large" onClick={requestChat}>
+        <Button type="Large" onClick={handleRequestClick}>
           채팅 신청하기
         </Button>
       </LargeModal>

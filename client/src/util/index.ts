@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import { PersonInfoType } from "./type";
+import { PersonInfoType, ProfileType } from "./type";
 
 export const handleModalClick = (e: React.MouseEvent, refs: RefObject<HTMLDivElement[]>, handler: (value: any) => void) => {
   if (!refs.current) {
@@ -42,4 +42,10 @@ export const requestAccept = (id: string | number) => {
 export const requestDeny = (id: string | number) => {
   console.log("data 요청해야함");
   console.log(id);
+};
+
+export const requestChat = (data: ProfileType): boolean => {
+  const { id } = data;
+  console.log(id);
+  return true;
 };
