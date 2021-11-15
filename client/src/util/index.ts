@@ -33,3 +33,13 @@ export const passToLoginPage = () => {
 export const checkLogin = (userInfo: PersonInfoType) => {
   return userInfo.id !== "";
 };
+
+export const requestAccept = (id: string | number) => {
+  console.log("data 요청해야함");
+  console.log(id);
+};
+
+export const requestDeny = (id: string | number) => {
+  console.log("data 요청해야함");
+  console.log(id);
+};
