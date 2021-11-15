@@ -8,5 +8,3 @@ export const PROFILE_API_URL = `${URL}${process.env.REACT_APP_GET_PROFILE_API_UR
 export const CHAT_MESSAGES_API_URL = `${URL}${process.env.REACT_APP_GET_CHAT_MESSAGES_API_URL}`;
 export const USER_INFO_API_URL = `${URL}${process.env.REACT_APP_GET_USER_INFO_API_URL}`;
 export const LOGOUT_API_URL = `${URL}${process.env.REACT_APP_LOGOUT_API_URL}`;
-
-export const NAVER_LOGIN_API_URL = `${URL}${process.env.REACT_APP_LOGOUT_API_URL}`;
