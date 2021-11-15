@@ -1,5 +1,7 @@
 import express = require("express");
 import { Server } from "socket.io";
+import { createChatMessage } from "../api/chat/service";
+import { SendChatType } from "../util/type";
 
 export const SocketMap = new Map<string, string>();
 
@@ -19,6 +21,10 @@ export const socketInit = (server: any, app: express.Application) => {
     console.log(socket.id);
     socket.on("setUid", (id: string) => {
       SocketMap.set(id, socket.id);
+    });
+    socket.on("sendChat", ({ chatRoomId, message }: SendChatType) => {
+      createChatMessage({ chatRoomId, message });
+      //emit socket.emit(chatRoomId)....
     });
   });
 };

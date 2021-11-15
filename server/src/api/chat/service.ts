@@ -2,6 +2,7 @@ import { Chat } from "../../db/models/chat";
 import { ChatRoom } from "../../db/models/chatRoom";
 import { Participant, ParticipantAttributes } from "../../db/models/participant";
 import { Users } from "../../db/models/users";
+import { SendChatType } from "../../util/type";
 
 interface infoAttribute extends ParticipantAttributes {
   [key: string]: string | number | null | undefined;
@@ -116,4 +117,8 @@ export const createChatRoom = async () => {
 export const createParticipant = async ({ from, to, chatRoomId }: { from: string; to: string; chatRoomId: number }) => {
   const promiseArr = [Participant.create({ uid: to, chatRoomId }), Participant.create({ uid: from, chatRoomId })];
   return await Promise.all(promiseArr);
+};
+
+export const createChatMessage = async ({ chatRoomId, message }: SendChatType) => {
+  const createdChatMessage = await Chat.create({ uid: message.from, message: message.message, isRead: message.read, src: 1, chatRoomId });
 };

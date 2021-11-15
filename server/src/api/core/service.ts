@@ -223,7 +223,6 @@ const denyRequestUser = async ({ from, to }: { from: string; to: string }) => {
   io.to(toSocketId).emit("receiveDenyRequest", { from, to });
   if (!SocketMap.has(from)) return;
   const fromSocketId = SocketMap.get(from);
-
   io.to(fromSocketId).emit("receiveDenyRequest", { from, to });
 };
 
@@ -256,8 +255,8 @@ const acceptRequestUser = async ({ from, to }: { from: string; to: string }) => 
 
   const io = app.get("io");
   const fromSocketId = SocketMap.get(from);
-  io.to(fromSocketId).emit("receiveAcceptRequest", chatRoomData);
+  io.to(fromSocketId).emit("receiveAcceptRequest", {chat:chatRoomData,from,to});
   if (!SocketMap.has(to)) return;
   const toSocketId = SocketMap.get(to);
-  io.to(toSocketId).emit("receiveAcceptRequest", chatRoomData);
+  io.to(toSocketId).emit("receiveAcceptRequest", {chat:chatRoomData,from,to});
 };

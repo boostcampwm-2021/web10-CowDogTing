@@ -64,7 +64,7 @@ export const postUserUpdate = async (req: Request, res: Response, next: NextFunc
   const oldId = String(req.user!.uid);
   const { id: uid, location, age, info } = req.body;
   await updateUser(oldId, { uid, location, age, info });
-  return res.send(true);
+  return res.status(200).send(true);
 };
 
 export const denyRequest = async (req: Request, res: Response) => {
@@ -82,4 +82,5 @@ export const acceptRequest = async (req: Request, res: Response) => {
   const toValidation = await validationTeamAndUser(to);
   if (!toValidation) return res.status(401).send({ error: "to isn`t exist" });
   _acceptRequest({ from, to });
+  return res.status(200).send(true);
 };
