@@ -1,3 +1,4 @@
+import { isNumber } from "src/util/utilFunc";
 import { Team, TeamAttributes } from "../../db/models/team";
 import { Users } from "../../db/models/users";
 import { findUser } from "../auth/service";
@@ -27,13 +28,13 @@ export const findTeam = async ({ gid }: { gid: number }) => {
   return filteredTeamInfo;
 };
 
-export const _createTeam = async (teamInfo: any) => {
+export const _createTeam = async (teamInfo: TeamAttributes) => {
   const team = await Team.create(teamInfo);
   const gid = team.getDataValue("gid");
   await Users.update({ gid: gid }, { where: { uid: teamInfo.leader } });
   return gid;
 };
-export const _updateTeam = async (teamInfo: any) => {
+export const _updateTeam = async (teamInfo: TeamAttributes) => {
   const { gid } = teamInfo;
   const { name, description, location } = teamInfo;
   const updateTeamInfo = { name, description, location };
@@ -63,4 +64,8 @@ export const _getGroupId = async ({ teamName }: { teamName: string }) => {
     where: { name: teamName },
   };
   return await Team.findOne(query);
+};
+
+export const validateTeam = async ({ gid }: { gid: number }) => {
+  return await Team.findOne({ where: { gid } });
 };
