@@ -1,7 +1,7 @@
 import { Op, literal } from "sequelize";
 import { Request } from "../../db/models/request";
 import { Chat } from "../../db/models/chat";
-import { findJoinChatRooms } from "../chat/service";
+import { createChatRoom, createParticipant, findChatRoomInfo, findJoinChatRooms } from "../chat/service";
 import { Users } from "../../db/models/users";
 import { Team } from "../../db/models/team";
 import { sequelize } from "../../db/models";
@@ -218,9 +218,12 @@ const denyRequestTeam = async ({ from, to }: { from: number; to: number }) => {
 
 const denyRequestUser = async ({ from, to }: { from: string; to: string }) => {
   await deleteRequest({ from, to });
+  const io = app.get("io");
+  const toSocketId = SocketMap.get(to);
+  io.to(toSocketId).emit("receiveDenyRequest", { from, to });
   if (!SocketMap.has(from)) return;
   const fromSocketId = SocketMap.get(from);
-  const io = app.get("io");
+
   io.to(fromSocketId).emit("receiveDenyRequest", { from, to });
 };
 
@@ -240,19 +243,21 @@ export const _acceptRequest = async ({ from, to }: { from: string; to: string })
   }
 };
 
-const acceptRequestTeam = async ({ from, to }: { from: number; to: number }) => {};
-
-const acceptRequestUser = async ({ from, to }: { from: string; to: string }) => {
-  await updateRequestAccept({ from, to });
+const acceptRequestTeam = async ({ from, to }: { from: number; to: number }) => {
+  await deleteRequest({ from: String(from), to: String(to) });
 };
 
-const updateRequestAccept = async ({ from, to }: { from: string; to: string }) => {
-  await Request.update(
-    { state: "accept" },
-    {
-      where: {
-        [Op.and]: [{ from, to }],
-      },
-    },
-  );
+const acceptRequestUser = async ({ from, to }: { from: string; to: string }) => {
+  await deleteRequest({ from, to });
+  const createdChatRoom = await createChatRoom();
+  const chatRoomId = createdChatRoom.get({ plain: true }).chatRoomId;
+  const createdParticipant = await createParticipant({ from, to, chatRoomId });
+  const chatRoomData = findChatRoomInfo({ chatRoomId });
+
+  const io = app.get("io");
+  const fromSocketId = SocketMap.get(from);
+  io.to(fromSocketId).emit("receiveAcceptRequest", chatRoomData);
+  if (!SocketMap.has(to)) return;
+  const toSocketId = SocketMap.get(to);
+  io.to(toSocketId).emit("receiveAcceptRequest", chatRoomData);
 };
