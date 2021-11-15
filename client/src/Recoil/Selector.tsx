@@ -1,22 +1,6 @@
 /* eslint-disable no-console */
 import axios from "axios";
-import { selector, selectorFamily } from "recoil";
-
-export const testSelector = selector({
-  key: "test",
-  get: () => {},
-  set: () => {},
-});
-
-// export const fool = selector({
-//   key: "fool",
-//   get: ({ get }) => {
-//     return get(testState);
-//   },
-//   set: ({ set }) => {
-//     set(testState, "aa");
-//   },
-// });
+import { selectorFamily } from "recoil";
 
 export const fetchGet = selectorFamily({
   key: "fetchGet",
