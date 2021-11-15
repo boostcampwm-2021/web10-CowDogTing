@@ -3,7 +3,7 @@ import { sequelize } from "./index";
 import { Users } from "./users";
 
 interface RequestAttributes {
-  requestId: number;
+  requestId?: number;
   to: string;
   state: string;
   from: string;
