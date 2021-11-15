@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 /* eslint-disable no-restricted-globals */
@@ -10,6 +11,8 @@ import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
 import { postLogin } from "../util/data";
 import { errorState } from "../Recoil/Atom";
+
+declare const window: any;
 
 const containerStyle = css`
   display: flex;
@@ -83,6 +86,11 @@ export default function LogInPage() {
         </div>
         {!code && (
           <div css={SocialLoginButtonContainerStyle}>
+            <a href="http://localhost:4000/api/auth/naver">
+              <Button type="Long" color="#2DB400">
+                Sign in with Naver
+              </Button>
+            </a>
             <a href="http://localhost:4000/api/auth/github">
               <Button type="Long" color="#000000">
                 Sign in with Github
@@ -93,9 +101,6 @@ export default function LogInPage() {
                 Sign in with Kakao
               </Button>
             </a>
-            <Button type="Long" color="#2DB400">
-              Sign in with Naver
-            </Button>
           </div>
         )}
       </div>
