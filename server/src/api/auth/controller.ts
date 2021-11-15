@@ -59,6 +59,11 @@ export const handleIdValidation = async (req: Request, res: Response, next: Next
 export const handleKakaoLogin = passport.authenticate("kakao");
 
 export const handleKakaoCallback = passport.authenticate("kakao", {
-  successRedirect: "http://localhost:3000/main",
+  failureRedirect: "http://localhost:3000/sub/Login",
+});
+
+export const handleGithubLogin = passport.authenticate("github", { scope: ["user:email"] });
+
+export const handleGithubCallback = passport.authenticate("github", {
   failureRedirect: "http://localhost:3000/sub/Login",
 });
