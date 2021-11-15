@@ -40,15 +40,11 @@ export const handleReceiveRequestSocket = ({ setRequest, data }: ReceiveRequestS
 };
 
 export const handleReceiveDenySocket = ({ setRequest, data }: ReceiveDenySocketType) => {
-  setRequest((prev: RequestType[]) => {
-    return prev.filter((item) => item.from !== data.from);
-  });
+  setRequest((prev: RequestType[]) => prev.filter((item) => item.from !== data.from));
 };
 
 export const handleReceiveAcceptSocket = ({ setRequest, setJoinChat, setChat, data }: ReceiveAcceptSocketType) => {
-  setRequest((prev: RequestType[]) => {
-    return prev.filter((item) => item.from !== data.from);
-  });
+  setRequest((prev: RequestType[]) => prev.filter((item) => item.from !== data.from));
   setJoinChat((prev: joinChatType[]) => [
     ...prev,
     {
