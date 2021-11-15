@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import { PersonInfoType, ProfileType } from "./type";
+import { ChatInfoType, joinChatType, PersonInfoType, ReceiveAcceptSocketType, ReceiveChatSocketType, ReceiveDenySocketType, ReceiveRequestSocketType, RequestType } from "./type";
 
 export const handleModalClick = (e: React.MouseEvent, refs: RefObject<HTMLDivElement[]>, handler: (value: any) => void) => {
   if (!refs.current) {
@@ -35,18 +35,37 @@ export const checkLogin = (userInfo: PersonInfoType) => {
   return userInfo.id !== "";
 };
 
-export const requestAccept = (id: string | number) => {
-  console.log("data 요청해야함");
-  console.log(id);
+export const handleReceiveRequestSocket = ({ setRequest, data }: ReceiveRequestSocketType) => {
+  setRequest((prev: RequestType[]) => [...prev, data]);
 };
 
-export const requestDeny = (id: string | number) => {
-  console.log("data 요청해야함");
-  console.log(id);
+export const handleReceiveDenySocket = ({ setRequest, data }: ReceiveDenySocketType) => {
+  setRequest((prev: RequestType[]) => {
+    return prev.filter((item) => item.from !== data.from);
+  });
 };
 
-export const requestChat = (data: ProfileType): boolean => {
-  const { id } = data;
-  console.log(id);
-  return true;
+export const handleReceiveAcceptSocket = ({ setRequest, setJoinChat, setChat, data }: ReceiveAcceptSocketType) => {
+  setRequest((prev: RequestType[]) => {
+    return prev.filter((item) => item.from !== data.from);
+  });
+  setJoinChat((prev: joinChatType[]) => [
+    ...prev,
+    {
+      chatRoomId: data.chat.chatRoomId,
+      notReadNum: 0,
+    },
+  ]);
+  setChat((prev: ChatInfoType[]) => [...prev, data.chat]);
+};
+
+export const handleReceiveChatSocket = ({ setJoinChat, setChat, data }: ReceiveChatSocketType) => {
+  setJoinChat((prev: joinChatType[]) => [
+    ...prev,
+    {
+      chatRoomId: data.chatRoomId,
+      notReadNum: 0,
+    },
+  ]);
+  setChat((prev: ChatInfoType[]) => [...prev, data]);
 };
