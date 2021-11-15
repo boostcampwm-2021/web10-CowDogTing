@@ -44,3 +44,16 @@ export const handleIdValidation = async (req: Request, res: Response, next: Next
     next(e);
   }
 };
+
+export const handleKakaoLogin = () => {
+  passport.authenticate("kakao");
+};
+
+export const handleKakaoCallback = () => {
+  passport.authenticate("kakao", {
+    failureRedirect: "http://loaclhost:3000/main",
+  }),
+    (req: Request, res: Response) => {
+      res.redirect("http://loaclhost:3000/main");
+    };
+};
