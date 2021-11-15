@@ -203,3 +203,31 @@ export const validationTeamAndUser = async (to: string) => {
   }
   return await findUser({ uid: to });
 };
+
+export const _denyRequest = async ({ from, to }: { from: string; to: string }) => {
+  if (isNumber(to)) {
+    denyRequestTeam({ from: Number(from), to: Number(to) });
+  } else {
+    denyRequestUser({ from, to });
+  }
+};
+
+const denyRequestTeam = async ({ from, to }: { from: number; to: number }) => {
+  await deleteRequest({ from: String(from), to: String(to) });
+};
+
+const denyRequestUser = async ({ from, to }: { from: string; to: string }) => {
+  await deleteRequest({ from, to });
+  if (!SocketMap.has(from)) return;
+  const fromSocketId = SocketMap.get(from);
+  const io = app.get("io");
+  io.to(fromSocketId).emit("receiveDenyRequest", { from, to });
+};
+
+const deleteRequest = async ({ from, to }: { from: string; to: string }) => {
+  return await Request.destroy({
+    where: {
+      [Op.and]: [{ from, to }],
+    },
+  });
+};
