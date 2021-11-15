@@ -65,6 +65,7 @@ export default function Header() {
   };
 
   const LogOut = async () => {
+    console.log(11);
     const data = await logOutUser();
     if (data) {
       window.location.replace("/main");
