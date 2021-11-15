@@ -12,7 +12,7 @@ import ChatRoom from "./Page/ChatRoom";
 import { fetchGet } from "./Recoil/Selector";
 import { joinChatRoomState, requestState, userState } from "./Recoil/Atom";
 import ErrorModal from "./Template/ErrorModal";
-import ClientSocket from "./webSocket/socket";
+import ClientSocket from "./Socket";
 
 function App() {
   const userUrl = `${process.env.REACT_APP_GET_USER_INFO_API_URL}`;
