@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 /* eslint-disable no-restricted-globals */
 /** @jsxImportSource @emotion/react */
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { css } from "@emotion/react";
 import { Link, useLocation } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
@@ -10,6 +11,8 @@ import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
 import { postLogin } from "../util/data";
 import { errorState } from "../Recoil/Atom";
+
+declare const window: any;
 
 const containerStyle = css`
   display: flex;
@@ -44,7 +47,51 @@ export default function LogInPage() {
   const code = searchParams.get("code");
   const idRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
+  const naverRef: any = useRef<HTMLDivElement>(null);
   const setErrorValue = useSetRecoilState(errorState);
+
+  const UserProfile = () => {
+    window.location.href.includes("access_token") && GetUser();
+    function GetUser() {
+      const location = window.location.href.split("=")[1];
+      const token = location.split("&")[0];
+      console.log("token: ", token);
+      fetch(``, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: token,
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          localStorage.setItem("access_token", res.token);
+          // setUserData({
+          //   nickname: res.nickname,
+          //   image: res.image,
+          // });
+        })
+        .catch((err) => console.log("err : ", err));
+    }
+  };
+  useEffect(() => {
+    const naverLogin = new window.naver.LoginWithNaverId({
+      clientId: process.env.REACT_APP_NAVER_CLIENTID,
+      callbackUrl: process.env.REACT_APP_NAVER_CALLBACKURL,
+      isPopup: false, // popup 형식으로 띄울것인지 설정
+      callbackHandle: true,
+      onSuccess: {},
+      loginButton: { color: "white", type: 1, height: "0" },
+    });
+    naverLogin.init();
+    UserProfile();
+  }, []);
+  const handleNaverLogin = () => {
+    if (naverRef) {
+      const naverLoginbtn = naverRef.current.firstChild;
+      naverLoginbtn.click();
+    }
+  };
 
   const clickLogin = async () => {
     if (!idRef.current || !pwRef.current) return;
@@ -90,8 +137,9 @@ export default function LogInPage() {
             <Button type="Long" color="#f3e84d">
               Sign in with Kakao
             </Button>
-            <Button type="Long" color="#2DB400">
+            <Button type="Long" color="#2DB400" onClick={() => handleNaverLogin()}>
               Sign in with Naver
+              <div id="naverIdLogin" ref={naverRef} />
             </Button>
           </div>
         )}
