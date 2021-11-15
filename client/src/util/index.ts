@@ -60,12 +60,16 @@ export const handleReceiveAcceptSocket = ({ setRequest, setJoinChat, setChat, da
 };
 
 export const handleReceiveChatSocket = ({ setJoinChat, setChat, data }: ReceiveChatSocketType) => {
-  setJoinChat((prev: joinChatType[]) => [
-    ...prev,
-    {
-      chatRoomId: data.chatRoomId,
-      notReadNum: 0,
-    },
-  ]);
+  setJoinChat((prev: joinChatType[]) =>
+    prev.map((item) => {
+      if (item.chatRoomId === data.chatRoomId) {
+        return {
+          ...item,
+          notReadNum: item.notReadNum + 1,
+        };
+      }
+      return item;
+    })
+  );
   setChat((prev: ChatInfoType[]) => [...prev, data]);
 };
