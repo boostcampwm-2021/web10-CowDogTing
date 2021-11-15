@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import { handleRegister, handleLogin, handleLogOut, handleIdValidation, handleKakaoLogin, handleKakaoCallback } from "./controller";
 import { isLoggedIn, isNotLoggedIn } from "../middlewares/isAuth";
 
@@ -8,6 +8,8 @@ authRouter.post("/login", isNotLoggedIn, handleLogin);
 authRouter.get("/logout", isLoggedIn, handleLogOut);
 authRouter.get("/id-validation", handleIdValidation);
 authRouter.get("/kakao", handleKakaoLogin);
-authRouter.get("/kakao/callback", handleKakaoCallback);
+authRouter.get("/kakao/callback", handleKakaoCallback, (req: Request, res: Response) => {
+  res.redirect("http://loaclhost:3000/main");
+});
 
 export default authRouter;
