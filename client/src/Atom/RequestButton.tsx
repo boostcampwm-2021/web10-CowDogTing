@@ -2,11 +2,11 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { Button } from "./Button";
 import { RequestType } from "../util/type";
-import { requestAccept, requestDeny } from "../util";
-import { requestState } from "../Recoil/Atom";
+import { requestAccept, requestDeny } from "../util/data";
+import { userState } from "../Recoil/Atom";
 
 const StateStyle = css`
   width: 130px;
@@ -23,28 +23,17 @@ const StateStyle = css`
 `;
 
 export default function RequestButton({ type, data }: { type: string; data: RequestType }) {
-  const setRequestData = useSetRecoilState(requestState);
+  const { id: myId } = useRecoilValue(userState);
+  const {
+    info: { id },
+  } = data;
 
   const handleAcceptClick = () => {
-    console.log("수락");
-    const {
-      info: { id },
-    } = data;
-    requestAccept(id);
-    setRequestData((prev) => {
-      return prev.filter((item) => item.from !== id);
-    });
+    requestAccept({ from: myId, to: id });
   };
 
   const handleDenyClick = () => {
-    console.log("거절");
-    const {
-      info: { id },
-    } = data;
-    requestDeny(id);
-    setRequestData((prev) => {
-      return prev.filter((item) => item.from !== id);
-    });
+    requestDeny({ from: myId, to: id });
   };
 
   const { state } = data;
