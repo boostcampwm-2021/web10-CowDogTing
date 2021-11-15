@@ -66,3 +66,12 @@ export const postUserUpdate = async (req: Request, res: Response, next: NextFunc
   await updateUser(oldId, { uid, location, age, info });
   return res.send(true);
 };
+
+export const denyRequest = async (req: Request, res: Response) => {
+  if (!req.user) return res.send({ error: "isn`t login" });
+  const { from, to } = req.body;
+  const toValidation = await validationTeamAndUser(to);
+  if (!toValidation) return res.status(401).send({ error: "to isn`t exist" });
+  _denyRequest({ from, to });
+  return res.status(200).send(true);
+};
