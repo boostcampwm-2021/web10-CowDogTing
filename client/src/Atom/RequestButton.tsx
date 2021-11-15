@@ -2,9 +2,11 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
+import { useSetRecoilState } from "recoil";
 import { Button } from "./Button";
 import { RequestType } from "../util/type";
 import { requestAccept, requestDeny } from "../util";
+import { requestState } from "../Recoil/Atom";
 
 const StateStyle = css`
   width: 130px;
@@ -21,12 +23,17 @@ const StateStyle = css`
 `;
 
 export default function RequestButton({ type, data }: { type: string; data: RequestType }) {
+  const setRequestData = useSetRecoilState(requestState);
+
   const handleAcceptClick = () => {
     console.log("수락");
     const {
       info: { id },
     } = data;
     requestAccept(id);
+    setRequestData((prev) => {
+      return prev.filter((item) => item.from !== id);
+    });
   };
 
   const handleDenyClick = () => {
@@ -35,6 +42,9 @@ export default function RequestButton({ type, data }: { type: string; data: Requ
       info: { id },
     } = data;
     requestDeny(id);
+    setRequestData((prev) => {
+      return prev.filter((item) => item.from !== id);
+    });
   };
 
   const { state } = data;

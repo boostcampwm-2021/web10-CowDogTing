@@ -5,13 +5,15 @@ import { Button } from "../Atom/Button";
 import ProfileInfo from "../Atom/ProfileInfo";
 import LargeModal from "../Organism/LargeModal";
 import RequestModal from "./RequestModal";
-import { profileModalDatas, requestTarget } from "../Recoil/Atom";
+import { profileModalDatas, requestState, requestTarget, userState } from "../Recoil/Atom";
 import { ProfileType } from "../util/type";
 import { requestChat } from "../util";
 
 export default function ProfileModal(): JSX.Element {
   const setRequestTarget = useSetRecoilState(requestTarget);
   const datas = useRecoilValue(profileModalDatas);
+  const setRequestData = useSetRecoilState(requestState);
+  const { id: myId } = useRecoilValue(userState);
 
   const [index, setIndex] = useState<number>(0);
   const [target, setTarget] = useState<ProfileType | null>(datas[0]);
@@ -44,6 +46,18 @@ export default function ProfileModal(): JSX.Element {
       console.log("error 처리");
       return;
     }
+    setRequestData((prev) => {
+      const { id } = datas[0];
+      return [
+        ...prev,
+        {
+          from: myId,
+          to: id,
+          info: datas[0],
+          state: "ready",
+        },
+      ];
+    });
     setRequestTarget(datas[0]);
     setRequest(true);
   };

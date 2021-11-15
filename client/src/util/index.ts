@@ -11,6 +11,7 @@ export const handleModalClick = (e: React.MouseEvent, refs: RefObject<HTMLDivEle
 
   const clickCard = refs.current
     .map((ref) => {
+      if (!ref) return null;
       if (ref.contains(target)) return ref;
       return null;
     })
