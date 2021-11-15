@@ -1,6 +1,7 @@
 import * as passport from "passport";
 import local from "./localStrategy";
 import kakao from "./kakaoStrategy";
+import github from "./githubStrategy";
 import { Users } from "../db/models/users";
 
 export default () => {
@@ -15,4 +16,5 @@ export default () => {
   });
   local();
   kakao();
+  github();
 };

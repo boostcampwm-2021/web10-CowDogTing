@@ -12,8 +12,7 @@ export default () => {
         clientSecret: process.env.KAKAO_SECRET!,
         callbackURL: process.env.KAKAO_CALLBACKURL!,
       },
-      async (_, __, profile, done) => {
-        console.log("kakao profile", profile);
+      async (_: string, __: string, profile: passportKakao.Profile, done: (error: any, user?: any, info?: any) => void) => {
         try {
           const exUser = await Users.findOne({
             where: { kakao_id: profile._json.kakao_account.email },
