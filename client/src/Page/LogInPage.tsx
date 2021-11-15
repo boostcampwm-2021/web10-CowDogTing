@@ -48,7 +48,6 @@ export default function LogInPage() {
   const idRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
   const setErrorValue = useSetRecoilState(errorState);
-
   const clickLogin = async () => {
     if (!idRef.current || !pwRef.current) return;
     const id = idRef.current.value;
@@ -87,15 +86,19 @@ export default function LogInPage() {
         </div>
         {!code && (
           <div css={SocialLoginButtonContainerStyle}>
-            <Button type="Long" color="#000000">
-              Sign in with Github
-            </Button>
-            <Button type="Long" color="#f3e84d">
-              Sign in with Kakao
-            </Button>
             <a href="http://localhost:4000/api/auth/naver">
               <Button type="Long" color="#2DB400">
                 Sign in with Naver
+              </Button>
+            </a>
+            <a href="http://localhost:4000/api/auth/github">
+              <Button type="Long" color="#000000">
+                Sign in with Github
+              </Button>
+            </a>
+            <a href="http://localhost:4000/api/auth/kakao">
+              <Button type="Long" color="#f3e84d">
+                Sign in with Kakao
               </Button>
             </a>
           </div>
