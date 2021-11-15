@@ -60,5 +60,5 @@ export const handleKakaoLogin = passport.authenticate("kakao");
 
 export const handleKakaoCallback = passport.authenticate("kakao", {
   successRedirect: "http://localhost:3000/main",
-  failureRedirect: "http://localhost:3000/main",
+  failureRedirect: "http://localhost:3000/sub/Login",
 });

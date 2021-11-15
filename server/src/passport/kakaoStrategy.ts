@@ -9,8 +9,8 @@ export default () => {
     new kakaoStrategy(
       {
         clientID: process.env.KAKAO_ID!,
-        clientSecret: "iFwuehmUxUwt2lfdiCuHWRvKpu3zmqQb",
-        callbackURL: "/api/auth/kakao/callback",
+        clientSecret: process.env.KAKAO_SECRET!,
+        callbackURL: process.env.KAKAO_CALLBACKURL!,
       },
       async (_, __, profile, done) => {
         console.log("kakao profile", profile);
