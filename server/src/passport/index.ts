@@ -1,5 +1,6 @@
 import * as passport from "passport";
 import local from "./localStrategy";
+import naver from "./naverStrategy";
 import { Users } from "../db/models/users";
 
 export default () => {
@@ -13,4 +14,5 @@ export default () => {
       .catch((err) => done(err));
   });
   local();
+  naver();
 };

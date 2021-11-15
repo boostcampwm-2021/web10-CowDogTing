@@ -56,21 +56,14 @@ export default function LogInPage() {
       const location = window.location.href.split("=")[1];
       const token = location.split("&")[0];
       console.log("token: ", token);
-      fetch(``, {
-        method: "GET",
+      fetch("/api/auth/social", {
+        method: "POST",
         headers: {
           "Content-type": "application/json",
           Authorization: token,
         },
       })
-        .then((res) => res.json())
-        .then((res) => {
-          localStorage.setItem("access_token", res.token);
-          // setUserData({
-          //   nickname: res.nickname,
-          //   image: res.image,
-          // });
-        })
+        .then((res) => console.log(res))
         .catch((err) => console.log("err : ", err));
     }
   };
