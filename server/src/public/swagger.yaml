@@ -253,7 +253,105 @@ paths:
                     },
                     state: "대기중",
                   },
-                ]                  
+                ]    
+  /api/core/postRequest:
+    post:
+      summary: 신청하기 호출
+      requestBody:
+        description: 요청 신청
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from:
+                  oneOf:
+                    - type: string 
+                    - type: number
+                to:
+                  oneOf:
+                    - type: string 
+                    - type: number
+            example: {
+                from: "hs",
+                to: "yj"
+            }
+      responses:
+        200:
+          description: 유저 정보 변경 확인
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
+  /api/core/denyRequest:
+    post:
+      summary: 거절하기 호출
+      requestBody:
+        description: 요청 신청
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from:
+                  oneOf:
+                    - type: string 
+                    - type: number
+                to:
+                  oneOf:
+                    - type: string 
+                    - type: number
+            example: {
+                from: 2,
+                to: 1
+            }                    
+      responses:
+        200:
+          description: 유저 정보 변경 확인
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true        
+                
+  /api/core/acceptRequest:
+    post:
+      summary: 수락하기 호출
+      requestBody:
+        description: 요청 신청
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                from:
+                  oneOf:
+                    - type: string 
+                    - type: number
+                to:
+                  oneOf:
+                    - type: string 
+                    - type: number
+            example: {
+                from: "hs",
+                to: "yj"
+            }                    
+      responses:
+        200:
+          description: 유저 정보 변경 확인
+          content:
+            application/json:
+              schema:
+                type: boolean
+              example:
+                true
+                
   /api/auth/register:
     post:
       summary: 회원가입
@@ -744,3 +842,7 @@ paths:
                           type: boolean
                         source:
                           type: number
+                    
+                          
+                          
+                    
