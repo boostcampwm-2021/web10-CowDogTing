@@ -1,22 +1,22 @@
 /* eslint-disable consistent-return */
 /* eslint-disable spaced-comment */
 /* eslint-disable no-console */
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Global } from "@emotion/react";
 import { Redirect, Route, Switch } from "react-router";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import reset from "./util/reset";
+import Footer from "./Molecules/Footer";
+import ErrorModal from "./Template/ErrorModal";
 import MainPage from "./Page/MainPage";
 import Page from "./Page/Page";
-import Footer from "./Molecules/Footer";
 import ChatRoom from "./Page/ChatRoom";
-import { chatsState, chatTarget, joinChatRoomState, requestState, userState } from "./Recoil/Atom";
-import ErrorModal from "./Template/ErrorModal";
 import ClientSocket from "./Socket";
-import { getFetch } from "./util/data";
-import { ChatInfoType, RequestType, MessageType } from "./util/type";
 import { handleReceiveAcceptSocket, handleReceiveChatSocket, handleReceiveDenySocket, handleReceiveRequestSocket } from "./util";
+import { ChatInfoType, RequestType, MessageType } from "./util/type";
 import { CHAT_INFO_URL, JOIN_CHAT_URL, REQUEST_URL, USER_URL } from "./util/URL";
+import { getFetch } from "./util/data";
+import reset from "./util/reset";
+import { chatsState, chatTarget, joinChatRoomState, requestState, userState } from "./Recoil/Atom";
 
 function App() {
   const [user, setUser] = useRecoilState(userState);
@@ -24,8 +24,6 @@ function App() {
   const [joinChat, setJoinChat] = useRecoilState(joinChatRoomState);
   const setChat = useSetRecoilState(chatsState);
   const setChatInfo = useSetRecoilState(chatTarget);
-
-  const [socket, setSocket] = useState<any>(null);
 
   const getInitData = async () => {
     try {
@@ -43,7 +41,7 @@ function App() {
   };
 
   useEffect(() => {
-    if (socket === null) return;
+    const socket = new ClientSocket(user.id);
 
     const handleReceiveRequestEvent = (data: RequestType) => {
       handleReceiveRequestSocket({ setRequest, data });
@@ -69,7 +67,7 @@ function App() {
       return;
     }
     // eslint-disable-next-line no-new
-    setSocket(new ClientSocket(user.id));
+    new ClientSocket(user.id);
   }, [user]);
 
   useEffect(() => {
