@@ -65,7 +65,9 @@ function App() {
   }, [joinChat]);
 
   useEffect(() => {
-    if (user.id === "") return;
+    if (user.id === "") {
+      return;
+    }
     // eslint-disable-next-line no-new
     setSocket(new ClientSocket(user.id));
   }, [user]);
