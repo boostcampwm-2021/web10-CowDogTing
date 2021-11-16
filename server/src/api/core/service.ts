@@ -1,7 +1,7 @@
 import { Op, literal } from "sequelize";
 import { Request } from "../../db/models/request";
 import { Chat } from "../../db/models/chat";
-import { createChatRoom, createParticipant, findChatRoomInfo, findJoinChatRooms } from "../chat/service";
+import { createChatMessage, createChatRoom, createParticipant, findChatRoomInfo, findJoinChatRooms } from "../chat/service";
 import { Users } from "../../db/models/users";
 import { Team } from "../../db/models/team";
 import { sequelize } from "../../db/models";
@@ -10,6 +10,7 @@ import { validateTeam } from "../team/service";
 import { isNumber } from "../../util/utilFunc";
 import { findUser } from "../auth/service";
 import app from "../../app";
+import { messageType } from "src/util/type";
 
 const { QueryTypes } = require("sequelize");
 
@@ -250,12 +251,20 @@ const acceptRequestUser = async ({ from, to }: { from: string; to: string }) => 
   const createdChatRoom = await createChatRoom();
   const chatRoomId = createdChatRoom.get({ plain: true }).chatRoomId;
   const createdParticipant = await createParticipant({ from, to, chatRoomId });
-  const chatRoomData = findChatRoomInfo({ chatRoomId });
-
+  const createdChatMessage = await createChatMessage({ chatRoomId, message: makeMessageObject({ from, to, message: `${to}가 채팅을 수락했습니다.` }) });
+  const chatRoomData = await findChatRoomInfo({ chatRoomId });
   const io = app.get("io");
   const fromSocketId = SocketMap.get(from);
   io.to(fromSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
   if (!SocketMap.has(to)) return;
   const toSocketId = SocketMap.get(to);
   io.to(toSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
+};
+
+const makeMessageObject = ({ from, to, message }: { from: string; to: string; message: string }): messageType => {
+  return {
+    from,
+    message,
+    read: false,
+  };
 };

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 /** @jsxImportSource @emotion/react */
@@ -46,9 +47,10 @@ function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileCon
   return (
     <div css={ChatProfileContainerStyle} onClick={profileClickEvent}>
       {chatsInfo?.map((data, idx) => {
-        const memberType = data.member.length > 1 ? "team" : data.member[0].sex;
+        const memberType = data.member.length > 2 ? "team" : data.member[0].sex;
         const lastChatInfo = data.chatMessage[data.chatMessage.length - 1];
-
+        console.log(data);
+        console.log(lastChatInfo);
         return (
           <div data-id={idx} ref={(el) => ((chatRoomRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)}>
             <ProfileCard type={memberType}>
