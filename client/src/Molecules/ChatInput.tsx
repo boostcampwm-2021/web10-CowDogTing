@@ -52,7 +52,8 @@ export default function ChatInput() {
     const chat = messageRef.current.value;
 
     const { socket } = new ClientSocket(uid);
-    socket?.emit("sendChat", { uid, chatRoomId, chat });
+    socket?.emit("sendChat", { chatRoomId, message: { from: uid, message: chat, read: false, source: "" } });
+    messageRef.current.value = "";
   };
 
   return (

@@ -140,7 +140,6 @@ export const findAllProfile = async (person: number, index: number, myId: string
       limit: 10,
     };
     const teamInfos = await Team.findAll(query as object);
-    console.log(teamInfos);
     return teamInfos;
   }
 };
@@ -184,6 +183,8 @@ export const sendRequest = ({ from, to }: { from: string; to: string }) => {
 
 const sendRequestToTeam = ({ from, to }: { from: number; to: number }) => {
   //sibal
+  //팀 멤버 찾기
+  //-> request 다 보내주기 (소켓 연결됐는지 확인 후 )
 };
 
 const sendRequestToUser = async ({ from, to }: { from: string; to: string }) => {

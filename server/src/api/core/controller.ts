@@ -40,7 +40,6 @@ export const postRequest = async (req: Request, res: Response) => {
   if (!req.user) return res.status(401).send({ error: "isn`t Login" });
   const { from, to } = req.body;
   const toValidation = await validationTeamAndUser(to);
-  console.log(toValidation);
   if (!toValidation) return res.status(401).send({ error: "to isn`t exist" });
   await addRequest({ from, to });
   sendRequest({ from, to });
@@ -57,11 +56,9 @@ export const getUserInfo = async (req: Request, res: Response) => {
 export const getProfile = async (req: Request, res: Response) => {
   const person: number = Number(req.query.person);
   const index: number = Number(req.query.index);
-  console.log(req.user);
   if (!req.user) return res.status(401).send(defaultUser);
   const myId = String(req.user.uid);
   const data = await findAllProfile(person, index, myId);
-  console.log(data);
   return res.send(data);
 };
 

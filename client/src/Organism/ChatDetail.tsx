@@ -18,7 +18,7 @@ export default function ChatDetail() {
   const [dataIndex, setDataIndex] = useState<number>(1);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const test = async (e: React.UIEvent<HTMLElement>) => {
+  const handleAddChat = async (e: React.UIEvent<HTMLElement>) => {
     const { scrollTop } = e.currentTarget;
 
     if (scrollTop === 0) {
@@ -42,7 +42,7 @@ export default function ChatDetail() {
   }, [chatRoomId]);
 
   return (
-    <div ref={containerRef} css={ChatContainerStyle} onScroll={test}>
+    <div ref={containerRef} css={ChatContainerStyle} onScroll={handleAddChat}>
       <Chats />
     </div>
   );

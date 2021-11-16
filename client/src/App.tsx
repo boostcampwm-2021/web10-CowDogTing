@@ -4,26 +4,26 @@
 import React, { useEffect, useState } from "react";
 import { Global } from "@emotion/react";
 import { Redirect, Route, Switch } from "react-router";
-import { useRecoilState } from "recoil";
-// import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import reset from "./util/reset";
 import MainPage from "./Page/MainPage";
 import Page from "./Page/Page";
 import Footer from "./Molecules/Footer";
 import ChatRoom from "./Page/ChatRoom";
-import { chatsState, joinChatRoomState, requestState, userState } from "./Recoil/Atom";
+import { chatsState, chatTarget, joinChatRoomState, requestState, userState } from "./Recoil/Atom";
 import ErrorModal from "./Template/ErrorModal";
 import ClientSocket from "./Socket";
 import { getFetch } from "./util/data";
-import { ChatInfoType, RequestType } from "./util/type";
+import { ChatInfoType, RequestType, MessageType } from "./util/type";
 import { handleReceiveAcceptSocket, handleReceiveChatSocket, handleReceiveDenySocket, handleReceiveRequestSocket } from "./util";
 import { CHAT_INFO_URL, JOIN_CHAT_URL, REQUEST_URL, USER_URL } from "./util/URL";
 
 function App() {
   const [user, setUser] = useRecoilState(userState);
-  const [request, setRequest] = useRecoilState(requestState);
+  const setRequest = useSetRecoilState(requestState);
   const [joinChat, setJoinChat] = useRecoilState(joinChatRoomState);
-  const [chat, setChat] = useRecoilState(chatsState);
+  const setChat = useSetRecoilState(chatsState);
+  const setChatInfo = useSetRecoilState(chatTarget);
 
   const [socket, setSocket] = useState<any>(null);
 
@@ -33,7 +33,6 @@ function App() {
       const requestData = await getFetch({ url: REQUEST_URL, query: "" });
       const joinChatData = await getFetch({ url: JOIN_CHAT_URL, query: "" });
       const chatData = await getFetch({ url: CHAT_INFO_URL, query: "" });
-
       setUser(userData);
       setRequest(requestData);
       setJoinChat(joinChatData);
@@ -55,22 +54,26 @@ function App() {
     const handleReceiveAcceptEvent = (data: { chat: ChatInfoType; from: string; to: string }) => {
       handleReceiveAcceptSocket({ setRequest, setJoinChat, setChat, data });
     };
-    const handleReceiveChatEvent = (data: ChatInfoType) => {
-      handleReceiveChatSocket({ setJoinChat, setChat, data });
+    const handleReceiveChatEvent = (data: { message: MessageType; chatRoomId: number }) => {
+      handleReceiveChatSocket({ setJoinChat, setChat, setChatInfo, data });
     };
 
-    socket.addEvent({ handleReceiveRequestEvent, handleReceiveDenyEvent, handleReceiveAcceptEvent, handleReceiveChatEvent });
+    socket.addEvent({ handleReceiveRequestEvent, handleReceiveDenyEvent, handleReceiveAcceptEvent, handleReceiveChatEvent, joinChat });
     return () => {
       socket.deleteEvent({ handleReceiveRequestEvent, handleReceiveDenyEvent, handleReceiveAcceptEvent, handleReceiveChatEvent });
     };
-  }, [request, joinChat, chat]);
+  }, [joinChat]);
 
   useEffect(() => {
     if (user.id === "") return;
     // eslint-disable-next-line no-new
+    console.log(1234);
+    console.log("id", user.id);
     setSocket(new ClientSocket(user.id));
   }, [user]);
+
   useEffect(() => {
+    console.log(123);
     getInitData();
   }, []);
 

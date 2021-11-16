@@ -83,7 +83,6 @@ export const findChatRoomInfo = async ({ chatRoomId }: { chatRoomId: number }) =
     };
   });
   const chatMessage = await findMessages(chatRoomId, 0);
-  console.log(chatMessage);
   return { chatRoomId, member: filteredMemberData, chatMessage };
 };
 
@@ -108,7 +107,7 @@ export const findMessages = async (chatRoomId: number, index: number) => {
     order: [["chatId", "DESC"]],
   };
   const data = await Chat.findAll(query as object);
-  return data;
+  return data.reverse();
 };
 
 export const createChatRoom = async () => {
