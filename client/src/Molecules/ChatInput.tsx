@@ -14,7 +14,6 @@ const InputContainer = css`
   justify-content: center;
   padding-top: 10px;
   align-items: center;
-  border-top: 1px solid #ffcfcf;
   height: fit-content;
 `;
 

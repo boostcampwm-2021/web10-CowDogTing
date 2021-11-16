@@ -64,6 +64,16 @@ export default function ChatDetail() {
     SetCurrentScrollTop(target.scrollHeight);
   }, [chatRoomId, chatInfo, dataIndex]);
 
+  useEffect(() => {
+    return () => {
+      setChatInfo({
+        chatRoomId: 0,
+        member: [],
+        chatMessage: [],
+      });
+    };
+  }, []);
+
   return (
     <div ref={containerRef} css={ChatContainerStyle} onScroll={handleAddChat}>
       <Chats />

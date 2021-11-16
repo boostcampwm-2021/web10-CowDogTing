@@ -17,6 +17,8 @@ const ChatListTemplateStyle = css`
   align-items: center;
   margin: auto;
   border: 1px solid;
+  border-top: none;
+  min-width: 920px;
 `;
 
 function ChatListTemplate() {

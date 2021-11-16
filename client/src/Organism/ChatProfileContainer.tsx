@@ -19,6 +19,7 @@ const ChatProfileContainerStyle = css`
   align-items: center;
   border-right: 1px solid;
   padding-top: 3vh;
+  min-width: 400px;
 `;
 
 function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileContainerType) {
@@ -49,8 +50,6 @@ function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileCon
       {chatsInfo?.map((data, idx) => {
         const memberType = data.member.length > 2 ? "team" : data.member[0].sex;
         const lastChatInfo = data.chatMessage[data.chatMessage.length - 1];
-        console.log(data);
-        console.log(lastChatInfo);
         return (
           <div data-id={idx} ref={(el) => ((chatRoomRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)}>
             <ProfileCard type={memberType}>
