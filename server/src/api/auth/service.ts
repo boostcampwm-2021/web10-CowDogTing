@@ -23,12 +23,12 @@ export const createUser = async ({ uid, password, location, age, sex }: UserAttr
   });
 };
 
-export const addKakaoID = async (kakao_id: string) => {
-  // await Users.update({ kakao_id });
+export const addKakaoID = async (kakao_id: string, uid: string) => {
+  await Users.update({ kakao_id }, { where: { uid } });
 };
-export const addGithubID = async (github_id: string) => {
-  // await Users.update({ github_id });
+export const addGithubID = async (github_id: string, uid: string) => {
+  await Users.update({ github_id }, { where: { uid } });
 };
-export const addNaverID = async (naver_id: string) => {
-  // await Users.update({ naver_id });
+export const addNaverID = async (naver_id: string, uid: string) => {
+  await Users.update({ naver_id }, { where: { uid } });
 };

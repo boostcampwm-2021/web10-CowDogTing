@@ -26,15 +26,15 @@ export const handleLogin = (req: Request, res: Response, next: NextFunction) => 
       return res.status(401).send(false);
     }
     if (req.session.kakao) {
-      addKakaoID(String(req.session.kakao));
+      addKakaoID(String(req.session.kakao), user.uid);
       delete req.session.kakao;
     }
     if (req.session.github) {
-      addGithubID(String(req.session.github));
+      addGithubID(String(req.session.github), user.uid);
       delete req.session.github;
     }
     if (req.session.naver) {
-      addNaverID(String(req.session.naver));
+      addNaverID(String(req.session.naver), user.uid);
       delete req.session.naver;
     }
 
@@ -58,9 +58,22 @@ export const handleLogin = (req: Request, res: Response, next: NextFunction) => 
 //   })(req, res, next);
 // };
 export const handleNaverLogin = passport.authenticate("naver");
-export const handleNaverCallback = passport.authenticate("naver", {
-  failureRedirect: "http://localhost:3000/sub/Login",
-});
+export const handleNaverCallback = (req: Request, res: Response, next: NextFunction) =>
+  passport.authenticate("naver", (authError, user, info) => {
+    if (authError) {
+      return next(authError);
+    }
+    if (!user) {
+      req.session.naver = info;
+      return res.redirect(303, "http://localhost:3000/sub/login?social=naver");
+    }
+    return req.login(user, (loginError) => {
+      if (loginError) {
+        return next(loginError);
+      }
+      return res.redirect(302, "http://localhost:3000/main");
+    });
+  })(req, res, next);
 
 export const handleLogOut = (req: Request, res: Response) => {
   req.logout();
@@ -91,8 +104,8 @@ export const handleKakaoCallback = (req: Request, res: Response, next: NextFunct
       return next(authError);
     }
     if (!user) {
-      req.session.kakao = user;
-      return res.redirect(303, "http://localhost:3000/sub/Login");
+      req.session.kakao = info;
+      return res.redirect(303, "http://localhost:3000/sub/login?social=kakao");
     }
     return req.login(user, (loginError) => {
       if (loginError) {
@@ -104,6 +117,19 @@ export const handleKakaoCallback = (req: Request, res: Response, next: NextFunct
 
 export const handleGithubLogin = passport.authenticate("github", { scope: ["user:email"] });
 
-export const handleGithubCallback = passport.authenticate("github", {
-  failureRedirect: "http://localhost:3000/sub/Login",
-});
+export const handleGithubCallback = (req: Request, res: Response, next: NextFunction) =>
+  passport.authenticate("github", (authError, user, info) => {
+    if (authError) {
+      return next(authError);
+    }
+    if (!user) {
+      req.session.github = info;
+      return res.redirect(303, "http://localhost:3000/sub/login?social=github");
+    }
+    return req.login(user, (loginError) => {
+      if (loginError) {
+        return next(loginError);
+      }
+      return res.redirect(302, "http://localhost:3000/main");
+    });
+  })(req, res, next);
