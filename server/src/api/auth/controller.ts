@@ -12,7 +12,6 @@ export const handleRegister = async (req: Request, res: Response, next: NextFunc
     await createUser({ uid, password, location, age, sex });
     return res.status(200).send({ success: "회원가입 성공" });
   } catch (error) {
-    console.error(error);
     return next(error);
   }
 };

@@ -2,13 +2,12 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import ChatProfileContainer from "../Organism/ChatProfileContainer";
 import ChatListContainer from "../Organism/ChatListContainer";
 import ProfileModal from "./ProfileModal";
 import useModalCloseEvent from "../Hook/useModalCloseEvent";
 import { chatsState, chatTarget, profileModalDatas } from "../Recoil/Atom";
-import { fetchGet } from "../Recoil/Selector";
 
 const ChatListTemplateStyle = css`
   width: 80vw;
@@ -18,12 +17,12 @@ const ChatListTemplateStyle = css`
   align-items: center;
   margin: auto;
   border: 1px solid;
+  border-top: none;
+  min-width: 920px;
 `;
 
 function ChatListTemplate() {
-  const chatInfoUrl = `${process.env.REACT_APP_GET_CHAT_INFO_API_URL}`;
-  const chatsData = useRecoilValue(fetchGet({ url: chatInfoUrl, query: "" }));
-  const [chatsInfo, setChatsInfo] = useRecoilState(chatsState);
+  const chatsInfo = useRecoilValue(chatsState);
   const setChatInfo = useSetRecoilState(chatTarget);
   const setModalDatas = useSetRecoilState(profileModalDatas);
 
@@ -36,10 +35,6 @@ function ChatListTemplate() {
   useModalCloseEvent(modalRef, profileRef, () => {
     setOpenModal(null);
   });
-
-  useEffect(() => {
-    setChatsInfo(chatsData);
-  }, [chatsData]);
 
   useEffect(() => {
     if (openModal === null) {

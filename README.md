@@ -1,4 +1,4 @@
-# CowDogTing
+# CowDogTing 
 <p align="center" >
 <img src="https://user-images.githubusercontent.com/64246267/138801849-61178d29-1a9a-4723-bcb9-ac3f5d2ce4a7.png" align="center"/>
 </p>
@@ -7,6 +7,7 @@
 COWDOGTING
 </p>
 
+## [Wiki](https://github.com/boostcampwm-2021/web10-CowDogTing/wiki) 
 ## 기술 스택
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white">
 <img src="https://img.shields.io/badge/Mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
@@ -18,8 +19,8 @@ COWDOGTING
 [기술스택 사용이유](https://github.com/boostcampwm-2021/web10-CowDogTing/wiki/%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%83%9D)
 
 ## Resources
-- [데모 영상]()
-- [Backlog]()
+- [데모 영상](https://youtu.be/NwkavKrOk0I)
+- [Backlog](https://docs.google.com/spreadsheets/d/167yJb78hPknp7S7JK_qtHvbFZXPQ6wmps1iL3sgt1es/edit#gid=1761511684)
 - [목업]()
 
 ## 👨 팀원소개
@@ -37,6 +38,4 @@ COWDOGTING
   > ㅎㅇ 내이름 갓윤성 부캠 만렙초보자
   - ### 홍한솔
   > ㅎㅇ 내이름 갓한솔 그냥 배포기계 눈감고 40초 컷 백엔드? so~ ez 다물어봐
-
-## [Wiki](https://github.com/boostcampwm-2021/web10-CowDogTing/wiki) 
 

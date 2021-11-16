@@ -28,11 +28,13 @@ export default function RequestPage() {
   const getDatas = () => {
     setRequestForMe(
       requestDatas.filter((data: RequestType) => {
-        return data.from !== myId;
+        if (data == null) return false;
+        return data?.from !== myId;
       })
     );
     setRequestToMe(
       requestDatas.filter((data: RequestType) => {
+        if (data == null) return false;
         return data.from === myId;
       })
     );
