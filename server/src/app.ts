@@ -17,7 +17,7 @@ passportConfig();
 app.use(express.json());
 app.use(
   express.urlencoded({
-    extended: false,
+    extended: true,
   }),
 );
 app.use(cookieParser(process.env.COOKIE_SECRET));

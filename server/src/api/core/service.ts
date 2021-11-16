@@ -54,8 +54,8 @@ export const findAllRequest = async ({ uid }: { uid: string }) => {
       to: uid,
     },
   };
-  const query_from = `select * from Request inner join Users on Request.to = Users.uid where Request.from = "${uid}"`;
   const result_to = await Request.findAll(query_to as object);
+  const query_from = `select * from Request inner join Users on Request.to = Users.uid where Request.from = "${uid}"`;
   const users = await sequelize.query(query_from, { type: QueryTypes.SELECT });
   const filtered = results_from(users);
   return [...result_to, ...filtered];
