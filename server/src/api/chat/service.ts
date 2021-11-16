@@ -82,8 +82,8 @@ export const findChatRoomInfo = async ({ chatRoomId }: { chatRoomId: number }) =
       info: member["User.info"],
     };
   });
-
-  return { chatRoomId, member: filteredMemberData, chatMessage: [] };
+  const chatMessage = await findMessages(chatRoomId, 0);
+  return { chatRoomId, member: filteredMemberData, chatMessage };
 };
 
 export const findJoinChatRooms = async ({ uid }: { uid: string }) => {
@@ -107,7 +107,7 @@ export const findMessages = async (chatRoomId: number, index: number) => {
     order: [["chatId", "DESC"]],
   };
   const data = await Chat.findAll(query as object);
-  return data;
+  return data.reverse();
 };
 
 export const createChatRoom = async () => {
@@ -121,4 +121,5 @@ export const createParticipant = async ({ from, to, chatRoomId }: { from: string
 
 export const createChatMessage = async ({ chatRoomId, message }: SendChatType) => {
   const createdChatMessage = await Chat.create({ uid: message.from, message: message.message, isRead: message.read, src: 1, chatRoomId });
+  return createChatMessage;
 };

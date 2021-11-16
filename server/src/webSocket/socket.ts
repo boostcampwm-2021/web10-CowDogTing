@@ -22,9 +22,12 @@ export const socketInit = (server: any, app: express.Application) => {
     socket.on("setUid", (id: string) => {
       SocketMap.set(id, socket.id);
     });
+    socket.on("joinChatRoom", (chatRoomId: string[]) => {
+      socket.join(chatRoomId);
+    });
     socket.on("sendChat", ({ chatRoomId, message }: SendChatType) => {
       createChatMessage({ chatRoomId, message });
-      //emit socket.emit(chatRoomId)....
+      io.sockets.in(String(chatRoomId)).emit("receiveChat", { chatRoomId: chatRoomId, message });
     });
   });
 };

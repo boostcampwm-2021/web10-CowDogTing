@@ -213,5 +213,9 @@ export type ReceiveAcceptSocketType = {
 export type ReceiveChatSocketType = {
   setJoinChat: any;
   setChat: any;
-  data: ChatInfoType;
+  setChatInfo: any;
+  data: {
+    message: MessageType;
+    chatRoomId: number;
+  };
 };
