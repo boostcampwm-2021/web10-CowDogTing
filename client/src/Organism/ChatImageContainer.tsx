@@ -17,6 +17,9 @@ const ChatListHeader = styled.div`
   height: 5vw;
   border-bottom: 1px solid;
   align-items: center;
+  min-height: 60px;
+  padding-right: 10px;
+  min-width: 520px;
 `;
 
 const ChatImageContainerStyle = css`
