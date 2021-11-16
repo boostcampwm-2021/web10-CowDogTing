@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 /** @jsxImportSource @emotion/react */
@@ -6,7 +7,7 @@ import { css } from "@emotion/react";
 import ProfileCard from "../Atom/ProfileCard";
 import ProfileInfo from "../Atom/ProfileInfo";
 import { RequestListType } from "../util/type";
-import { CardButton } from "../Atom/RequestButton";
+import RequestButton from "../Atom/RequestButton";
 import { handleModalClick } from "../util";
 
 const ProfileListStyle = css`
@@ -39,11 +40,15 @@ export default function RequestList({ datas, setOpenModal, type, profileRef }: R
       {datas?.map((data, idx): React.ReactElement | undefined => {
         const { sex } = data.info;
         return (
-          <div css={ProfileStyle} ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx}>
-            <ProfileCard type={sex}>
-              <ProfileInfo data={data.info} />
-            </ProfileCard>
-            <div css={ProfileSideStyle}>{CardButton(type, data.state)}</div>
+          <div css={ProfileStyle}>
+            <div ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx}>
+              <ProfileCard type={sex}>
+                <ProfileInfo data={data.info} />
+              </ProfileCard>
+            </div>
+            <div css={ProfileSideStyle}>
+              <RequestButton type={type} data={data} />
+            </div>
           </div>
         );
       })}

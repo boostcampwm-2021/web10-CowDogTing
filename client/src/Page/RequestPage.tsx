@@ -26,9 +26,16 @@ export default function RequestPage() {
   if (!checkLogin(userInfo)) passToLoginPage();
 
   const getDatas = () => {
-    requestDatas?.forEach((data: RequestType) => {
-      return data.from !== myId ? setRequestForMe((prev) => [...prev, data]) : setRequestToMe((prev) => [...prev, data]);
-    });
+    setRequestForMe(
+      requestDatas.filter((data: RequestType) => {
+        return data.from !== myId;
+      })
+    );
+    setRequestToMe(
+      requestDatas.filter((data: RequestType) => {
+        return data.from === myId;
+      })
+    );
   };
 
   useEffect(() => {

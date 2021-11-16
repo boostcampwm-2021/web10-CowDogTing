@@ -19,7 +19,7 @@ export default function useModalCloseEvent(ref: RefObject<HTMLDivElement>, profi
 
       profileRef.current.forEach((userRef) => {
         if (flag) return;
-
+        if (!userRef) return;
         if (userRef.contains(target)) {
           flag = true;
         }

@@ -188,3 +188,30 @@ export type ErrorType = {
   errorStr: string;
   timeOut: number;
 };
+
+export type ReceiveRequestSocketType = {
+  setRequest: Function;
+  data: RequestType;
+};
+
+export type ReceiveDenySocketType = {
+  setRequest: Function;
+  data: { from: string; to: string };
+};
+
+export type ReceiveAcceptSocketType = {
+  setRequest: Function;
+  setJoinChat: Function;
+  setChat: Function;
+  data: {
+    chat: ChatInfoType;
+    from: string;
+    to: string;
+  };
+};
+
+export type ReceiveChatSocketType = {
+  setJoinChat: any;
+  setChat: any;
+  data: ChatInfoType;
+};

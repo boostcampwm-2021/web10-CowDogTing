@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-debugger */
 import axios from "axios";
-import { CHAT_MESSAGES_API_URL, LOGIN_API_URL, LOGOUT_API_URL, PROFILE_API_URL, REGISTER_API_URL, TEAM_CREATE_API_URL, TEAM_INVITE_API_URL, TEAM_UPDATE_API_URL, USER_INFO_API_URL } from "./URL";
+import { ACCEPT_API_URL, CHAT_MESSAGES_API_URL, DENY_API_URL, LOGIN_API_URL, LOGOUT_API_URL, PROFILE_API_URL, REGISTER_API_URL, REQUEST_API_URL, TEAM_CREATE_API_URL, TEAM_INVITE_API_URL, TEAM_UPDATE_API_URL, USER_INFO_API_URL } from "./URL";
 import { ChangeTeamInfoType, loginInfo, PostTeamType, registerInfo } from "./type";
 
 export const changeTeamInfo = async ({ teamName, teamInfo, location }: ChangeTeamInfoType) => {
@@ -132,4 +132,33 @@ export const logOutUser = async () => {
   } catch (error) {
     return "error";
   }
+};
+
+export const requestAccept = async ({ from, to }: { from: string | number; to: string | number }): Promise<void> => {
+  await axios.post(ACCEPT_API_URL, {
+    from,
+    to,
+  });
+};
+
+export const requestDeny = async ({ from, to }: { from: string | number; to: string | number }): Promise<void> => {
+  await axios.post(DENY_API_URL, {
+    from,
+    to,
+  });
+};
+
+export const requestChat = async ({ from, to }: { from: string | number; to: string | number }): Promise<boolean> => {
+  const { data } = await axios.post(REQUEST_API_URL, {
+    from,
+    to,
+  });
+  return data;
+};
+
+export const getFetch = async ({ url, query }: { url: string; query: string }): Promise<any> => {
+  const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}${url}${query}`, {
+    withCredentials: true,
+  });
+  return data;
 };
