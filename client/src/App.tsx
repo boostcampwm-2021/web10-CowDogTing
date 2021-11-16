@@ -17,7 +17,7 @@ import ClientSocket from "./Socket";
 import { getFetch } from "./util/data";
 import { ChatInfoType, RequestType } from "./util/type";
 import { handleReceiveAcceptSocket, handleReceiveChatSocket, handleReceiveDenySocket, handleReceiveRequestSocket } from "./util";
-import { JOIN_CHAT_URL, REQUEST_URL, USER_URL } from "./util/URL";
+import { CHAT_INFO_URL, JOIN_CHAT_URL, REQUEST_URL, USER_URL } from "./util/URL";
 
 function App() {
   const [user, setUser] = useRecoilState(userState);
@@ -32,9 +32,12 @@ function App() {
       const userData = await getFetch({ url: USER_URL, query: "" });
       const requestData = await getFetch({ url: REQUEST_URL, query: "" });
       const joinChatData = await getFetch({ url: JOIN_CHAT_URL, query: "" });
+      const chatData = await getFetch({ url: CHAT_INFO_URL, query: "" });
+
       setUser(userData);
       setRequest(requestData);
       setJoinChat(joinChatData);
+      setChat(chatData);
     } catch (error) {
       console.log(error);
     }

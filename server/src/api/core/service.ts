@@ -119,12 +119,13 @@ export const findUserInfo = async ({ uid }: { uid: string }) => {
   return await Users.findOne(query as object);
 };
 
-export const findAllProfile = async (person: number, index: number) => {
+export const findAllProfile = async (person: number, index: number, myId: string) => {
   let query;
   if (person === 1) {
     query = {
       raw: true,
       attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+      where: { uid: { [Op.ne]: myId } },
       offset: 10 * index,
       limit: 10,
     };
@@ -263,7 +264,7 @@ const acceptRequestUser = async ({ from, to }: { from: string; to: string }) => 
 
 const makeMessageObject = ({ from, to, message }: { from: string; to: string; message: string }): messageType => {
   return {
-    from,
+    from: to,
     message,
     read: false,
   };

@@ -14,3 +14,4 @@ export const ACCEPT_API_URL = `${URL}${process.env.REACT_APP_GET_ACCEPT_REQUEST_
 export const USER_URL = `${process.env.REACT_APP_GET_USER_INFO_API_URL}`;
 export const REQUEST_URL = `${process.env.REACT_APP_GET_REQUEST_API_URL}`;
 export const JOIN_CHAT_URL = `${process.env.REACT_APP_GET_JOIN_CHAT_INFO_API_URL}`;
+export const CHAT_INFO_URL = `${process.env.REACT_APP_GET_CHAT_INFO_API_URL}`;
