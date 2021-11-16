@@ -46,6 +46,21 @@ export const handleLogin = (req: Request, res: Response, next: NextFunction) => 
     });
   })(req, res, next);
 };
+// export const handleNaverLogin = (req: Request, res: Response, next: NextFunction) => {
+//   console.log(11);
+//   passport.authenticate("naver", (authError, user, info) => {
+//     if (authError) return next(authError);
+//     if (!user) return res.status(401).send(false);
+//     return req.login(user, (loginError) => {
+//       if (loginError) return next(loginError);
+//       return res.status(200).send(true);
+//     });
+//   })(req, res, next);
+// };
+export const handleNaverLogin = passport.authenticate("naver");
+export const handleNaverCallback = passport.authenticate("naver", {
+  failureRedirect: "http://localhost:3000/sub/Login",
+});
 
 export const handleLogOut = (req: Request, res: Response) => {
   req.logout();
