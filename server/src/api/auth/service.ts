@@ -22,3 +22,13 @@ export const createUser = async ({ uid, password, location, age, sex }: UserAttr
     info: null,
   });
 };
+
+export const addKakaoID = async (kakao_id: string) => {
+  // await Users.update({ kakao_id });
+};
+export const addGithubID = async (github_id: string) => {
+  // await Users.update({ github_id });
+};
+export const addNaverID = async (naver_id: string) => {
+  // await Users.update({ naver_id });
+};
