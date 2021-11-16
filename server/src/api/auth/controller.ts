@@ -55,13 +55,13 @@ export const handleNaverCallback = (req: Request, res: Response, next: NextFunct
     }
     if (!user) {
       req.session.naver = info;
-      return res.redirect(303, "http://localhost:3000/sub/login?social=naver");
+      return res.redirect(303, "https://localhost:3000/sub/login?social=naver");
     }
     return req.login(user, (loginError) => {
       if (loginError) {
         return next(loginError);
       }
-      return res.redirect(302, "http://localhost:3000/main");
+      return res.redirect(302, "https://localhost:3000/main");
     });
   })(req, res, next);
 
@@ -95,13 +95,13 @@ export const handleKakaoCallback = (req: Request, res: Response, next: NextFunct
     }
     if (!user) {
       req.session.kakao = info;
-      return res.redirect(303, "http://localhost:3000/sub/login?social=kakao");
+      return res.redirect(303, "https://localhost:3000/sub/login?social=kakao");
     }
     return req.login(user, (loginError) => {
       if (loginError) {
         return next(loginError);
       }
-      return res.redirect(302, "http://localhost:3000/main");
+      return res.redirect(302, "https://localhost:3000/main");
     });
   })(req, res, next);
 
@@ -114,12 +114,12 @@ export const handleGithubCallback = (req: Request, res: Response, next: NextFunc
     }
     if (!user) {
       req.session.github = info;
-      return res.redirect(303, "http://localhost:3000/sub/login?social=github");
+      return res.redirect(303, "https://localhost:3000/sub/login?social=github");
     }
     return req.login(user, (loginError) => {
       if (loginError) {
         return next(loginError);
       }
-      return res.redirect(302, "http://localhost:3000/main");
+      return res.redirect(302, "https://localhost:3000/main");
     });
   })(req, res, next);
