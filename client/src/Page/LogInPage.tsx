@@ -7,11 +7,11 @@ import React, { useRef } from "react";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { Input } from "../Atom/Input";
 import { postLogin } from "../util/data";
 import { errorState } from "../Recoil/Atom";
 import SocialLoginContainer from "../Molecules/SocialLoginContainer";
 import LoginButtonContainer from "../Molecules/LoginButtonContainer";
+import LoginMainInput from "../Molecules/LoginMainInput";
 
 declare const window: any;
 
@@ -21,12 +21,6 @@ const containerStyle = css`
   flex-direction: column;
   width: 300px;
   margin-top: 50px;
-`;
-
-const titleStyle = css`
-  font-size: 64px;
-  text-align: center;
-  margin-bottom: 20px;
 `;
 
 export default function LogInPage() {
@@ -60,9 +54,7 @@ export default function LogInPage() {
   return (
     <>
       <div css={containerStyle}>
-        <div css={titleStyle}>Sign in</div>
-        <Input ref={idRef} placeholder="ID" autoComplete="off" />
-        <Input ref={pwRef} placeholder="PW" type="password" autoComplete="off" />
+        <LoginMainInput idRef={idRef} pwRef={pwRef} />
         <LoginButtonContainer onClick={clickLogin} />
         {!social && <SocialLoginContainer />}
       </div>

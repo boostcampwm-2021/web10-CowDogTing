@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import { Button } from "../Atom/Button";
+/** @jsxImportSource @emotion/react */
 
 const SocialLoginButtonContainerStyle = css`
   div:nth-child(1) {
