@@ -15,7 +15,7 @@ const borderBottom = css`
 `;
 
 const navStyle = css`
-  &:first-child {
+  &:first-of-type {
     ${borderTop}
   }
 
@@ -25,7 +25,7 @@ const navStyle = css`
 `;
 
 const childrenStyle = css`
-  &:first-child {
+  &:first-of-type {
     div {
       ${borderTop}
     }
