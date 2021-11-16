@@ -2,12 +2,13 @@ import { Chat } from "../../db/models/chat";
 import { ChatRoom } from "../../db/models/chatRoom";
 import { Participant, ParticipantAttributes } from "../../db/models/participant";
 import { Users } from "../../db/models/users";
+import { SendChatType } from "../../util/type";
 
 interface infoAttribute extends ParticipantAttributes {
   [key: string]: string | number | null | undefined;
 }
 
-export const findChatRoomInfo = async ({ uid }: { uid: string }) => {
+export const findChatRoomsInfo = async ({ uid }: { uid: string }) => {
   const query = ({ chatRoomId }: { chatRoomId: Participant }) => {
     return {
       raw: true,
@@ -54,6 +55,37 @@ export const findChatRoomInfo = async ({ uid }: { uid: string }) => {
   return filteredData;
 };
 
+export const findChatRoomInfo = async ({ chatRoomId }: { chatRoomId: number }) => {
+  const query = ({ chatRoomId }: { chatRoomId: number }) => {
+    return {
+      raw: true,
+      include: [
+        {
+          model: Users,
+        },
+        {
+          model: ChatRoom,
+        },
+      ],
+      where: { chatRoomId },
+      attribute: [],
+    };
+  };
+  const chatRoomInfo = await Participant.findAll(query({ chatRoomId }));
+  const filteredMemberData = (chatRoomInfo as unknown as infoAttribute[]).map((member: infoAttribute) => {
+    return {
+      id: member["User.uid"],
+      image: member["User.image"],
+      location: member["User.location"],
+      sex: member["User.sex"],
+      age: member["User.age"],
+      info: member["User.info"],
+    };
+  });
+
+  return { chatRoomId, member: filteredMemberData, chatMessage: [] };
+};
+
 export const findJoinChatRooms = async ({ uid }: { uid: string }) => {
   const query = {
     attributes: ["chatRoomId"],
@@ -76,4 +108,17 @@ export const findMessages = async (chatRoomId: number, index: number) => {
   };
   const data = await Chat.findAll(query as object);
   return data;
+};
+
+export const createChatRoom = async () => {
+  return ChatRoom.create();
+};
+
+export const createParticipant = async ({ from, to, chatRoomId }: { from: string; to: string; chatRoomId: number }) => {
+  const promiseArr = [Participant.create({ uid: to, chatRoomId }), Participant.create({ uid: from, chatRoomId })];
+  return await Promise.all(promiseArr);
+};
+
+export const createChatMessage = async ({ chatRoomId, message }: SendChatType) => {
+  const createdChatMessage = await Chat.create({ uid: message.from, message: message.message, isRead: message.read, src: 1, chatRoomId });
 };

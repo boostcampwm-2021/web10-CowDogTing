@@ -1,5 +1,7 @@
+import { isNumber } from "src/util/utilFunc";
 import { Team, TeamAttributes } from "../../db/models/team";
 import { Users } from "../../db/models/users";
+import { findUser } from "../auth/service";
 
 interface infoAttribute extends TeamAttributes {
   [key: string]: string | number | null | undefined;
@@ -26,13 +28,13 @@ export const findTeam = async ({ gid }: { gid: number }) => {
   return filteredTeamInfo;
 };
 
-export const _createTeam = async (teamInfo: any) => {
+export const _createTeam = async (teamInfo: TeamAttributes) => {
   const team = await Team.create(teamInfo);
   const gid = team.getDataValue("gid");
   await Users.update({ gid: gid }, { where: { uid: teamInfo.leader } });
   return gid;
 };
-export const _updateTeam = async (teamInfo: any) => {
+export const _updateTeam = async (teamInfo: TeamAttributes) => {
   const { gid } = teamInfo;
   const { name, description, location } = teamInfo;
   const updateTeamInfo = { name, description, location };
@@ -47,7 +49,7 @@ export const _inviteTeam = async ({ gid, userId }: { gid: number; userId: string
   try {
     const checkNum = await Users.count({ where: { gid } });
     if (checkNum > 4) return false;
-    const checkUser = await Users.findOne({ where: { uid: userId } });
+    const checkUser = await findUser({ uid: userId });
     if (!checkUser) return false;
     return await Users.update({ gid }, { where: { uid: userId }, returning: true });
   } catch (error) {
@@ -62,4 +64,8 @@ export const _getGroupId = async ({ teamName }: { teamName: string }) => {
     where: { name: teamName },
   };
   return await Team.findOne(query);
+};
+
+export const validateTeam = async ({ gid }: { gid: number }) => {
+  return await Team.findOne({ where: { gid } });
 };

@@ -4,11 +4,11 @@ import { sequelize } from "./index";
 import { Users } from "./users";
 
 interface ChatAttributes {
-  chatId: number;
+  chatId?: number;
   chatRoomId: number;
   isRead: boolean;
-  message: string;
-  src: number;
+  message?: string;
+  src?: number;
   uid: string;
 }
 
@@ -59,7 +59,7 @@ Chat.init(
     sequelize,
     timestamps: false,
     freezeTableName: true,
-  }
+  },
 );
 
 Users.hasMany(Chat, {
