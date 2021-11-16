@@ -18,8 +18,8 @@ COWDOGTING
 [기술스택 사용이유](https://github.com/boostcampwm-2021/web10-CowDogTing/wiki/%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%83%9D)
 
 ## Resources
-- [데모 영상]()
-- [Backlog]()
+- [데모 영상](https://youtu.be/NwkavKrOk0I)
+- [Backlog](https://docs.google.com/spreadsheets/d/167yJb78hPknp7S7JK_qtHvbFZXPQ6wmps1iL3sgt1es/edit#gid=1761511684)
 - [목업]()
 
 ## 👨 팀원소개
