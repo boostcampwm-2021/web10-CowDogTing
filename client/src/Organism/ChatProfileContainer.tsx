@@ -50,6 +50,7 @@ function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileCon
       {chatsInfo?.map((data, idx) => {
         const memberType = data.member.length > 2 ? "team" : data.member[0].sex;
         const lastChatInfo = data.chatMessage[data.chatMessage.length - 1];
+        if (!data.chatMessage.length) return false;
         return (
           <div data-id={idx} ref={(el) => ((chatRoomRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)}>
             <ProfileCard type={memberType}>

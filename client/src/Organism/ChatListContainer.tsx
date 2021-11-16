@@ -22,6 +22,7 @@ const ChatListContainerStyle = css`
 
 function ChatListContainer({ profileRef, setOpenModal }: ChatListContainerType) {
   const { chatRoomId } = useRecoilValue(chatTarget);
+
   return (
     <div css={ChatListContainerStyle} onClick={(e) => handleModalClick(e, profileRef, setOpenModal)}>
       <ChatImageContainer profileRef={profileRef} />
@@ -30,7 +31,7 @@ function ChatListContainer({ profileRef, setOpenModal }: ChatListContainerType) 
           <ChatDetail />
           <ChatInputContainer>
             <ChatInput />
-            <LinkButton url="/ChatRoom" type="Small" content="추가기능" />
+            <LinkButton url={`/ChatRoom?chatRoomId=${chatRoomId}`} type="Small" content="추가기능" />
           </ChatInputContainer>
         </>
       )}
