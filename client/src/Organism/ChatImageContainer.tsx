@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 /** @jsxImportSource @emotion/react */
@@ -9,7 +10,7 @@ import styled from "@emotion/styled";
 import { ChatImageContainerType } from "../util/type";
 import { ProfileImage } from "../Atom/ProfileImage";
 import { Button } from "../Atom/Button";
-import { chatTarget } from "../Recoil/Atom";
+import { chatTarget, userState } from "../Recoil/Atom";
 
 const ChatListHeader = styled.div`
   display: flex;
@@ -32,6 +33,8 @@ const ChatImageContainerStyle = css`
 
 function ChatImageContainer({ profileRef }: ChatImageContainerType) {
   const { member } = useRecoilValue(chatTarget);
+  const { id: myId } = useRecoilValue(userState);
+
   const history = useHistory();
 
   const handleCloseRoomClick = () => {
@@ -42,9 +45,10 @@ function ChatImageContainer({ profileRef }: ChatImageContainerType) {
     <>
       <ChatListHeader>
         <div css={ChatImageContainerStyle}>
-          {member?.map((userInfo, idx) => (
-            <ProfileImage type="Mini" image={userInfo.image} ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx} />
-          ))}
+          {member?.map((userInfo, idx) => {
+            if (userInfo.id === myId) return;
+            return <ProfileImage type="Mini" image={userInfo.image} ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx} />;
+          })}
         </div>
         <Button onClick={handleCloseRoomClick}>나가기</Button>
       </ChatListHeader>

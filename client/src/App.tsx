@@ -67,13 +67,10 @@ function App() {
   useEffect(() => {
     if (user.id === "") return;
     // eslint-disable-next-line no-new
-    console.log(1234);
-    console.log("id", user.id);
     setSocket(new ClientSocket(user.id));
   }, [user]);
 
   useEffect(() => {
-    console.log(123);
     getInitData();
   }, []);
 
