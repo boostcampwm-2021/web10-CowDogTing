@@ -7,6 +7,7 @@ import MainHeaderRightSide from "../Molecules/MainHeaderRightSide";
 const mainHeaderStyle = css`
   width: 100vw;
   height: 30vh;
+  min-height: 250px;
   .hide {
     display: none;
   }

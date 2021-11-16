@@ -10,6 +10,7 @@ import RequestList from "./RequestList";
 
 const RequestListStyle = css`
   width: 41%;
+  min-width: 590px;
   display: flex;
   align-items: space-around;
   justify-content: space-between;

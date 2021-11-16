@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { RefObject } from "react";
 import { ChatInfoType, joinChatType, PersonInfoType, ReceiveAcceptSocketType, ReceiveChatSocketType, ReceiveDenySocketType, ReceiveRequestSocketType, RequestType } from "./type";
 
@@ -55,10 +56,11 @@ export const handleReceiveAcceptSocket = ({ setRequest, setJoinChat, setChat, da
   setChat((prev: ChatInfoType[]) => [...prev, data.chat]);
 };
 
-export const handleReceiveChatSocket = ({ setJoinChat, setChat, data }: ReceiveChatSocketType) => {
+export const handleReceiveChatSocket = ({ setJoinChat, setChat, setChatInfo, data }: ReceiveChatSocketType) => {
+  const { chatRoomId, message } = data;
   setJoinChat((prev: joinChatType[]) =>
     prev.map((item) => {
-      if (item.chatRoomId === data.chatRoomId) {
+      if (item.chatRoomId === chatRoomId) {
         return {
           ...item,
           notReadNum: item.notReadNum + 1,
@@ -67,5 +69,22 @@ export const handleReceiveChatSocket = ({ setJoinChat, setChat, data }: ReceiveC
       return item;
     })
   );
-  setChat((prev: ChatInfoType[]) => [...prev, data]);
+  setChat((prev: ChatInfoType[]) =>
+    prev.map((item) => {
+      if (item.chatRoomId === chatRoomId) {
+        return {
+          ...item,
+          chatMessage: [...item.chatMessage, message],
+        };
+      }
+      return item;
+    })
+  );
+  setChatInfo((prev: ChatInfoType) => {
+    if (chatRoomId !== prev.chatRoomId) return prev;
+    return {
+      ...prev,
+      chatMessage: [...prev.chatMessage, message],
+    };
+  });
 };

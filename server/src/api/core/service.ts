@@ -1,7 +1,7 @@
 import { Op, literal } from "sequelize";
 import { Request } from "../../db/models/request";
 import { Chat } from "../../db/models/chat";
-import { createChatRoom, createParticipant, findChatRoomInfo, findJoinChatRooms } from "../chat/service";
+import { createChatMessage, createChatRoom, createParticipant, findChatRoomInfo, findJoinChatRooms } from "../chat/service";
 import { Users } from "../../db/models/users";
 import { Team } from "../../db/models/team";
 import { sequelize } from "../../db/models";
@@ -10,6 +10,7 @@ import { validateTeam } from "../team/service";
 import { isNumber } from "../../util/utilFunc";
 import { findUser } from "../auth/service";
 import app from "../../app";
+import { messageType } from "src/util/type";
 
 const { QueryTypes } = require("sequelize");
 
@@ -86,12 +87,13 @@ export const findOneRequest = async ({ from, to, type }: { from: string; to: str
   if (type === "from") {
     //from 한테 전달할 to의 데이터
     const result_from = await sequelize.query(query_from, { type: QueryTypes.SELECT });
-    return result_from_data(result_from);
+    //result_from.get({ plain: true });
+    return result_from_data(result_from[0]);
   }
 };
 
 export const results_from = (users: any[]) => {
-  return users.map((user) => result_from_data);
+  return users.map((user) => result_from_data(user));
 };
 
 export const result_from_data = (user: any) => {
@@ -117,12 +119,13 @@ export const findUserInfo = async ({ uid }: { uid: string }) => {
   return await Users.findOne(query as object);
 };
 
-export const findAllProfile = async (person: number, index: number) => {
+export const findAllProfile = async (person: number, index: number, myId: string) => {
   let query;
   if (person === 1) {
     query = {
       raw: true,
       attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+      where: { uid: { [Op.ne]: myId } },
       offset: 10 * index,
       limit: 10,
     };
@@ -137,7 +140,6 @@ export const findAllProfile = async (person: number, index: number) => {
       limit: 10,
     };
     const teamInfos = await Team.findAll(query as object);
-    console.log(teamInfos);
     return teamInfos;
   }
 };
@@ -181,19 +183,19 @@ export const sendRequest = ({ from, to }: { from: string; to: string }) => {
 
 const sendRequestToTeam = ({ from, to }: { from: number; to: number }) => {
   //sibal
+  //팀 멤버 찾기
+  //-> request 다 보내주기 (소켓 연결됐는지 확인 후 )
 };
 
 const sendRequestToUser = async ({ from, to }: { from: string; to: string }) => {
   const io = app.get("io");
   const fromSocketId = SocketMap.get(from);
-  const fromRequestData = await findOneRequest({ from, to, type: "to" });
-  console.log("from", fromRequestData);
+  const fromRequestData = await findOneRequest({ from, to, type: "from" });
   io.to(fromSocketId).emit("receiveRequest", fromRequestData);
   if (!SocketMap.has(to)) return;
 
   const toSocketId = SocketMap.get(to);
-  const toRequestData = await findOneRequest({ from, to, type: "from" });
-  console.log("to", toRequestData);
+  const toRequestData = await findOneRequest({ from, to, type: "to" });
   io.to(toSocketId).emit("receiveRequest", toRequestData);
 };
 
@@ -251,12 +253,20 @@ const acceptRequestUser = async ({ from, to }: { from: string; to: string }) => 
   const createdChatRoom = await createChatRoom();
   const chatRoomId = createdChatRoom.get({ plain: true }).chatRoomId;
   const createdParticipant = await createParticipant({ from, to, chatRoomId });
-  const chatRoomData = findChatRoomInfo({ chatRoomId });
-
+  const createdChatMessage = await createChatMessage({ chatRoomId, message: makeMessageObject({ from, to, message: `${to}가 채팅을 수락했습니다.` }) });
+  const chatRoomData = await findChatRoomInfo({ chatRoomId });
   const io = app.get("io");
   const fromSocketId = SocketMap.get(from);
-  io.to(fromSocketId).emit("receiveAcceptRequest", {chat:chatRoomData,from,to});
+  io.to(fromSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
   if (!SocketMap.has(to)) return;
   const toSocketId = SocketMap.get(to);
-  io.to(toSocketId).emit("receiveAcceptRequest", {chat:chatRoomData,from,to});
+  io.to(toSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
+};
+
+const makeMessageObject = ({ from, to, message }: { from: string; to: string; message: string }): messageType => {
+  return {
+    from: to,
+    message,
+    read: false,
+  };
 };

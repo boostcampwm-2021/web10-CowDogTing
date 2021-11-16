@@ -14,13 +14,15 @@ const borderBottom = css`
   border-bottom-right-radius: 27px;
 `;
 
-const navStyle = css`
-  &:first-of-type {
-    ${borderTop}
-  }
+const NavStyle = css`
+  div {
+    &:first-of-type {
+      ${borderTop}
+    }
 
-  &:last-child {
-    ${borderBottom}
+    &:last-child {
+      ${borderBottom}
+    }
   }
 `;
 
@@ -51,28 +53,17 @@ const UserDropDownStyle = css`
   }
 `;
 
-const NavDropDownStyle = css`
-  div {
-    ${navStyle}
-  }
-`;
 const LocationDropDownStyle = css`
-  position: relative;
-  left: -650px;
-  top: 80px;
-  ${NavDropDownStyle}
+  margin-left: 100px;
+  ${NavStyle}
 `;
 const AgeDropDownStyle = css`
-  position: relative;
-  left: -400px;
-  top: 80px;
-  ${NavDropDownStyle}
+  margin-left: 280px;
+  ${NavStyle}
 `;
 const SexDropDownStyle = css`
-  position: relative;
-  left: -250px;
-  top: 80px;
-  ${NavDropDownStyle}
+  margin-left: 450px;
+  ${NavStyle}
 `;
 const ChatDropDownStyle = css`
   margin-top: -180px;

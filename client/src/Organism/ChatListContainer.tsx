@@ -17,20 +17,20 @@ const ChatListContainerStyle = css`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 520px;
 `;
 
 function ChatListContainer({ profileRef, setOpenModal }: ChatListContainerType) {
   const { chatRoomId } = useRecoilValue(chatTarget);
-
   return (
     <div css={ChatListContainerStyle} onClick={(e) => handleModalClick(e, profileRef, setOpenModal)}>
       <ChatImageContainer profileRef={profileRef} />
-      {chatRoomId && (
+      {chatRoomId !== 0 && (
         <>
           <ChatDetail />
           <ChatInputContainer>
             <ChatInput />
-            <LinkButton url="/ChatRoom" type="Medium" content="추가기능" />
+            <LinkButton url="/ChatRoom" type="Small" content="추가기능" />
           </ChatInputContainer>
         </>
       )}
