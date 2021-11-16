@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { findUser } from "../auth/service";
 import { isUser } from "../middlewares/isUser";
-import { findImage, findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser, sendRequest, validationTeamAndUser, _denyRequest, _acceptRequest } from "./service";
+import { findImage, findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser, sendRequest, validationTeamAndUser, _denyRequest, _acceptRequest, addRequest } from "./service";
 
 const defaultUser = {
   id: "",
@@ -41,6 +41,7 @@ export const postRequest = async (req: Request, res: Response) => {
   const { from, to } = req.body;
   const toValidation = await validationTeamAndUser(to);
   if (!toValidation) return res.status(401).send({ error: "to isn`t exist" });
+  await addRequest({ from, to });
   sendRequest({ from, to });
   return res.status(200).send(true);
 };
@@ -55,7 +56,9 @@ export const getUserInfo = async (req: Request, res: Response) => {
 export const getProfile = async (req: Request, res: Response) => {
   const person: number = Number(req.query.person);
   const index: number = Number(req.query.index);
-  const data = await findAllProfile(person, index);
+  if (!req.user) return res.status(401).send(defaultUser);
+  const myId = String(req.user.uid);
+  const data = await findAllProfile(person, index, myId);
   return res.send(data);
 };
 

@@ -29,11 +29,11 @@ export default function RequestButton({ type, data }: { type: string; data: Requ
   } = data;
 
   const handleAcceptClick = () => {
-    requestAccept({ from: myId, to: id });
+    requestAccept({ from: id, to: myId });
   };
 
   const handleDenyClick = () => {
-    requestDeny({ from: myId, to: id });
+    requestDeny({ from: id, to: myId });
   };
 
   const { state } = data;

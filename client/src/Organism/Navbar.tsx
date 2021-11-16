@@ -13,26 +13,28 @@ const NavbarStyle = css`
   width: 100vw;
   height: 80px;
   border-bottom: 1px solid black;
+`;
+
+const NavbarContainerStyle = css`
   display: flex;
-  .hide {
-    display: none;
-  }
-  .display {
-    display: flex;
-  }
+  width: 80%;
+  border: 1px solid #000000;
+  border-top: none;
+  border-bottom: none;
+  margin: 0 auto;
+  min-width: 850px;
   .navbar-item {
-    &:first-child {
-      border-left: 1px solid black;
-      margin-left: 210px;
-    }
     &:last-child {
       display: flex;
       height: 80px;
       align-items: center;
       padding: 20px;
-      border-right: 1px solid black;
     }
   }
+`;
+
+const DropDownContainerStyle = css`
+  position: absolute;
 `;
 
 const list = [
@@ -61,21 +63,27 @@ export default function Navbar() {
   useModalCloseEvent(dropDownRef, navBarRef, () => setDropDownToggle(""));
 
   return (
-    <div css={NavbarStyle} onClick={(event) => handleDropDownClick(event)}>
-      {list.map((item, idx) => {
-        const { name } = item;
-        return (
-          <div className="navbar-item" data-id={idx} ref={(el) => ((navBarRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)}>
-            <NavbarDiv>{name}</NavbarDiv>
-          </div>
-        );
-      })}
+    <>
+      <div css={NavbarStyle} onClick={(event) => handleDropDownClick(event)}>
+        <div css={NavbarContainerStyle}>
+          {list.map((item, idx) => {
+            const { name } = item;
+            return (
+              <div className="navbar-item" data-id={idx} ref={(el) => ((navBarRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)}>
+                <NavbarDiv>{name}</NavbarDiv>
+              </div>
+            );
+          })}
 
-      <div className="navbar-item">
-        <Input />
-        <SearchIcon />
+          <div className="navbar-item">
+            <Input />
+            <SearchIcon />
+          </div>
+        </div>
       </div>
-      <div ref={dropDownRef}>{dropDownToggle && <DropDown type={dropDownToggle} className="show" />}</div>
-    </div>
+      <div css={DropDownContainerStyle} ref={dropDownRef}>
+        {dropDownToggle && <DropDown type={dropDownToggle} className="show" />}
+      </div>
+    </>
   );
 }
