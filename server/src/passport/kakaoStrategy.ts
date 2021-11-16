@@ -20,7 +20,7 @@ export default () => {
           if (exUser) {
             done(null, exUser);
           } else {
-            done(null, false, { message: "로컬 로그인 후 연동이 필요합니다." });
+            done(null, false, profile._json.kakao_account.email);
           }
         } catch (error) {
           console.error(error);
