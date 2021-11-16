@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { findUser } from "../auth/service";
 import { isUser } from "../middlewares/isUser";
-import { findImage, findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser, sendRequest, validationTeamAndUser, _denyRequest, _acceptRequest } from "./service";
+import { findImage, findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser, sendRequest, validationTeamAndUser, _denyRequest, _acceptRequest, addRequest } from "./service";
 
 const defaultUser = {
   id: "",
@@ -40,7 +40,9 @@ export const postRequest = async (req: Request, res: Response) => {
   if (!req.user) return res.status(401).send({ error: "isn`t Login" });
   const { from, to } = req.body;
   const toValidation = await validationTeamAndUser(to);
+  console.log(toValidation);
   if (!toValidation) return res.status(401).send({ error: "to isn`t exist" });
+  await addRequest({ from, to });
   sendRequest({ from, to });
   return res.status(200).send(true);
 };

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { RefObject } from "react";
 import { ChatInfoType, joinChatType, PersonInfoType, ReceiveAcceptSocketType, ReceiveChatSocketType, ReceiveDenySocketType, ReceiveRequestSocketType, RequestType } from "./type";
 
@@ -36,14 +37,17 @@ export const checkLogin = (userInfo: PersonInfoType) => {
 };
 
 export const handleReceiveRequestSocket = ({ setRequest, data }: ReceiveRequestSocketType) => {
+  console.log("요청이왔어요", data);
   setRequest((prev: RequestType[]) => [...prev, data]);
 };
 
 export const handleReceiveDenySocket = ({ setRequest, data }: ReceiveDenySocketType) => {
+  console.log("거절이됐어요", data);
   setRequest((prev: RequestType[]) => prev.filter((item) => item.from !== data.from));
 };
 
 export const handleReceiveAcceptSocket = ({ setRequest, setJoinChat, setChat, data }: ReceiveAcceptSocketType) => {
+  console.log("승인이 됐어요", data);
   setRequest((prev: RequestType[]) => prev.filter((item) => item.from !== data.from));
   setJoinChat((prev: joinChatType[]) => [
     ...prev,

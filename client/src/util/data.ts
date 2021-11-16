@@ -135,24 +135,36 @@ export const logOutUser = async () => {
 };
 
 export const requestAccept = async ({ from, to }: { from: string | number; to: string | number }): Promise<void> => {
-  await axios.post(ACCEPT_API_URL, {
-    from,
-    to,
-  });
+  await axios.post(
+    ACCEPT_API_URL,
+    {
+      from,
+      to,
+    },
+    { withCredentials: true }
+  );
 };
 
 export const requestDeny = async ({ from, to }: { from: string | number; to: string | number }): Promise<void> => {
-  await axios.post(DENY_API_URL, {
-    from,
-    to,
-  });
+  await axios.post(
+    DENY_API_URL,
+    {
+      from,
+      to,
+    },
+    { withCredentials: true }
+  );
 };
 
 export const requestChat = async ({ from, to }: { from: string | number; to: string | number }): Promise<boolean> => {
-  const { data } = await axios.post(REQUEST_API_URL, {
-    from,
-    to,
-  });
+  const { data } = await axios.post(
+    REQUEST_API_URL,
+    {
+      from,
+      to,
+    },
+    { withCredentials: true }
+  );
   return data;
 };
 

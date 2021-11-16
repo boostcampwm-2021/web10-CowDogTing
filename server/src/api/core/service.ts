@@ -86,12 +86,13 @@ export const findOneRequest = async ({ from, to, type }: { from: string; to: str
   if (type === "from") {
     //from 한테 전달할 to의 데이터
     const result_from = await sequelize.query(query_from, { type: QueryTypes.SELECT });
-    return result_from_data(result_from);
+    //result_from.get({ plain: true });
+    return result_from_data(result_from[0]);
   }
 };
 
 export const results_from = (users: any[]) => {
-  return users.map((user) => result_from_data);
+  return users.map((user) => result_from_data(user));
 };
 
 export const result_from_data = (user: any) => {
@@ -186,14 +187,12 @@ const sendRequestToTeam = ({ from, to }: { from: number; to: number }) => {
 const sendRequestToUser = async ({ from, to }: { from: string; to: string }) => {
   const io = app.get("io");
   const fromSocketId = SocketMap.get(from);
-  const fromRequestData = await findOneRequest({ from, to, type: "to" });
-  console.log("from", fromRequestData);
+  const fromRequestData = await findOneRequest({ from, to, type: "from" });
   io.to(fromSocketId).emit("receiveRequest", fromRequestData);
   if (!SocketMap.has(to)) return;
 
   const toSocketId = SocketMap.get(to);
-  const toRequestData = await findOneRequest({ from, to, type: "from" });
-  console.log("to", toRequestData);
+  const toRequestData = await findOneRequest({ from, to, type: "to" });
   io.to(toSocketId).emit("receiveRequest", toRequestData);
 };
 
@@ -255,8 +254,8 @@ const acceptRequestUser = async ({ from, to }: { from: string; to: string }) => 
 
   const io = app.get("io");
   const fromSocketId = SocketMap.get(from);
-  io.to(fromSocketId).emit("receiveAcceptRequest", {chat:chatRoomData,from,to});
+  io.to(fromSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
   if (!SocketMap.has(to)) return;
   const toSocketId = SocketMap.get(to);
-  io.to(toSocketId).emit("receiveAcceptRequest", {chat:chatRoomData,from,to});
+  io.to(toSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
 };
