@@ -227,5 +227,11 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+# docker
+*.dockerignore
+*Dockerfile
+# mkcert
+*mkcert
+*.pem
 
 # End of https://www.toptal.com/developers/gitignore/api/react,windows,macos,git,visualstudiocode,node
