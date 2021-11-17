@@ -88,3 +88,11 @@ export const handleReceiveChatSocket = ({ setJoinChat, setChat, setChatInfo, dat
     };
   });
 };
+
+export const checkGameInUrl = () => {
+  return window.location.href.includes("Game");
+};
+
+export const checkGatherInUrl = () => {
+  return window.location.href.includes("Gather");
+};
