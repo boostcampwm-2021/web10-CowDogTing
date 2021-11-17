@@ -14,18 +14,20 @@ const borderBottom = css`
   border-bottom-right-radius: 27px;
 `;
 
-const navStyle = css`
-  &:first-child {
-    ${borderTop}
-  }
+const NavStyle = css`
+  div {
+    &:first-of-type {
+      ${borderTop}
+    }
 
-  &:last-child {
-    ${borderBottom}
+    &:last-child {
+      ${borderBottom}
+    }
   }
 `;
 
 const childrenStyle = css`
-  &:first-child {
+  &:first-of-type {
     div {
       ${borderTop}
     }
@@ -51,10 +53,17 @@ const UserDropDownStyle = css`
   }
 `;
 
-const NavDropDownStyle = css`
-  div {
-    ${navStyle}
-  }
+const LocationDropDownStyle = css`
+  margin-left: 100px;
+  ${NavStyle}
+`;
+const AgeDropDownStyle = css`
+  margin-left: 280px;
+  ${NavStyle}
+`;
+const SexDropDownStyle = css`
+  margin-left: 450px;
+  ${NavStyle}
 `;
 const ChatDropDownStyle = css`
   margin-top: -180px;
@@ -72,9 +81,9 @@ const DropDownStyle = (props: { type: string; className: string }) => css`
   ${props.type === "Menu" && BasicDropDownStyle}
   ${props.type === "Meeting" && MeetingDropDownStyle}
   ${props.type === "User" && UserDropDownStyle}
-  ${props.type === "Location" && NavDropDownStyle}
-  ${props.type === "Age" && NavDropDownStyle}
-  ${props.type === "Sex" && NavDropDownStyle}
+  ${props.type === "Location" && LocationDropDownStyle}
+  ${props.type === "Age" && AgeDropDownStyle}
+  ${props.type === "Sex" && SexDropDownStyle}
   ${props.type === "Chat" && ChatDropDownStyle}
 `;
 
@@ -87,13 +96,13 @@ const DropDownContainer = styled.div`
 `;
 
 export default function DropDown(props: DropDownType) {
-  const { type, className, onClick } = props;
+  const { type, className } = props;
 
   const list = MENU_LIST[type];
   const ElementOnClick = ["미팅 하러가기", "로그아웃"]; // onClick 이벤트가 있는 것들을 여기 배열에 추가해주면 됨.
 
   const getElement = (menu: menuType) => {
-    if (ElementOnClick.includes(menu.name)) return <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} onClick={onClick} />;
+    if (ElementOnClick.includes(menu.name)) return <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} onClick={props.onClick} />;
     return <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} />;
   };
 

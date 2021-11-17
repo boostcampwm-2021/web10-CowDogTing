@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { RefObject, useEffect } from "react";
 
-export default function useDropDownEvent(ref: RefObject<HTMLDivElement>, handler: (event: MouseEvent) => void) {
+export default function useDropDownCloseEvent(ref: RefObject<HTMLDivElement>, handler: (event: MouseEvent) => void) {
   useEffect(() => {
     const listener = (event: MouseEvent): void => {
       const target: HTMLElement = event.target as HTMLElement;

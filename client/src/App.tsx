@@ -1,39 +1,78 @@
+/* eslint-disable consistent-return */
 /* eslint-disable spaced-comment */
 /* eslint-disable no-console */
 import React, { useEffect } from "react";
 import { Global } from "@emotion/react";
 import { Redirect, Route, Switch } from "react-router";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import reset from "./util/reset";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import Footer from "./Molecules/Footer";
+import ErrorModal from "./Template/ErrorModal";
 import MainPage from "./Page/MainPage";
 import Page from "./Page/Page";
-import Footer from "./Molecules/Footer";
 import ChatRoom from "./Page/ChatRoom";
-import { fetchGet } from "./Recoil/Selector";
-import { joinChatRoomState, requestState, userState } from "./Recoil/Atom";
+import ClientSocket from "./Socket";
+import { handleReceiveAcceptSocket, handleReceiveChatSocket, handleReceiveDenySocket, handleReceiveRequestSocket } from "./util";
+import { ChatInfoType, RequestType, MessageType } from "./util/type";
+import { CHAT_INFO_URL, JOIN_CHAT_URL, REQUEST_URL, USER_URL } from "./util/URL";
+import { getFetch } from "./util/data";
+import reset from "./util/reset";
+import { chatsState, chatTarget, joinChatRoomState, requestState, userState } from "./Recoil/Atom";
 
 function App() {
-  const userUrl = `${process.env.REACT_APP_GET_USER_INFO_API_URL}`;
-  const requestUrl = `${process.env.REACT_APP_GET_REQUEST_API_URL}`;
-  const joinChatUrl = `${process.env.REACT_APP_GET_JOIN_CHAT_INFO_API_URL}`;
-  const userInfo = useRecoilValue(fetchGet({ url: userUrl, query: "" }));
-  const requestInfo = useRecoilValue(fetchGet({ url: requestUrl, query: "" }));
-  const joinChatInfo = useRecoilValue(fetchGet({ url: joinChatUrl, query: "" }));
-
-  const setUserInfo = useSetRecoilState(userState);
-  const setRequestInfo = useSetRecoilState(requestState);
-  const setJoinChatInfo = useSetRecoilState(joinChatRoomState);
+  const [user, setUser] = useRecoilState(userState);
+  const setRequest = useSetRecoilState(requestState);
+  const [joinChat, setJoinChat] = useRecoilState(joinChatRoomState);
+  const setChat = useSetRecoilState(chatsState);
+  const setChatInfo = useSetRecoilState(chatTarget);
 
   const getInitData = async () => {
-    setUserInfo(userInfo);
-    setRequestInfo(requestInfo);
-    setJoinChatInfo(joinChatInfo);
+    try {
+      const userData = await getFetch({ url: USER_URL, query: "" });
+      const requestData = await getFetch({ url: REQUEST_URL, query: "" });
+      const joinChatData = await getFetch({ url: JOIN_CHAT_URL, query: "" });
+      const chatData = await getFetch({ url: CHAT_INFO_URL, query: "" });
+      setUser(userData);
+      setRequest(requestData);
+      setJoinChat(joinChatData);
+      setChat(chatData);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    if (userInfo.uid === "") return;
+    const socket = new ClientSocket(user.id);
+
+    const handleReceiveRequestEvent = (data: RequestType) => {
+      handleReceiveRequestSocket({ setRequest, data });
+    };
+    const handleReceiveDenyEvent = (data: { from: string; to: string }) => {
+      handleReceiveDenySocket({ setRequest, data });
+    };
+    const handleReceiveAcceptEvent = (data: { chat: ChatInfoType; from: string; to: string }) => {
+      handleReceiveAcceptSocket({ setRequest, setJoinChat, setChat, data });
+    };
+    const handleReceiveChatEvent = (data: { message: MessageType; chatRoomId: number }) => {
+      handleReceiveChatSocket({ setJoinChat, setChat, setChatInfo, data });
+    };
+
+    socket.addEvent({ handleReceiveRequestEvent, handleReceiveDenyEvent, handleReceiveAcceptEvent, handleReceiveChatEvent, joinChat });
+    return () => {
+      socket.deleteEvent({ handleReceiveRequestEvent, handleReceiveDenyEvent, handleReceiveAcceptEvent, handleReceiveChatEvent });
+    };
+  }, [joinChat]);
+
+  useEffect(() => {
+    if (user.id === "") {
+      return;
+    }
+    // eslint-disable-next-line no-new
+    new ClientSocket(user.id);
+  }, [user]);
+
+  useEffect(() => {
     getInitData();
-  }, [userInfo, requestInfo, joinChatInfo]);
+  }, []);
 
   return (
     <>
@@ -45,6 +84,7 @@ function App() {
         <Redirect path="*" to="/main" />
       </Switch>
       <Footer />
+      <ErrorModal />
     </>
   );
 }

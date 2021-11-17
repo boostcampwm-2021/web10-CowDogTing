@@ -1,17 +1,15 @@
 import { Chat } from "../../db/models/chat";
 import { ChatRoom } from "../../db/models/chatRoom";
-import { Participant } from "../../db/models/participant";
+import { Participant, ParticipantAttributes } from "../../db/models/participant";
 import { Users } from "../../db/models/users";
+import { SendChatType } from "../../util/type";
 
-export const findChatRoomInfo = async ({ uid }) => {
-  // const joinChatRooms = await findJoinChatRooms({ uid });
-  // console.log(joinChatRooms);
-  // const query = () => {
+interface infoAttribute extends ParticipantAttributes {
+  [key: string]: string | number | null | undefined;
+}
 
-  // }}
-
-  const query = ({ chatRoomId }) => {
-    console.log(chatRoomId);
+export const findChatRoomsInfo = async ({ uid }: { uid: string }) => {
+  const query = ({ chatRoomId }: { chatRoomId: Participant }) => {
     return {
       raw: true,
       include: [
@@ -32,7 +30,7 @@ export const findChatRoomInfo = async ({ uid }) => {
   });
   const memberData = await Promise.all(promiseArr);
   const filteredMemberData = memberData.map((chatRoomMember) => {
-    return chatRoomMember.map((member) => {
+    return (chatRoomMember as unknown as infoAttribute[]).map((member: infoAttribute) => {
       return {
         id: member["User.uid"],
         image: member["User.image"],
@@ -57,8 +55,38 @@ export const findChatRoomInfo = async ({ uid }) => {
   return filteredData;
 };
 
-export const findJoinChatRooms = async ({ uid }) => {
-  console.log(uid);
+export const findChatRoomInfo = async ({ chatRoomId }: { chatRoomId: number }) => {
+  const query = ({ chatRoomId }: { chatRoomId: number }) => {
+    return {
+      raw: true,
+      include: [
+        {
+          model: Users,
+        },
+        {
+          model: ChatRoom,
+        },
+      ],
+      where: { chatRoomId },
+      attribute: [],
+    };
+  };
+  const chatRoomInfo = await Participant.findAll(query({ chatRoomId }));
+  const filteredMemberData = (chatRoomInfo as unknown as infoAttribute[]).map((member: infoAttribute) => {
+    return {
+      id: member["User.uid"],
+      image: member["User.image"],
+      location: member["User.location"],
+      sex: member["User.sex"],
+      age: member["User.age"],
+      info: member["User.info"],
+    };
+  });
+  const chatMessage = await findMessages(chatRoomId, 0);
+  return { chatRoomId, member: filteredMemberData, chatMessage };
+};
+
+export const findJoinChatRooms = async ({ uid }: { uid: string }) => {
   const query = {
     attributes: ["chatRoomId"],
     where: { uid },
@@ -68,7 +96,7 @@ export const findJoinChatRooms = async ({ uid }) => {
   return datas;
 };
 
-export const findMessages = async (chatRoomId, index: number) => {
+export const findMessages = async (chatRoomId: number, index: number) => {
   // chatRoomId에 대한 채팅들 모두 가져오기
   const query = {
     raw: true,
@@ -79,13 +107,19 @@ export const findMessages = async (chatRoomId, index: number) => {
     order: [["chatId", "DESC"]],
   };
   const data = await Chat.findAll(query as object);
-  // const data = datas.map((item) => {
-  //   return {
-  //     from: item.uid,
-  //     message: item.message,
-  //     source: item.src,
-  //     read: item.isRead,
-  //   };
-  // });
-  return data;
+  return data.reverse();
+};
+
+export const createChatRoom = async () => {
+  return ChatRoom.create();
+};
+
+export const createParticipant = async ({ from, to, chatRoomId }: { from: string; to: string; chatRoomId: number }) => {
+  const promiseArr = [Participant.create({ uid: to, chatRoomId }), Participant.create({ uid: from, chatRoomId })];
+  return await Promise.all(promiseArr);
+};
+
+export const createChatMessage = async ({ chatRoomId, message }: SendChatType) => {
+  const createdChatMessage = await Chat.create({ uid: message.from, message: message.message, isRead: message.read, src: 1, chatRoomId });
+  return createChatMessage;
 };

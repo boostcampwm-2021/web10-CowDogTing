@@ -7,7 +7,7 @@ import { Button } from "../Atom/Button";
 import { getGameDatas, getGatherCharacter } from "../util/constant";
 import LargeModal from "../Organism/LargeModal";
 import LinkButton from "./LinkButton";
-import useDropDownEvent from "../Hook/useDropDownEvent";
+import useDropDownCloseEvent from "../Hook/useDropDownCloseEvent";
 
 const footerStyle = css`
   display: flex;
@@ -63,10 +63,10 @@ export default function ChatRoomFooter() {
   };
 
   const modalGameRef = useRef<HTMLDivElement>(null);
-  useDropDownEvent(modalGameRef, () => setOpenGame(false));
+  useDropDownCloseEvent(modalGameRef, () => setOpenGame(false));
 
   const modalGatherRef = useRef<HTMLDivElement>(null);
-  useDropDownEvent(modalGatherRef, () => setOpenGather(false));
+  useDropDownCloseEvent(modalGatherRef, () => setOpenGather(false));
 
   return (
     <div css={footerStyle}>

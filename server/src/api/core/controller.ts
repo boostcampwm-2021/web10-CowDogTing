@@ -1,4 +1,7 @@
-import { findImage, findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser } from "./service";
+import { NextFunction, Request, Response } from "express";
+import { findUser } from "../auth/service";
+import { isUser } from "../middlewares/isUser";
+import { findImage, findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser, sendRequest, validationTeamAndUser, _denyRequest, _acceptRequest, addRequest } from "./service";
 
 const defaultUser = {
   id: "",
@@ -10,62 +13,77 @@ const defaultUser = {
   gid: null,
 };
 
-const defaultRequest = [];
+const defaultRequest = <any>[];
 const defaultJoinChatRoom = {};
 
-export const getImage = async (req, res) => {
-  const imageID = req.query.imageID;
+export const getImage = async (req: Request, res: Response) => {
+  const imageID = String(req.query.imageID);
   const data = await findImage({ imageID });
-  res.send(data);
+  return res.send(data);
 };
 
-export const getJoinChatInfo = async (req, res) => {
-  if (!req.user) {
-    res.send(defaultJoinChatRoom);
-    return;
-  }
-  const uid: string = req.user.uid;
+export const getJoinChatInfo = async (req: Request, res: Response) => {
+  if (!req.user) return res.send(defaultJoinChatRoom);
+  const uid = String(req.user!.uid);
   const data = await findChatRoomNotReadNum({ uid });
-  res.send(data);
+  return res.send(data);
 };
 
-export const getRequest = async (req, res) => {
-  if (!req.user) {
-    res.send(defaultRequest);
-    return;
-  }
-  const uid: string = req.user.uid;
+export const getRequest = async (req: Request, res: Response) => {
+  if (!req.user) return res.send(defaultRequest);
+  const uid = String(req.user.uid);
   const data = await findAllRequest({ uid });
-  res.send(data);
+  return res.send(data);
 };
 
-export const getUserInfo = async (req, res) => {
-  if (!req.user) {
-    res.send(defaultUser);
-    return;
-  }
-  const uid: string = req.user.uid;
+export const postRequest = async (req: Request, res: Response) => {
+  if (!req.user) return res.status(401).send({ error: "isn`t Login" });
+  const { from, to } = req.body;
+  const toValidation = await validationTeamAndUser(to);
+  if (!toValidation) return res.status(401).send({ error: "to isn`t exist" });
+  await addRequest({ from, to });
+  sendRequest({ from, to });
+  return res.status(200).send(true);
+};
+
+export const getUserInfo = async (req: Request, res: Response) => {
+  if (!req.user) return res.send(defaultUser);
+  const uid = String(req.user.uid);
   const data = await findUserInfo({ uid });
-  res.send(data);
+  return res.send(data);
 };
 
-export const getProfile = async (req, res) => {
-  console.log(req.query);
+export const getProfile = async (req: Request, res: Response) => {
   const person: number = Number(req.query.person);
   const index: number = Number(req.query.index);
-  const data = await findAllProfile(person, index);
-  res.send(data);
+  if (!req.user) return res.status(401).send(defaultUser);
+  const myId = String(req.user.uid);
+  const data = await findAllProfile(person, index, myId);
+  return res.send(data);
 };
 
-export const postUserUpdate = async (req, res, next) => {
-  const oldId = req.user.uid;
+export const postUserUpdate = async (req: Request, res: Response, next: NextFunction) => {
+  if (!req.user) return res.send(defaultUser);
+  const oldId = String(req.user!.uid);
   const { id: uid, location, age, info } = req.body;
-  try {
-    await updateUser(oldId, { uid, location, age, info });
-    console.log("??");
-    return res.send(true);
-  } catch (error) {
-    console.log("error");
-    return next(error);
-  }
+  await updateUser(oldId, { uid, location, age, info });
+  return res.status(200).send(true);
+};
+
+export const denyRequest = async (req: Request, res: Response) => {
+  if (!req.user) return res.send({ error: "isn`t login" });
+  const { from, to } = req.body;
+  const toValidation = await validationTeamAndUser(to);
+  if (!toValidation) return res.status(401).send({ error: "to isn`t exist" });
+  _denyRequest({ from, to });
+  return res.status(200).send(true);
+};
+
+export const acceptRequest = async (req: Request, res: Response) => {
+  if (!req.user) return res.send({ error: "isn`t login" });
+  const { from, to } = req.body;
+  const toValidation = await validationTeamAndUser(to);
+  if (!toValidation) return res.status(401).send({ error: "to isn`t exist" });
+  _acceptRequest({ from, to });
+  return res.status(200).send(true);
 };

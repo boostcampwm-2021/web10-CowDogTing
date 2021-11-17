@@ -1,8 +1,8 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "./index";
 
-interface TeamAttributes {
-  gid: number;
+export interface TeamAttributes {
+  gid?: number;
   image?: number | null;
   name: string;
   description?: string | null;
@@ -12,9 +12,9 @@ interface TeamAttributes {
 
 export class Team extends Model<TeamAttributes> {
   public gid!: number;
-  public image!: number;
+  public image?: number;
   public name!: string;
-  public description!: string;
+  public description?: string;
   public location!: string;
   public leader!: string;
   public static associations: {};
@@ -53,5 +53,5 @@ Team.init(
     sequelize,
     freezeTableName: true,
     timestamps: false,
-  }
+  },
 );

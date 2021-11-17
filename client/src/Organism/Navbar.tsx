@@ -1,84 +1,89 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-return-assign */
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import { useRef, useState } from "react";
+import { css } from "@emotion/react";
 import { Input } from "../Atom/Input";
 import NavbarDiv from "../Atom/NavbarDiv";
-import DropDown from "../Molecules/DropDown";
 import SearchIcon from "../Atom/SearchIcon";
-import useDropDownEvent from "../Hook/useDropDownEvent";
+import DropDown from "../Molecules/DropDown";
+import useModalCloseEvent from "../Hook/useModalCloseEvent";
 
 const NavbarStyle = css`
   width: 100vw;
   height: 80px;
   border-bottom: 1px solid black;
+`;
+
+const NavbarContainerStyle = css`
   display: flex;
-  .hide {
-    display: none;
-  }
-  .display {
-    display: flex;
-  }
+  width: 80%;
+  border: 1px solid #000000;
+  border-top: none;
+  border-bottom: none;
+  margin: 0 auto;
+  min-width: 850px;
   .navbar-item {
-    &:first-child {
-      border-left: 1px solid black;
-      margin-left: 210px;
-    }
     &:last-child {
       display: flex;
       height: 80px;
       align-items: center;
       padding: 20px;
-      border-right: 1px solid black;
     }
   }
 `;
+
+const DropDownContainerStyle = css`
+  position: absolute;
+`;
+
+const list = [
+  { id: "Location", name: "지역" },
+  { id: "Age", name: "나이" },
+  { id: "Sex", name: "성별" },
+];
+
 export default function Navbar() {
-  const [locationDropdown, setLocationOpen] = useState(false);
-  const [ageDropdwon, setAgeOpen] = useState(false);
-  const [sexDropdwon, setSexOpen] = useState(false);
+  const [dropDownToggle, setDropDownToggle] = useState("");
 
-  const locationRef = useRef<HTMLDivElement>(null);
-  const ageRef = useRef<HTMLDivElement>(null);
-  const sexRef = useRef<HTMLDivElement>(null);
+  const navBarRef = useRef<HTMLDivElement[]>([]);
+  const dropDownRef = useRef<HTMLDivElement>(null);
 
-  useDropDownEvent(locationRef, () => setLocationOpen(false));
-  useDropDownEvent(ageRef, () => setAgeOpen(false));
-  useDropDownEvent(sexRef, () => setSexOpen(false));
+  const handleDropDownClick: React.MouseEventHandler = (event: React.MouseEvent) => {
+    const target: HTMLElement = event.target as HTMLElement;
 
-  const TogglelocationModal = () => {
-    // setAgeOpen(false);
-    // setSexOpen(false);
-    setLocationOpen((isOpen) => !isOpen);
+    navBarRef.current.forEach((ref, index) => {
+      if (ref.contains(target)) {
+        const target = list[index].id;
+        setDropDownToggle((prev) => (prev === target ? "" : target));
+      }
+    });
   };
-  const ToggleAgeModal = () => {
-    // setLocationOpen(false);
-    // setSexOpen(false);
-    setAgeOpen((isOpen) => !isOpen);
-  };
-  const ToggleSexModal = () => {
-    // setAgeOpen(false);
-    // setLocationOpen(false);
-    setSexOpen((isOpen) => !isOpen);
-  };
+
+  useModalCloseEvent(dropDownRef, navBarRef, () => setDropDownToggle(""));
 
   return (
-    <div css={NavbarStyle}>
-      <div className="navbar-item" data-id="location" ref={locationRef}>
-        <NavbarDiv onClick={TogglelocationModal}>지역</NavbarDiv>
-        <DropDown type="Location" className={locationDropdown ? "show" : "hide"} />
+    <>
+      <div css={NavbarStyle} onClick={(event) => handleDropDownClick(event)}>
+        <div css={NavbarContainerStyle}>
+          {list.map((item, idx) => {
+            const { name } = item;
+            return (
+              <div className="navbar-item" data-id={idx} ref={(el) => ((navBarRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)}>
+                <NavbarDiv>{name}</NavbarDiv>
+              </div>
+            );
+          })}
+
+          <div className="navbar-item">
+            <Input />
+            <SearchIcon />
+          </div>
+        </div>
       </div>
-      <div className="navbar-item" data-id="age" ref={ageRef}>
-        <NavbarDiv onClick={ToggleAgeModal}>나이</NavbarDiv>
-        <DropDown type="Age" className={ageDropdwon ? "show" : "hide"} />
+      <div css={DropDownContainerStyle} ref={dropDownRef}>
+        {dropDownToggle && <DropDown type={dropDownToggle} className="show" />}
       </div>
-      <div className="navbar-item" data-id="sex" ref={sexRef}>
-        <NavbarDiv onClick={ToggleSexModal}>성별</NavbarDiv>
-        <DropDown type="Sex" className={sexDropdwon ? "show" : "hide"} />
-      </div>
-      <div className="navbar-item">
-        <Input />
-        <SearchIcon />
-      </div>
-    </div>
+    </>
   );
 }

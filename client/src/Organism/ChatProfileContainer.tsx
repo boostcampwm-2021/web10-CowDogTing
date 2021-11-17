@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 /** @jsxImportSource @emotion/react */
@@ -18,12 +19,13 @@ const ChatProfileContainerStyle = css`
   align-items: center;
   border-right: 1px solid;
   padding-top: 3vh;
+  min-width: 400px;
 `;
 
 function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileContainerType) {
   const chatRoomRef = useRef<HTMLDivElement[]>([]);
   const profileClickEvent = (e: React.MouseEvent) => {
-    if (chatRoomRef.current === null) {
+    if (!chatRoomRef.current) {
       return;
     }
     const target: HTMLElement = e.target as HTMLElement;
@@ -34,7 +36,7 @@ function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileCon
       })
       .filter((ref) => ref !== null)[0];
 
-    if (clickCard === null) {
+    if (!clickCard) {
       return;
     }
 
@@ -46,9 +48,9 @@ function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileCon
   return (
     <div css={ChatProfileContainerStyle} onClick={profileClickEvent}>
       {chatsInfo?.map((data, idx) => {
-        const memberType = data.member.length > 1 ? "team" : data.member[0].sex;
+        const memberType = data.member.length > 2 ? "team" : data.member[0].sex;
         const lastChatInfo = data.chatMessage[data.chatMessage.length - 1];
-
+        if (!data.chatMessage.length) return false;
         return (
           <div data-id={idx} ref={(el) => ((chatRoomRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)}>
             <ProfileCard type={memberType}>

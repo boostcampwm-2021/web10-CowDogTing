@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { RefObject, useEffect } from "react";
 
-export default function useModalEvent(ref: RefObject<HTMLDivElement>, profileRef: RefObject<HTMLDivElement[]>, handler: (event: MouseEvent) => void) {
+export default function useModalCloseEvent(ref: RefObject<HTMLDivElement>, profileRef: RefObject<HTMLDivElement[]>, handler: (event: MouseEvent) => void) {
   useEffect(() => {
     const listener = (event: MouseEvent): void => {
       let flag = false;
@@ -12,21 +12,20 @@ export default function useModalEvent(ref: RefObject<HTMLDivElement>, profileRef
         return;
       }
 
-      if (profileRef.current === null) {
+      if (!profileRef.current) {
         handler(event);
         return;
       }
 
       profileRef.current.forEach((userRef) => {
         if (flag) return;
-
+        if (!userRef) return;
         if (userRef.contains(target)) {
           flag = true;
         }
       });
 
       if (flag) return;
-
       handler(event);
     };
     document.addEventListener("click", listener);
