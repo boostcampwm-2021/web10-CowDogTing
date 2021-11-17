@@ -58,6 +58,7 @@ export const inviteTeam = async ({ userId }: { userId: string }) => {
 
 export const postLogin = async ({ id, pw }: loginInfo) => {
   try {
+    console.log("?");
     const { data } = await axios.post(
       LOGIN_API_URL,
       {

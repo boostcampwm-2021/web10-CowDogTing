@@ -17,6 +17,7 @@ export const handleRegister = async (req: Request, res: Response, next: NextFunc
 };
 
 export const handleLogin = (req: Request, res: Response, next: NextFunction) => {
+  console.log("?");
   passport.authenticate("local", (authError, user, info) => {
     if (authError) {
       return next(authError);
