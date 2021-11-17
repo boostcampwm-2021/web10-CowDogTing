@@ -1,19 +1,12 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-// import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 import React, { MouseEventHandler, useRef, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { Button } from "../Atom/Button";
-import InputLabel from "../Molecules/InputLabel";
-import TeamButtonContainer from "../Organism/TeamButtonContainer";
-import TeamInfoContainer from "../Organism/TeamInfoContainer";
-// import { getTeamPeople } from "../util/dummyData";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { css } from "@emotion/react";
 import ProfileList from "./ProfileList";
-import InviteModal from "./InviteModal";
-import { teamState, userState } from "../Recoil/Atom";
-import { changeTeamInfo } from "../util";
-import useDropDownEvent from "../Hook/useDropDownEvent";
+import { errorState, teamState, userState } from "../Recoil/Atom";
+import { changeTeamInfo } from "../util/data";
+import TeamInfo from "../Organism/TeamInfo";
+import TeamSettingButtonContainer from "../Molecules/TeamSettingButtonContainer";
 
 const TeamSettingTemPlateStyle = css`
   display: flex;
@@ -24,45 +17,31 @@ const TeamSettingTemPlateStyle = css`
   align-items: center;
 `;
 
-const InfoStyle = css`
-  width: 300px;
-  height: 50px;
-  align-items: center;
-  display: flex;
-  justify-content: space-around;
-  border: 2px solid #ffcfcf;
-  margin-bottom: 20px;
-  text-align: center;
-  margin-left: 7px;
-`;
-const LabelStyle = css`
-  height: 20%;
-  width: 90%;
-`;
 function TeamSettingTemplate() {
   const [teamInfoState, setTeamInfoState] = useRecoilState(teamState);
   const userInfoState = useRecoilValue(userState);
-  const [inviteModalState, setInviteModalState] = useState(false);
   const [locSelected, setLocSelected] = useState<string>("");
-
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);
-  const modalRef = useRef<HTMLInputElement>(null);
-  useDropDownEvent(modalRef, () => setInviteModalState(false));
   const profileRef = useRef<HTMLDivElement[]>([]);
+  const setErrorValue = useSetRecoilState(errorState);
+
   const resetInput = () => {
-    if (!teamNameRef.current || !teamInfoRef.current || locSelected === "") return;
+    if (!teamNameRef.current || !teamInfoRef.current || !locSelected) return;
+
     teamNameRef.current.value = "";
     teamInfoRef.current.value = "";
     setLocSelected("");
   };
+
   const clickUpdateButton: MouseEventHandler = async () => {
-    if (!teamNameRef.current || !teamInfoRef.current || locSelected === "") return;
-    if (teamInfoState.id === "") return;
+    if (!teamNameRef.current || !teamInfoRef.current || !locSelected) return;
+    if (!teamInfoState.id) return;
     if (teamInfoState.leader !== userInfoState.id) {
-      // eslint-disable-next-line no-alert
-      alert("팀 리더가 아닙니다");
+      setErrorValue({ errorStr: "팀 리더가 아닙니다", timeOut: 1000 });
+      return;
     }
+
     const teamName = teamNameRef.current.value;
     const teamInfo = teamInfoRef.current.value;
     const location = locSelected;
@@ -72,52 +51,21 @@ function TeamSettingTemplate() {
       teamInfo,
       location,
     });
+    if (result === "error") {
+      setErrorValue({ errorStr: "팀 정보 수정에 실패했습니다.", timeOut: 1000 });
+      return;
+    }
     setTeamInfoState((prev) => {
       return { ...prev, ...result };
     });
     resetInput();
-    // eslint-disable-next-line no-console
   };
 
   return (
     <div css={TeamSettingTemPlateStyle}>
-      <TeamInfoContainer>
-        <InputLabel label="팀명" placeholder={teamInfoState?.id} refProps={teamNameRef} />
-        <InputLabel label="소개" placeholder={teamInfoState?.info} refProps={teamInfoRef} />
-        <div id="location">
-          <p css={LabelStyle}>지역</p>
-          <select css={InfoStyle} onChange={(e) => setLocSelected(e.target.value)}>
-            <option selected value={teamInfoState?.id} disabled>
-              거주지를 선택해주세요.
-            </option>
-            <option value="서울">서울</option>
-            <option value="경기">경기</option>
-            <option value="인천">인천</option>
-            <option value="대구">대구</option>
-            <option value="대전">대전</option>
-            <option value="광주">광주</option>
-            <option value="부산">부산</option>
-            <option value="울산">울산</option>
-          </select>
-        </div>
-      </TeamInfoContainer>
+      <TeamInfo setLocSelected={setLocSelected} teamNameRef={teamNameRef} teamInfoRef={teamInfoRef} />
       <ProfileList datas={teamInfoState?.member} person={1} profileRef={profileRef} />
-      <TeamButtonContainer>
-        <div ref={modalRef}>
-          <Button
-            type="Medium"
-            onClick={() => {
-              setInviteModalState((prev) => !prev);
-            }}
-          >
-            초대하기
-          </Button>
-          {inviteModalState && <InviteModal />}
-        </div>
-        <Button type="Medium" onClick={clickUpdateButton}>
-          수정하기
-        </Button>
-      </TeamButtonContainer>
+      <TeamSettingButtonContainer clickUpdateButton={clickUpdateButton} />
     </div>
   );
 }

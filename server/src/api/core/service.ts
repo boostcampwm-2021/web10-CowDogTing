@@ -1,31 +1,37 @@
 import { Op, literal } from "sequelize";
 import { Request } from "../../db/models/request";
 import { Chat } from "../../db/models/chat";
-import { findJoinChatRooms } from "../chat/service";
+import { createChatMessage, createChatRoom, createParticipant, findChatRoomInfo, findJoinChatRooms } from "../chat/service";
 import { Users } from "../../db/models/users";
 import { Team } from "../../db/models/team";
 import { sequelize } from "../../db/models";
+import { SocketMap } from "../../webSocket/socket";
+import { validateTeam } from "../team/service";
+import { isNumber } from "../../util/utilFunc";
+import { findUser } from "../auth/service";
+import app from "../../app";
+import { messageType } from "src/util/type";
+
 const { QueryTypes } = require("sequelize");
 
-export const findImage = async ({ imageID }) => {
+export const findImage = async ({ imageID }: { imageID: string }) => {
   // imageID 에 대한 db 값 가져오기
 };
 
-export const findChatRoomNotReadNum = async ({ uid }) => {
-  const joinCathRoom = await findJoinChatRooms({ uid }); // chat의 service와 중복 => 나중에 공통으로
-  console.log(joinCathRoom);
+export const findChatRoomNotReadNum = async ({ uid }: { uid: string }) => {
+  const joinCathRoom = await findJoinChatRooms({ uid });
   const chatList = await Promise.all(
     joinCathRoom.map(async (RoomNum) => {
       return {
         ...RoomNum,
         notReadNum: await findAllChat(RoomNum),
       };
-    })
+    }),
   );
   return chatList;
 };
 
-const findAllChat = async ({ chatRoomId }) => {
+const findAllChat = async ({ chatRoomId }: { chatRoomId: number }) => {
   const query = {
     where: {
       isRead: 0,
@@ -35,65 +41,77 @@ const findAllChat = async ({ chatRoomId }) => {
   return await Chat.count(query);
 };
 
-export const findAllRequest = async ({ uid }) => {
-  //from: 나  -> 내가 보낸 요청 -> to의 정보  => 항상 from의 정보 gdgd => gdgd 정보 나옴
-  //to : 나 -> 나에게 온 요청  -> from 의 정보  ㅇㅇ 맞음
+export const findAllRequest = async ({ uid }: { uid: string }) => {
   const query_to = {
     attributes: ["from", "to", "state"],
     include: [
       {
         model: Users,
         as: "info",
-        attributes: [["uid", "id"], "image", "location", "sex", "age", "info"], // 나중에 info 컬럼 추가시 해당 열 사용
+        attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
       },
     ],
     where: {
       to: uid,
     },
   };
-  //to가 외래키 -> from : gdgd  -> to 연결되는거 아님?
-  // const query_from = {
-  //   attributes: ["from", "to", "state"],
-  //   include: [
-  //     {
-  //       model: Users,
-  //       as: "info",
-  //       attributes: [["uid", "id"], "image", "location", "sex", "age"],
-  //       where: {
-  //       },
-  //     },
-  //   ],
-  //   where: {
-  //     from: uid,
-  //   },
-  // };
-  const query_from = `select * from Request inner join Users on Request.to = Users.uid where Request.from = "${uid}"`;
   const result_to = await Request.findAll(query_to as object);
-  console.log(result_to);
+  const query_from = `select * from Request inner join Users on Request.to = Users.uid where Request.from = "${uid}"`;
   const users = await sequelize.query(query_from, { type: QueryTypes.SELECT });
-  const filtered = result_from(users);
-  console.log(filtered);
+  const filtered = results_from(users);
   return [...result_to, ...filtered];
 };
 
-export const result_from = (users: any[]) => {
-  return users.map((user) => {
-    return {
-      from: user.from,
-      to: user.to,
-      state: user.state,
-      info: {
-        id: user.uid,
-        image: user.image,
-        location: user.location,
-        sex: user.sex,
-        age: user.age,
+export const findOneRequest = async ({ from, to, type }: { from: string; to: string; type: string }) => {
+  const query_to = {
+    attributes: ["from", "to", "state"],
+    include: [
+      {
+        model: Users,
+        as: "info",
+        attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
       },
-    };
-  });
+    ],
+    where: {
+      [Op.and]: [{ from, to }],
+    },
+  };
+  //from의 데이터 -> to 전달
+  const query_from = `select * from Request inner join Users on Request.to = Users.uid where Request.from = "${from}" AND Request.to="${to}"`;
+  //to의 데이터 -> from 한테 전달
+  if (type === "to") {
+    //to 한테 전달할 from의 데이터
+    const result_to = await Request.findOne(query_to as object);
+    return result_to;
+  }
+  if (type === "from") {
+    //from 한테 전달할 to의 데이터
+    const result_from = await sequelize.query(query_from, { type: QueryTypes.SELECT });
+    //result_from.get({ plain: true });
+    return result_from_data(result_from[0]);
+  }
 };
 
-export const findUserInfo = async ({ uid }) => {
+export const results_from = (users: any[]) => {
+  return users.map((user) => result_from_data(user));
+};
+
+export const result_from_data = (user: any) => {
+  return {
+    from: user.from,
+    to: user.to,
+    state: user.state,
+    info: {
+      id: user.uid,
+      image: user.image,
+      location: user.location,
+      sex: user.sex,
+      age: user.age,
+    },
+  };
+};
+
+export const findUserInfo = async ({ uid }: { uid: string }) => {
   const query = {
     attributes: [["uid", "id"], "image", "location", "sex", "age", "info", "gid"],
     where: { uid },
@@ -101,19 +119,17 @@ export const findUserInfo = async ({ uid }) => {
   return await Users.findOne(query as object);
 };
 
-export const findAllProfile = async (person: number, index: number) => {
+export const findAllProfile = async (person: number, index: number, myId: string) => {
   let query;
-  console.log(person);
   if (person === 1) {
-    console.log(person);
-    console.log(index);
     query = {
       raw: true,
       attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+      where: { uid: { [Op.ne]: myId } },
       offset: 10 * index,
       limit: 10,
     };
-    return await Users.findAll(query);
+    return await Users.findAll(query as object);
   } else {
     const teamIds = await findTeam(person);
     query = {
@@ -124,12 +140,11 @@ export const findAllProfile = async (person: number, index: number) => {
       limit: 10,
     };
     const teamInfos = await Team.findAll(query as object);
-    console.log(teamInfos);
     return teamInfos;
   }
 };
 
-const findTeam = async (person) => {
+const findTeam = async (person: number) => {
   const query = {
     raw: true,
     attributes: ["gid"],
@@ -147,10 +162,111 @@ const findTeam = async (person) => {
   const teamId = resultArr.map((result) => {
     return result.gid;
   });
-  console.log(teamId);
   return teamId;
 };
 
 export const updateUser = async (oldId: string, { uid, location, age, info }: { uid: string; location: string; age: number; info: string }) => {
   await Users.update({ uid, location, age, info }, { where: { uid: oldId } });
+};
+
+export const addRequest = async ({ from, to }: { from: string; to: string }) => {
+  return await Request.create({ from, to, state: "ready" });
+};
+
+export const sendRequest = ({ from, to }: { from: string; to: string }) => {
+  if (isNumber(to)) {
+    sendRequestToTeam({ from: Number(from), to: Number(to) });
+  } else {
+    sendRequestToUser({ from, to });
+  }
+};
+
+const sendRequestToTeam = ({ from, to }: { from: number; to: number }) => {
+  //sibal
+  //팀 멤버 찾기
+  //-> request 다 보내주기 (소켓 연결됐는지 확인 후 )
+};
+
+const sendRequestToUser = async ({ from, to }: { from: string; to: string }) => {
+  const io = app.get("io");
+  const fromSocketId = SocketMap.get(from);
+  const fromRequestData = await findOneRequest({ from, to, type: "from" });
+  io.to(fromSocketId).emit("receiveRequest", fromRequestData);
+  if (!SocketMap.has(to)) return;
+
+  const toSocketId = SocketMap.get(to);
+  const toRequestData = await findOneRequest({ from, to, type: "to" });
+  io.to(toSocketId).emit("receiveRequest", toRequestData);
+};
+
+export const validationTeamAndUser = async (to: string) => {
+  if (isNumber(to)) {
+    return await validateTeam({ gid: Number(to) });
+  }
+  return await findUser({ uid: to });
+};
+
+export const _denyRequest = async ({ from, to }: { from: string; to: string }) => {
+  if (isNumber(to)) {
+    denyRequestTeam({ from: Number(from), to: Number(to) });
+  } else {
+    denyRequestUser({ from, to });
+  }
+};
+
+const denyRequestTeam = async ({ from, to }: { from: number; to: number }) => {
+  await deleteRequest({ from: String(from), to: String(to) });
+};
+
+const denyRequestUser = async ({ from, to }: { from: string; to: string }) => {
+  await deleteRequest({ from, to });
+  const io = app.get("io");
+  const toSocketId = SocketMap.get(to);
+  io.to(toSocketId).emit("receiveDenyRequest", { from, to });
+  if (!SocketMap.has(from)) return;
+  const fromSocketId = SocketMap.get(from);
+  io.to(fromSocketId).emit("receiveDenyRequest", { from, to });
+};
+
+const deleteRequest = async ({ from, to }: { from: string; to: string }) => {
+  return await Request.destroy({
+    where: {
+      [Op.and]: [{ from, to }],
+    },
+  });
+};
+
+export const _acceptRequest = async ({ from, to }: { from: string; to: string }) => {
+  if (isNumber(to)) {
+    acceptRequestTeam({ from: Number(from), to: Number(to) });
+  } else {
+    acceptRequestUser({ from, to });
+  }
+};
+
+const acceptRequestTeam = async ({ from, to }: { from: number; to: number }) => {
+  await deleteRequest({ from: String(from), to: String(to) });
+};
+
+const acceptRequestUser = async ({ from, to }: { from: string; to: string }) => {
+  await deleteRequest({ from, to });
+  const createdChatRoom = await createChatRoom();
+  const chatRoomId = createdChatRoom.get({ plain: true }).chatRoomId;
+  const createdParticipant = await createParticipant({ from, to, chatRoomId });
+  const createdChatMessage = await createChatMessage({ chatRoomId, message: makeMessageObject({ from, to, message: `${to}가 채팅을 수락했습니다.` }) });
+  const chatRoomData = await findChatRoomInfo({ chatRoomId });
+  const io = app.get("io");
+  const fromSocketId = SocketMap.get(from);
+  io.to(fromSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
+  if (!SocketMap.has(to)) return;
+  const toSocketId = SocketMap.get(to);
+  io.to(toSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
+};
+
+const makeMessageObject = ({ from, to, message }: { from: string; to: string; message: string }): messageType => {
+  return {
+    from: to,
+    message,
+    read: false,
+  };
 };

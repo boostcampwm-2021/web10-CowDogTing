@@ -4,9 +4,9 @@ import { css } from "@emotion/react";
 import React, { useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import UserIcon from "../Atom/UserIcon";
-import useDropDownEvent from "../Hook/useDropDownEvent";
+import useDropDownCloseEvent from "../Hook/useDropDownCloseEvent";
 import { userState } from "../Recoil/Atom";
-import { logOutUser } from "../util";
+import { logOutUser } from "../util/data";
 import DropDown from "./DropDown";
 import LinkButton from "./LinkButton";
 
@@ -35,7 +35,7 @@ function MainHeaderRightSide() {
   };
 
   const userRef = useRef<HTMLDivElement>(null);
-  useDropDownEvent(userRef, () => setUser(false));
+  useDropDownCloseEvent(userRef, () => setUser(false));
   return (
     <>
       <div css={MainHeaderRightContainer}>

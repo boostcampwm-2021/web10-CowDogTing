@@ -1,7 +1,12 @@
+/* eslint-disable no-console */
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
+import { useRecoilValue } from "recoil";
 import { Button } from "./Button";
+import { RequestType } from "../util/type";
+import { requestAccept, requestDeny } from "../util/data";
+import { userState } from "../Recoil/Atom";
 
 const StateStyle = css`
   width: 130px;
@@ -17,12 +22,31 @@ const StateStyle = css`
   border: 2px solid #ffcfcf;
 `;
 
-export function CardButton(type: string, state: string) {
+export default function RequestButton({ type, data }: { type: string; data: RequestType }) {
+  const { id: myId } = useRecoilValue(userState);
+  const {
+    info: { id },
+  } = data;
+
+  const handleAcceptClick = () => {
+    requestAccept({ from: id, to: myId });
+  };
+
+  const handleDenyClick = () => {
+    requestDeny({ from: id, to: myId });
+  };
+
+  const { state } = data;
+
   if (type === "ForMe") {
     return (
       <>
-        <Button type="small">수락</Button>
-        <Button type="small">거절</Button>
+        <Button type="small" onClick={handleAcceptClick}>
+          수락
+        </Button>
+        <Button type="small" onClick={handleDenyClick}>
+          거절
+        </Button>
       </>
     );
   }

@@ -6,11 +6,11 @@ import { useRecoilValue } from "recoil";
 import MainHeaderLogo from "../Atom/MainHeaderLogo";
 import Menu from "../Atom/Menu";
 import UserIcon from "../Atom/UserIcon";
-import useDropDownEvent from "../Hook/useDropDownEvent";
+import useDropDownCloseEvent from "../Hook/useDropDownCloseEvent";
 import DropDown from "../Molecules/DropDown";
 import LinkButton from "../Molecules/LinkButton";
 import { userState } from "../Recoil/Atom";
-import { logOutUser } from "../util";
+import { logOutUser } from "../util/data";
 
 const HeaderStyle = css`
   display: flex;
@@ -32,7 +32,7 @@ export default function Header() {
   const person = Number(serarchParams.get("person"));
 
   useEffect(() => {
-    if (person === null) return;
+    if (!person) return;
     DropDownOff();
   }, [person]);
   const DropDownOff = () => {
@@ -48,10 +48,10 @@ export default function Header() {
 
   const menuRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
-  useDropDownEvent(menuRef, () => {
+  useDropDownCloseEvent(menuRef, () => {
     DropDownOff();
   });
-  useDropDownEvent(userRef, () => setUserOpen(false));
+  useDropDownCloseEvent(userRef, () => setUserOpen(false));
 
   const ToggleMenuModal = () => {
     setMenuOpen((isOpen) => !isOpen);
@@ -65,6 +65,7 @@ export default function Header() {
   };
 
   const LogOut = async () => {
+    console.log(11);
     const data = await logOutUser();
     if (data) {
       window.location.replace("/main");

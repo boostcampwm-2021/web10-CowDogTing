@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { useRecoilValue } from "recoil";
+import { userState } from "../Recoil/Atom";
 
 const MyChatStyle = css`
   background: #b0c2ff;
@@ -35,11 +37,14 @@ const ChatContainerStyle = (props: { type: string }) => css`
   ${props.type === "Mine" && MySendStyle}
 `;
 
-export default function Chat({ type, children }: { type: string; children: string[] }) {
+export default function Chat({ from, message }: { from: string; message: string }) {
+  const { id: myId } = useRecoilValue(userState);
+  const type = from === myId ? "Mine" : "Other";
+
   return (
     <div css={ChatContainerStyle({ type })}>
-      <div>{children[0]}</div>
-      <div css={ChatTypeStyle({ type })}>{children[1]}</div>
+      <div>{from}</div>
+      <div css={ChatTypeStyle({ type })}>{message}</div>
     </div>
   );
 }

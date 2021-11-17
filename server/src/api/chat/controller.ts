@@ -1,20 +1,17 @@
-import { findChatRoomInfo, findMessages } from "./service";
+import { Request, Response } from "express";
+import { isUser } from "../middlewares/isUser";
+import { findChatRoomsInfo, findMessages } from "./service";
 
-export const getChatsInfo = async (req, res) => {
-  if (!req.user) {
-    res.send({ error: "로그인을 하지 않았습니다" });
-    return;
-  }
-  const { uid } = req.user;
-  console.log(uid);
-  const data = await findChatRoomInfo({ uid }); //[chatroomId, member=[]]
-  //[chatroomId,member=[],chatMessages[]]
+export const getChatsInfo = async (req: Request, res: Response) => {
+  if (!req.user) return res.status(401).send({ error: "로그인을 하지 않았습니다" });
+  const uid = String(req.user!.uid);
+  const data = await findChatRoomsInfo({ uid });
   res.send(data);
 };
 
-export const getChatMessage = async (req, res) => {
-  const chatRoomId = req.query.chatRoomId;
-  const index = req.query.index;
+export const getChatMessage = async (req: Request, res: Response) => {
+  const chatRoomId = Number(req.query.chatRoomId);
+  const index = Number(req.query.index);
   const data = await findMessages(chatRoomId, index);
   res.send(data);
 };

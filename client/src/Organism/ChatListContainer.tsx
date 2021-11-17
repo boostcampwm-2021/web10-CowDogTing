@@ -9,6 +9,7 @@ import ChatInput from "../Molecules/ChatInput";
 import ChatInputContainer from "./ChatInputContainer";
 import LinkButton from "../Molecules/LinkButton";
 import { chatTarget } from "../Recoil/Atom";
+import { handleModalClick } from "../util";
 
 const ChatListContainerStyle = css`
   width: 50%;
@@ -16,20 +17,21 @@ const ChatListContainerStyle = css`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 520px;
 `;
 
-function ChatListContainer({ profileRef }: ChatListContainerType) {
+function ChatListContainer({ profileRef, setOpenModal }: ChatListContainerType) {
   const { chatRoomId } = useRecoilValue(chatTarget);
 
   return (
-    <div css={ChatListContainerStyle}>
+    <div css={ChatListContainerStyle} onClick={(e) => handleModalClick(e, profileRef, setOpenModal)}>
       <ChatImageContainer profileRef={profileRef} />
-      {chatRoomId !== undefined && (
+      {chatRoomId !== 0 && (
         <>
           <ChatDetail />
           <ChatInputContainer>
             <ChatInput />
-            <LinkButton url="/ChatRoom" type="Medium" content="추가기능" />
+            <LinkButton url={`/ChatRoom?chatRoomId=${chatRoomId}`} type="Small" content="추가기능" />
           </ChatInputContainer>
         </>
       )}

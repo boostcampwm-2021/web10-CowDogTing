@@ -3,7 +3,7 @@ import { sequelize } from "./index";
 import { Users } from "./users";
 
 interface RequestAttributes {
-  requestId: number;
+  requestId?: number;
   to: string;
   state: string;
   from: string;
@@ -35,6 +35,7 @@ Request.init(
     },
     from: {
       type: DataTypes.STRING(30),
+      allowNull: false,
     },
   },
   {
@@ -43,7 +44,7 @@ Request.init(
     timestamps: false,
     sequelize,
     freezeTableName: true,
-  }
+  },
 );
 
 Users.hasMany(Request, {

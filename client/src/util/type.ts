@@ -63,8 +63,7 @@ export type ProfileListType = {
   profileRef: RefObject<HTMLDivElement[]>;
 };
 export type RequestListType = {
-  datas?: RequestType[];
-  person: number;
+  datas: RequestType[];
   type: string;
   setOpenModal: (prev: any) => void;
   profileRef: RefObject<HTMLDivElement[]>;
@@ -137,6 +136,7 @@ export type ChatListInfoType = {
 
 export type ChatListContainerType = {
   profileRef: RefObject<HTMLDivElement[]>;
+  setOpenModal: (prev: any) => void;
 };
 
 export type ChatImageContainerType = {
@@ -183,3 +183,39 @@ export interface registerInfo extends loginInfo {
   sex: string;
   info: string;
 }
+
+export type ErrorType = {
+  errorStr: string;
+  timeOut: number;
+};
+
+export type ReceiveRequestSocketType = {
+  setRequest: Function;
+  data: RequestType;
+};
+
+export type ReceiveDenySocketType = {
+  setRequest: Function;
+  data: { from: string; to: string };
+};
+
+export type ReceiveAcceptSocketType = {
+  setRequest: Function;
+  setJoinChat: Function;
+  setChat: Function;
+  data: {
+    chat: ChatInfoType;
+    from: string;
+    to: string;
+  };
+};
+
+export type ReceiveChatSocketType = {
+  setJoinChat: any;
+  setChat: any;
+  setChatInfo: any;
+  data: {
+    message: MessageType;
+    chatRoomId: number;
+  };
+};

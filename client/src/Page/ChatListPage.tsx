@@ -1,7 +1,13 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
+import { userState } from "../Recoil/Atom";
 import ChatListTemplate from "../Template/ChatListTemplate";
+import { checkLogin, passToLoginPage } from "../util";
 
 function ChatListPage() {
+  const userInfo = useRecoilValue(userState);
+  if (!checkLogin(userInfo)) passToLoginPage();
+
   return (
     <>
       <ChatListTemplate />
