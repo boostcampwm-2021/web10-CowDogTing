@@ -12,11 +12,16 @@ export type messageType = {
 export type receiverPCType = {
   [index: string]: RTCPeerConnection;
 };
-export type senderPCType = {
-  [index: string]: { id: string; pc: RTCPeerConnection };
+export type senderPCsType = {
+  [index: string]: senderPCType[];
 };
-export type userType = { [index: string]: { id: string; stream: MediaStream } };
+export type senderPCType = {
+  id: string;
+  pc: RTCPeerConnection;
+};
+export type userType = { id: string; stream: MediaStream };
 
+export type usersType = { [index: string]: userType[] };
 export type socketToRoomType = {
   [index: string]: string;
 };
