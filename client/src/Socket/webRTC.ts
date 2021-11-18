@@ -30,6 +30,7 @@ export const createReceiverPeerConnection = (socketID: string, newSocket: Socket
   };
   pc.ontrack = (e) => {
     console.log("receiver track");
+    console.log("streams", e.streams);
     setUsers((oldUsers: any[]) =>
       oldUsers
         .filter((user) => user.id !== socketID)
@@ -100,7 +101,6 @@ export const createSenderPeerConnection = (newSocket: Socket, localStream: Media
     localStream.getTracks().forEach((track) => {
       pc.addTrack(track, localStream);
     });
-    return pc;
   }
 
   pc.ontrack = (e) => {

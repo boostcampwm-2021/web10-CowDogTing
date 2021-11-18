@@ -90,9 +90,10 @@ export default function ChatRoomBasic({ type }: { type: string }) {
         ref={localVideoRef}
         autoPlay
       />
-      {users?.map((user) => (
-        <Video stream={user.stream} key={user.id} type={type} />
-      ))}
+      {users?.map((user) => {
+        console.log(user);
+        return <Video stream={user.stream} key={user.id} type={type} />;
+      })}
     </div>
   );
 }

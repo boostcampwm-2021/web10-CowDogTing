@@ -9,7 +9,7 @@ export const SocketMap = new Map<string, string>();
 export const socketInit = (server: any, app: express.Application) => {
   const io = new Server(server, {
     cors: {
-      origin: "*",
+    origin: "https://cowdogting.kro.kr",
       methods: ["GET", "POST"],
     },
   });
@@ -200,7 +200,7 @@ const createSenderPeerConnection = (receiversocketId: string, sendersocketId: st
 const getOtherUsersInRoom = (socketId: string, roomId: string) => {
   let allUsers: { id: string }[] = [];
   if (!users[roomId]) return allUsers;
-
+  console.log(users[roomId]);
   allUsers = users[roomId]
     .filter((user: userType) => {
       return user.id !== socketId;
