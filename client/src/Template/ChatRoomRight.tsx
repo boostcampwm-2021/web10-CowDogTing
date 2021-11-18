@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
@@ -10,6 +11,7 @@ import ChatRoomGame from "../Molecules/ChatRoomGame";
 import ChatRoomGather from "./ChatRoomGather";
 import ChatRoomFooter from "../Molecules/ChatRoomFooter";
 import { chatsState, chatTarget } from "../Recoil/Atom";
+import { checkGameInUrl, checkGatherInUrl } from "../util";
 
 const headerStyle = css`
   display: flex;
@@ -22,6 +24,8 @@ export default function ChatRoomRight() {
   const chatsInfo = useRecoilValue(chatsState);
 
   const [member, setMember] = useState<PersonInfoType[] | null>(null);
+  const [roomType, setRoomType] = useState("Basic");
+
   const history = useHistory();
 
   const getMember = async () => {
@@ -36,6 +40,11 @@ export default function ChatRoomRight() {
     history.goBack();
   };
 
+  useEffect(() => {
+    const type = checkGameInUrl() ? "Game" : checkGatherInUrl() ? "Gather" : "Basic";
+    setRoomType(type);
+  });
+
   return (
     <div style={{ width: "100%" }}>
       <div css={headerStyle}>
@@ -43,12 +52,12 @@ export default function ChatRoomRight() {
           나가기
         </Button>
       </div>
+      <ChatRoomBasic member={member} type={roomType} />
       <Switch>
-        <Route path="/ChatRoom" component={() => ChatRoomBasic({ member })} exact />
         <Route path="/ChatRoom/Game" component={ChatRoomGame} />
         <Route path="/ChatRoom/Gather" component={ChatRoomGather} />
       </Switch>
-      <ChatRoomFooter />
+      {roomType === "Basic" && <ChatRoomFooter />}
     </div>
   );
 }

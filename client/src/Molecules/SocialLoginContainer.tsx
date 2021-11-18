@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import { Button } from "../Atom/Button";
+import { SOCIAL_NAVER_LOGIN, SOCIAL_GITHUB_LOGIN, SOCIAL_KAKAO_LOGIN } from "../util/URL";
 /** @jsxImportSource @emotion/react */
 
 const SocialLoginButtonContainerStyle = css`
@@ -13,17 +14,17 @@ const SocialLoginButtonContainerStyle = css`
 export default function SocialLoginContainer() {
   return (
     <div css={SocialLoginButtonContainerStyle}>
-      <a href="http://localhost:4000/api/auth/naver">
+      <a href={`${SOCIAL_NAVER_LOGIN}`}>
         <Button type="Long" color="#2DB400">
           Sign in with Naver
         </Button>
       </a>
-      <a href="http://localhost:4000/api/auth/github">
+      <a href={`${SOCIAL_GITHUB_LOGIN}`}>
         <Button type="Long" color="#000000">
           Sign in with Github
         </Button>
       </a>
-      <a href="http://localhost:4000/api/auth/kakao">
+      <a href={`${SOCIAL_KAKAO_LOGIN}`}>
         <Button type="Long" color="#f3e84d">
           Sign in with Kakao
         </Button>

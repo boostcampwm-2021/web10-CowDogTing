@@ -17,6 +17,7 @@ export const handleRegister = async (req: Request, res: Response, next: NextFunc
 };
 
 export const handleLogin = (req: Request, res: Response, next: NextFunction) => {
+  console.log("?");
   passport.authenticate("local", (authError, user, info) => {
     if (authError) {
       return next(authError);
@@ -54,13 +55,13 @@ export const handleNaverCallback = (req: Request, res: Response, next: NextFunct
     }
     if (!user) {
       req.session.naver = info;
-      return res.redirect(303, "http://localhost:3000/sub/login?social=naver");
+      return res.redirect(303, String(process.env.CLIENT_NAVER_URL));
     }
     return req.login(user, (loginError) => {
       if (loginError) {
         return next(loginError);
       }
-      return res.redirect(302, "http://localhost:3000/main");
+      return res.redirect(302, String(process.env.CLIENT_MAIN_URL));
     });
   })(req, res, next);
 
@@ -94,13 +95,13 @@ export const handleKakaoCallback = (req: Request, res: Response, next: NextFunct
     }
     if (!user) {
       req.session.kakao = info;
-      return res.redirect(303, "http://localhost:3000/sub/login?social=kakao");
+      return res.redirect(303, String(process.env.CLIENT_KAKAO_URL));
     }
     return req.login(user, (loginError) => {
       if (loginError) {
         return next(loginError);
       }
-      return res.redirect(302, "http://localhost:3000/main");
+      return res.redirect(302, String(process.env.CLIENT_MAIN_URL));
     });
   })(req, res, next);
 
@@ -113,12 +114,12 @@ export const handleGithubCallback = (req: Request, res: Response, next: NextFunc
     }
     if (!user) {
       req.session.github = info;
-      return res.redirect(303, "http://localhost:3000/sub/login?social=github");
+      return res.redirect(303, String(process.env.CLIENT_GITHUB_URL));
     }
     return req.login(user, (loginError) => {
       if (loginError) {
         return next(loginError);
       }
-      return res.redirect(302, "http://localhost:3000/main");
+      return res.redirect(302, String(process.env.CLIENT_MAIN_URL));
     });
   })(req, res, next);
