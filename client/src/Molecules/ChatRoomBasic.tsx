@@ -60,9 +60,9 @@ export default function ChatRoomBasic({ type }: { type: string }) {
     socket.on("getReceiverAnswer", getReceiverAnswerEvent);
     socket.on("getReceiverCandidate", getReceiverCandidateEvent);
     return () => {
-      socket.off("userEnter", userEnterEvent);
-      socket.off("allUsers", allUsersEvent);
-      socket.off("userExit", userExitEvent);
+      socket.off("userEnter", handleUserEnterEnvet);
+      socket.off("allUsers", handleAllUserEvent);
+      socket.off("userExit", handleUserExitEvent);
       socket.off("getSenderAnswer", getSenderAnswerEvent);
       socket.off("getSenderCandidate", getSenderCandidatEvent);
       socket.off("getReceiverAnswer", getReceiverAnswerEvent);

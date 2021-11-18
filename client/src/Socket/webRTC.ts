@@ -5,7 +5,6 @@ import { IWebRTCUser } from "../util/type";
 
 let { receivePCs } = ClientSocket;
 const { sendPC } = ClientSocket;
-const { socket } = ClientSocket.instance;
 
 const pcConfig = {
   iceServers: [
@@ -111,6 +110,7 @@ export const createSenderPeerConnection = (newSocket: Socket, localStream: Media
 };
 
 export const getLocalStream = async (localStreamRef: React.MutableRefObject<MediaStream | undefined>, localVideoRef: React.RefObject<HTMLVideoElement>, setUsers: Function, chatRoomId: string) => {
+  const { socket } = ClientSocket.instance;
   if (!socket) return;
   if (!localStreamRef.current || !localVideoRef.current) return;
 
