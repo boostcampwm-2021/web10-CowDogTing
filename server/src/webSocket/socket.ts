@@ -50,13 +50,12 @@ export const socketInit = (server: any, app: express.Application) => {
     socket.on("senderOffer", async (data: { senderSocketID: string; sdp: any; roomId: string }) => {
       try {
         socketToRoom[data.senderSocketID] = data.roomId;
-        let pc = createReceiverPeerConnection(data.senderSocketID, socket, data.roomId);
+        let pc = createReceiverPeerConnection(data.senderSocketID, app.get("io"), data.roomId);
         await pc.setRemoteDescription(data.sdp);
         let sdp = await pc.createAnswer({
           offerToReceiveAudio: true,
           offerToReceiveVIdeo: true,
         });
-        console.log(sdp);
         await pc.setLocalDescription(sdp);
         socket.join(data.roomId);
         io.to(data.senderSocketID).emit("getSenderAnswer", { sdp });
@@ -65,9 +64,8 @@ export const socketInit = (server: any, app: express.Application) => {
       }
     });
 
-    socket.on("senderCandIdate", async (data: { senderSocketID: string; candidate: any }) => {
+    socket.on("senderCandidate", async (data: { senderSocketID: string; candidate: any }) => {
       try {
-        console.log("senderCandidate", data.senderSocketID, data.candidate);
         let pc = receiverPCs[data.senderSocketID];
         await pc.addIceCandidate(new wrtc.RTCIceCandidate(data.candidate));
       } catch (error) {
@@ -136,19 +134,15 @@ const pc_config = {
   ],
 };
 
-const isIncluded = (array: any[], Id: string) => array.some((item) => item.Id === Id);
+const isIncluded = (array: any[], Id: string) => array.some((item) => item.id === Id);
 
 const createReceiverPeerConnection = (socketId: string, socket: Socket, roomId: string) => {
   const pc = new wrtc.RTCPeerConnection(pc_config);
-  console.log("pc test jskdffjklsfd", pc);
-  // const pc = new RTCPeerConnection(pc_config);
-  // const pc = new wrtc.RTCPeerConnection(pc_config);
 
   if (receiverPCs[socketId]) receiverPCs[socketId] = pc;
   else receiverPCs = { ...receiverPCs, [socketId]: pc };
 
   pc.onicecandidate = (e: RTCPeerConnectionIceEvent) => {
-    //console.log(`socketId: ${socketId}'s receiverPeerConnection icecandIdate`);
     socket.to(socketId).emit("getSenderCandidate", {
       candidate: e.candidate,
     });
@@ -170,7 +164,7 @@ const createReceiverPeerConnection = (socketId: string, socket: Socket, roomId: 
         },
       ];
     }
-    socket.broadcast.to(roomId).emit("userEnter", { id: socketId });
+    socket.to(roomId).emit("userEnter", { id: socketId });
   };
 
   return pc;
@@ -189,7 +183,6 @@ const createSenderPeerConnection = (receiversocketId: string, sendersocketId: st
     };
 
   pc.onicecandidate = (e: RTCPeerConnectionIceEvent) => {
-    console.log(`socketId: ${receiversocketId}'s senderPeerConnection icecandidate`);
     socket.to(receiversocketId).emit("getReceiverCandidate", {
       id: sendersocketId,
       candidate: e.candidate,
@@ -206,10 +199,15 @@ const createSenderPeerConnection = (receiversocketId: string, sendersocketId: st
 
 const getOtherUsersInRoom = (socketId: string, roomId: string) => {
   let allUsers: { id: string }[] = [];
-
   if (!users[roomId]) return allUsers;
 
-  allUsers = users[roomId].filter((user: userType) => user.id !== socketId).map((otherUser) => ({ id: otherUser.id }));
+  allUsers = users[roomId]
+    .filter((user: userType) => {
+      return user.id !== socketId;
+    })
+    .map((otherUser) => {
+      return { id: otherUser.id };
+    });
 
   return allUsers;
 };
