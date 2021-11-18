@@ -14,6 +14,9 @@ const footerStyle = css`
   justify-content: space-around;
   align-items: center;
   padding: 0 50px;
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
 `;
 
 const CharacterStyle = (props: { index: number }) => css`

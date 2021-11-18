@@ -219,3 +219,18 @@ export type ReceiveChatSocketType = {
     chatRoomId: number;
   };
 };
+
+export type IWebRTCUser = {
+  id: string;
+  stream: MediaStream;
+};
+
+export type webRTCProps = {
+  stream: MediaStream;
+  muted?: boolean;
+};
+
+export type receivePCsType = {
+  id: string;
+  pc: RTCPeerConnection;
+};
