@@ -11,7 +11,7 @@ import MainPage from "./Page/MainPage";
 import Page from "./Page/Page";
 import ChatRoom from "./Page/ChatRoom";
 import ClientSocket from "./Socket";
-import { handleReceiveAcceptSocket, handleReceiveChatSocket, handleReceiveDenySocket, handleReceiveRequestSocket } from "./util";
+import { handleReceiveAcceptSocket, handleReceiveChatSocket, handleReceiveDenySocket, handleReceiveRequestSocket } from "./Socket/chatSocket";
 import { ChatInfoType, RequestType, MessageType } from "./util/type";
 import { CHAT_INFO_URL, JOIN_CHAT_URL, REQUEST_URL, USER_URL } from "./util/URL";
 import { getFetch } from "./util/data";

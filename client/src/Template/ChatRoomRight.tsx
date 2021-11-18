@@ -1,15 +1,14 @@
+/* eslint-disable no-nested-ternary */
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
-import { useRecoilValue } from "recoil";
 import { css } from "@emotion/react";
-import { PersonInfoType } from "../util/type";
 import { Button } from "../Atom/Button";
 import ChatRoomBasic from "../Molecules/ChatRoomBasic";
 import ChatRoomGame from "../Molecules/ChatRoomGame";
 import ChatRoomGather from "./ChatRoomGather";
 import ChatRoomFooter from "../Molecules/ChatRoomFooter";
-import { chatsState, chatTarget } from "../Recoil/Atom";
+import { checkGameInUrl, checkGatherInUrl } from "../util";
 
 const headerStyle = css`
   display: flex;
@@ -18,23 +17,18 @@ const headerStyle = css`
 `;
 
 export default function ChatRoomRight() {
-  const { chatRoomId } = useRecoilValue(chatTarget);
-  const chatsInfo = useRecoilValue(chatsState);
+  const [roomType, setRoomType] = useState("Basic");
 
-  const [member, setMember] = useState<PersonInfoType[] | null>(null);
   const history = useHistory();
-
-  const getMember = async () => {
-    setMember(chatsInfo.filter((data) => data.chatRoomId === chatRoomId)[0].member);
-  };
-
-  useEffect(() => {
-    getMember();
-  }, [chatRoomId]);
 
   const handleCloseRoomClick = () => {
     history.goBack();
   };
+
+  useEffect(() => {
+    const type = checkGameInUrl() ? "Game" : checkGatherInUrl() ? "Gather" : "Basic";
+    setRoomType(type);
+  });
 
   return (
     <div style={{ width: "100%" }}>
@@ -43,12 +37,12 @@ export default function ChatRoomRight() {
           나가기
         </Button>
       </div>
+      <ChatRoomBasic type={roomType} />
       <Switch>
-        <Route path="/ChatRoom" component={() => ChatRoomBasic({ member })} exact />
         <Route path="/ChatRoom/Game" component={ChatRoomGame} />
         <Route path="/ChatRoom/Gather" component={ChatRoomGather} />
       </Switch>
-      <ChatRoomFooter />
+      {roomType === "Basic" && <ChatRoomFooter />}
     </div>
   );
 }
