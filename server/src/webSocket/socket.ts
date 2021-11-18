@@ -9,7 +9,7 @@ export const SocketMap = new Map<string, string>();
 export const socketInit = (server: any, app: express.Application) => {
   const io = new Server(server, {
     cors: {
-    origin: "https://cowdogting.kro.kr",
+      origin: "*",
       methods: ["GET", "POST"],
     },
   });
@@ -75,14 +75,14 @@ export const socketInit = (server: any, app: express.Application) => {
 
     socket.on("receiverOffer", async (data: { receiverSocketID: string; senderSocketID: string; roomID: string; sdp: any }) => {
       try {
-        let pc = createSenderPeerConnection(data.receiverSocketID, data.senderSocketID, socket, data.roomID);
+        let pc = createSenderPeerConnection(data.receiverSocketID, data.senderSocketID, app.get("io"), data.roomID);
         await pc.setRemoteDescription(data.sdp);
         let sdp = await pc.createAnswer({
           offerToReceiveAudio: false,
           offerToReceiveVIdeo: false,
         });
         await pc.setLocalDescription(sdp);
-        io.to(data.receiverSocketID).emit("getReceiverAnswer", {
+        app.get("io").to(data.receiverSocketID).emit("getReceiverAnswer", {
           id: data.senderSocketID,
           sdp,
         });

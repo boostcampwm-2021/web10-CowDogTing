@@ -16,11 +16,11 @@ export const allUsersEvent = (data: { users: Array<{ id: string }> }, chatRoomId
   data.users.forEach((user) => createReceivePC(user.id, socket, chatRoomId, setUsers));
 };
 
-export const userExitEvent = (data: { id: string }, setUsers: Function) => {
+export const userExitEvent = (socketId: string, setUsers: Function) => {
   const { receivePCs } = ClientSocket;
-  receivePCs[data.id].close();
-  delete receivePCs[data.id];
-  setUsers((prev: IWebRTCUser[]) => prev.filter((user) => user.id !== data.id));
+  if (!receivePCs[socketId]) receivePCs[socketId].close();
+  delete receivePCs[socketId];
+  setUsers((prev: IWebRTCUser[]) => prev.filter((user) => user.id !== socketId));
 };
 
 export const getSenderAnswerEvent = async (data: { sdp: RTCSessionDescription }) => {
@@ -47,6 +47,7 @@ export const getReceiverAnswerEvent = async (data: { id: string; sdp: RTCSession
     const { receivePCs } = ClientSocket;
     const pc: RTCPeerConnection = receivePCs[data.id];
     await pc.setRemoteDescription(new RTCSessionDescription(data.sdp));
+    // console.log(pc.)
   } catch (error) {
     console.log(error);
   }

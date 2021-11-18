@@ -10,7 +10,7 @@ import { validateTeam } from "../team/service";
 import { isNumber } from "../../util/utilFunc";
 import { findUser } from "../auth/service";
 import app from "../../app";
-import { messageType } from "src/util/type";
+import { messageType } from "../../util/type";
 
 const { QueryTypes } = require("sequelize");
 

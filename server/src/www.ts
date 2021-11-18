@@ -9,8 +9,8 @@ const port: number = Number(process.env.PORT) || 4000;
 // const server = createServer(app);
 const server = createServer(
   {
-    key: fs.readFileSync("/etc/letsencrypt/live/www.cowdogting.kro.kr/privkey.pem", "utf-8"),
-    cert: fs.readFileSync("/etc/letsencrypt/live/www.cowdogting.kro.kr/cert.pem", "utf-8"),
+    key: fs.readFileSync(__dirname + "/../key.pem", "utf-8"),
+    cert: fs.readFileSync(__dirname + "/../cert.pem", "utf-8"),
   },
   app,
 );
