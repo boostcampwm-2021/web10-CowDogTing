@@ -74,7 +74,7 @@ export default function ChatRoomBasic({ type }: { type: string }) {
       socket!.off("getReceiverAnswer", getReceiverAnswerEvent);
       socket!.off("getReceiverCandidate", getReceiverCandidateEvent);
     };
-  }, [users]);
+  }, []);
 
   return (
     <div css={containerStyle({ type })}>
