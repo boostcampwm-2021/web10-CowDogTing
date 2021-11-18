@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { PersonInfoType } from "../util/type";
 
 const GameStyle = css`
   width: 150px;
@@ -14,14 +14,41 @@ const GatherStyle = css`
 `;
 
 const containerStyle = (props: { type: string }) => css`
-  width: 250px;
-  height: 250px;
+  width: 240px;
+  height: 240px;
   border: 1px solid #000000;
   ${props.type === "Game" && GameStyle}
   ${props.type === "Gather" && GatherStyle}
 `;
 
-export default function Video({ member, type }: { member: PersonInfoType; type: string }) {
-  const { id } = member;
-  return <div css={containerStyle({ type })}>{id}</div>;
+const VideoContainer = styled.video`
+  width: 100%;
+  height: 100%;
+  background-color: black;
+`;
+
+interface Props {
+  stream: MediaStream;
+  type: string;
+  muted?: boolean;
 }
+
+export default function Video({ type, stream, muted }: Props) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (ref.current) ref.current.srcObject = stream;
+    if (muted) setIsMuted(muted);
+  }, [stream, muted]);
+
+  return (
+    <div css={containerStyle({ type })}>
+      <VideoContainer ref={ref} muted={isMuted} autoPlay />
+    </div>
+  );
+}
+
+Video.defaultProps = {
+  muted: false,
+};

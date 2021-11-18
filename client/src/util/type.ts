@@ -222,12 +222,15 @@ export type ReceiveChatSocketType = {
 
 export type IWebRTCUser = {
   id: string;
-  email: string;
   stream: MediaStream;
 };
 
 export type webRTCProps = {
-  email: string;
   stream: MediaStream;
   muted?: boolean;
+};
+
+export type receivePCsType = {
+  id: string;
+  pc: RTCPeerConnection;
 };

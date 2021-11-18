@@ -1,8 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { Socket } from "socket.io-client";
 import { css } from "@emotion/react";
-import { PersonInfoType } from "../util/type";
 import Video from "../Atom/Video";
+import ClientSocket from "../Socket";
+import { allUsersEvent, getReceiverAnswerEvent, getReceiverCandidateEvent, getSenderAnswerEvent, getSenderCandidatEvent, userEnterEvent, userExitEvent } from "../Socket/util";
+import { IWebRTCUser } from "../util/type";
+import { chatTarget } from "../Recoil/Atom";
+import { getLocalStream } from "../Socket/webRTC";
 
 const GameStyle = css`
   top: -10%;
@@ -24,84 +30,61 @@ const containerStyle = (props: { type: string }) => css`
   ${props.type === "Gather" && GatherStyle}
 `;
 
-export default function ChatRoomBasic(props: { member: PersonInfoType[] | null; type: string }) {
-  // const { id } = useRecoilValue(userState);
-  // const { socket } = new ClientSocket(id);
-  const { member, type } = props;
-  // const localVideoRef = useRef<HTMLVideoElement>(null);
-  // let sendPC: RTCPeerConnection;
-  // let receivePCs: any;
-  // const pc_config = {
-  //   iceServers: [
-  //     // {
-  //     //   urls: 'stun:[STUN_IP]:[PORT]',
-  //     //   'credentials': '[YOR CREDENTIALS]',
-  //     //   'username': '[USERNAME]'
-  //     // },
-  //     {
-  //       urls: "stun:stun.l.google.com:19302",
-  //     },
-  //   ],
-  // };
-  // const [users, setUsers] = useState<Array<IWebRTCUser>>([]);
+export default function ChatRoomBasic({ type }: { type: string }) {
+  const { chatRoomId } = useRecoilValue(chatTarget);
+  const [users, setUsers] = useState<Array<IWebRTCUser>>([]);
 
-  // socket.on("userEnter", (data: { id: string }) => {
-  //   createReceivePC(data.id, socket);
-  // });
+  const localStreamRef = useRef<MediaStream>();
+  const localVideoRef = useRef<HTMLVideoElement>(null);
+  const socket = ClientSocket.instance.socket as Socket;
 
-  // socket.on("allUsers", (data: { users: Array<{ id: string }> }) => {
-  //   const len = data.users.length;
-  //   for (let i = 0; i < len; i++) {
-  //     createReceivePC(data.users[i].id, socket);
-  //   }
-  // });
+  const handleUserExitEvent = (data: { id: string }) => {
+    userExitEvent(data, setUsers);
+  };
 
-  // socket.on("userExit", (data: { id: string }) => {
-  //   receivePCs[data.id].close();
-  //   delete receivePCs[data.id];
-  //   setUsers((users) => users.filter((user) => user.id !== data.id));
-  // });
+  const handleAllUserEvent = (data: { users: Array<{ id: string }> }) => {
+    allUsersEvent(data, String(chatRoomId));
+  };
 
-  // socket.on("getSenderAnswer", async (data: { sdp: RTCSessionDescription }) => {
-  //   try {
-  //     await sendPC.setRemoteDescription(new RTCSessionDescription(data.sdp));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // });
+  const handleUserEnterEnvet = (data: { id: string }) => {
+    userEnterEvent(data, String(chatRoomId));
+  };
 
-  // socket.on("getSenderCandidate", async (data: { candidate: RTCIceCandidateInit }) => {
-  //   try {
-  //     if (!data.candidate) return;
-  //     sendPC.addIceCandidate(new RTCIceCandidate(data.candidate));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // });
-
-  // socket.on("getReceiverAnswer", async (data: { id: string; sdp: RTCSessionDescription }) => {
-  //   try {
-  //     const pc: RTCPeerConnection = receivePCs[data.id];
-  //     await pc.setRemoteDescription(data.sdp);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // });
-
-  // socket.on("getReceiverCandidate", async (data: { id: string; candidate: RTCIceCandidateInit }) => {
-  //   try {
-  //     const pc: RTCPeerConnection = receivePCs[data.id];
-  //     if (!data.candidate) return;
-  //     pc.addIceCandidate(new RTCIceCandidate(data.candidate));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // });
+  useEffect(() => {
+    getLocalStream(localStreamRef, localVideoRef, setUsers, String(chatRoomId));
+    socket.on("userEnter", handleUserEnterEnvet);
+    socket.on("allUsers", handleAllUserEvent);
+    socket.on("userExit", handleUserExitEvent);
+    socket.on("getSenderAnswer", getSenderAnswerEvent);
+    socket.on("getSenderCandidate", getSenderCandidatEvent);
+    socket.on("getReceiverAnswer", getReceiverAnswerEvent);
+    socket.on("getReceiverCandidate", getReceiverCandidateEvent);
+    return () => {
+      socket.off("userEnter", userEnterEvent);
+      socket.off("allUsers", allUsersEvent);
+      socket.off("userExit", userExitEvent);
+      socket.off("getSenderAnswer", getSenderAnswerEvent);
+      socket.off("getSenderCandidate", getSenderCandidatEvent);
+      socket.off("getReceiverAnswer", getReceiverAnswerEvent);
+      socket.off("getReceiverCandidate", getReceiverCandidateEvent);
+    };
+  });
 
   return (
     <div css={containerStyle({ type })}>
-      {member?.map((person) => (
-        <Video member={person} type={type} />
+      <video
+        style={{
+          width: 240,
+          height: 240,
+          margin: 5,
+          backgroundColor: "black",
+        }}
+        muted
+        ref={localVideoRef}
+        autoPlay
+      />
+      {users?.map((user) => (
+        <Video stream={user.stream} key={user.id} type={type} />
       ))}
     </div>
   );
