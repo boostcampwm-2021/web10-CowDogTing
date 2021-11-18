@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /** @jsxImportSource @emotion/react */
 
 import React, { useEffect, useRef, useState } from "react";
@@ -45,12 +46,12 @@ export default function ChatRoomBasic({ type }: { type: string }) {
 
   const handleAllUserEvent = (data: { users: Array<{ id: string }> }) => {
     if (!socket) return;
-    allUsersEvent(data, String(chatRoomId), socket);
+    allUsersEvent(data, String(chatRoomId), socket, setUsers);
   };
 
   const handleUserEnterEvent = (data: { id: string }) => {
     if (!socket) return;
-    userEnterEvent(data, String(chatRoomId), socket);
+    userEnterEvent(data, String(chatRoomId), socket, setUsers);
   };
 
   /* eslint consistent-return: "error" */

@@ -18,6 +18,7 @@
     },
     "scripts": {
         "start": "react-app-rewired start",
+        "window-start": "cross-env HTTPS=true SSL_CRT_FILE=cert.pem SSL_KEY_FILE=key.pem react-app-rewired start",
         "starts": "HTTPS=true SSL_CRT_FILE=cert.pem SSL_KEY_FILE=key.pem react-app-rewired start",
         "build": "react-app-rewired build",
         "test": "react-app-rewired test",

@@ -3,9 +3,6 @@ import { Socket } from "socket.io-client";
 import ClientSocket from ".";
 import { IWebRTCUser } from "../util/type";
 
-let { receivePCs } = ClientSocket;
-let { sendPC } = ClientSocket;
-
 const pcConfig = {
   iceServers: [
     // {
@@ -19,11 +16,9 @@ const pcConfig = {
   ],
 };
 
-export const createReceiverPeerConnection = (socketID: string, newSocket: Socket) => {
+export const createReceiverPeerConnection = (socketID: string, newSocket: Socket, setUsers: Function) => {
   const pc = new RTCPeerConnection(pcConfig);
-
-  receivePCs = { ...receivePCs, [socketID]: pc };
-
+  ClientSocket.receivePCs = { ...ClientSocket.receivePCs, [socketID]: pc };
   pc.onicecandidate = (e) => {
     if (e.candidate) {
       newSocket.emit("receiverCandidate", {
@@ -33,12 +28,26 @@ export const createReceiverPeerConnection = (socketID: string, newSocket: Socket
       });
     }
   };
+  pc.ontrack = (e) => {
+    console.log("receiver track");
+    setUsers((oldUsers: any[]) =>
+      oldUsers
+        .filter((user) => user.id !== socketID)
+        .concat({
+          id: socketID,
+          stream: e.streams[0],
+        })
+    );
+  };
+
   return pc;
 };
 
-export const createReceivePC = (id: string, newSocket: Socket, chatRoomId: string) => {
+export const createReceivePC = (id: string, newSocket: Socket, chatRoomId: string, setUsers: Function) => {
+  if (!id) return;
+  console.log("id", id);
   try {
-    const pc = createReceiverPeerConnection(id, newSocket) as RTCPeerConnection;
+    const pc = createReceiverPeerConnection(id, newSocket, setUsers) as RTCPeerConnection;
     createReceiverOffer(pc, newSocket, id, chatRoomId);
   } catch (error) {
     console.log(error);
@@ -47,9 +56,9 @@ export const createReceivePC = (id: string, newSocket: Socket, chatRoomId: strin
 
 export const createSenderOffer = async (newSocket: Socket, chatRoomId: string) => {
   try {
+    const { sendPC } = ClientSocket;
     const sdp = await sendPC.createOffer({ offerToReceiveAudio: false, offerToReceiveVideo: false });
     await sendPC.setLocalDescription(new RTCSessionDescription(sdp));
-
     newSocket.emit("senderOffer", {
       sdp,
       senderSocketID: newSocket.id,
@@ -64,7 +73,6 @@ export const createReceiverOffer = async (pc: RTCPeerConnection, newSocket: Sock
   try {
     const sdp = await pc.createOffer({ offerToReceiveAudio: true, offerToReceiveVideo: true });
     await pc.setLocalDescription(new RTCSessionDescription(sdp));
-
     newSocket.emit("receiverOffer", {
       sdp,
       receiverSocketID: newSocket.id,
@@ -121,11 +129,10 @@ export const getLocalStream = async (localStreamRef: React.MutableRefObject<Medi
         height: 240,
       },
     });
-    console.log(stream);
     if (localVideoRef) localVideoRef.current.srcObject = stream;
     localStreamRef.current = stream;
 
-    sendPC = createSenderPeerConnection(socket, localStreamRef.current, setUsers);
+    ClientSocket.sendPC = createSenderPeerConnection(socket, localStreamRef.current, setUsers);
     await createSenderOffer(socket, chatRoomId);
 
     socket.emit("joinRoom", {
