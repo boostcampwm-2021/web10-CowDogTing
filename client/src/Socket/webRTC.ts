@@ -4,7 +4,7 @@ import ClientSocket from ".";
 import { IWebRTCUser } from "../util/type";
 
 let { receivePCs } = ClientSocket;
-const { sendPC } = ClientSocket;
+let { sendPC } = ClientSocket;
 
 const pcConfig = {
   iceServers: [
@@ -47,15 +47,13 @@ export const createReceivePC = (id: string, newSocket: Socket, chatRoomId: strin
 
 export const createSenderOffer = async (newSocket: Socket, chatRoomId: string) => {
   try {
-    console.log(newSocket, chatRoomId);
-    console.log(sendPC);
     const sdp = await sendPC.createOffer({ offerToReceiveAudio: false, offerToReceiveVideo: false });
     await sendPC.setLocalDescription(new RTCSessionDescription(sdp));
 
     newSocket.emit("senderOffer", {
       sdp,
       senderSocketID: newSocket.id,
-      roomID: chatRoomId,
+      roomId: chatRoomId,
     });
   } catch (error) {
     console.log(error);
@@ -127,7 +125,7 @@ export const getLocalStream = async (localStreamRef: React.MutableRefObject<Medi
     if (localVideoRef) localVideoRef.current.srcObject = stream;
     localStreamRef.current = stream;
 
-    createSenderPeerConnection(socket, localStreamRef.current, setUsers);
+    sendPC = createSenderPeerConnection(socket, localStreamRef.current, setUsers);
     await createSenderOffer(socket, chatRoomId);
 
     socket.emit("joinRoom", {

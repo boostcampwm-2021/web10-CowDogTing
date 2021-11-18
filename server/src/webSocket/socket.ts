@@ -1,5 +1,5 @@
 import express = require("express");
-const wrtc = require("webrtc");
+import "webrtc";
 import { Server, Socket } from "socket.io";
 import { createChatMessage } from "../api/chat/service";
 import { SendChatType, receiverPCType, senderPCsType, usersType, socketToRoomType, userType } from "../util/type";
@@ -49,7 +49,6 @@ export const socketInit = (server: any, app: express.Application) => {
 
     socket.on("senderOffer", async (data: { senderSocketID: string; sdp: any; roomId: string }) => {
       try {
-        console.log("SenderOffer", data.roomId, data.sdp, data.senderSocketID);
         socketToRoom[data.senderSocketID] = data.roomId;
         let pc = createReceiverPeerConnection(data.senderSocketID, socket, data.roomId);
         await pc.setRemoteDescription(data.sdp);
@@ -57,6 +56,7 @@ export const socketInit = (server: any, app: express.Application) => {
           offerToReceiveAudio: true,
           offerToReceiveVIdeo: true,
         });
+        console.log(sdp);
         await pc.setLocalDescription(sdp);
         socket.join(data.roomId);
         io.to(data.senderSocketID).emit("getSenderAnswer", { sdp });
@@ -139,7 +139,10 @@ const pc_config = {
 const isIncluded = (array: any[], Id: string) => array.some((item) => item.Id === Id);
 
 const createReceiverPeerConnection = (socketId: string, socket: Socket, roomId: string) => {
-  const pc = new wrtc.RTCPeerConnection(pc_config);
+  const pc = new RTCPeerConnection(pc_config);
+  console.log("pc", pc);
+  // const pc = new RTCPeerConnection(pc_config);
+  // const pc = new wrtc.RTCPeerConnection(pc_config);
 
   if (receiverPCs[socketId]) receiverPCs[socketId] = pc;
   else receiverPCs = { ...receiverPCs, [socketId]: pc };
@@ -174,7 +177,7 @@ const createReceiverPeerConnection = (socketId: string, socket: Socket, roomId: 
 };
 
 const createSenderPeerConnection = (receiversocketId: string, sendersocketId: string, socket: Socket, roomId: string) => {
-  const pc = new wrtc.RTCPeerConnection(pc_config);
+  const pc = new RTCPeerConnection(pc_config);
 
   if (senderPCs[sendersocketId]) {
     senderPCs[sendersocketId].filter((user) => user.id !== receiversocketId);
