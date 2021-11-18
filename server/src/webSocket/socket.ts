@@ -140,14 +140,14 @@ const isIncluded = (array: any[], Id: string) => array.some((item) => item.Id ==
 
 const createReceiverPeerConnection = (socketId: string, socket: Socket, roomId: string) => {
   const pc = new wrtc.RTCPeerConnection(pc_config);
-  console.log("pc", pc);
+  console.log("pc test jskdffjklsfd", pc);
   // const pc = new RTCPeerConnection(pc_config);
   // const pc = new wrtc.RTCPeerConnection(pc_config);
 
   if (receiverPCs[socketId]) receiverPCs[socketId] = pc;
   else receiverPCs = { ...receiverPCs, [socketId]: pc };
 
-  pc.onicecandiidate = (e: RTCPeerConnectionIceEvent) => {
+  pc.onicecandidate = (e: RTCPeerConnectionIceEvent) => {
     //console.log(`socketId: ${socketId}'s receiverPeerConnection icecandIdate`);
     socket.to(socketId).emit("getSenderCandidate", {
       candidate: e.candidate,
