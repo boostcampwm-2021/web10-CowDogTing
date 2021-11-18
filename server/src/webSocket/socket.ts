@@ -75,14 +75,14 @@ export const socketInit = (server: any, app: express.Application) => {
 
     socket.on("receiverOffer", async (data: { receiverSocketID: string; senderSocketID: string; roomID: string; sdp: any }) => {
       try {
-        let pc = createSenderPeerConnection(data.receiverSocketID, data.senderSocketID, socket, data.roomID);
+        let pc = createSenderPeerConnection(data.receiverSocketID, data.senderSocketID, app.get("io"), data.roomID);
         await pc.setRemoteDescription(data.sdp);
         let sdp = await pc.createAnswer({
           offerToReceiveAudio: false,
           offerToReceiveVIdeo: false,
         });
         await pc.setLocalDescription(sdp);
-        io.to(data.receiverSocketID).emit("getReceiverAnswer", {
+        app.get("io").to(data.receiverSocketID).emit("getReceiverAnswer", {
           id: data.senderSocketID,
           sdp,
         });
@@ -200,7 +200,7 @@ const createSenderPeerConnection = (receiversocketId: string, sendersocketId: st
 const getOtherUsersInRoom = (socketId: string, roomId: string) => {
   let allUsers: { id: string }[] = [];
   if (!users[roomId]) return allUsers;
-
+  console.log(users[roomId]);
   allUsers = users[roomId]
     .filter((user: userType) => {
       return user.id !== socketId;

@@ -38,7 +38,11 @@ export default function Video({ type, stream, muted }: Props) {
   const [isMuted, setIsMuted] = useState<boolean>(false);
 
   useEffect(() => {
-    if (ref.current) ref.current.srcObject = stream;
+    console.log(ref.current);
+    if (ref.current) {
+      console.log(ref.current);
+      ref.current.srcObject = stream;
+    }
     if (muted) setIsMuted(muted);
   }, [stream, muted]);
 

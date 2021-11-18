@@ -40,8 +40,8 @@ export default function ChatRoomBasic({ type }: { type: string }) {
   const localStreamRef = useRef<MediaStream>();
   const localVideoRef = useRef<HTMLVideoElement>(null);
   const { socket } = new ClientSocket(id);
-  const handleUserExitEvent = (data: { id: string }) => {
-    userExitEvent(data, setUsers);
+  const handleUserExitEvent = (socketId: string) => {
+    userExitEvent(socketId, setUsers);
   };
 
   const handleAllUserEvent = (data: { users: Array<{ id: string }> }) => {
@@ -57,7 +57,6 @@ export default function ChatRoomBasic({ type }: { type: string }) {
   /* eslint consistent-return: "error" */
 
   useEffect(() => {
-    console.log(users);
     getLocalStream(localStreamRef, localVideoRef, setUsers, String(chatRoomId), socket);
     socket!.on("userEnter", handleUserEnterEvent);
     socket!.on("allUsers", handleAllUserEvent);
@@ -67,6 +66,9 @@ export default function ChatRoomBasic({ type }: { type: string }) {
     socket!.on("getReceiverAnswer", getReceiverAnswerEvent);
     socket!.on("getReceiverCandidate", getReceiverCandidateEvent);
     return () => {
+      const { sendPC } = ClientSocket;
+      if (sendPC) sendPC.close();
+      users.forEach((user) => handleUserExitEvent(user.id));
       socket!.off("userEnter", handleUserEnterEvent);
       socket!.off("allUsers", handleAllUserEvent);
       socket!.off("userExit", handleUserExitEvent);
@@ -76,6 +78,29 @@ export default function ChatRoomBasic({ type }: { type: string }) {
       socket!.off("getReceiverCandidate", getReceiverCandidateEvent);
     };
   }, []);
+
+  const getPcStats = async (pc: RTCPeerConnection) => {
+    const data = await pc.getStats();
+    console.log(data);
+  };
+
+  useEffect(() => {
+    const { sendPC } = ClientSocket;
+    console.log(sendPC);
+    if (!sendPC) return;
+    getPcStats(sendPC);
+  }, [users]);
+  // useEffect(() => {
+  //   return () => {
+  //     if (socket) {
+  //       socket.disconnect();
+  //     }
+  //     if (localVideoRef.current) {
+  //       localVideoRef.current.close();
+  //     }
+  //     users.forEach((user) => handleUserExitEvent(user.id));
+  //   };
+  // })
 
   return (
     <div css={containerStyle({ type })}>
@@ -90,9 +115,10 @@ export default function ChatRoomBasic({ type }: { type: string }) {
         ref={localVideoRef}
         autoPlay
       />
-      {users?.map((user) => (
-        <Video stream={user.stream} key={user.id} type={type} />
-      ))}
+      {users?.map((user) => {
+        console.log(user);
+        return <Video stream={user.stream} key={user.id} type={type} />;
+      })}
     </div>
   );
 }
