@@ -55,6 +55,7 @@ export default function ChatRoomBasic({ type }: { type: string }) {
   };
 
   /* eslint consistent-return: "error" */
+
   useEffect(() => {
     console.log(users);
     getLocalStream(localStreamRef, localVideoRef, setUsers, String(chatRoomId), socket);
@@ -74,7 +75,7 @@ export default function ChatRoomBasic({ type }: { type: string }) {
       socket!.off("getReceiverAnswer", getReceiverAnswerEvent);
       socket!.off("getReceiverCandidate", getReceiverCandidateEvent);
     };
-  }, [users]);
+  }, []);
 
   return (
     <div css={containerStyle({ type })}>
