@@ -3,14 +3,14 @@ import ClientSocket from ".";
 import { IWebRTCUser } from "../util/type";
 import { createReceivePC } from "./webRTC";
 
-const socket = ClientSocket.instance.socket as Socket;
+// const socket = ClientSocket.instance.socket as Socket;
 const { sendPC, receivePCs } = ClientSocket;
 
-export const userEnterEvent = (data: { id: string }, chatRoomId: string) => {
+export const userEnterEvent = (data: { id: string }, chatRoomId: string, socket: Socket) => {
   createReceivePC(data.id, socket, chatRoomId);
 };
 
-export const allUsersEvent = (data: { users: Array<{ id: string }> }, chatRoomId: string) => {
+export const allUsersEvent = (data: { users: Array<{ id: string }> }, chatRoomId: string, socket: Socket) => {
   data.users.forEach((user) => createReceivePC(user.id, socket, chatRoomId));
 };
 
@@ -28,7 +28,7 @@ export const getSenderAnswerEvent = async (data: { sdp: RTCSessionDescription })
   }
 };
 
-export const getSenderCandidatEvent = async (data: { candidate: RTCIceCandidateInit }) => {
+export const getSenderCandidateEvent = async (data: { candidate: RTCIceCandidateInit }) => {
   try {
     if (!data.candidate) return;
     sendPC.addIceCandidate(new RTCIceCandidate(data.candidate));

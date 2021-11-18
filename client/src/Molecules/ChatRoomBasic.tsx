@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
+
 import React, { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { Socket } from "socket.io-client";
+// import { Socket } from "socket.io-client";
 import { css } from "@emotion/react";
 import Video from "../Atom/Video";
 import ClientSocket from "../Socket";
-import { allUsersEvent, getReceiverAnswerEvent, getReceiverCandidateEvent, getSenderAnswerEvent, getSenderCandidatEvent, userEnterEvent, userExitEvent } from "../Socket/util";
+import { allUsersEvent, getReceiverAnswerEvent, getReceiverCandidateEvent, getSenderAnswerEvent, getSenderCandidateEvent, userEnterEvent, userExitEvent } from "../Socket/util";
 import { IWebRTCUser } from "../util/type";
-import { chatTarget } from "../Recoil/Atom";
+import { chatTarget, userState } from "../Recoil/Atom";
 import { getLocalStream } from "../Socket/webRTC";
 
 const GameStyle = css`
@@ -32,43 +33,47 @@ const containerStyle = (props: { type: string }) => css`
 
 export default function ChatRoomBasic({ type }: { type: string }) {
   const { chatRoomId } = useRecoilValue(chatTarget);
+  const { id } = useRecoilValue(userState);
   const [users, setUsers] = useState<Array<IWebRTCUser>>([]);
 
   const localStreamRef = useRef<MediaStream>();
   const localVideoRef = useRef<HTMLVideoElement>(null);
-  const socket = ClientSocket.instance.socket as Socket;
-
+  const { socket } = new ClientSocket(id);
   const handleUserExitEvent = (data: { id: string }) => {
     userExitEvent(data, setUsers);
   };
 
   const handleAllUserEvent = (data: { users: Array<{ id: string }> }) => {
-    allUsersEvent(data, String(chatRoomId));
+    if (!socket) return;
+    allUsersEvent(data, String(chatRoomId), socket);
   };
 
-  const handleUserEnterEnvet = (data: { id: string }) => {
-    userEnterEvent(data, String(chatRoomId));
+  const handleUserEnterEvent = (data: { id: string }) => {
+    if (!socket) return;
+    userEnterEvent(data, String(chatRoomId), socket);
   };
 
+  /* eslint consistent-return: "error" */
   useEffect(() => {
-    getLocalStream(localStreamRef, localVideoRef, setUsers, String(chatRoomId));
-    socket.on("userEnter", handleUserEnterEnvet);
-    socket.on("allUsers", handleAllUserEvent);
-    socket.on("userExit", handleUserExitEvent);
-    socket.on("getSenderAnswer", getSenderAnswerEvent);
-    socket.on("getSenderCandidate", getSenderCandidatEvent);
-    socket.on("getReceiverAnswer", getReceiverAnswerEvent);
-    socket.on("getReceiverCandidate", getReceiverCandidateEvent);
+    console.log(users);
+    getLocalStream(localStreamRef, localVideoRef, setUsers, String(chatRoomId), socket);
+    socket!.on("userEnter", handleUserEnterEvent);
+    socket!.on("allUsers", handleAllUserEvent);
+    socket!.on("userExit", handleUserExitEvent);
+    socket!.on("getSenderAnswer", getSenderAnswerEvent);
+    socket!.on("getSenderCandidate", getSenderCandidateEvent);
+    socket!.on("getReceiverAnswer", getReceiverAnswerEvent);
+    socket!.on("getReceiverCandidate", getReceiverCandidateEvent);
     return () => {
-      socket.off("userEnter", handleUserEnterEnvet);
-      socket.off("allUsers", handleAllUserEvent);
-      socket.off("userExit", handleUserExitEvent);
-      socket.off("getSenderAnswer", getSenderAnswerEvent);
-      socket.off("getSenderCandidate", getSenderCandidatEvent);
-      socket.off("getReceiverAnswer", getReceiverAnswerEvent);
-      socket.off("getReceiverCandidate", getReceiverCandidateEvent);
+      socket!.off("userEnter", handleUserEnterEvent);
+      socket!.off("allUsers", handleAllUserEvent);
+      socket!.off("userExit", handleUserExitEvent);
+      socket!.off("getSenderAnswer", getSenderAnswerEvent);
+      socket!.off("getSenderCandidate", getSenderCandidateEvent);
+      socket!.off("getReceiverAnswer", getReceiverAnswerEvent);
+      socket!.off("getReceiverCandidate", getReceiverCandidateEvent);
     };
-  });
+  }, [users]);
 
   return (
     <div css={containerStyle({ type })}>

@@ -12,8 +12,9 @@ export default class ClientSocket {
   static instance: ClientSocket;
 
   constructor(id: string) {
-    if (ClientSocket.instance) return this;
+    if (ClientSocket.instance) return ClientSocket.instance;
     this.connect();
+    ClientSocket.instance = this;
     this.setUid(id);
   }
 
