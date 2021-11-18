@@ -5,6 +5,10 @@ import { joinChatType } from "../util/type";
 export default class ClientSocket {
   socket: Socket | undefined;
 
+  static sendPC: RTCPeerConnection;
+
+  static receivePCs: { [index: string]: RTCPeerConnection };
+
   static instance: ClientSocket;
 
   constructor(id: string) {
@@ -26,7 +30,6 @@ export default class ClientSocket {
     this.socket?.on("receiveDenyRequest", handleReceiveDenyEvent);
     this.socket?.on("receiveAcceptRequest", handleReceiveAcceptEvent);
     this.socket?.on("receiveChat", handleReceiveChatEvent);
-    console.log(joinChat);
     const chatRoomID = joinChat.map((data: joinChatType) => String(data.chatRoomId));
     this.socket?.emit("joinChatRoom", chatRoomID);
   }
