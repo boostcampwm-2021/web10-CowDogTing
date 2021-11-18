@@ -28,10 +28,10 @@
         "passport-kakao": "^1.0.1",
         "passport-local": "^1.0.0",
         "passport-naver": "^1.0.6",
+        "rtcpeerconnection": "^8.4.0",
         "sequelize": "^6.9.0",
         "socket.io": "^4.3.2",
-        "webrtc": "^1.14.1",
-        "wrtc": "^0.4.7"
+        "webrtc": "^1.14.1"
     },
     "devDependencies": {
         "@types/bcrypt": "^5.0.0",
