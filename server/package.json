@@ -5,13 +5,12 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "migration_all": "ts-node ./src/db/migrations/createTableAll.ts",
         "data": "ts-node ./src/db/seeders/createDataAll.ts",
-        "start": "nodemon ./src/www.ts",
-        "build": "node ./src/www.ts"
+        "start": "nodemon ./src/bin/www.ts",
+        "build": "node ./src/bin/www.ts"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@shynome/types__wrtc": "^0.0.4",
         "bcrypt": "^5.0.1",
         "cookie-parser": "^1.4.5",
         "cors": "^2.8.5",
@@ -31,7 +30,6 @@
         "rtcpeerconnection": "^8.4.0",
         "sequelize": "^6.9.0",
         "socket.io": "^4.3.2",
-        "webrtc": "^1.14.1",
         "wrtc": "^0.4.7"
     },
     "devDependencies": {
