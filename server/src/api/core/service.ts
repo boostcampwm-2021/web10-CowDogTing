@@ -1,3 +1,4 @@
+import { app } from "./../../app";
 import { Op, literal } from "sequelize";
 import { Request } from "../../db/models/request";
 import { Chat } from "../../db/models/chat";
@@ -9,7 +10,6 @@ import { SocketMap } from "../../webSocket/socket";
 import { validateTeam } from "../team/service";
 import { isNumber } from "../../util/utilFunc";
 import { findUser } from "../auth/service";
-import app from "../../app";
 import { messageType } from "../../util/type";
 
 const { QueryTypes } = require("sequelize");
