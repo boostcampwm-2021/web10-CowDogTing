@@ -139,8 +139,7 @@ export const findAllProfile = async (person: number, index: number, myId: string
       offset: 10 * index,
       limit: 10,
     };
-    const teamInfos = await Team.findAll(query as object);
-    return teamInfos;
+    return await Team.findAll(query as object);
   }
 };
 
