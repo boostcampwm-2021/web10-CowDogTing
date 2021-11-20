@@ -1,8 +1,8 @@
 import express = require("express");
-const wrtc = require("wrtc");
 import { Server, Socket } from "socket.io";
 import { createChatMessage } from "../api/chat/service";
 import { SendChatType, receiverPCType, senderPCsType, usersType, socketToRoomType, userType } from "../util/type";
+const wrtc = require("wrtc");
 
 export const SocketMap = new Map<string, string>();
 

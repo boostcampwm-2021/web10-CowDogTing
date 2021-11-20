@@ -1,10 +1,10 @@
-import { NextFunction, Request, Response } from "express";
 import * as passport from "passport";
+import { NextFunction, Request, Response } from "express";
 import { findUser, createUser, addKakaoID, addGithubID, addNaverID } from "./service";
 
 export const handleRegister = async (req: Request, res: Response, next: NextFunction) => {
-  const { uid, password, location, age, sex }: { uid: string; password: string; location: string; age: number; sex: string } = req.body;
   try {
+    const { uid, password, location, age, sex }: { uid: string; password: string; location: string; age: number; sex: string } = req.body;
     const exUser = await findUser({ uid });
     if (exUser) {
       return res.status(401).send({ error: "해당 아이디 존재" });
@@ -17,7 +17,6 @@ export const handleRegister = async (req: Request, res: Response, next: NextFunc
 };
 
 export const handleLogin = (req: Request, res: Response, next: NextFunction) => {
-  console.log("?");
   passport.authenticate("local", (authError, user, info) => {
     if (authError) {
       return next(authError);

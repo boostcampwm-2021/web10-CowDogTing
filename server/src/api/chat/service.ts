@@ -97,7 +97,6 @@ export const findJoinChatRooms = async ({ uid }: { uid: string }) => {
 };
 
 export const findMessages = async (chatRoomId: number, index: number) => {
-  // chatRoomId에 대한 채팅들 모두 가져오기
   const query = {
     raw: true,
     attributes: [["uid", "from"], "message", ["src", "source"], ["isRead", "read"]],
