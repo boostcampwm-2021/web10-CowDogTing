@@ -28,6 +28,7 @@
         "passport-kakao": "^1.0.1",
         "passport-local": "^1.0.0",
         "passport-naver": "^1.0.6",
+        "pm2": "^5.1.2",
         "rtcpeerconnection": "^8.4.0",
         "sequelize": "^6.9.0",
         "socket.io": "^4.3.2",
