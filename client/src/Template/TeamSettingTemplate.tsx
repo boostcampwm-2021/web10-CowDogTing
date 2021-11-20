@@ -64,8 +64,6 @@ function TeamSettingTemplate() {
       return;
     }
     setTeamInfoState((prev) => {
-      // eslint-disable-next-line no-console
-      console.log({ ...prev, ...result });
       return { ...prev, ...result };
     });
     resetInput();
