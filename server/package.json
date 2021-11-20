@@ -6,7 +6,7 @@
         "migration_all": "ts-node ./src/db/migrations/createTableAll.ts",
         "data": "ts-node ./src/db/seeders/createDataAll.ts",
         "start": "nodemon ./src/www.ts",
-        "build": "node ./src/www.ts"
+        "build": "pm2 start ./src/www.ts"
     },
     "author": "",
     "license": "ISC",
