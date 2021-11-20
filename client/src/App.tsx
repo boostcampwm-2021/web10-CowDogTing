@@ -41,6 +41,7 @@ function App() {
   };
 
   useEffect(() => {
+    if (user.id === "") return;
     const socket = new ClientSocket(user.id);
 
     const handleReceiveRequestEvent = (data: RequestType) => {
