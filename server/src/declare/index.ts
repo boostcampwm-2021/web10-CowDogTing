@@ -1,5 +1,4 @@
 import { SessionData } from "express-session";
-import "webrtc";
 
 declare module "express-session" {
   interface SessionData {

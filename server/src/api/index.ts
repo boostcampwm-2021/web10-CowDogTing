@@ -3,12 +3,13 @@ import authRouter from "./auth";
 import chatRouter from "./chat";
 import coreRouter from "./core";
 import teamRouter from "./team";
+import { isLoggedIn } from "./middlewares/isAuth";
 
 const router = Router();
 
 router.use("/auth", authRouter);
-router.use("/chat", chatRouter);
-router.use("/team", teamRouter);
-router.use("/core", coreRouter);
+router.use("/chat", isLoggedIn, chatRouter);
+router.use("/team", isLoggedIn, teamRouter);
+router.use("/core", isLoggedIn, coreRouter);
 
 export default router;

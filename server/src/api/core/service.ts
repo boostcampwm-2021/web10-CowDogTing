@@ -1,3 +1,4 @@
+import { app } from "./../../app";
 import { Op, literal } from "sequelize";
 import { Request } from "../../db/models/request";
 import { Chat } from "../../db/models/chat";
@@ -9,7 +10,6 @@ import { SocketMap } from "../../webSocket/socket";
 import { validateTeam } from "../team/service";
 import { isNumber } from "../../util/utilFunc";
 import { findUser } from "../auth/service";
-import app from "../../app";
 import { messageType } from "../../util/type";
 
 const { QueryTypes } = require("sequelize");
@@ -139,8 +139,7 @@ export const findAllProfile = async (person: number, index: number, myId: string
       offset: 10 * index,
       limit: 10,
     };
-    const teamInfos = await Team.findAll(query as object);
-    return teamInfos;
+    return await Team.findAll(query as object);
   }
 };
 
