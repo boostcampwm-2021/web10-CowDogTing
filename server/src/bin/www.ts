@@ -8,13 +8,17 @@ const app = createApp();
 const port: number = Number(process.env.PORT) || 4000;
 
 const server = createServer(
-  {
-    key: fs.readFileSync(__dirname + "/../../key.pem", "utf-8"),
-    cert: fs.readFileSync(__dirname + "/../../cert.pem", "utf-8"),
-  },
+  process.env.NODE_ENV === "development"
+    ? {
+        key: fs.readFileSync(__dirname + "/../../key.pem", "utf-8"),
+        cert: fs.readFileSync(__dirname + "/../../cert.pem", "utf-8"),
+      }
+    : {
+        key: fs.readFileSync("/etc/letsencrypt/live/www.cowdogting.kro.kr/privkey.pem", "utf-8"),
+        cert: fs.readFileSync("/etc/letsencrypt/live/www.cowdogting.kro.kr/cert.pem", "utf-8"),
+      },
   app,
 );
-
 socketInit(server, app);
 
 server.listen(port, () => {
