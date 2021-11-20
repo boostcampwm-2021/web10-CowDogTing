@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { getChatsInfo, getChatMessage } from "./controller";
-import { isLoggedIn } from "../middlewares/isAuth";
 
 const chatRouter = Router();
 
