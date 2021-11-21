@@ -25,7 +25,6 @@ export const socketInit = (server: any, app: express.Application) => {
 
     socket.on("setUid", (Id: string) => {
       SocketMap.set(Id, socket.id);
-      console.log(SocketMap);  
     });
 
     socket.on("joinChatRoom", (chatroomId: string[]) => {
@@ -100,7 +99,18 @@ export const socketInit = (server: any, app: express.Application) => {
         console.log(error);
       }
     });
+    socket.on("leaveRoom", () => {
+      try {
+        let roomId = socketToRoom[socket.id];
 
+        deleteUser(socket.id, roomId);
+        closeReceiverPC(socket.id);
+        closeSenderPCs(socket.id);
+        app.get("io").to(roomId).emit("userExit", socket.id);
+      } catch (error) {
+        console.log(error);
+      }
+    });
     socket.on("disconnect", () => {
       try {
         let roomId = socketToRoom[socket.id];
@@ -108,8 +118,7 @@ export const socketInit = (server: any, app: express.Application) => {
         deleteUser(socket.id, roomId);
         closeReceiverPC(socket.id);
         closeSenderPCs(socket.id);
-
-        socket.broadcast.to(roomId).emit("userExit", { id: socket.id });
+        app.get("io").to(roomId).emit("userExit", socket.id);
       } catch (error) {
         console.log(error);
       }
@@ -219,6 +228,7 @@ const deleteUser = (socketId: string, roomId: string) => {
   if (users[roomId].length === 0) {
     delete users[roomId];
   }
+  if (!socketToRoom[socketId]) return;
   delete socketToRoom[socketId];
 };
 
