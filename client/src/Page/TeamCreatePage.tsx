@@ -18,6 +18,8 @@ const TeamCreatePageStyle = css`
 `;
 
 function TeamCreatePage() {
+  const userInfo = useRecoilValue(userState);
+  if (!checkLogin(userInfo)) passToLoginPage();
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);
   const [locSelected, setLocSelected] = useState<string>("");
@@ -26,17 +28,19 @@ function TeamCreatePage() {
   const setErrorValue = useSetRecoilState(errorState);
 
   const clickCreateButton: MouseEventHandler = async () => {
-    if (!teamNameRef.current || !teamInfoRef.current || !locSelected) return;
+    if (!teamNameRef.current || !teamInfoRef.current) return;
 
     const teamName = teamNameRef.current.value;
     const teamInfo = teamInfoRef.current.value;
     const location = locSelected;
 
-    const userInfo = useRecoilValue(userState);
-    if (!checkLogin(userInfo)) passToLoginPage();
-
     if (teamName === "") {
       setErrorValue({ errorStr: "팀 이름을 입력해 주세요", timeOut: 1000 });
+      return;
+    }
+
+    if (location === "") {
+      setErrorValue({ errorStr: "지역을 선택해 주세요", timeOut: 1000 });
       return;
     }
 
@@ -48,8 +52,6 @@ function TeamCreatePage() {
     setUserInfo((prev) => {
       return { ...prev, gid };
     });
-
-    window.location.replace("/sub/teamSetting");
   };
 
   return (
