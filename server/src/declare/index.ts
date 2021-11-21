@@ -14,6 +14,7 @@ declare global {
     interface User {
       uid?: string;
       gid?: number;
+      sex?: string;
     }
   }
 }

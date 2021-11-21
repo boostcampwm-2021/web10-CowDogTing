@@ -96,7 +96,7 @@ export const getCowDogInfo = async (person: number, index: number) => {
     });
     return data;
   } catch (error) {
-    return "error";
+    return [];
   }
 };
 

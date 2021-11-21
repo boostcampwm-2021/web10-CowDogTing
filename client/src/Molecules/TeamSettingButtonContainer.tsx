@@ -20,7 +20,7 @@ export default function TeamSettingButtonContainer({ clickUpdateButton }: { clic
         >
           초대하기
         </Button>
-        {inviteModalState && <InviteModal />}
+        {inviteModalState && <InviteModal setInviteModalState={setInviteModalState} />}
       </div>
       <Button type="Medium" onClick={clickUpdateButton}>
         수정하기
