@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
 const GameStyle = css`
+  top: -10%;
   width: 150px;
   height: 150px;
 `;
