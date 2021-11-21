@@ -1,3 +1,20 @@
+# 실행 방법
+
+### Client
+- npm install
+- npm run starts [ 맥북 https ]
+- npm run window-start [ 윈도우 https ]
+
+### Server
+- npm install
+- npm start
+
+### 주의할 점
+- key.pem , cert.pem , client.env , server.env 필요
+- m1 에서는 Server의 wrtc install 실패 에러
+
+---
+
 # CowDogTing 
 <p align="center" >
 <img src="https://user-images.githubusercontent.com/64246267/138801849-61178d29-1a9a-4723-bcb9-ac3f5d2ce4a7.png" align="center"/>
