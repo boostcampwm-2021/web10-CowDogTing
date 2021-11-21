@@ -2,14 +2,14 @@ import { app } from "./../../app";
 import { Op, literal } from "sequelize";
 import { Request } from "../../db/models/request";
 import { Chat } from "../../db/models/chat";
-import { createChatMessage, createChatRoom, createParticipant, findChatRoomInfo, findJoinChatRooms } from "../chat/service";
 import { Users } from "../../db/models/users";
 import { Team } from "../../db/models/team";
 import { sequelize } from "../../db/models";
+import { createChatMessage, createChatRoom, createParticipant, findChatRoomInfo, findJoinChatRooms } from "../chat/service";
 import { SocketMap } from "../../webSocket/socket";
 import { validateTeam } from "../team/service";
-import { isNumber } from "../../util/utilFunc";
 import { findUser } from "../auth/service";
+import { isNumber } from "../../util/utilFunc";
 import { messageType } from "../../util/type";
 
 const { QueryTypes } = require("sequelize");
@@ -133,13 +133,21 @@ export const findAllProfile = async (person: number, index: number, myId: string
   } else {
     const teamIds = await findTeam(person);
     query = {
-      raw: true,
       attributes: [["gid", "id"], "image", "location", ["description", "info"]],
-      where: { gid: { [Op.or]: teamIds } },
+      include: [
+        {
+          model: Users,
+          as: "member",
+          attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+        },
+      ],
+      where: { gid: { [Op.in]: teamIds } },
       offset: 10 * index,
       limit: 10,
+      logging: true,
     };
-    return await Team.findAll(query as object);
+    const data = await Team.findAll(query as object);
+    return data;
   }
 };
 

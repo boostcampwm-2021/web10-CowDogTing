@@ -46,10 +46,13 @@ export const inviteTeam = async (req: Request, res: Response, next: NextFunction
     const inviteInfo = req.body;
     if (!req.user) return res.status(400).send({ error: "로그인 되어있지 않음" });
     const gid = Number(req.user.gid);
+    const sex = String(req.user.sex);
     const { userId } = inviteInfo;
-    const result = await _inviteTeam({ gid, userId });
+    const result = await _inviteTeam({ gid, userId, sex });
     if (!result) return res.status(401).send({ error: "팀 초대 실패" });
-    return res.status(200).send({ success: "팀 초대  성공" });
+    else {
+      return res.status(200).send({ success: "팀 초대  성공" });
+    }
   } catch (error) {
     next(error);
   }

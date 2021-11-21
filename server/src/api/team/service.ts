@@ -43,14 +43,15 @@ export const _updateTeam = async (teamInfo: TeamAttributes) => {
     return "success";
   } catch (error) {
     return new Error("업데이트 실패");
+    ``;
   }
 };
-export const _inviteTeam = async ({ gid, userId }: { gid: number; userId: string }) => {
+export const _inviteTeam = async ({ gid, userId, sex }: { gid: number; userId: string; sex: string }) => {
   try {
     const checkNum = await Users.count({ where: { gid } });
     if (checkNum > 4) return false;
     const checkUser = await findUser({ uid: userId });
-    if (!checkUser) return false;
+    if (!checkUser || checkUser.sex !== sex || checkUser.gid !== null) return false;
     return await Users.update({ gid }, { where: { uid: userId }, returning: true });
   } catch (error) {
     return new Error("업데이트 실패");
