@@ -9,12 +9,7 @@ COWDOGTING
 
 ## [Wiki](https://github.com/boostcampwm-2021/web10-CowDogTing/wiki) 
 ## 기술 스택
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white">
-<img src="https://img.shields.io/badge/Mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
-<img src="https://img.shields.io/badge/express-00DC00?style=for-the-badge&logo=express&logoColor=white">  
-<img src="https://img.shields.io/badge/Typescript-007396?style=for-the-badge&logo=typescript&logoColor=white">
-<img src="https://img.shields.io/badge/Eslint-F7DF1E?style=for-the-badge&logo=eslint&logoColor=white">
-<img src="https://img.shields.io/badge/Prettier-000000?style=for-the-badge&logo=prettier&logoColor=white">
+![image](https://user-images.githubusercontent.com/64246267/142752437-7bb13285-946d-47df-ac42-90afad950ed8.png)
 
 [기술스택 사용이유](https://github.com/boostcampwm-2021/web10-CowDogTing/wiki/%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%83%9D)
 
