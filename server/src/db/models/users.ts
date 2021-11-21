@@ -82,7 +82,7 @@ Users.init(
   },
 );
 
-Team.hasOne(Users, {
+Team.hasMany(Users, {
   sourceKey: "gid",
   as: "member",
   foreignKey: "gid",
