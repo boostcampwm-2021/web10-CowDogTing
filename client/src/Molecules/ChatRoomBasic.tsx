@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 /** @jsxImportSource @emotion/react */
 
@@ -11,23 +13,54 @@ import { allUsersEvent, getReceiverAnswerEvent, getReceiverCandidateEvent, getSe
 import { IWebRTCUser } from "../util/type";
 import { chatTarget, userState } from "../Recoil/Atom";
 import { getLocalStream } from "../Socket/webRTC";
+import { Button } from "../Atom/Button";
 
-const GameStyle = css`
+const GameVideoStyle = css`
   top: -10%;
+  width: 150px;
+  height: 150px;
 `;
 
-const GatherStyle = css``;
+const GatherVideoStyle = css`
+  width: 150px;
+  height: 150px;
+`;
+
+const videoStyle = (props: { type: string }) => css`
+  width: 240px;
+  height: 240px;
+  border: 1px solid #000000;
+  ${props.type === "Game" && GameVideoStyle}
+  ${props.type === "Gather" && GatherVideoStyle}
+`;
+
+const GameStyle = css`
+  top: 0%;
+  width: 630px;
+  height: 150px;
+  overflow-x: scroll;
+  flex-direction: column;
+`;
+
+const GatherStyle = css`
+  top: 0%;
+  width: 560px;
+  height: 150px;
+`;
 
 const containerStyle = (props: { type: string }) => css`
-  height: 50%;
+  margin: 0 auto;
+  width: 520px;
+  height: 520px;
+  overflow-y: scroll;
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
   padding: 30px;
   padding-top: 0;
   position: absolute;
-  left: 50%;
   ${props.type === "Game" && GameStyle}
   ${props.type === "Gather" && GatherStyle}
 `;
@@ -36,7 +69,7 @@ export default function ChatRoomBasic({ type }: { type: string }) {
   const { chatRoomId } = useRecoilValue(chatTarget);
   const { id } = useRecoilValue(userState);
   const [users, setUsers] = useState<Array<IWebRTCUser>>([]);
-
+  // const videoRef = useRef<HTMLDivElement>();
   const localStreamRef = useRef<MediaStream>();
   const localVideoRef = useRef<HTMLVideoElement>(null);
   const { socket } = new ClientSocket(id);
@@ -69,6 +102,7 @@ export default function ChatRoomBasic({ type }: { type: string }) {
       const { sendPC } = ClientSocket;
       if (sendPC) sendPC.close();
       users.forEach((user) => handleUserExitEvent(user.id));
+      socket!.emit("leaveRoom");
       socket!.off("userEnter", handleUserEnterEvent);
       socket!.off("allUsers", handleAllUserEvent);
       socket!.off("userExit", handleUserExitEvent);
@@ -101,24 +135,38 @@ export default function ChatRoomBasic({ type }: { type: string }) {
   //     users.forEach((user) => handleUserExitEvent(user.id));
   //   };
   // })
+  function muteMic() {
+    if (!localStreamRef || !localStreamRef.current) return;
+    localStreamRef.current.getAudioTracks().forEach((track: MediaStreamTrack) => {
+      track.enabled = !track.enabled;
+    });
+  }
 
+  function muteCam() {
+    if (!localStreamRef || !localStreamRef.current) return;
+    localStreamRef.current.getVideoTracks().forEach((track: MediaStreamTrack) => {
+      track.enabled = !track.enabled;
+    });
+  }
   return (
-    <div css={containerStyle({ type })}>
-      <video
-        style={{
-          width: 240,
-          height: 240,
-          margin: 5,
-          backgroundColor: "black",
-        }}
-        muted
-        ref={localVideoRef}
-        autoPlay
-      />
-      {users?.map((user) => {
-        console.log(user);
-        return <Video stream={user.stream} key={user.id} type={type} />;
-      })}
+    <div>
+      <div css={containerStyle({ type })}>
+        <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />
+        <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />
+        <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />
+        <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />
+        <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />
+        {users?.map((user) => {
+          console.log(user);
+          return <Video stream={user.stream} key={user.id} type={type} />;
+        })}
+      </div>
+      <Button type="Small" onClick={muteCam}>
+        camOff
+      </Button>
+      <Button type="Small" onClick={muteMic}>
+        micOff
+      </Button>
     </div>
   );
 }
