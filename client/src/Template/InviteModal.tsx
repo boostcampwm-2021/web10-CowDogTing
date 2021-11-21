@@ -24,7 +24,7 @@ const inviteModalStyle = css`
   background-color: #fff;
 `;
 
-export default function InviteModal() {
+export default function InviteModal({ setInviteModalState }: { setInviteModalState: Function }) {
   const userIdRef = useRef<HTMLInputElement>(null);
   const setErrorValue = useSetRecoilState(errorState);
 
@@ -43,8 +43,7 @@ export default function InviteModal() {
       return;
     }
     // eslint-disable-next-line no-console
-    console.log(result);
-    window.location.replace("/sub/teamSetting");
+    setInviteModalState(false);
   };
   return (
     <div css={inviteModalStyle}>

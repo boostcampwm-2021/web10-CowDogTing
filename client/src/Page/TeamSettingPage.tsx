@@ -9,8 +9,9 @@ import { checkLogin, passToLoginPage } from "../util";
 function TeamSettingPage() {
   const userInfo = useRecoilValue(userState);
   const { gid } = userInfo;
-
-  if (!checkLogin(userInfo)) passToLoginPage();
+  if (!checkLogin(userInfo)) {
+    passToLoginPage();
+  }
 
   return <>{gid && gid !== 0 ? <TeamSettingTemplate /> : <TeamCreatePage />}</>;
 }
