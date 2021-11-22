@@ -41,9 +41,7 @@ export const getRequest = async (req: Request, res: Response, next: NextFunction
     const uid = String(req.user.uid);
     const gid = Number(req.user.gid);
     const userData = await findAllRequest({ uid });
-    console.log(userData);
     const data = await findAllTeamRequest({ uid, gid, userData });
-    console.log(data);
     return res.send(data);
   } catch (error) {
     return next(error);
@@ -54,7 +52,6 @@ export const postRequest = async (req: Request, res: Response, next: NextFunctio
   try {
     if (!req.user) return res.status(402).send({ error: "isn`t Login" });
     const { from, to } = req.body;
-    console.log(from, to);
     const toValidation = await validationTeamAndUser(to);
     if (!toValidation) return res.status(403).send({ error: "to isn`t exist" });
     await addRequest({ from, to });
