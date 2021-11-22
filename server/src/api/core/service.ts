@@ -11,13 +11,42 @@ import { validateTeam } from "../team/service";
 import { findUser } from "../auth/service";
 import { isNumber } from "../../util/utilFunc";
 import { messageType } from "../../util/type";
+import { Image } from "../../db/models/image";
 
 const { QueryTypes } = require("sequelize");
 
-export const findImage = async ({ imageID }: { imageID: string }) => {
-  // imageID 에 대한 db 값 가져오기
+export const findImage = async ({ imageId }: { imageId: string }) => {
+  const imageSrc = await Image.findOne({ raw: true, where: { imageId }, attributes: ["image"] });
+  return imageSrc;
 };
 
+export const addImage = async ({ imagePath, id }: { imagePath: string; id: string }) => {
+  try {
+    const imageData = await Image.create({ image: imagePath });
+    const imageId = imageData.getDataValue("imageId");
+    console.log(imageId);
+    const result = await updateProfileImage({ imageId: Number(imageId), id });
+    console.log(result);
+  } catch (error) {
+    return error;
+  }
+};
+
+const updateProfileImage = async ({ imageId, id }: { imageId: number; id: string }) => {
+  if (isNumber(id)) {
+    return await updateTeamProfileImage({ imageId, id: Number(id) });
+  } else {
+    return await updateUserProfileImage({ imageId, id });
+  }
+};
+
+const updateTeamProfileImage = async ({ imageId, id }: { imageId: number; id: number }) => {
+  return await Team.update({ image: imageId }, { where: { gid: id } });
+};
+
+const updateUserProfileImage = async ({ imageId, id }: { imageId: number; id: string }) => {
+  return await Users.update({ image: imageId }, { where: { uid: id } });
+};
 export const findChatRoomNotReadNum = async ({ uid }: { uid: string }) => {
   const joinCathRoom = await findJoinChatRooms({ uid });
   const chatList = await Promise.all(
