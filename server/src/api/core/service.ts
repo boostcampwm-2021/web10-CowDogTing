@@ -62,8 +62,8 @@ export const findAllRequest = async ({ uid }: { uid: string }) => {
   return [...result_to, ...filtered];
 };
 
-export const findOneRequest = async ({ from, to, type }: { from: string; to: string; type: string }) => {
-  const query_to = {
+const findOneRequest = async ({ from, to, type }: { from: string; to: string; type: string }) => {
+  const toQuery = {
     attributes: ["from", "to", "state"],
     include: [
       {
@@ -76,20 +76,31 @@ export const findOneRequest = async ({ from, to, type }: { from: string; to: str
       [Op.and]: [{ from, to }],
     },
   };
-  //from의 데이터 -> to 전달
-  const query_from = `select * from Request inner join Users on Request.to = Users.uid where Request.from = "${from}" AND Request.to="${to}"`;
-  //to의 데이터 -> from 한테 전달
+  const fromQuery = `select * from Request inner join Users on Request.to = Users.uid where Request.from = "${from}" AND Request.to="${to}"`;
   if (type === "to") {
-    //to 한테 전달할 from의 데이터
-    const result_to = await Request.findOne(query_to as object);
+    const result_to = await Request.findOne(toQuery as object);
     return result_to;
   }
   if (type === "from") {
-    //from 한테 전달할 to의 데이터
-    const result_from = await sequelize.query(query_from, { type: QueryTypes.SELECT });
-    //result_from.get({ plain: true });
+    const result_from = await sequelize.query(fromQuery, { type: QueryTypes.SELECT });
     return result_from_data(result_from[0]);
   }
+};
+
+const findTeamRequest = async ({ from, to, type }: { from: number; to: number; type: string }) => {
+  const query = {
+    attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
+    include: [
+      {
+        model: Users,
+        as: "member",
+        attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+      },
+    ],
+    where: { gid: type === "to" ? to : from },
+  };
+  const infoData = await Team.findAll(query as object);
+  return { from, to, type, info: infoData };
 };
 
 export const results_from = (users: any[]) => {
@@ -144,7 +155,6 @@ export const findAllProfile = async (person: number, index: number, myId: string
       where: { gid: { [Op.in]: teamIds } },
       offset: 10 * index,
       limit: 10,
-      logging: true,
     };
     const data = await Team.findAll(query as object);
     return data;
@@ -190,10 +200,31 @@ export const sendRequest = ({ from, to }: { from: string; to: string }) => {
   }
 };
 
-const sendRequestToTeam = ({ from, to }: { from: number; to: number }) => {
-  //sibal
-  //팀 리더만 찾아서
-  //-> request 보내주기 (소켓 연결됐는지 확인 후 )
+const sendRequestToTeam = async ({ from, to }: { from: number; to: number }) => {
+  const io = app.get("io");
+
+  const toMemberList = await findMembers(to);
+  const fromMemberList = await findMembers(from);
+  const fromRequestData = await findTeamRequest({ from, to, type: "from" });
+  const toRequestData = await findTeamRequest({ from, to, type: "to" });
+
+  toMemberList.forEach((toMember) => {
+    const toSocketId = SocketMap.get(String(toMember));
+    io.to(toSocketId).emit("receiveRequest", toRequestData);
+  });
+  fromMemberList.forEach((fromMember) => {
+    const fromSocketId = SocketMap.get(String(fromMember));
+    io.to(fromSocketId).emit("receiveRequest", fromRequestData);
+  });
+};
+
+const findMembers = async (gid: number) => {
+  const query = {
+    attributes: ["uid"],
+    where: { gid },
+  };
+  const memberList = await Users.findAll(query);
+  return memberList;
 };
 
 const sendRequestToUser = async ({ from, to }: { from: string; to: string }) => {
