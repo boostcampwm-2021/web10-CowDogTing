@@ -55,10 +55,15 @@ export default function ChatInput() {
     messageRef.current.value = "";
   };
 
+  const handleEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.code !== "Enter") return;
+    handleSendMessageClick();
+  };
+
   return (
     <div css={InputContainer}>
       <div css={sendImageStyle} />
-      <Input placeholder="메시지를 입력하세요" ref={messageRef} />
+      <Input placeholder="메시지를 입력하세요" ref={messageRef} onKeyPress={handleEnterPress} />
       <div css={sendButtonStyle} onClick={handleSendMessageClick} />
     </div>
   );
