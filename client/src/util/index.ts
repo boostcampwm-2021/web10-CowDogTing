@@ -51,6 +51,7 @@ export const fileReader = ({ data, handler }: { data: Blob; handler: Function })
   const reader = new FileReader();
   reader.onload = (event) => {
     const image = String(event.target?.result);
+    console.log(image);
     handler((prev: any) => ({
       ...prev,
       image,

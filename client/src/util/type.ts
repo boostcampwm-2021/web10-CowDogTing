@@ -22,7 +22,7 @@ export type InputLabelType = {
 
 export interface PersonInfoType {
   id: string;
-  image: number | string;
+  image: string | null;
   location: string;
   sex: string;
   age: number;
@@ -38,7 +38,7 @@ export interface PostTeamType {
 export interface ChangeTeamInfoType extends PostTeamType {}
 
 export type TeamInfoType = {
-  image: number;
+  image: string | null;
   id: string;
   info: string;
   location: string;

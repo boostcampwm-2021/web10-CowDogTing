@@ -14,7 +14,7 @@ import ClientSocket from "./Socket";
 import { handleReceiveAcceptSocket, handleReceiveChatSocket, handleReceiveDenySocket, handleReceiveRequestSocket } from "./Socket/chatSocket";
 import { ChatInfoType, RequestType, MessageType } from "./util/type";
 import { CHAT_INFO_URL, JOIN_CHAT_URL, REQUEST_URL, USER_URL } from "./util/URL";
-import { getFetch, getFetchImage } from "./util/data";
+import { getFetch } from "./util/data";
 import reset from "./util/reset";
 import { chatsState, chatTarget, joinChatRoomState, requestState, userState } from "./Recoil/Atom";
 
@@ -38,11 +38,6 @@ function App() {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const getUserImage = async () => {
-    const { image } = user;
-    await getFetchImage({ imageId: Number(image), handler: setUser });
   };
 
   useEffect(() => {
@@ -74,9 +69,6 @@ function App() {
     }
     // eslint-disable-next-line no-new
     new ClientSocket(user.id);
-
-    if (typeof user.image !== typeof 1) return;
-    getUserImage();
   }, [user]);
 
   useEffect(() => {

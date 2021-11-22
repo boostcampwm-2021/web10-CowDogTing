@@ -3,6 +3,7 @@
 
 import { css } from "@emotion/react";
 import { ProfileImageType } from "../util/type";
+import { URL } from "../util/URL";
 
 const bigProfileImageStyle = css`
   width: 300px;
@@ -31,10 +32,15 @@ const profileImageStyle = ({ type }: { type: string }) => css`
 
 export default function ProfileImage(props: ProfileImageType) {
   const { type, onClick, ref, children, image } = props;
+  let src = String(image);
+
+  if (String(image).includes("/uploads")) {
+    src = URL + src;
+  }
 
   return (
     <div ref={ref}>
-      <img alt="ProfileImage" css={profileImageStyle({ type })} src={String(image)} onClick={onClick} />
+      <img alt="ProfileImage" css={profileImageStyle({ type })} src={src} onClick={onClick} />
       {children}
     </div>
   );

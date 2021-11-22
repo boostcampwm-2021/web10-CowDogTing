@@ -28,11 +28,13 @@ function TeamSettingTemplate() {
   const setErrorValue = useSetRecoilState(errorState);
   const teamInfoUrl = `${process.env.REACT_APP_GET_TEAM_INFO_API_URL}`;
   const teamSelector = useRecoilValue(fetchGet({ url: teamInfoUrl, query: "" }));
+
   // eslint-disable-next-line no-console
   useEffect(() => {
     if (teamInfoState.id !== "") return;
     // teamSelector에서 Image 값 가지고와서 image 객체 가져와서 teamState 수정해주기
     setTeamInfoState(teamSelector);
+    // getFetchImage({ imageId: Number(image), handler: setTeamInfoState });
   }, [teamSelector]);
 
   const resetInput = () => {
