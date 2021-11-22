@@ -50,6 +50,5 @@ export default function RequestButton({ type, data }: { type: string; data: Requ
       </>
     );
   }
-  if (type === "NotLeader") return <span>팀장 아니면 꺼지셈</span>;
   return <div css={StateStyle}>{state}</div>;
 }

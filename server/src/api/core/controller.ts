@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { findImage, findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser, sendRequest, validationTeamAndUser, _denyRequest, _acceptRequest, addRequest } from "./service";
+import { findImage, findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser, sendRequest, validationTeamAndUser, _denyRequest, _acceptRequest, addRequest, findAllTeamRequest } from "./service";
 
 const defaultUser = {
   id: "",
@@ -39,7 +39,11 @@ export const getRequest = async (req: Request, res: Response, next: NextFunction
   try {
     if (!req.user) return res.send(defaultRequest);
     const uid = String(req.user.uid);
-    const data = await findAllRequest({ uid });
+    const gid = Number(req.user.gid);
+    const userData = await findAllRequest({ uid });
+    console.log(userData);
+    const data = await findAllTeamRequest({ uid, gid, userData });
+    console.log(data);
     return res.send(data);
   } catch (error) {
     return next(error);
@@ -48,10 +52,11 @@ export const getRequest = async (req: Request, res: Response, next: NextFunction
 
 export const postRequest = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (!req.user) return res.status(401).send({ error: "isn`t Login" });
+    if (!req.user) return res.status(402).send({ error: "isn`t Login" });
     const { from, to } = req.body;
+    console.log(from, to);
     const toValidation = await validationTeamAndUser(to);
-    if (!toValidation) return res.status(401).send({ error: "to isn`t exist" });
+    if (!toValidation) return res.status(403).send({ error: "to isn`t exist" });
     await addRequest({ from, to });
     sendRequest({ from, to });
     return res.status(200).send(true);
