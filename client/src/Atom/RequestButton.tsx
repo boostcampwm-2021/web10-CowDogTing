@@ -50,5 +50,6 @@ export default function RequestButton({ type, data }: { type: string; data: Requ
       </>
     );
   }
+  if (type === "NotLeader") return <div />;
   return <div css={StateStyle}>{state}</div>;
 }
