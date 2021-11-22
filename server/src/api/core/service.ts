@@ -65,14 +65,14 @@ export const findAllRequest = async ({ uid }: { uid: string }) => {
 export const findAllTeamRequest = async ({ uid, gid, userData }: { uid: string; gid: number; userData: any }) => {
   const requestListToQuery = {
     attributes: ["from", "to", "state"],
-    where: { to: gid },
+    where: { from: uid },
   };
   const requestToList = await Request.findAll(requestListToQuery);
   const toList = requestToList.filter((request) => {
     if (!isNumber(request.to)) return false;
     return true;
   });
-  const toQuery = ({ to }: { to: any }) => {
+  const toQuery = ({ to }: { to: number }) => {
     return {
       attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
       include: [
@@ -87,14 +87,14 @@ export const findAllTeamRequest = async ({ uid, gid, userData }: { uid: string; 
   };
   const promiseArr = toList.map(async (request) => {
     const to = Number(request.to);
-    const data = await Team.findAll(toQuery({ to }) as object);
+    const data = await Team.findOne(toQuery({ to }) as object);
     return { from: request.from, to: request.to, state: "ready", info: data };
   });
   const datasTo = await Promise.all(promiseArr);
 
   const requestListFromQuery = {
     attributes: ["from", "to", "state"],
-    where: { from: uid },
+    where: { to: gid },
   };
   const requestFromList = await Request.findAll(requestListFromQuery);
   const fromList = requestFromList.filter((request) => {
@@ -116,7 +116,7 @@ export const findAllTeamRequest = async ({ uid, gid, userData }: { uid: string; 
   };
   const promiseArrFrom = fromList.map(async (request) => {
     const leader = String(request.from);
-    const data = await Team.findAll(fromQuery({ leader }) as object);
+    const data = await Team.findOne(fromQuery({ leader }) as object);
     return { from: request.from, to: request.to, state: "ready", info: data };
   });
   const datasFrom = await Promise.all(promiseArrFrom);
@@ -162,6 +162,7 @@ const findTeamRequest = async ({ from, to, type }: { from: string; to: number; t
         },
       ],
       where: { gid: to },
+      // where: type === "to" ?{ gid: to } : {leader:from},
     };
     infoData = await Team.findAll(query as object);
     return { from, to, type, info: infoData };
@@ -254,7 +255,6 @@ const findTeam = async (person: number, myId: string) => {
     where: literal(`Team.gid != (SELECT gid from Users WHERE uid='${myId}')`),
     group: ["member.gid"],
     having: literal(`COUNT(member.uid) = ${person}`),
-    logging: true,
   };
   const resultArr = await Team.findAll(query as object);
   const teamId = resultArr.map((result) => {
