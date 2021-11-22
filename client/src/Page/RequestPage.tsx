@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import { RequestType } from "../util/type";
 import { requestState, userState } from "../Recoil/Atom";
 import { checkLogin, passToLoginPage } from "../util";
-import RequestListContainer from "../Template/RequestListContainer";
+import RequestListContainer from "../Template/Request/RequestListContainer";
 
 const RequestPageStyle = css`
   display: flex;
@@ -17,37 +17,19 @@ const RequestPageStyle = css`
 `;
 
 export default function RequestPage() {
+  const userInfo = useRecoilValue(userState);
+
+  if (!checkLogin(userInfo)) passToLoginPage();
+
   const { id: myId, gid: mygId } = useRecoilValue(userState);
   const requestDatas = useRecoilValue(requestState);
 
   const [RequestForMe, setRequestForMe] = useState<RequestType[]>([]);
   const [RequestToMe, setRequestToMe] = useState<RequestType[]>([]);
-  const userInfo = useRecoilValue(userState);
-  if (!checkLogin(userInfo)) passToLoginPage();
-
-  const getDatas = () => {
-    setRequestForMe(
-      requestDatas.filter((data: RequestType) => {
-        if (data == null) return false;
-        if (data.info.member?.length === 0) {
-          return data?.from !== myId;
-        }
-        return Number(data.from) !== mygId;
-      })
-    );
-    setRequestToMe(
-      requestDatas.filter((data: RequestType) => {
-        if (data == null) return false;
-        if (data.info.member?.length === 0) {
-          return data?.from === myId;
-        }
-        return Number(data.from) === mygId;
-      })
-    );
-  };
 
   useEffect(() => {
-    getDatas();
+    setRequestForMe(requestDatas.filter((data: RequestType) => dataFilter(data, myId, mygId)));
+    setRequestToMe(requestDatas.filter((data: RequestType) => dataFilter(data, myId, mygId)));
   }, [requestDatas]);
 
   return (
@@ -56,4 +38,12 @@ export default function RequestPage() {
       <RequestListContainer type="ToMe" datas={RequestToMe} />
     </div>
   );
+}
+
+function dataFilter(data: RequestType, myId: string, myGId: number | undefined | null) {
+  if (data == null) return false;
+  if (data.info.member?.length === 0) {
+    return data?.from !== myId;
+  }
+  return Number(data.from) !== myGId;
 }
