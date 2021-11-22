@@ -31,6 +31,7 @@ function TeamSettingTemplate() {
   // eslint-disable-next-line no-console
   useEffect(() => {
     if (teamInfoState.id !== "") return;
+    // teamSelector에서 Image 값 가지고와서 image 객체 가져와서 teamState 수정해주기
     setTeamInfoState(teamSelector);
   }, [teamSelector]);
 

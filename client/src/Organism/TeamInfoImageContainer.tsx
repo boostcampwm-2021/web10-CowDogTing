@@ -50,13 +50,19 @@ function TeamInfoImageContainer() {
   };
 
   const handleImageEdit = () => {
+    let targetId;
+    let handler;
+
     if (window.location.href.includes("myinfo")) {
-      postImage(imageFile, id);
-      fileReader({ data: imageFile, handler: setUserInfo });
+      targetId = id;
+      handler = setUserInfo;
     } else {
-      postImage(imageFile, String(gid));
-      fileReader({ data: imageFile, handler: setTeamInfo });
+      targetId = String(gid);
+      handler = setTeamInfo;
     }
+
+    postImage(imageFile, targetId);
+    fileReader({ data: imageFile, handler });
   };
 
   useEffect(() => {
