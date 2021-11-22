@@ -23,8 +23,7 @@ export const changeTeamInfo = async ({ teamName, teamInfo, location }: ChangeTea
 
 export const exitTeam = async () => {
   try {
-    const { data } = await axios.post(TEAM_EXIT_API_URL, {}, { withCredentials: true });
-    return data;
+    return await axios.post(TEAM_EXIT_API_URL, {}, { withCredentials: true });
   } catch (error) {
     return "error";
   }
@@ -67,7 +66,6 @@ export const inviteTeam = async ({ userId }: { userId: string }) => {
 
 export const postLogin = async ({ id, pw }: loginInfo) => {
   try {
-    console.log("?");
     const { data } = await axios.post(
       LOGIN_API_URL,
       {
