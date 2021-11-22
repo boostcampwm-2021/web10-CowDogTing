@@ -33,6 +33,7 @@ export const handleReceiveChatSocket = ({ setJoinChat, setChat, setChatInfo, dat
       return item;
     })
   );
+
   setChat((prev: ChatInfoType[]) =>
     prev.map((item) => {
       if (item.chatRoomId === chatRoomId) {
@@ -45,7 +46,7 @@ export const handleReceiveChatSocket = ({ setJoinChat, setChat, setChatInfo, dat
     })
   );
   setChatInfo((prev: ChatInfoType) => {
-    if (chatRoomId !== prev.chatRoomId) return prev;
+    if (Number(chatRoomId) !== prev.chatRoomId) return prev;
     return {
       ...prev,
       chatMessage: [...prev.chatMessage, message],

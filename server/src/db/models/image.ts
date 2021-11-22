@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import { sequelize } from "./index";
 
 interface ImageAttributes {
-  imageId: number;
+  imageId?: number;
   image: string;
 }
 

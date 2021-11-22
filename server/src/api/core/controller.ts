@@ -1,5 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-import { findImage, findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser, sendRequest, validationTeamAndUser, _denyRequest, _acceptRequest, addRequest } from "./service";
+import { NextFunction, Request, RequestParamHandler, Response } from "express";
+import path = require("path");
+import { findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser, sendRequest, validationTeamAndUser, _denyRequest, _acceptRequest, addRequest, updateProfileImage } from "./service";
 
 const defaultUser = {
   id: "",
@@ -13,15 +14,15 @@ const defaultUser = {
 
 const defaultRequest = <any>[];
 const defaultJoinChatRoom = {};
-
-export const getImage = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const imageID = String(req.query.imageID);
-    const data = await findImage({ imageID });
-    return res.send(data);
-  } catch (error) {
-    return next(error);
-  }
+export const postImage = async (req: Request, res: Response, next: NextFunction) => {
+  if (!req.user) return res.status(401).send({ error: "로그인 안됨" });
+  const { id } = req.body;
+  if (!req.file) return res.status(404).send({ eeror: "잘못된 이미지입니다" });
+  const imagePath = "/" + req.file?.path;
+  const result = await updateProfileImage({ image: imagePath, id });
+  if(!result)res.send({error:"이미지 업로드 실패"});
+  return res.send(imagePath);
+  //const data = await addProfileImage
 };
 
 export const getJoinChatInfo = async (req: Request, res: Response, next: NextFunction) => {
