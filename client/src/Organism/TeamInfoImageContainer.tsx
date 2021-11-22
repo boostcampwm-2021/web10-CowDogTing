@@ -69,7 +69,6 @@ function TeamInfoImageContainer() {
       ...prev,
       image: url,
     }));
-    setProfileImage(url);
   };
 
   useEffect(() => {

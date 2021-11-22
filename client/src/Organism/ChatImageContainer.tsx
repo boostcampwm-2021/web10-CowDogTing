@@ -47,7 +47,7 @@ function ChatImageContainer({ profileRef }: ChatImageContainerType) {
         <div css={ChatImageContainerStyle}>
           {member?.map((userInfo, idx) => {
             if (userInfo.id === myId) return;
-            return <ProfileImage type="Mini" image={String(userInfo.image)} ref={(el: any) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLImageElement)} data-id={idx} />;
+            return <ProfileImage type="Mini" image={userInfo.image} ref={(el: any) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLImageElement)} data-id={idx} />;
           })}
         </div>
         <Button onClick={handleCloseRoomClick}>나가기</Button>
