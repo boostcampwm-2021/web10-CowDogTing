@@ -131,9 +131,9 @@ export const findAllProfile = async (person: number, index: number, myId: string
     };
     return await Users.findAll(query as object);
   } else {
-    const teamIds = await findTeam(person);
+    const teamIds = await findTeam(person, myId);
     query = {
-      attributes: [["gid", "id"], "image", "location", ["description", "info"]],
+      attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
       include: [
         {
           model: Users,
@@ -151,7 +151,7 @@ export const findAllProfile = async (person: number, index: number, myId: string
   }
 };
 
-const findTeam = async (person: number) => {
+const findTeam = async (person: number, myId: string) => {
   const query = {
     raw: true,
     attributes: ["gid"],
@@ -162,8 +162,10 @@ const findTeam = async (person: number) => {
         attributes: [],
       },
     ],
+    where: literal(`Team.gid != (SELECT gid from Users WHERE uid='${myId}')`),
     group: ["member.gid"],
     having: literal(`COUNT(member.uid) = ${person}`),
+    logging: true,
   };
   const resultArr = await Team.findAll(query as object);
   const teamId = resultArr.map((result) => {
@@ -190,8 +192,8 @@ export const sendRequest = ({ from, to }: { from: string; to: string }) => {
 
 const sendRequestToTeam = ({ from, to }: { from: number; to: number }) => {
   //sibal
-  //팀 멤버 찾기
-  //-> request 다 보내주기 (소켓 연결됐는지 확인 후 )
+  //팀 리더만 찾아서
+  //-> request 보내주기 (소켓 연결됐는지 확인 후 )
 };
 
 const sendRequestToUser = async ({ from, to }: { from: string; to: string }) => {
