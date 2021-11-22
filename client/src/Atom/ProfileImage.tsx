@@ -30,7 +30,7 @@ const profileImageStyle = ({ type }: { type: string }) => css`
 `;
 
 export default function ProfileImage(props: ProfileImageType) {
-  const { type, image, onClick, ref, children } = props;
+  const { type, onClick, ref, children, image } = props;
 
   return (
     <div ref={ref}>

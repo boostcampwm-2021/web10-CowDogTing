@@ -30,7 +30,7 @@ export default function ProfileInfo({ data }: ProfileInfoDataType): JSX.Element 
 
   return (
     <div css={ContainerStyle}>
-      <div css={ImageStyle({ image })} />
+      <div css={ImageStyle({ image: String(image) })} />
       <div css={InfoStyle}>
         <div>제목 : {id}</div>
         <div>지역 : {location}</div>

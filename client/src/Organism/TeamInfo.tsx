@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { RefObject } from "react";
 import { css } from "@emotion/react";
-import teamImage from "../assets/meetingImage.png";
 import TeamInfoImageContainer from "./TeamInfoImageContainer";
 import TeamInfoContainer from "./TeamInfoContianer";
 
@@ -18,7 +17,7 @@ const TeamInfoContainerStyle = css`
 export default function TeamInfo({ teamNameRef, teamInfoRef, setLocSelected }: { teamNameRef: RefObject<HTMLInputElement>; teamInfoRef: RefObject<HTMLInputElement>; setLocSelected: (value: string) => void }) {
   return (
     <div css={TeamInfoContainerStyle}>
-      <TeamInfoImageContainer image={teamImage} />
+      <TeamInfoImageContainer />
       <TeamInfoContainer setLocSelected={setLocSelected} teamNameRef={teamNameRef} teamInfoRef={teamInfoRef} />
     </div>
   );

@@ -22,7 +22,7 @@ export type InputLabelType = {
 
 export interface PersonInfoType {
   id: string;
-  image: string;
+  image: number | string;
   location: string;
   sex: string;
   age: number;
@@ -38,7 +38,7 @@ export interface PostTeamType {
 export interface ChangeTeamInfoType extends PostTeamType {}
 
 export type TeamInfoType = {
-  image: string;
+  image: number;
   id: string;
   info: string;
   location: string;
@@ -108,10 +108,6 @@ export type RequestsType = {
 export type joinChatType = {
   chatRoomId: number;
   notReadNum: number;
-};
-
-export type TeamImageContainerType = {
-  image: string | ArrayBuffer | null;
 };
 
 export type ProfileImageType = {
