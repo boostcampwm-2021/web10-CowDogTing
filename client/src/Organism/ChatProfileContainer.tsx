@@ -7,7 +7,7 @@ import { css } from "@emotion/react";
 import { ChatProfileContainerType } from "../util/type";
 import ProfileCard from "../Atom/ProfileCard";
 import ProfileImageContainer from "../Molecules/ProfileImageContainer";
-import { ProfileImage } from "../Atom/ProfileImage";
+import ProfileImage from "../Atom/ProfileImage";
 import dummyImage from "../assets/meetingImage.png";
 import ChatProfileInfoContainer from "../Molecules/ChatProfileInfoContainer";
 

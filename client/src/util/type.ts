@@ -1,4 +1,4 @@
-import { RefObject } from "react";
+import React, { RefObject } from "react";
 
 export type ButtonType = {
   type?: string;
@@ -117,6 +117,9 @@ export type TeamImageContainerType = {
 export type ProfileImageType = {
   image: string | ArrayBuffer | null;
   type: string;
+  onClick?: React.MouseEventHandler;
+  ref?: any;
+  children?: JSX.Element;
 };
 
 export type ChatProfileContainerType = {

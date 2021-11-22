@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import React, { ChangeEvent, ChangeEventHandler, useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
-import { ProfileImage } from "../Atom/ProfileImage";
+import ProfileImage from "../Atom/ProfileImage";
 import { TeamImageContainerType } from "../util/type";
+import { Button } from "../Atom/Button";
 
 const TeamInfoImageContainerStyle = css`
   width: 100%;
@@ -22,7 +23,9 @@ function TeamInfoImageContainer({ image }: TeamImageContainerType) {
   const [imageFile, setImageFile] = useState<Blob>(initBlob);
 
   const clickImageTag = () => {
+    console.log(imageInputTag.current);
     (imageInputTag.current as HTMLInputElement).click();
+    console.log("???!!");
   };
 
   const changeImage: ChangeEventHandler<HTMLInputElement> = (event: ChangeEvent<HTMLInputElement>) => {
@@ -30,18 +33,27 @@ function TeamInfoImageContainer({ image }: TeamImageContainerType) {
     setImageFile(event.target.files[0]);
   };
 
+  // const handleImageEdit = (e: MouseEvent) => {
+  //   const formData = new FormData();
+  //   formData.append(" image", imageFile);
+  //   axios.post("api////",formData)
+  // };
+
   useEffect(() => {
     if (imageFile === initBlob) return;
     const reader = new FileReader();
     reader.onloadend = () => {
       setProfileImage(reader.result);
+      console.log(profileImage);
     };
     reader.readAsDataURL(imageFile);
   }, [imageFile]);
 
   return (
     <div css={TeamInfoImageContainerStyle}>
-      <ProfileImage type="Big" image={profileImage} onClick={clickImageTag} />
+      <ProfileImage type="Big" image={profileImage} onClick={clickImageTag}>
+        <Button type="Small">Edit</Button>
+      </ProfileImage>
       <input ref={imageInputTag} onChange={changeImage} css={imageInputStyle} type="file" accept="image/*" />
     </div>
   );
