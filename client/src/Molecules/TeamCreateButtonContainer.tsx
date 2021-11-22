@@ -11,9 +11,6 @@ export default function TeamCreateButtonContainer({ clickCreateButton }: { click
           생성
         </Button>
       </Link>
-      <Link to="/sub/teamSetting">
-        <Button type="Medium">삭제</Button>
-      </Link>
     </TeamButtonContainer>
   );
 }

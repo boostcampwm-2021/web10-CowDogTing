@@ -43,7 +43,7 @@ export default function RequestListContainer({ datas, type }: { datas: RequestTy
   const userInfo = useRecoilValue(userState);
   const { leader } = teamInfo;
   const { id } = userInfo;
-  let propsType = type;
+  const [propsType, setPropsType] = useState<string>(type);
   useEffect(() => {
     if (!datas) return;
     if (openModal === null) return;
@@ -51,7 +51,7 @@ export default function RequestListContainer({ datas, type }: { datas: RequestTy
     const data = datas[Number(openModal)].info;
     const { member } = data;
     const teamPerson = member || [];
-    if (teamPerson.length !== 0 && leader !== id) propsType = "NotLeader";
+    if (teamPerson.length !== 0 && leader !== id) setPropsType("NotLeader");
     setModalDatas([data, ...teamPerson]);
   }, [openModal]);
 

@@ -32,7 +32,7 @@ export default function RequestPage() {
         if (data.info.member?.length === 0) {
           return data?.from !== myId;
         }
-        return Number(data.from) !== mygId;
+        return Number(data.to) === mygId;
       })
     );
     setRequestToMe(
@@ -41,7 +41,7 @@ export default function RequestPage() {
         if (data.info.member?.length === 0) {
           return data?.from === myId;
         }
-        return Number(data.from) === mygId;
+        return Number(data.to) !== mygId;
       })
     );
   };

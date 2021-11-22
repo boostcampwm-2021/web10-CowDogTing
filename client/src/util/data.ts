@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-debugger */
 import axios from "axios";
-import { ACCEPT_API_URL, CHAT_MESSAGES_API_URL, DENY_API_URL, LOGIN_API_URL, LOGOUT_API_URL, PROFILE_API_URL, REGISTER_API_URL, REQUEST_API_URL, TEAM_CREATE_API_URL, TEAM_INVITE_API_URL, TEAM_UPDATE_API_URL, USER_INFO_API_URL } from "./URL";
+import { ACCEPT_API_URL, CHAT_MESSAGES_API_URL, DENY_API_URL, LOGIN_API_URL, LOGOUT_API_URL, PROFILE_API_URL, REGISTER_API_URL, REQUEST_API_URL, TEAM_CREATE_API_URL, TEAM_EXIT_API_URL, TEAM_INVITE_API_URL, TEAM_UPDATE_API_URL, USER_INFO_API_URL } from "./URL";
 import { ChangeTeamInfoType, loginInfo, PostTeamType, registerInfo } from "./type";
 
 export const changeTeamInfo = async ({ teamName, teamInfo, location }: ChangeTeamInfoType) => {
@@ -15,6 +15,15 @@ export const changeTeamInfo = async ({ teamName, teamInfo, location }: ChangeTea
       },
       { withCredentials: true }
     );
+    return data;
+  } catch (error) {
+    return "error";
+  }
+};
+
+export const exitTeam = async () => {
+  try {
+    const { data } = await axios.post(TEAM_EXIT_API_URL, {}, { withCredentials: true });
     return data;
   } catch (error) {
     return "error";
