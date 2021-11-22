@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useState, useRef, useEffect } from "react";
@@ -44,6 +43,7 @@ export default function RequestListContainer({ datas, type }: { datas: RequestTy
   const userInfo = useRecoilValue(userState);
   const { leader } = teamInfo;
   const { id } = userInfo;
+  let propsType = type;
   useEffect(() => {
     if (!datas) return;
     if (openModal === null) return;
@@ -51,14 +51,14 @@ export default function RequestListContainer({ datas, type }: { datas: RequestTy
     const data = datas[Number(openModal)].info;
     const { member } = data;
     const teamPerson = member || [];
-    if (teamPerson.length !== 0 && leader !== id) type = "NotLeader";
+    if (teamPerson.length !== 0 && leader !== id) propsType = "NotLeader";
     setModalDatas([data, ...teamPerson]);
   }, [openModal]);
 
   return (
     <div css={RequestListStyle}>
       <div css={RequestTitleStyle}>{title}</div>
-      <RequestList datas={datas} setOpenModal={setOpenModal} type={type} profileRef={profileRef} />
+      <RequestList datas={datas} setOpenModal={setOpenModal} type={propsType} profileRef={profileRef} />
       <div ref={modalRef}>{openModal !== null && <ProfileModal />}</div>
     </div>
   );

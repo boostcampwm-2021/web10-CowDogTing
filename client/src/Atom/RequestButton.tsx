@@ -23,17 +23,17 @@ const StateStyle = css`
 `;
 
 export default function RequestButton({ type, data }: { type: string; data: RequestType }) {
-  const { id: myId } = useRecoilValue(userState);
+  const { id: myId, gid: mygId } = useRecoilValue(userState);
   const {
     info: { id },
   } = data;
-
+  const toId = data.info.member?.length === 0 ? myId : mygId;
   const handleAcceptClick = () => {
-    requestAccept({ from: id, to: myId });
+    requestAccept({ from: id, to: toId ?? myId });
   };
 
   const handleDenyClick = () => {
-    requestDeny({ from: id, to: myId });
+    requestDeny({ from: id, to: toId ?? myId });
   };
 
   const { state } = data;
@@ -50,6 +50,6 @@ export default function RequestButton({ type, data }: { type: string; data: Requ
       </>
     );
   }
-  if (type === "NotLeader") return <div />;
+  if (type === "NotLeader") return <span>팀장 아니면 꺼지셈</span>;
   return <div css={StateStyle}>{state}</div>;
 }
