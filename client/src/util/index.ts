@@ -51,11 +51,19 @@ export const fileReader = ({ data, handler }: { data: Blob; handler: Function })
   const reader = new FileReader();
   reader.onload = (event) => {
     const image = String(event.target?.result);
-    console.log(image);
     handler((prev: any) => ({
       ...prev,
       image,
     }));
   };
   reader.readAsDataURL(file);
+};
+
+export const fromImageToForm = (chatRoomId: number, uId: string, files: Blob) => {
+  const formData = new FormData();
+  formData.append("image", files);
+  formData.append("from", uId);
+  formData.append("message", "");
+  formData.append("chatRoomId", String(chatRoomId));
+  return formData;
 };

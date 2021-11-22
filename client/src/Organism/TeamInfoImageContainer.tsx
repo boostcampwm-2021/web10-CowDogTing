@@ -63,7 +63,6 @@ function TeamInfoImageContainer() {
     }
 
     const url = await postImage(imageFile, targetId);
-    console.log(url);
 
     handler((prev: any) => ({
       ...prev,

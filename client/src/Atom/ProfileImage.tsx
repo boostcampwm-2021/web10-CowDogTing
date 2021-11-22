@@ -33,7 +33,6 @@ const profileImageStyle = ({ type }: { type: string }) => css`
 
 export default function ProfileImage(props: ProfileImageType) {
   const { type, onClick, ref, children, image } = props;
-  console.log(typeof image);
   let src = image ?? defaultImage;
   if (String(image).includes("/uploads")) {
     src = URL + String(src);

@@ -119,6 +119,6 @@ export const createParticipant = async ({ from, to, chatRoomId }: { from: string
 };
 
 export const createChatMessage = async ({ chatRoomId, message }: SendChatType) => {
-  const createdChatMessage = await Chat.create({ uid: message.from, message: message.message, isRead: message.read, src: 1, chatRoomId });
+  const createdChatMessage = await Chat.create({ uid: message.from, message: message.message, isRead: message.read, src: message.source, chatRoomId });
   return createChatMessage;
 };

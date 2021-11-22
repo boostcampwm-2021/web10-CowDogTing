@@ -19,3 +19,4 @@ export const SOCIAL_NAVER_LOGIN = `${URL}${process.env.REACT_APP_SOCAIL_LOGIN_NA
 export const SOCIAL_GITHUB_LOGIN = `${URL}${process.env.REACT_APP_SOCAIL_LOGIN_GITHUB}`;
 export const SOCIAL_KAKAO_LOGIN = `${URL}${process.env.REACT_APP_SOCAIL_LOGIN_KAKAO}`;
 export const POST_IMAGE_API_URL = `${URL}${process.env.REACT_APP_POST_IMAGE_API_URL}`;
+export const POST_CHAT_API_URL = `${URL}${process.env.REACT_APP_POST_CHAT_API_URL}`;

@@ -8,6 +8,7 @@ import SendButton from "../assets/SendButton.svg";
 import { Input } from "../Atom/Input";
 import { chatTarget, userState } from "../Recoil/Atom";
 import ClientSocket from "../Socket";
+import { postChat } from "../util/data";
 
 const InputContainer = css`
   display: flex;
@@ -73,16 +74,7 @@ export default function ChatInput() {
   const changeImage: ChangeEventHandler<HTMLInputElement> = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
 
-    const { socket } = new ClientSocket(uid);
-    socket?.emit("sendChat", {
-      chatRoomId,
-      message: {
-        from: uid,
-        message: "",
-        read: false,
-        source: event.target.files[0],
-      },
-    });
+    postChat(chatRoomId, uid, event.target.files[0]);
   };
 
   return (
