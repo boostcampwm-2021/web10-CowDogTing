@@ -46,6 +46,7 @@ function TeamSettingTemplate() {
     if (result === "error") {
       setErrorValue({ errorStr: "팀 탈출에 실패했습니다.", timeOut: 1000 });
     }
+    window.location.replace("/main");
   };
   const clickUpdateButton: MouseEventHandler = async () => {
     if (!teamNameRef.current || !teamInfoRef.current || !locSelected) return;
