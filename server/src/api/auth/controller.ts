@@ -4,12 +4,12 @@ import { findUser, createUser, addKakaoID, addGithubID, addNaverID } from "./ser
 
 export const handleRegister = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { uid, password, location, age, sex }: { uid: string; password: string; location: string; age: number; sex: string } = req.body;
+    const { uid, password, location, age, sex, info }: { uid: string; password: string; location: string; age: number; sex: string; info: string } = req.body;
     const exUser = await findUser({ uid });
     if (exUser) {
       return res.status(401).send({ error: "해당 아이디 존재" });
     }
-    await createUser({ uid, password, location, age, sex });
+    await createUser({ uid, password, location, age, sex, info });
     return res.status(200).send({ success: "회원가입 성공" });
   } catch (error) {
     return next(error);
