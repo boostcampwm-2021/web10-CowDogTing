@@ -6,8 +6,8 @@ import ProfileImage from "../Atom/ProfileImage";
 import { Button } from "../Atom/Button";
 import { postImage } from "../util/data";
 import { teamState, userState } from "../Recoil/Atom";
-import { fileReader, isNumber } from "../util";
 import defaultImage from "../assets/meetingImage.png";
+// import { fileReader } from "../util";
 // import { getFetch, postImage } from "../util/data";
 // import { userState, teamState } from "../Recoil/Atom";
 // import { GET_IMAGE_API_URL } from "../util/URL";
@@ -28,7 +28,7 @@ function TeamInfoImageContainer() {
   const setUserInfo = useSetRecoilState(userState);
   const setTeamInfo = useSetRecoilState(teamState);
 
-  let image: string | number;
+  let image: string | null;
 
   const initBlob = new Blob();
   const imageInputTag = useRef<HTMLInputElement | null>(null);
@@ -40,6 +40,7 @@ function TeamInfoImageContainer() {
   } else {
     image = useRecoilValue(teamState).image;
   }
+
   const clickImageTag = () => {
     (imageInputTag.current as HTMLInputElement).click();
   };
@@ -49,7 +50,7 @@ function TeamInfoImageContainer() {
     setImageFile(event.target.files[0]);
   };
 
-  const handleImageEdit = () => {
+  const handleImageEdit = async () => {
     let targetId;
     let handler;
 
@@ -61,8 +62,14 @@ function TeamInfoImageContainer() {
       handler = setTeamInfo;
     }
 
-    postImage(imageFile, targetId);
-    fileReader({ data: imageFile, handler });
+    const url = await postImage(imageFile, targetId);
+    console.log(url);
+
+    handler((prev: any) => ({
+      ...prev,
+      image: url,
+    }));
+    setProfileImage(url);
   };
 
   useEffect(() => {
@@ -75,12 +82,7 @@ function TeamInfoImageContainer() {
   }, [imageFile]);
 
   useEffect(() => {
-    if (!isNumber(image as any)) {
-      setProfileImage(String(image));
-    }
-    if (!image) {
-      setProfileImage(defaultImage);
-    }
+    setProfileImage(image ?? defaultImage);
   }, []);
 
   return (

@@ -9,7 +9,7 @@ export interface UserAttributes {
   github_id?: string | null;
   naver_id?: string | null;
   kakao_id?: string | null;
-  image?: number | null;
+  image?: string | null;
   age: number;
   sex: string;
   gid?: number | null;
@@ -23,7 +23,7 @@ export class Users extends Model<UserAttributes> {
   public github_id?: string | null;
   public naver_id?: string | null;
   public kakao_id?: string | null;
-  public image?: number | null;
+  public image?: string | null;
   public age!: number;
   public sex!: string;
   public gid?: number | null;

@@ -15,37 +15,20 @@ import { Image } from "../../db/models/image";
 
 const { QueryTypes } = require("sequelize");
 
-export const findImage = async ({ imageId }: { imageId: string }) => {
-  const imageSrc = await Image.findOne({ raw: true, where: { imageId }, attributes: ["image"] });
-  return imageSrc;
-};
-
-export const addImage = async ({ imagePath, id }: { imagePath: string; id: string }) => {
-  try {
-    const imageData = await Image.create({ image: imagePath });
-    const imageId = imageData.getDataValue("imageId");
-    console.log(imageId);
-    const result = await updateProfileImage({ imageId: Number(imageId), id });
-    console.log(result);
-  } catch (error) {
-    return error;
-  }
-};
-
-const updateProfileImage = async ({ imageId, id }: { imageId: number; id: string }) => {
+export const updateProfileImage = async ({ image, id }: { image: string; id: string }) => {
   if (isNumber(id)) {
-    return await updateTeamProfileImage({ imageId, id: Number(id) });
+    return await updateTeamProfileImage({ image, id: Number(id) });
   } else {
-    return await updateUserProfileImage({ imageId, id });
+    return await updateUserProfileImage({ image, id });
   }
 };
 
-const updateTeamProfileImage = async ({ imageId, id }: { imageId: number; id: number }) => {
-  return await Team.update({ image: imageId }, { where: { gid: id } });
+const updateTeamProfileImage = async ({ image, id }: { image: string; id: number }) => {
+  return await Team.update({ image }, { where: { gid: id } });
 };
 
-const updateUserProfileImage = async ({ imageId, id }: { imageId: number; id: string }) => {
-  return await Users.update({ image: imageId }, { where: { uid: id } });
+const updateUserProfileImage = async ({ image, id }: { image: string; id: string }) => {
+  return await Users.update({ image }, { where: { uid: id } });
 };
 export const findChatRoomNotReadNum = async ({ uid }: { uid: string }) => {
   const joinCathRoom = await findJoinChatRooms({ uid });
