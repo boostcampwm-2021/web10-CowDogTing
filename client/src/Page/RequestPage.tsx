@@ -17,7 +17,7 @@ const RequestPageStyle = css`
 `;
 
 export default function RequestPage() {
-  const { id: myId } = useRecoilValue(userState);
+  const { id: myId, gid: mygId } = useRecoilValue(userState);
   const requestDatas = useRecoilValue(requestState);
 
   const [RequestForMe, setRequestForMe] = useState<RequestType[]>([]);
@@ -29,13 +29,19 @@ export default function RequestPage() {
     setRequestForMe(
       requestDatas.filter((data: RequestType) => {
         if (data == null) return false;
-        return data?.from !== myId;
+        if (data.info.member?.length === 0) {
+          return data?.from !== myId;
+        }
+        return Number(data.from) !== mygId;
       })
     );
     setRequestToMe(
       requestDatas.filter((data: RequestType) => {
         if (data == null) return false;
-        return data.from === myId;
+        if (data.info.member?.length === 0) {
+          return data?.from === myId;
+        }
+        return Number(data.from) === mygId;
       })
     );
   };
