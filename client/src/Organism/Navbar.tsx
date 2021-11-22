@@ -17,7 +17,7 @@ const NavbarStyle = css`
 
 const NavbarContainerStyle = css`
   display: flex;
-  width: 80%;
+  width: 80vw;
   border: 1px solid #000000;
   border-top: none;
   border-bottom: none;
