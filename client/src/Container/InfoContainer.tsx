@@ -7,7 +7,7 @@ const InfoContainerStyle = css`
   display: flex;
   min-height: 450px;
   width: 30vw;
-  height: 60vh;
+  height: 100%;
   align-items: center;
   flex-direction: column;
   text-align: center;
