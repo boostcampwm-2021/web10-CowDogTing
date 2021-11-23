@@ -8,7 +8,7 @@ interface ChatAttributes {
   chatRoomId: number;
   isRead: boolean;
   message?: string;
-  src?: number;
+  src?: string | null;
   uid: string;
 }
 
@@ -17,7 +17,7 @@ export class Chat extends Model<ChatAttributes> {
   public chatRoomId!: number;
   public isRead!: boolean;
   public message!: string;
-  public src!: number;
+  public src!: string | null;
   public uid!: string;
   public static associations: {};
 }

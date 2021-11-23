@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable no-debugger */
 import axios from "axios";
-import { ACCEPT_API_URL, CHAT_MESSAGES_API_URL, DENY_API_URL, LOGIN_API_URL, LOGOUT_API_URL, PROFILE_API_URL, REGISTER_API_URL, REQUEST_API_URL, TEAM_CREATE_API_URL, TEAM_EXIT_API_URL, TEAM_INVITE_API_URL, TEAM_UPDATE_API_URL, USER_INFO_API_URL } from "./URL";
+import { TEAM_EXIT_API_URL, ACCEPT_API_URL, CHAT_MESSAGES_API_URL, DENY_API_URL, LOGIN_API_URL, LOGOUT_API_URL, POST_CHAT_API_URL, POST_IMAGE_API_URL, PROFILE_API_URL, REGISTER_API_URL, REQUEST_API_URL, TEAM_CREATE_API_URL, TEAM_INVITE_API_URL, TEAM_UPDATE_API_URL, USER_INFO_API_URL } from "./URL";
 import { ChangeTeamInfoType, loginInfo, PostTeamType, registerInfo } from "./type";
+import { fromImageToForm } from ".";
 
 export const changeTeamInfo = async ({ teamName, teamInfo, location }: ChangeTeamInfoType) => {
   try {
@@ -183,4 +184,17 @@ export const getFetch = async ({ url, query }: { url: string; query: string }): 
     withCredentials: true,
   });
   return data;
+};
+
+export const postImage = async (image: Blob, id: string) => {
+  const formData = new FormData();
+  formData.append("image", image);
+  formData.append("id", id);
+  const { data } = await axios.post(POST_IMAGE_API_URL, formData, { withCredentials: true });
+  return data;
+};
+
+export const postChat = async (chatRoomId: number, uId: string, file: Blob) => {
+  const formData = fromImageToForm(chatRoomId, uId, file);
+  await axios.post(POST_CHAT_API_URL, formData, { withCredentials: true });
 };

@@ -6,7 +6,7 @@ export type messageType = {
   from: string;
   message?: string;
   read: boolean;
-  source?: string;
+  source?: string | null;
 };
 
 export type receiverPCType = {

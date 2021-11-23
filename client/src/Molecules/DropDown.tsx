@@ -54,15 +54,15 @@ const UserDropDownStyle = css`
 `;
 
 const LocationDropDownStyle = css`
-  margin-left: 100px;
+  margin-left: 17.5vw;
   ${NavStyle}
 `;
 const AgeDropDownStyle = css`
-  margin-left: 280px;
+  margin-left: 32.5vw;
   ${NavStyle}
 `;
 const SexDropDownStyle = css`
-  margin-left: 450px;
+  margin-left: 47.5vw;
   ${NavStyle}
 `;
 const ChatDropDownStyle = css`

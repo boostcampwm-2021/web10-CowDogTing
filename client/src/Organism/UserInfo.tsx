@@ -3,7 +3,6 @@
 import { css } from "@emotion/react";
 import TeamInfoImageContainer from "./TeamInfoImageContainer";
 import UserInfoContainer from "./UserInfoContainer";
-import teamImage from "../assets/meetingImage.png";
 
 const MyInfoStyle = css`
   padding-left: 50px;
@@ -16,7 +15,7 @@ export default function UserInfo() {
   return (
     <div css={MyInfoStyle}>
       <UserInfoContainer />
-      <TeamInfoImageContainer image={teamImage} />
+      <TeamInfoImageContainer />
     </div>
   );
 }

@@ -36,6 +36,7 @@ export default function CowDogPage() {
 
   const getDatas = async () => {
     const item = await getCowDogInfo(person, dataIndex);
+    // item안에 데이터를 image 변경해서 넣어야함
     setDatas(item);
   };
 
@@ -43,6 +44,7 @@ export default function CowDogPage() {
     const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
     if (scrollTop + clientHeight >= scrollHeight) {
       const item = await getCowDogInfo(person, dataIndex);
+      // item안에 데이터를 image 변경해서 넣어야함
       setDatas([...datas, ...item]);
       setDataIndex((prev) => prev + 1);
     }

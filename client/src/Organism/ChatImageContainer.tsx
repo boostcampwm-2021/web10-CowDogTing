@@ -8,7 +8,7 @@ import { useRecoilValue } from "recoil";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ChatImageContainerType } from "../util/type";
-import { ProfileImage } from "../Atom/ProfileImage";
+import ProfileImage from "../Atom/ProfileImage";
 import { Button } from "../Atom/Button";
 import { chatTarget, userState } from "../Recoil/Atom";
 
@@ -47,7 +47,7 @@ function ChatImageContainer({ profileRef }: ChatImageContainerType) {
         <div css={ChatImageContainerStyle}>
           {member?.map((userInfo, idx) => {
             if (userInfo.id === myId) return;
-            return <ProfileImage type="Mini" image={userInfo.image} ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx} />;
+            return <ProfileImage type="Mini" image={userInfo.image} ref={(el: any) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLImageElement)} data-id={idx} />;
           })}
         </div>
         <Button onClick={handleCloseRoomClick}>나가기</Button>
