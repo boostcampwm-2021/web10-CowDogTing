@@ -9,7 +9,7 @@ import ProfileModal from "../Template/Modal/ProfileModal";
 import useModalCloseEvent from "../Hook/useModalCloseEvent";
 import { cowDogState, profileModalDatas, userState } from "../Recoil/Atom";
 import { getCowDogInfo } from "../util/data";
-import { checkLogin, passToLoginPage } from "../util";
+import { checkLogin, makeCategory, passToLoginPage } from "../util";
 
 const ListContainer = css`
   margin: 0 auto;
@@ -24,6 +24,7 @@ export default function CowDogPage() {
 
   const [openModal, setOpenModal] = useState<number | null>(null);
   const [dataIndex, setDataIndex] = useState<number>(0);
+  const [category, setCategory] = useState<string | null>(null);
 
   const searchParams = new URLSearchParams(useLocation().search);
   const person = Number(searchParams.get("person"));
@@ -36,14 +37,17 @@ export default function CowDogPage() {
   });
 
   const getDatas = async () => {
-    const item = await getCowDogInfo(person, dataIndex);
+    const filterCategory = makeCategory(category);
+    const item = await getCowDogInfo(person, 0, filterCategory);
     setDatas(item);
+    setDataIndex(1);
   };
 
   const addDatas = async () => {
     const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
     if (scrollTop + clientHeight >= scrollHeight) {
-      const item = await getCowDogInfo(person, dataIndex);
+      const filterCategory = makeCategory(category);
+      const item = await getCowDogInfo(person, dataIndex, filterCategory);
       setDatas([...datas, ...item]);
       setDataIndex((prev) => prev + 1);
     }
@@ -65,19 +69,18 @@ export default function CowDogPage() {
 
   useEffect(() => {
     getDatas();
-    setDataIndex(0);
-  }, [person]);
+  }, [person, category]);
 
   useEffect(() => {
     document.addEventListener("scroll", addDatas);
     return () => {
       document.removeEventListener("scroll", addDatas);
     };
-  }, [dataIndex]);
+  }, [dataIndex, category]);
 
   return (
     <div>
-      <Navbar />
+      <Navbar setCategory={setCategory} />
       <div css={ListContainer}>
         <ProfileList datas={datas} person={person} setOpenModal={setOpenModal} profileRef={profileRef} />
         <div ref={modalRef}>{datas && openModal !== null && <ProfileModal />}</div>

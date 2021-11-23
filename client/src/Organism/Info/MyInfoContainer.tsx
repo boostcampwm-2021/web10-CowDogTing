@@ -38,17 +38,22 @@ export default function MyInfoContainer() {
   const refArray = useRef<HTMLInputElement[]>([]);
 
   const handleChangeMyInfo = async () => {
-    if (!refArray.current[0] || !refArray.current[1] || !refArray.current[2] || !refArray.current[3]) return;
+    if (!refArray.current[0] && !refArray.current[1] && !refArray.current[2] && !refArray.current[3]) return;
 
-    const changeInfo = { id: refArray.current[0].value, location: refArray.current[1].value, age: Number(refArray.current[2].value), info: refArray.current[3].value };
+    const changeInfo = {
+      id: refArray.current[0].value || myInfo.id,
+      age: Number(refArray.current[1].value) || myInfo.age,
+      location: refArray.current[2].value || myInfo.location,
+      info: refArray.current[3].value || myInfo.info,
+    };
+
     const result = await changeMyInfo(changeInfo);
-
-    if (result === "success") {
+    if (result) {
       setMyInfo({
         ...myInfo,
         ...changeInfo,
       });
-    } else if (result === "error") {
+    } else {
       setErrorValue({ errorStr: "내 정보 수정에 실패했습니다", timeOut: 1000 });
     }
   };
