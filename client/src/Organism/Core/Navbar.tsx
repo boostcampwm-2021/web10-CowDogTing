@@ -64,7 +64,7 @@ export default function Navbar() {
     <>
       <div css={NavbarStyle} onClick={(event) => handleDropDownClick(event)}>
         <div css={NavbarContainerStyle}>
-          <NavBarComponent ref={navBarRef} />
+          <NavBarComponent navBarRef={navBarRef} />
           <div className="navbar-item">
             <Input />
             <SearchIcon />

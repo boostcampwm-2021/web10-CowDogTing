@@ -15,13 +15,13 @@ const ProfileSideStyle = css`
   margin-left: 10px;
 `;
 
-export default function RequestComponent({ data, type, ref, idx }: { data: RequestType; type: string; ref: React.RefObject<HTMLDivElement[]>; idx: number }) {
+export default function RequestComponent({ data, type, profileRef, idx }: { data: RequestType; type: string; profileRef: React.RefObject<HTMLDivElement[]>; idx: number }) {
   let { sex } = data.info;
   if (data.info.member) {
     sex = "team";
   }
   return (
-    <UserContainer sex={data.info.sex} data={data.info} ref={ref} idx={idx}>
+    <UserContainer sex={data.info.sex} data={data.info} profileRef={profileRef} idx={idx}>
       <div css={ProfileSideStyle}>
         <RequestButton type={type} data={data} isTeam={sex} />
       </div>

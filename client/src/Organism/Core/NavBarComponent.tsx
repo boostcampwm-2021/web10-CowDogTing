@@ -8,13 +8,13 @@ const list = [
   { id: "Sex", name: "성별" },
 ];
 
-export default function NavBarComponent({ ref }: { ref: React.MutableRefObject<HTMLDivElement[]> }) {
+export default function NavBarComponent({ navBarRef }: { navBarRef: React.MutableRefObject<HTMLDivElement[]> }) {
   return (
     <>
       {list.map((item, idx) => {
         const { name } = item;
         return (
-          <div className="navbar-item" data-id={idx} ref={(el) => ((ref.current as HTMLDivElement[])[idx] = el as HTMLDivElement)}>
+          <div className="navbar-item" data-id={idx} ref={(el) => ((navBarRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)}>
             <NavbarDiv>{name}</NavbarDiv>
           </div>
         );
