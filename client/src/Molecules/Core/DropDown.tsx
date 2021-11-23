@@ -105,6 +105,7 @@ export default function DropDown(props: DropDownType) {
   const LogOut = async () => {
     const data = await logOutUser();
     if (data) {
+      sessionStorage.setItem("isLogin", "false");
       window.location.replace("/main");
     } else {
       alert("실패 ㅋㅋ");

@@ -31,6 +31,10 @@ function App() {
       const requestData = await getFetch({ url: REQUEST_URL, query: "" });
       const joinChatData = await getFetch({ url: JOIN_CHAT_URL, query: "" });
       const chatData = await getFetch({ url: CHAT_INFO_URL, query: "" });
+      if (userData) {
+        console.log(userData);
+        sessionStorage.setItem("isLogin", "true");
+      }
       setUser(userData);
       setRequest(requestData);
       setJoinChat(joinChatData);
