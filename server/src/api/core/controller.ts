@@ -1,6 +1,7 @@
 import { NextFunction, Request, RequestParamHandler, Response } from "express";
 import path = require("path");
 import { findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser, sendRequest, validationTeamAndUser, _denyRequest, _acceptRequest, addRequest, updateProfileImage, findAllTeamRequest } from "./service";
+import { Op } from "sequelize";
 
 const defaultUser = {
   id: "",
@@ -56,7 +57,6 @@ export const postRequest = async (req: Request, res: Response, next: NextFunctio
     const toValidation = await validationTeamAndUser(to);
     if (!toValidation) return res.status(403).send({ error: "to isn`t exist" });
     await addRequest({ from, to });
-    console.log(3);
     sendRequest({ from, to });
     return res.status(200).send(true);
   } catch (error) {
@@ -79,9 +79,12 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
   try {
     const person: number = Number(req.query.person);
     const index: number = Number(req.query.index);
+    const age = req.query.age ? Number(req.query.age) : { [Op.ne]: null };
+    const sex = req.query.sex ? String(req.query.sex) : { [Op.ne]: null };
+    const location = req.query.location ? String(req.query.location) : { [Op.ne]: null };
     if (!req.user) return res.status(401).send(defaultUser);
     const myId = String(req.user.uid);
-    const data = await findAllProfile(person, index, myId);
+    const data = await findAllProfile(person, index, myId, age, sex, location);
     return res.send(data);
   } catch (error) {
     return next(error);

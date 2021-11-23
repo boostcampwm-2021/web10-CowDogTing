@@ -222,17 +222,22 @@ export const findUserInfo = async ({ uid }: { uid: string }) => {
   return await Users.findOne(query as object);
 };
 
-export const findAllProfile = async (person: number, index: number, myId: string) => {
+export const findAllProfile = async (person: number, index: number, myId: string, age: number | object, sex: string | object, location: string | object) => {
   let query;
   if (person === 1) {
+    if (typeof age === "number") {
+      age = { [Op.gte]: Number(age), [Op.lt]: Number(age) + 10 };
+    }
     query = {
       raw: true,
       attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
-      where: { uid: { [Op.ne]: myId } },
+      where: { uid: { [Op.ne]: myId }, age, sex, location },
       offset: 10 * index,
       limit: 10,
+      logging: true,
     };
-    return await Users.findAll(query as object);
+    let data = await Users.findAll(query as object);
+    return data;
   } else {
     const teamIds = await findTeam(person, myId);
     query = {
@@ -244,11 +249,12 @@ export const findAllProfile = async (person: number, index: number, myId: string
           attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
         },
       ],
-      where: { gid: { [Op.in]: teamIds } },
+      where: { gid: { [Op.in]: teamIds }, age, sex, location },
       offset: 10 * index,
       limit: 10,
+      logging: true,
     };
-    const data = await Team.findAll(query as object);
+    let data = await Team.findAll(query as object);
     return data;
   }
 };
