@@ -153,6 +153,7 @@ export type LinkButtonType = {
   content: string;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   refProps?: RefObject<HTMLDivElement>;
+  id?: string;
 };
 
 export type DropDownType = {

@@ -3,7 +3,7 @@ import { menuListType } from "./type";
 export const MENU_LIST: menuListType = {
   Location: [{ name: "서울" }, { name: "경기" }, { name: "인천" }, { name: "대구" }, { name: "대전" }, { name: "광주" }, { name: "부산" }, { name: "울산" }],
   Age: [{ name: "10대" }, { name: "20대" }, { name: "30대" }],
-  Sex: [{ name: "남자" }, { name: "여자" }, { name: "기타" }],
+  Sex: [{ name: "남자" }, { name: "여자" }],
   Chat: [
     { link: "/sub/chatList", name: "내 채팅 목록 보기" },
     { link: "/sub/Request", name: "채팅 요청 목록" },
