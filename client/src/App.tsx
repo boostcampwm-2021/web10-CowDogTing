@@ -45,6 +45,7 @@ function App() {
     const socket = new ClientSocket(user.id);
 
     const handleReceiveRequestEvent = (data: RequestType) => {
+      console.log(data);
       handleReceiveRequestSocket({ setRequest, data });
     };
     const handleReceiveDenyEvent = (data: { from: string; to: string }) => {

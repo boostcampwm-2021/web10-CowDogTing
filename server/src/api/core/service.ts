@@ -163,7 +163,7 @@ const findOneRequest = async ({ from, to, type }: { from: string; to: string; ty
 const findTeamRequest = async ({ from, to, type }: { from: string; to: number; type: string }) => {
   let query;
   let infoData;
-  if (type === "to") {
+  if (type === "from") {
     query = {
       attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
       include: [
@@ -176,7 +176,7 @@ const findTeamRequest = async ({ from, to, type }: { from: string; to: number; t
       where: { gid: to },
       // where: type === "to" ?{ gid: to } : {leader:from},
     };
-    infoData = await Team.findAll(query as object);
+    infoData = await Team.findOne(query as object);
     return { from, to, type, info: infoData };
   } else {
     query = {
@@ -190,7 +190,7 @@ const findTeamRequest = async ({ from, to, type }: { from: string; to: number; t
       ],
       where: { leader: from },
     };
-    infoData = await Team.findAll(query as object);
+    infoData = await Team.findOne(query as object);
     return { from, to, type, info: infoData };
   }
 };
@@ -285,8 +285,10 @@ export const addRequest = async ({ from, to }: { from: string; to: string }) => 
 
 export const sendRequest = ({ from, to }: { from: string; to: string }) => {
   if (isNumber(to)) {
+    console.log(1);
     sendRequestToTeam({ from: from, to: Number(to) });
   } else {
+    console.log(2);
     sendRequestToUser({ from, to });
   }
 };
@@ -294,14 +296,14 @@ export const sendRequest = ({ from, to }: { from: string; to: string }) => {
 const sendRequestToTeam = async ({ from, to }: { from: string; to: number }) => {
   const io = app.get("io");
 
-  const toLeader = await findLeaders(to);
   const fromRequestData = await findTeamRequest({ from, to, type: "from" });
-  const toRequestData = await findTeamRequest({ from, to, type: "to" });
-
-  const toSocketId = SocketMap.get(String(toLeader));
-  io.to(toSocketId).emit("receiveRequest", toRequestData);
   const fromSocketId = SocketMap.get(String(from));
   io.to(fromSocketId).emit("receiveRequest", fromRequestData);
+  const toLeader = String(await findLeaders(to));
+  if (!SocketMap.has(toLeader)) return;
+  const toRequestData = await findTeamRequest({ from, to, type: "to" });
+  const toSocketId = SocketMap.get(String(toLeader));
+  io.to(toSocketId).emit("receiveRequest", toRequestData);
 };
 
 const findLeaders = async (gid: number) => {

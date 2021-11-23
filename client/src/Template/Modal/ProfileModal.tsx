@@ -39,7 +39,6 @@ export default function ProfileModal(): JSX.Element {
     setIndex((prev) => prev - 1);
     setTarget(datas ? datas[index] : null);
   };
-  console.log(datas);
 
   const handleRequestClick = (): void => {
     // if (datas.length !== 1) {
