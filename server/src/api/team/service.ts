@@ -1,52 +1,41 @@
-import { isNumber } from "src/util/utilFunc";
 import { Team, TeamAttributes } from "../../db/models/team";
 import { Users } from "../../db/models/users";
 import { findUser } from "../auth/service";
 
-interface infoAttribute extends TeamAttributes {
-  [key: string]: string | number | null | undefined;
-}
 export const findTeam = async ({ gid }: { gid: number }) => {
   const query = {
-    raw: true,
-    where: { gid },
+    attributes: ["image", ["name", "id"], ["description", "info"], "location", "leader"],
     include: [
       {
         model: Users,
         as: "member",
-        attributes: ["uid", "image", "location", "age", "sex"],
+        attributes: [["uid", "id"], "image", "location", "age", "sex"],
       },
     ],
+    where: { gid },
   };
-
-  const teamInfos = await Team.findAll(query as object);
-  const memberInfo = (teamInfos as unknown as infoAttribute[]).map((info: infoAttribute) => {
-    return { id: info["member.uid"], image: info["member.image"], location: info["member.location"], age: info["member.age"], sex: info["member.sex"] };
-  });
-  const teamInfo = teamInfos[0];
-  const filteredTeamInfo = { image: teamInfo.image, id: teamInfo.name, info: teamInfo.description, location: teamInfo.location, leader: teamInfo.leader, member: memberInfo };
-  return filteredTeamInfo;
+  const teamInfos = await Team.findOne(query as object);
+  return teamInfos;
 };
 
-export const _createTeam = async (teamInfo: TeamAttributes) => {
+export const handleCreateTeam = async (teamInfo: TeamAttributes) => {
   const team = await Team.create(teamInfo);
   const gid = team.getDataValue("gid");
   await Users.update({ gid: gid }, { where: { uid: teamInfo.leader } });
   return gid;
 };
-export const _updateTeam = async (teamInfo: TeamAttributes) => {
-  const { gid } = teamInfo;
-  const { name, description, location } = teamInfo;
-  const updateTeamInfo = { name, description, location };
+export const handleUpdateTeam = async (teamInfo: TeamAttributes) => {
   try {
+    const { gid } = teamInfo;
+    const { name, description, location } = teamInfo;
+    const updateTeamInfo = { name, description, location };
     await Team.update(updateTeamInfo, { where: { gid } });
     return "success";
   } catch (error) {
     return new Error("업데이트 실패");
-    ``;
   }
 };
-export const _inviteTeam = async ({ gid, userId, sex }: { gid: number; userId: string; sex: string }) => {
+export const handleInviteTeam = async ({ gid, userId, sex }: { gid: number; userId: string; sex: string }) => {
   try {
     const checkNum = await Users.count({ where: { gid } });
     if (checkNum > 4) return false;
@@ -69,4 +58,8 @@ export const _getGroupId = async ({ teamName }: { teamName: string }) => {
 
 export const validateTeam = async ({ gid }: { gid: number }) => {
   return await Team.findOne({ where: { gid } });
+};
+
+export const handleExitTeam = async ({ uid }: { uid: string }) => {
+  return await Users.update({ gid: null }, { where: { uid }, logging: true });
 };

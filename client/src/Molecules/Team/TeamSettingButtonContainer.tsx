@@ -4,7 +4,7 @@ import useDropDownCloseEvent from "../../Hook/useDropDownCloseEvent";
 import TeamButtonContainer from "../../Container/TeamButtonContainer";
 import InviteModal from "../../Template/Modal/InviteModal";
 
-export default function TeamSettingButtonContainer({ clickUpdateButton }: { clickUpdateButton: React.MouseEventHandler }) {
+export default function TeamSettingButtonContainer({ clickUpdateButton, clickExitButton }: { clickUpdateButton: React.MouseEventHandler; clickExitButton: React.MouseEventHandler }) {
   const [inviteModalState, setInviteModalState] = useState(false);
   const modalRef = useRef<HTMLInputElement>(null);
   useDropDownCloseEvent(modalRef, () => setInviteModalState(false));
@@ -24,6 +24,9 @@ export default function TeamSettingButtonContainer({ clickUpdateButton }: { clic
       </div>
       <Button type="Medium" onClick={clickUpdateButton}>
         수정하기
+      </Button>
+      <Button type="Medium" onClick={clickExitButton}>
+        나가기
       </Button>
     </TeamButtonContainer>
   );

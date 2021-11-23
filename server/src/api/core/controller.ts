@@ -1,6 +1,6 @@
 import { NextFunction, Request, RequestParamHandler, Response } from "express";
 import path = require("path");
-import { findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser, sendRequest, validationTeamAndUser, _denyRequest, _acceptRequest, addRequest, updateProfileImage } from "./service";
+import { findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser, sendRequest, validationTeamAndUser, _denyRequest, _acceptRequest, addRequest, updateProfileImage, findAllTeamRequest } from "./service";
 
 const defaultUser = {
   id: "",
@@ -20,7 +20,7 @@ export const postImage = async (req: Request, res: Response, next: NextFunction)
   if (!req.file) return res.status(404).send({ eeror: "잘못된 이미지입니다" });
   const imagePath = "/" + req.file?.path;
   const result = await updateProfileImage({ image: imagePath, id });
-  if(!result)res.send({error:"이미지 업로드 실패"});
+  if (!result) res.send({ error: "이미지 업로드 실패" });
   return res.send(imagePath);
   //const data = await addProfileImage
 };
@@ -40,7 +40,9 @@ export const getRequest = async (req: Request, res: Response, next: NextFunction
   try {
     if (!req.user) return res.send(defaultRequest);
     const uid = String(req.user.uid);
-    const data = await findAllRequest({ uid });
+    const gid = Number(req.user.gid);
+    const userData = await findAllRequest({ uid });
+    const data = await findAllTeamRequest({ uid, gid, userData });
     return res.send(data);
   } catch (error) {
     return next(error);
@@ -49,10 +51,10 @@ export const getRequest = async (req: Request, res: Response, next: NextFunction
 
 export const postRequest = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (!req.user) return res.status(401).send({ error: "isn`t Login" });
+    if (!req.user) return res.status(402).send({ error: "isn`t Login" });
     const { from, to } = req.body;
     const toValidation = await validationTeamAndUser(to);
-    if (!toValidation) return res.status(401).send({ error: "to isn`t exist" });
+    if (!toValidation) return res.status(403).send({ error: "to isn`t exist" });
     await addRequest({ from, to });
     sendRequest({ from, to });
     return res.status(200).send(true);

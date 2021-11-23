@@ -18,7 +18,6 @@ const RequestPageStyle = css`
 
 export default function RequestPage() {
   const userInfo = useRecoilValue(userState);
-
   if (!checkLogin(userInfo)) passToLoginPage();
 
   const { id: myId, gid: mygId } = useRecoilValue(userState);
@@ -27,9 +26,29 @@ export default function RequestPage() {
   const [RequestForMe, setRequestForMe] = useState<RequestType[]>([]);
   const [RequestToMe, setRequestToMe] = useState<RequestType[]>([]);
 
+  const getDatas = () => {
+    setRequestForMe(
+      requestDatas.filter((data: RequestType) => {
+        if (data == null) return false;
+        if (data.info.member?.length === 0) {
+          return data?.from !== myId;
+        }
+        return Number(data.to) === mygId;
+      })
+    );
+    setRequestToMe(
+      requestDatas.filter((data: RequestType) => {
+        if (data == null) return false;
+        if (data.info.member?.length === 0) {
+          return data?.from === myId;
+        }
+        return Number(data.to) !== mygId;
+      })
+    );
+  };
+
   useEffect(() => {
-    setRequestForMe(requestDatas.filter((data: RequestType) => dataFilter(data, myId, mygId)));
-    setRequestToMe(requestDatas.filter((data: RequestType) => dataFilter(data, myId, mygId)));
+    getDatas();
   }, [requestDatas]);
 
   return (
@@ -38,12 +57,4 @@ export default function RequestPage() {
       <RequestListContainer type="ToMe" datas={RequestToMe} />
     </div>
   );
-}
-
-function dataFilter(data: RequestType, myId: string, myGId: number | undefined | null) {
-  if (data == null) return false;
-  if (data.info.member?.length === 0) {
-    return data?.from !== myId;
-  }
-  return Number(data.from) !== myGId;
 }

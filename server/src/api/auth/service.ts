@@ -6,7 +6,7 @@ export const findUser = async ({ uid }: { uid: string }) => {
   return await Users.findOne({ where: { uid } });
 };
 
-export const createUser = async ({ uid, password, location, age, sex }: UserAttributes) => {
+export const createUser = async ({ uid, password, location, age, sex, info }: UserAttributes) => {
   const hash: string = await bcrypt.hash(password, 12);
   return await Users.create({
     uid,
@@ -19,7 +19,7 @@ export const createUser = async ({ uid, password, location, age, sex }: UserAttr
     age,
     sex,
     gid: null,
-    info: null,
+    info,
   });
 };
 
