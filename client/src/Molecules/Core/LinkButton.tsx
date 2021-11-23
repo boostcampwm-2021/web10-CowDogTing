@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../../Atom/Button";
 import { LinkButtonType } from "../../util/type";
 
-function LinkButton({ url, type, content, onClick, refProps }: LinkButtonType) {
+function LinkButton({ url, type, content, onClick, refProps, id }: LinkButtonType) {
   return url && url !== "" ? (
     <Link to={url}>
       <Button type={type} onClick={onClick} ref={refProps}>
@@ -12,7 +12,7 @@ function LinkButton({ url, type, content, onClick, refProps }: LinkButtonType) {
       </Button>
     </Link>
   ) : (
-    <Button type={type} onClick={onClick} ref={refProps} className={content === "로그아웃" ? "logout" : ""}>
+    <Button type={type} onClick={onClick} ref={refProps} className={content === "로그아웃" ? "logout" : ""} data-id={id}>
       {content}
     </Button>
   );

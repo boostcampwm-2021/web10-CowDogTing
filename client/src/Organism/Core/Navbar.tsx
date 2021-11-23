@@ -41,7 +41,7 @@ const list = [
   { id: "Sex", name: "성별" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ setCategory }: { setCategory: Function }) {
   const [dropDownToggle, setDropDownToggle] = useState("");
 
   const navBarRef = useRef<HTMLDivElement[]>([]);
@@ -60,6 +60,13 @@ export default function Navbar() {
 
   useModalCloseEvent(dropDownRef, navBarRef, () => setDropDownToggle(""));
 
+  const handleSetCategory = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.target as HTMLElement;
+    const category = target.dataset.id;
+    console.log(category);
+    setCategory(category);
+  };
+
   return (
     <>
       <div css={NavbarStyle} onClick={(event) => handleDropDownClick(event)}>
@@ -72,7 +79,7 @@ export default function Navbar() {
         </div>
       </div>
       <div css={DropDownContainerStyle} ref={dropDownRef}>
-        {dropDownToggle && <DropDown type={dropDownToggle} className="show" />}
+        {dropDownToggle && <DropDown type={dropDownToggle} className="show" onClick={handleSetCategory} />}
       </div>
     </>
   );

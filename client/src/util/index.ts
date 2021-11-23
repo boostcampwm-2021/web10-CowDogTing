@@ -67,3 +67,16 @@ export const fromImageToForm = (chatRoomId: number, uId: string, files: Blob) =>
   formData.append("chatRoomId", String(chatRoomId));
   return formData;
 };
+
+export const makeCategory = (category: string | null) => {
+  if (category === null) return "";
+
+  if (category === "남자" || category === "여자") return `&sex=${category === "남자" ? "male" : "female"}`;
+  const target = transAgeToNumber(category);
+  if (category.includes("0")) return `&age=${target}`;
+  return `&location=${category}`;
+};
+
+export const transAgeToNumber = (string: string) => {
+  return string.split("대")[0];
+};
