@@ -3,8 +3,8 @@
 import React, { ChangeEvent, ChangeEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
-import ImageSendButton from "../assets/ImageSendButton.svg";
-import SendButton from "../assets/SendButton.svg";
+import ImageSendButton from "../../assets/ImageSendButton.svg";
+import SendButton from "../../assets/SendButton.svg";
 import { Input } from "../../Atom/Input";
 import { chatTarget, userState } from "../../Recoil/Atom";
 import ClientSocket from "../../Socket";

@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import MainHeaderCenter from "../Molecules/MainHeaderCenter";
-import MainHeaderRightSide from "../Molecules/MainHeaderRightSide";
+import MainHeaderCenter from "../../Molecules/MainPage/MainHeaderCenter";
+import MainHeaderRightSide from "../../Molecules/MainPage/MainHeaderRightSide";
 
 const mainHeaderStyle = css`
   width: 100vw;

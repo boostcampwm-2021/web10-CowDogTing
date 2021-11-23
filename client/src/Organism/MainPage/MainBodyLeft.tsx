@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
-import meetingImage from "../assets/meetingImage.png";
+import meetingImage from "../../assets/meetingImage.png";
 import { ImageDiv } from "../../Atom/ImageDiv";
 import MainBodyLeftButtonContainer from "../../Molecules/MainPage/MainBodyLeftButtonContainer";
 

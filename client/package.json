@@ -51,7 +51,6 @@
         "@testing-library/user-event": "^13.5.0",
         "@types/axios": "^0.14.0",
         "@types/jest": "^27.0.2",
-        "@types/multer": "^1.4.7",
         "@types/node": "^16.11.7",
         "@types/react": "^17.0.35",
         "@types/react-dom": "^17.0.11",

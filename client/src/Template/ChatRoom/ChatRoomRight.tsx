@@ -4,10 +4,10 @@ import React, { useEffect, useState } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 import { css } from "@emotion/react";
 import { Button } from "../../Atom/Button";
-import ChatRoomBasic from "../../Molecules/ChatRoomBasic";
-import ChatRoomGame from "../../Molecules/ChatRoomGame";
+import ChatRoomBasic from "../../Molecules/Chat/ChatRoomBasic";
+import ChatRoomGame from "../../Molecules/Chat/ChatRoomGame";
 import ChatRoomGather from "./ChatRoomGather";
-import ChatRoomFooter from "../../Molecules/ChatRoomFooter";
+import ChatRoomFooter from "../../Molecules/Chat/ChatRoomFooter";
 import { checkGameInUrl, checkGatherInUrl } from "../../util";
 
 const headerStyle = css`
