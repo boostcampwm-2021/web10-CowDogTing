@@ -17,6 +17,7 @@ const ChatProfileContainerStyle = css`
 
 function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileContainerType) {
   const chatRoomRef = useRef<HTMLDivElement[]>([]);
+  console.log("in the chatProfile", chatsInfo);
   const profileClickEvent = (e: React.MouseEvent) => {
     if (!chatRoomRef.current) {
       return;
@@ -42,8 +43,7 @@ function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileCon
     <div css={ChatProfileContainerStyle} onClick={profileClickEvent}>
       {chatsInfo?.map((data, idx) => {
         if (!data.chatMessage.length) return false;
-        if (!chatRoomRef.current[idx]) return false;
-        return <ChatProfile data={data} idx={idx} ref={chatRoomRef} />;
+        return <ChatProfile data={data} idx={idx} chatRoomRef={chatRoomRef} />;
       })}
     </div>
   );

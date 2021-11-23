@@ -25,7 +25,6 @@ function ChatListTemplate() {
   const chatsInfo = useRecoilValue(chatsState);
   const setChatInfo = useSetRecoilState(chatTarget);
   const setModalDatas = useSetRecoilState(profileModalDatas);
-
   const [clickedRoomIndex, setClickedRoomIndex] = useState(-1);
   const [openModal, setOpenModal] = useState<number | null>(null);
 
