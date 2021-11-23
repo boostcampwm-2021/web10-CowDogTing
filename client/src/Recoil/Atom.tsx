@@ -5,7 +5,7 @@ export const userState = atom<PersonInfoType>({
   key: "user",
   default: {
     id: "",
-    image: "",
+    image: null,
     location: "",
     sex: "",
     age: 0,
@@ -19,7 +19,7 @@ export const teamState = atom<TeamInfoType>({
   key: "teamState",
   default: {
     id: "",
-    image: "",
+    image: null,
     location: "",
     sex: "",
     age: 0,
@@ -53,7 +53,7 @@ export const requestTarget = atom<ProfileType>({
   key: "requestTarget",
   default: {
     id: "",
-    image: "",
+    image: null,
     location: "",
     sex: "",
     age: 0,

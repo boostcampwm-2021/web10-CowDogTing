@@ -11,13 +11,25 @@ import { validateTeam } from "../team/service";
 import { findUser } from "../auth/service";
 import { isNumber } from "../../util/utilFunc";
 import { messageType } from "../../util/type";
+import { Image } from "../../db/models/image";
 
 const { QueryTypes } = require("sequelize");
 
-export const findImage = async ({ imageID }: { imageID: string }) => {
-  // imageID 에 대한 db 값 가져오기
+export const updateProfileImage = async ({ image, id }: { image: string; id: string }) => {
+  if (isNumber(id)) {
+    return await updateTeamProfileImage({ image, id: Number(id) });
+  } else {
+    return await updateUserProfileImage({ image, id });
+  }
 };
 
+const updateTeamProfileImage = async ({ image, id }: { image: string; id: number }) => {
+  return await Team.update({ image }, { where: { gid: id } });
+};
+
+const updateUserProfileImage = async ({ image, id }: { image: string; id: string }) => {
+  return await Users.update({ image }, { where: { uid: id } });
+};
 export const findChatRoomNotReadNum = async ({ uid }: { uid: string }) => {
   const joinCathRoom = await findJoinChatRooms({ uid });
   const chatList = await Promise.all(
@@ -42,7 +54,7 @@ const findAllChat = async ({ chatRoomId }: { chatRoomId: number }) => {
 };
 
 export const findAllRequest = async ({ uid }: { uid: string }) => {
-  const query_to = {
+  const toQuery = {
     attributes: ["from", "to", "state"],
     include: [
       {
@@ -55,15 +67,76 @@ export const findAllRequest = async ({ uid }: { uid: string }) => {
       to: uid,
     },
   };
-  const result_to = await Request.findAll(query_to as object);
-  const query_from = `select * from Request inner join Users on Request.to = Users.uid where Request.from = "${uid}"`;
-  const users = await sequelize.query(query_from, { type: QueryTypes.SELECT });
-  const filtered = results_from(users);
-  return [...result_to, ...filtered];
+  const toResult = await Request.findAll(toQuery as object);
+  const fromQuery = `select * from Request inner join Users on Request.to = Users.uid where Request.from = "${uid}"`;
+  const users = await sequelize.query(fromQuery, { type: QueryTypes.SELECT });
+  const fromResult = results_from(users);
+  return [...toResult, ...fromResult];
 };
 
-export const findOneRequest = async ({ from, to, type }: { from: string; to: string; type: string }) => {
-  const query_to = {
+export const findAllTeamRequest = async ({ uid, gid, userData }: { uid: string; gid: number; userData: any }) => {
+  const requestListToQuery = {
+    attributes: ["from", "to", "state"],
+    where: { from: uid },
+  };
+  const requestToList = await Request.findAll(requestListToQuery);
+  const toList = requestToList.filter((request) => {
+    if (!isNumber(request.to)) return false;
+    return true;
+  });
+  const toQuery = ({ to }: { to: number }) => {
+    return {
+      attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
+      include: [
+        {
+          model: Users,
+          as: "member",
+          attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+        },
+      ],
+      where: { gid: to },
+    };
+  };
+  const promiseArr = toList.map(async (request) => {
+    const to = Number(request.to);
+    const data = await Team.findOne(toQuery({ to }) as object);
+    return { from: request.from, to: request.to, state: "ready", info: data };
+  });
+  const datasTo = await Promise.all(promiseArr);
+
+  const requestListFromQuery = {
+    attributes: ["from", "to", "state"],
+    where: { to: gid },
+  };
+  const requestFromList = await Request.findAll(requestListFromQuery);
+  const fromList = requestFromList.filter((request) => {
+    if (!isNumber(request.to)) return false;
+    return true;
+  });
+  const fromQuery = ({ leader }: { leader: string }) => {
+    return {
+      attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
+      include: [
+        {
+          model: Users,
+          as: "member",
+          attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+        },
+      ],
+      where: { leader: leader },
+    };
+  };
+  const promiseArrFrom = fromList.map(async (request) => {
+    const leader = String(request.from);
+    const data = await Team.findOne(fromQuery({ leader }) as object);
+    return { from: request.from, to: request.to, state: "ready", info: data };
+  });
+  const datasFrom = await Promise.all(promiseArrFrom);
+  return [...userData, ...datasTo, ...datasFrom];
+};
+
+const findOneRequest = async ({ from, to, type }: { from: string; to: string; type: string }) => {
+  const toQuery = {
     attributes: ["from", "to", "state"],
     include: [
       {
@@ -76,19 +149,49 @@ export const findOneRequest = async ({ from, to, type }: { from: string; to: str
       [Op.and]: [{ from, to }],
     },
   };
-  //from의 데이터 -> to 전달
-  const query_from = `select * from Request inner join Users on Request.to = Users.uid where Request.from = "${from}" AND Request.to="${to}"`;
-  //to의 데이터 -> from 한테 전달
+  const fromQuery = `select * from Request inner join Users on Request.to = Users.uid where Request.from = "${from}" AND Request.to="${to}"`;
   if (type === "to") {
-    //to 한테 전달할 from의 데이터
-    const result_to = await Request.findOne(query_to as object);
-    return result_to;
+    const toResult = await Request.findOne(toQuery as object);
+    return toResult;
   }
   if (type === "from") {
-    //from 한테 전달할 to의 데이터
-    const result_from = await sequelize.query(query_from, { type: QueryTypes.SELECT });
-    //result_from.get({ plain: true });
-    return result_from_data(result_from[0]);
+    const fromResult = await sequelize.query(fromQuery, { type: QueryTypes.SELECT });
+    return result_from_data(fromResult[0]);
+  }
+};
+
+const findTeamRequest = async ({ from, to, type }: { from: string; to: number; type: string }) => {
+  let query;
+  let infoData;
+  if (type === "to") {
+    query = {
+      attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
+      include: [
+        {
+          model: Users,
+          as: "member",
+          attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+        },
+      ],
+      where: { gid: to },
+      // where: type === "to" ?{ gid: to } : {leader:from},
+    };
+    infoData = await Team.findAll(query as object);
+    return { from, to, type, info: infoData };
+  } else {
+    query = {
+      attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
+      include: [
+        {
+          model: Users,
+          as: "member",
+          attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+        },
+      ],
+      where: { leader: from },
+    };
+    infoData = await Team.findAll(query as object);
+    return { from, to, type, info: infoData };
   }
 };
 
@@ -131,9 +234,9 @@ export const findAllProfile = async (person: number, index: number, myId: string
     };
     return await Users.findAll(query as object);
   } else {
-    const teamIds = await findTeam(person);
+    const teamIds = await findTeam(person, myId);
     query = {
-      attributes: [["gid", "id"], "image", "location", ["description", "info"]],
+      attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
       include: [
         {
           model: Users,
@@ -144,14 +247,13 @@ export const findAllProfile = async (person: number, index: number, myId: string
       where: { gid: { [Op.in]: teamIds } },
       offset: 10 * index,
       limit: 10,
-      logging: true,
     };
     const data = await Team.findAll(query as object);
     return data;
   }
 };
 
-const findTeam = async (person: number) => {
+const findTeam = async (person: number, myId: string) => {
   const query = {
     raw: true,
     attributes: ["gid"],
@@ -162,6 +264,7 @@ const findTeam = async (person: number) => {
         attributes: [],
       },
     ],
+    where: literal(`Team.gid != (SELECT gid from Users WHERE uid='${myId}')`),
     group: ["member.gid"],
     having: literal(`COUNT(member.uid) = ${person}`),
   };
@@ -182,16 +285,32 @@ export const addRequest = async ({ from, to }: { from: string; to: string }) => 
 
 export const sendRequest = ({ from, to }: { from: string; to: string }) => {
   if (isNumber(to)) {
-    sendRequestToTeam({ from: Number(from), to: Number(to) });
+    sendRequestToTeam({ from: from, to: Number(to) });
   } else {
     sendRequestToUser({ from, to });
   }
 };
 
-const sendRequestToTeam = ({ from, to }: { from: number; to: number }) => {
-  //sibal
-  //팀 멤버 찾기
-  //-> request 다 보내주기 (소켓 연결됐는지 확인 후 )
+const sendRequestToTeam = async ({ from, to }: { from: string; to: number }) => {
+  const io = app.get("io");
+
+  const toLeader = await findLeaders(to);
+  const fromRequestData = await findTeamRequest({ from, to, type: "from" });
+  const toRequestData = await findTeamRequest({ from, to, type: "to" });
+
+  const toSocketId = SocketMap.get(String(toLeader));
+  io.to(toSocketId).emit("receiveRequest", toRequestData);
+  const fromSocketId = SocketMap.get(String(from));
+  io.to(fromSocketId).emit("receiveRequest", fromRequestData);
+};
+
+const findLeaders = async (gid: number) => {
+  const query = {
+    attributes: ["leader"],
+    where: { gid },
+  };
+  const leader = await Team.findOne(query);
+  return leader;
 };
 
 const sendRequestToUser = async ({ from, to }: { from: string; to: string }) => {
@@ -259,8 +378,8 @@ const acceptRequestUser = async ({ from, to }: { from: string; to: string }) => 
   await deleteRequest({ from, to });
   const createdChatRoom = await createChatRoom();
   const chatRoomId = createdChatRoom.get({ plain: true }).chatRoomId;
-  const createdParticipant = await createParticipant({ from, to, chatRoomId });
-  const createdChatMessage = await createChatMessage({ chatRoomId, message: makeMessageObject({ from, to, message: `${to}가 채팅을 수락했습니다.` }) });
+  await createParticipant({ from, to, chatRoomId });
+  await createChatMessage({ chatRoomId, message: makeMessageObject({ from, to, message: `${to}가 채팅을 수락했습니다.` }) });
   const chatRoomData = await findChatRoomInfo({ chatRoomId });
   const io = app.get("io");
   const fromSocketId = SocketMap.get(from);

@@ -2,6 +2,7 @@
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
 import { userState } from "../Recoil/Atom";
+import { URL } from "../util/URL";
 
 const MyChatStyle = css`
   background: #b0c2ff;
@@ -37,14 +38,18 @@ const ChatContainerStyle = (props: { type: string }) => css`
   ${props.type === "Mine" && MySendStyle}
 `;
 
-export default function Chat({ from, message }: { from: string; message: string }) {
+const ImageStyle = css`
+  width: 100px;
+  height: 100px;
+`;
+export default function Chat({ from, message, src }: { from: string; message: string; src: string | null }) {
   const { id: myId } = useRecoilValue(userState);
   const type = from === myId ? "Mine" : "Other";
 
   return (
     <div css={ChatContainerStyle({ type })}>
       <div>{from}</div>
-      <div css={ChatTypeStyle({ type })}>{message}</div>
+      {src ? <img alt="ProfileImage" src={String(URL + src)} css={ImageStyle} /> : <div css={ChatTypeStyle({ type })}>{message}</div>}
     </div>
   );
 }

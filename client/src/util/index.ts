@@ -43,3 +43,27 @@ export const checkGameInUrl = () => {
 export const checkGatherInUrl = () => {
   return window.location.href.includes("Gather");
 };
+
+export const isNumber = (n: string) => /^-?[\d.]+(?:e-?\d+)?$/.test(n);
+
+export const fileReader = ({ data, handler }: { data: Blob; handler: Function }) => {
+  const file = new File([data], "image");
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    const image = String(event.target?.result);
+    handler((prev: any) => ({
+      ...prev,
+      image,
+    }));
+  };
+  reader.readAsDataURL(file);
+};
+
+export const fromImageToForm = (chatRoomId: number, uId: string, files: Blob) => {
+  const formData = new FormData();
+  formData.append("image", files);
+  formData.append("from", uId);
+  formData.append("message", "");
+  formData.append("chatRoomId", String(chatRoomId));
+  return formData;
+};

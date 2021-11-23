@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import MyInfoContainer from "../../Organism/MyInfoContainer";
-import TeamInfoImageContainer from "../../Organism/TeamInfoImageContainer";
-import teamImage from "../../assets/meetingImage.png";
+import InfoImageContainer from "../../Container/InfoImageContainer";
+import MyInfoContainer from "../../Organism/Info/MyInfoContainer";
 
 const MyInfoStyle = css`
   padding-left: 50px;
@@ -16,7 +15,7 @@ export default function MyInfo() {
   return (
     <div css={MyInfoStyle}>
       <MyInfoContainer />
-      <TeamInfoImageContainer image={teamImage} />
+      <InfoImageContainer />
     </div>
   );
 }

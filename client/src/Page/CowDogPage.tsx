@@ -3,9 +3,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router-dom";
-import Navbar from "../Organism/Navbar";
-import ProfileList from "../Template/ProfileList";
-import ProfileModal from "../Template/ProfileModal";
+import Navbar from "../Organism/Core/Navbar";
+import ProfileList from "../Template/Profile/ProfileList";
+import ProfileModal from "../Template/Modal/ProfileModal";
 import useModalCloseEvent from "../Hook/useModalCloseEvent";
 import { cowDogState, profileModalDatas, userState } from "../Recoil/Atom";
 import { getCowDogInfo } from "../util/data";
@@ -16,6 +16,9 @@ const ListContainer = css`
 `;
 
 export default function CowDogPage() {
+  const userInfo = useRecoilValue(userState);
+  if (!checkLogin(userInfo)) passToLoginPage();
+
   const setModalDatas = useSetRecoilState(profileModalDatas);
   const [datas, setDatas] = useRecoilState(cowDogState);
 
@@ -27,8 +30,6 @@ export default function CowDogPage() {
 
   const profileRef = useRef<HTMLDivElement[]>([]);
   const modalRef = useRef<HTMLDivElement>(null);
-  const userInfo = useRecoilValue(userState);
-  if (!checkLogin(userInfo)) passToLoginPage();
 
   useModalCloseEvent(modalRef, profileRef, () => {
     setOpenModal(null);

@@ -5,8 +5,8 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { createTeam } from "../util/data";
 import { errorState, userState } from "../Recoil/Atom";
 import { checkLogin, passToLoginPage } from "../util";
-import TeamInfo from "../Organism/TeamInfo";
-import TeamCreateButtonContainer from "../Molecules/TeamCreateButtonContainer";
+import TeamInfo from "../Organism/Info/TeamInfo";
+import TeamCreateButtonContainer from "../Molecules/Team/TeamCreateButtonContainer";
 
 const TeamCreatePageStyle = css`
   position: relative;
@@ -19,7 +19,9 @@ const TeamCreatePageStyle = css`
 
 function TeamCreatePage() {
   const userInfo = useRecoilValue(userState);
+
   if (!checkLogin(userInfo)) passToLoginPage();
+
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);
   const [locSelected, setLocSelected] = useState<string>("");

@@ -3,8 +3,8 @@ import React, { useEffect } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useLocation } from "react-router-dom";
-import ChatRoomLeft from "../Template/ChatRoomLeft";
-import ChatRoomRight from "../Template/ChatRoomRight";
+import ChatRoomLeft from "../Template/ChatRoom/ChatRoomLeft";
+import ChatRoomRight from "../Template/ChatRoom/ChatRoomRight";
 import { checkLogin, passToLoginPage } from "../util";
 import { chatsState, chatTarget, userState } from "../Recoil/Atom";
 

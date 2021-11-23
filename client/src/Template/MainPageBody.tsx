@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import MainBodyLeft from "../Organism/MainBodyLeft";
-import MainBodyRight from "../Organism/MainBodyRight";
+import MainBodyLeft from "../Organism/MainPage/MainBodyLeft";
+import MainBodyRight from "../Organism/MainPage/MainBodyRight";
 
 const mainPageBodyStyle = css`
   width: 100vw;

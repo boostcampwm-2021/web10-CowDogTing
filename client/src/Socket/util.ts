@@ -12,7 +12,6 @@ export const userEnterEvent = (data: { id: string }, chatRoomId: string, socket:
 };
 
 export const allUsersEvent = (data: { users: Array<{ id: string }> }, chatRoomId: string, socket: Socket, setUsers: Function) => {
-  console.log("유저 정보", data.users);
   data.users.forEach((user) => createReceivePC(user.id, socket, chatRoomId, setUsers));
 };
 
@@ -47,7 +46,6 @@ export const getReceiverAnswerEvent = async (data: { id: string; sdp: RTCSession
     const { receivePCs } = ClientSocket;
     const pc: RTCPeerConnection = receivePCs[data.id];
     await pc.setRemoteDescription(new RTCSessionDescription(data.sdp));
-    // console.log(pc.)
   } catch (error) {
     console.log(error);
   }

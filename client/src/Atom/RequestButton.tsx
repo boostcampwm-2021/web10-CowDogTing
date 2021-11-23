@@ -22,18 +22,22 @@ const StateStyle = css`
   border: 2px solid #ffcfcf;
 `;
 
-export default function RequestButton({ type, data }: { type: string; data: RequestType }) {
-  const { id: myId } = useRecoilValue(userState);
+export default function RequestButton({ type, data, isTeam }: { type: string; data: RequestType; isTeam: string }) {
+  const { id: myId, gid: mygId } = useRecoilValue(userState);
+  let toId: number | string = myId;
+  if (isTeam === "team" && mygId) {
+    toId = mygId;
+  }
   const {
     info: { id },
   } = data;
 
   const handleAcceptClick = () => {
-    requestAccept({ from: id, to: myId });
+    requestAccept({ from: id, to: toId });
   };
 
   const handleDenyClick = () => {
-    requestDeny({ from: id, to: myId });
+    requestDeny({ from: id, to: toId });
   };
 
   const { state } = data;

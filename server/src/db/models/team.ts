@@ -3,7 +3,7 @@ import { sequelize } from "./index";
 
 export interface TeamAttributes {
   gid?: number;
-  image?: number | null;
+  image?: string | null;
   name: string;
   description?: string | null;
   location: string;
@@ -12,7 +12,7 @@ export interface TeamAttributes {
 
 export class Team extends Model<TeamAttributes> {
   public gid!: number;
-  public image?: number;
+  public image?: string;
   public name!: string;
   public description?: string;
   public location!: string;

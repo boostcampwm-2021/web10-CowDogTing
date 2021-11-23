@@ -12,7 +12,6 @@ import { Input } from "../Atom/Input";
 import { registerUser } from "../util/data";
 import { registerInfo } from "../util/type";
 import { errorState } from "../Recoil/Atom";
-// import { checkEmptyStringValue } from "../util";
 
 const RegisterContainerStyle = css`
   width: 450px;

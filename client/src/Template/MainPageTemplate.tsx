@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import MainHeader from "../Organism/MainHeader";
 import MainPageBody from "./MainPageBody";
+import MainHeader from "../Organism/MainPage/MainHeader";
 
 const mainPageTemplateStyle = css`
   width: 100vw;

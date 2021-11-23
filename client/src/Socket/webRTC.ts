@@ -5,11 +5,6 @@ import { IWebRTCUser } from "../util/type";
 
 const pcConfig = {
   iceServers: [
-    // {
-    //   urls: 'stun:[STUN_IP]:[PORT]',
-    //   'credentials': '[YOR CREDENTIALS]',
-    //   'username': '[USERNAME]'
-    // },
     {
       urls: "stun:stun.l.google.com:19302",
     },
@@ -29,8 +24,6 @@ export const createReceiverPeerConnection = (socketID: string, newSocket: Socket
     }
   };
   pc.ontrack = (e) => {
-    console.log("receiver track");
-    console.log("streams", e.streams);
     setUsers((oldUsers: any[]) =>
       oldUsers
         .filter((user) => user.id !== socketID)
@@ -46,7 +39,6 @@ export const createReceiverPeerConnection = (socketID: string, newSocket: Socket
 
 export const createReceivePC = (id: string, newSocket: Socket, chatRoomId: string, setUsers: Function) => {
   if (!id) return;
-  console.log("id", id);
   try {
     const pc = createReceiverPeerConnection(id, newSocket, setUsers) as RTCPeerConnection;
     createReceiverOffer(pc, newSocket, id, chatRoomId);
@@ -113,7 +105,6 @@ export const createSenderPeerConnection = (newSocket: Socket, localStream: Media
       },
     ]);
   };
-
   return pc;
 };
 

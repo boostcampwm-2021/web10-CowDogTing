@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import { RequestType } from "../util/type";
 import { requestState, userState } from "../Recoil/Atom";
 import { checkLogin, passToLoginPage } from "../util";
-import RequestListContainer from "../Template/RequestListContainer";
+import RequestListContainer from "../Template/Request/RequestListContainer";
 
 const RequestPageStyle = css`
   display: flex;
@@ -17,25 +17,32 @@ const RequestPageStyle = css`
 `;
 
 export default function RequestPage() {
-  const { id: myId } = useRecoilValue(userState);
+  const userInfo = useRecoilValue(userState);
+  if (!checkLogin(userInfo)) passToLoginPage();
+
+  const { id: myId, gid: mygId } = useRecoilValue(userState);
   const requestDatas = useRecoilValue(requestState);
 
   const [RequestForMe, setRequestForMe] = useState<RequestType[]>([]);
   const [RequestToMe, setRequestToMe] = useState<RequestType[]>([]);
-  const userInfo = useRecoilValue(userState);
-  if (!checkLogin(userInfo)) passToLoginPage();
 
   const getDatas = () => {
     setRequestForMe(
       requestDatas.filter((data: RequestType) => {
         if (data == null) return false;
-        return data?.from !== myId;
+        if (!data.info.member) {
+          return data?.from !== myId;
+        }
+        return Number(data.to) === mygId;
       })
     );
     setRequestToMe(
       requestDatas.filter((data: RequestType) => {
         if (data == null) return false;
-        return data.from === myId;
+        if (!data.info.member) {
+          return data?.from === myId;
+        }
+        return Number(data.to) !== mygId;
       })
     );
   };

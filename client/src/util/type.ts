@@ -1,4 +1,4 @@
-import { RefObject } from "react";
+import React, { RefObject } from "react";
 
 export type ButtonType = {
   type?: string;
@@ -22,7 +22,7 @@ export type InputLabelType = {
 
 export interface PersonInfoType {
   id: string;
-  image: string;
+  image: string | null;
   location: string;
   sex: string;
   age: number;
@@ -38,7 +38,7 @@ export interface PostTeamType {
 export interface ChangeTeamInfoType extends PostTeamType {}
 
 export type TeamInfoType = {
-  image: string;
+  image: string | null;
   id: string;
   info: string;
   location: string;
@@ -110,13 +110,12 @@ export type joinChatType = {
   notReadNum: number;
 };
 
-export type TeamImageContainerType = {
-  image: string | ArrayBuffer | null;
-};
-
 export type ProfileImageType = {
   image: string | ArrayBuffer | null;
   type: string;
+  onClick?: React.MouseEventHandler;
+  ref?: any;
+  children?: JSX.Element;
 };
 
 export type ChatProfileContainerType = {
