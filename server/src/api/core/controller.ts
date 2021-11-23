@@ -92,6 +92,7 @@ export const postUserUpdate = async (req: Request, res: Response, next: NextFunc
     if (!req.user) return res.send(defaultUser);
     const oldId = String(req.user!.uid);
     const { id: uid, location, age, info } = req.body;
+    console.log(uid, location, age, info);
     await updateUser(oldId, { uid, location, age, info });
 
     return res.status(200).send(true);
