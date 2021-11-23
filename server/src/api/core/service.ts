@@ -326,7 +326,6 @@ const sendRequestToUser = async ({ from, to }: { from: string; to: string }) => 
 };
 
 export const validationTeamAndUser = async (to: string) => {
-  console.log(to);
   if (isNumber(to)) {
     return await validateTeam({ gid: Number(to) });
   }

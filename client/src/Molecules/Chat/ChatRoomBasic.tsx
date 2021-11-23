@@ -15,24 +15,24 @@ import { userExitEvent, allUsersEvent, userEnterEvent, getSenderAnswerEvent, get
 import { getLocalStream } from "../../Socket/webRTC";
 import { IWebRTCUser } from "../../util/type";
 
-// const GameVideoStyle = css`
-//   top: -10%;
-//   width: 150px;
-//   height: 150px;
-// `;
+const GameVideoStyle = css`
+  top: -10%;
+  width: 150px;
+  height: 150px;
+`;
 
-// const GatherVideoStyle = css`
-//   width: 150px;
-//   height: 150px;
-// `;
+const GatherVideoStyle = css`
+  width: 150px;
+  height: 150px;
+`;
 
-// const videoStyle = (props: { type: string }) => css`
-//   width: 240px;
-//   height: 240px;
-//   border: 1px solid #000000;
-//   ${props.type === "Game" && GameVideoStyle}
-//   ${props.type === "Gather" && GatherVideoStyle}
-// `;
+const videoStyle = (props: { type: string }) => css`
+  width: 240px;
+  height: 240px;
+  border: 1px solid #000000;
+  ${props.type === "Game" && GameVideoStyle}
+  ${props.type === "Gather" && GatherVideoStyle}
+`;
 
 const GameStyle = css`
   top: 0%;
@@ -115,13 +115,11 @@ export default function ChatRoomBasic({ type }: { type: string }) {
   }, []);
 
   const getPcStats = async (pc: RTCPeerConnection) => {
-    const data = await pc.getStats();
-    console.log(data);
+    await pc.getStats();
   };
 
   useEffect(() => {
     const { sendPC } = ClientSocket;
-    console.log(sendPC);
     if (!sendPC) return;
     getPcStats(sendPC);
   }, [users]);
@@ -152,13 +150,8 @@ export default function ChatRoomBasic({ type }: { type: string }) {
   return (
     <div>
       <div css={containerStyle({ type })}>
-        {/* <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />
-        <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />
-        <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />
-        <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />
-        <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay /> */}
+        <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />/
         {users?.map((user) => {
-          console.log(user);
           return <Video stream={user.stream} key={user.id} type={type} />;
         })}
       </div>

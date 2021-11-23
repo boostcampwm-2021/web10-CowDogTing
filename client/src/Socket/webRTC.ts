@@ -105,7 +105,6 @@ export const createSenderPeerConnection = (newSocket: Socket, localStream: Media
       },
     ]);
   };
-
   return pc;
 };
 

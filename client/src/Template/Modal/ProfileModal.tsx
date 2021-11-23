@@ -39,17 +39,8 @@ export default function ProfileModal(): JSX.Element {
     setIndex((prev) => prev - 1);
     setTarget(datas ? datas[index] : null);
   };
-  console.log(datas);
 
   const handleRequestClick = (): void => {
-    // if (datas.length !== 1) {
-    //   console.log("team");
-    //   setFromId(mygId ?? 0);
-    //   setToId(datas[0].gid ?? 0);
-    // } else {
-    //   setToId(datas[0].id);
-    //   requestChat({ from: fromId, to: toId });
-    // }
     const res = requestChat({ from: myId, to: datas.length === 1 ? datas[0].id : datas[0].gid ?? 0 });
     if (!res) {
       console.log("error");

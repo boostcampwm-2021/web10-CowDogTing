@@ -35,21 +35,19 @@ interface Props {
 }
 
 export default function Video({ type, stream, muted }: Props) {
-  const ref = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log(ref.current);
-    if (ref.current) {
-      console.log(ref.current);
-      ref.current.srcObject = stream;
+    if (videoRef.current) {
+      videoRef.current.srcObject = stream;
     }
     if (muted) setIsMuted(muted);
   }, [stream, muted]);
 
   return (
     <div css={containerStyle({ type })}>
-      <VideoContainer ref={ref} muted={isMuted} autoPlay />
+      <VideoContainer ref={videoRef} muted={isMuted} autoPlay />
     </div>
   );
 }

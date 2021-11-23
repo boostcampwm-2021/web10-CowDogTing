@@ -25,6 +25,7 @@ export const socketInit = (server: any, app: express.Application) => {
 
     socket.on("setUid", (Id: string) => {
       SocketMap.set(Id, socket.id);
+      console.log(SocketMap);
     });
 
     socket.on("joinChatRoom", (chatroomId: string[]) => {
