@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import { DropDownType, menuType } from "../../util/type";
 import LinkButton from "./LinkButton";
 import { MENU_LIST } from "../../util/constant";
+import { logOutUser } from "../../util/data";
 
 const borderTop = css`
   border-top-left-radius: 27px;
@@ -54,15 +55,16 @@ const UserDropDownStyle = css`
 `;
 
 const LocationDropDownStyle = css`
-  margin-left: 17.5vw;
+  margin-left: 10vw;
   ${NavStyle}
 `;
 const AgeDropDownStyle = css`
-  margin-left: 32.5vw;
+  margin-left: 24vw;
+  width: 15vw;
   ${NavStyle}
 `;
 const SexDropDownStyle = css`
-  margin-left: 47.5vw;
+  margin-left: 40vw;
   ${NavStyle}
 `;
 const ChatDropDownStyle = css`
@@ -99,10 +101,18 @@ export default function DropDown(props: DropDownType) {
   const { type, className, onClick } = props;
 
   const list = MENU_LIST[type];
-  const ElementOnClick = ["미팅 하러가기", "로그아웃"]; // onClick 이벤트가 있는 것들을 여기 배열에 추가해주면 됨.
+
+  const LogOut = async () => {
+    const data = await logOutUser();
+    if (data) {
+      window.location.replace("/main");
+    } else {
+      alert("실패 ㅋㅋ");
+    }
+  };
 
   const getElement = (menu: menuType) => {
-    if (ElementOnClick.includes(menu.name)) return <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} onClick={props.onClick} />;
+    if (menu.name === "로그아웃") return <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} onClick={LogOut} />;
     return <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} onClick={onClick} id={menu.name} />;
   };
 

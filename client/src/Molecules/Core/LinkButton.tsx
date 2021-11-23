@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { Link } from "react-router-dom";

@@ -29,7 +29,6 @@ function TeamSettingTemplate() {
   const setErrorValue = useSetRecoilState(errorState);
   const teamSelector = useRecoilValue(fetchGet({ url: TEAM_INFO_URL, query: "" }));
 
-  // eslint-disable-next-line no-console
   useEffect(() => {
     if (teamInfoState.id !== "") return;
     setTeamInfoState(teamSelector);
