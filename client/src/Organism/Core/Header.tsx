@@ -10,7 +10,6 @@ import useDropDownCloseEvent from "../../Hook/useDropDownCloseEvent";
 import DropDown from "../../Molecules/Core/DropDown";
 import LinkButton from "../../Molecules/Core/LinkButton";
 import { userState } from "../../Recoil/Atom";
-import { logOutUser } from "../../util/data";
 
 const HeaderStyle = css`
   display: flex;
@@ -56,15 +55,6 @@ export default function Header() {
     setUserOpen((isOpen) => !isOpen);
   };
 
-  const LogOut = async () => {
-    const data = await logOutUser();
-    if (data) {
-      window.location.replace("/main");
-    } else {
-      alert("실패 ㅋㅋ");
-    }
-  };
-
   const DropDownOff = () => {
     setMenuOpen(false);
     setMeetingOpen(false);
@@ -90,7 +80,7 @@ export default function Header() {
       ) : (
         <div ref={userRef}>
           <UserIcon onClick={() => ToggleUserModal()} />
-          <DropDown type="User" className={userOpen ? "show" : "hide"} onClick={() => LogOut()} />
+          <DropDown type="User" className={userOpen ? "show" : "hide"} />
         </div>
       )}
     </div>
