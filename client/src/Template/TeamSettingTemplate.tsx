@@ -49,7 +49,7 @@ function TeamSettingTemplate() {
     window.location.replace("/main");
   };
   const clickUpdateButton: MouseEventHandler = async () => {
-    if (!teamNameRef.current || !teamInfoRef.current || !locSelected || !teamInfoState.id) return;
+    if (!teamNameRef.current && !teamInfoRef.current && !locSelected && !teamInfoState.id) return;
 
     if (teamInfoState.leader !== userInfoState.id) {
       setErrorValue({ errorStr: "팀 리더가 아닙니다", timeOut: 1000 });
@@ -57,9 +57,9 @@ function TeamSettingTemplate() {
     }
 
     const result = await changeTeamInfo({
-      teamName: teamNameRef.current.value,
-      teamInfo: teamInfoRef.current.value,
-      location: locSelected,
+      teamName: teamNameRef?.current?.value || teamInfoState.id,
+      teamInfo: teamInfoRef?.current?.value || teamInfoState.info,
+      location: locSelected ?? teamInfoState.location,
     });
 
     if (result === "error") {
