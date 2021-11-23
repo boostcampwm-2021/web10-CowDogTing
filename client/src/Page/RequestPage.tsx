@@ -30,7 +30,7 @@ export default function RequestPage() {
     setRequestForMe(
       requestDatas.filter((data: RequestType) => {
         if (data == null) return false;
-        if (data.info.member?.length === 0) {
+        if (!data.info.member) {
           return data?.from !== myId;
         }
         return Number(data.to) === mygId;
@@ -39,12 +39,33 @@ export default function RequestPage() {
     setRequestToMe(
       requestDatas.filter((data: RequestType) => {
         if (data == null) return false;
-        if (data.info.member?.length === 0) {
+        if (!data.info.member) {
           return data?.from === myId;
         }
         return Number(data.to) !== mygId;
       })
     );
+    // console.log(mygId);
+    // setRequestForMe(
+    //   requestDatas.filter((data: RequestType) => {
+    //     if (data == null) return false;
+    //     if (!data.info.member) {
+    //       return data.from !== myId;
+    //     }
+    //     console.log("", data.info.member);
+    //     return false;
+    //   })
+    // );
+    // setRequestToMe(
+    //   requestDatas.filter((data: RequestType) => {
+    //     if (data == null) return false;
+    //     if (!data.info.member) {
+    //       return data.from === myId;
+    //     }
+    //     console.log("실패");
+    //     return false;
+    //   })
+    // );
   };
 
   useEffect(() => {

@@ -12,10 +12,10 @@ const ProfileStyle = css`
   margin: 30px 0px;
 `;
 
-export default function UserContainer({ sex, data, ref, idx, children }: { sex: string; data: PersonInfoType | ProfileType; ref: React.RefObject<HTMLDivElement[]>; idx: number; children?: JSX.Element | undefined }) {
+export default function UserContainer({ sex, data, profileRef, idx, children }: { sex: string; data: PersonInfoType | ProfileType; profileRef: React.RefObject<HTMLDivElement[]>; idx: number; children?: JSX.Element | undefined }) {
   return (
     <div css={ProfileStyle}>
-      <div ref={(el) => ((ref.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx}>
+      <div ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx}>
         <ProfileCard type={sex}>
           <ProfileInfo data={data} />
         </ProfileCard>

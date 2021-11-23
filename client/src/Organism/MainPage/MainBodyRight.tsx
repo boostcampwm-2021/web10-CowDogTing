@@ -2,8 +2,8 @@
 import React from "react";
 import { css } from "@emotion/react";
 import meetingImage from "../../assets/meetingImage.png";
-import { ImageDiv } from "../../Atom/ImageDiv";
 import { Button } from "../../Atom/Button";
+import { ImageDiv } from "../../Atom/ImageDiv";
 import MainBodyRightButtonContainer from "../../Molecules/MainPage/MainBodyRightButtonContainer";
 
 const mainBodyRightStyle = css`
