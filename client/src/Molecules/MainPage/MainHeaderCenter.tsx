@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import MainHeaderLogo from "../Atom/MainHeaderLogo";
+import MainHeaderLogo from "../../Atom/MainHeaderLogo";
 
 const mainHeaderCenterStyle = css`
   position: relative;

@@ -20,7 +20,7 @@ export default function ProfileList({ datas, person, setOpenModal, profileRef }:
     <div css={ProfileListStyle} onClick={(e) => handleModalClick(e, profileRef, setOpenModal)}>
       {datas?.map((data, idx): React.ReactElement | undefined => {
         const sex = person > 1 ? "team" : data.sex;
-        return <ProfileComponent sex={sex} data={data} ref={profileRef} idx={idx} />;
+        return <ProfileComponent sex={sex} data={data} profileRef={profileRef} idx={idx} />;
       })}
     </div>
   );

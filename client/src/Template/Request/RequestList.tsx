@@ -19,7 +19,7 @@ export default function RequestList({ datas, setOpenModal, type, profileRef }: R
   return (
     <div css={ProfileListStyle} onClick={(e) => handleModalClick(e, profileRef, setOpenModal)}>
       {datas?.map((data, idx): React.ReactElement | undefined => {
-        return <RequestComponent data={data} type={type} ref={profileRef} idx={idx} />;
+        return <RequestComponent data={data} type={type} profileRef={profileRef} idx={idx} />;
       })}
     </div>
   );

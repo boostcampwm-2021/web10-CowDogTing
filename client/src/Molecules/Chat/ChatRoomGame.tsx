@@ -2,7 +2,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
-import { Button } from "../Atom/Button";
+import { Button } from "../../Atom/Button";
 
 const containerStyle = css`
   display: flex;
