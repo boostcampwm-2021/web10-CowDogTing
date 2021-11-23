@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
@@ -15,10 +16,14 @@ const ProfileSideStyle = css`
 `;
 
 export default function RequestComponent({ data, type, ref, idx }: { data: RequestType; type: string; ref: React.RefObject<HTMLDivElement[]>; idx: number }) {
+  let { sex } = data.info;
+  if (data.info.member) {
+    sex = "team";
+  }
   return (
     <UserContainer sex={data.info.sex} data={data.info} ref={ref} idx={idx}>
       <div css={ProfileSideStyle}>
-        <RequestButton type={type} data={data} />
+        <RequestButton type={type} data={data} isTeam={sex} />
       </div>
     </UserContainer>
   );
