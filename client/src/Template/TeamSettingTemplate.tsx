@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
 import ProfileList from "./ProfileList";
 import { errorState, teamState, userState } from "../Recoil/Atom";
-import { changeTeamInfo } from "../util/data";
+import { changeTeamInfo, exitTeam } from "../util/data";
 import TeamInfo from "../Organism/TeamInfo";
 import TeamSettingButtonContainer from "../Molecules/TeamSettingButtonContainer";
 import { fetchGet } from "../Recoil/Selector";
@@ -44,7 +44,13 @@ function TeamSettingTemplate() {
     teamInfoRef.current.value = "";
     setLocSelected("");
   };
-
+  const clickExitButton: MouseEventHandler = async () => {
+    const result = await exitTeam();
+    if (result === "error") {
+      setErrorValue({ errorStr: "팀 탈출에 실패했습니다.", timeOut: 1000 });
+    }
+    window.location.replace("/main");
+  };
   const clickUpdateButton: MouseEventHandler = async () => {
     if (!teamNameRef.current || !teamInfoRef.current || !locSelected) return;
     if (!teamInfoState.id) return;
@@ -76,7 +82,7 @@ function TeamSettingTemplate() {
     <div css={TeamSettingTemPlateStyle}>
       <TeamInfo setLocSelected={setLocSelected} teamNameRef={teamNameRef} teamInfoRef={teamInfoRef} />
       <ProfileList datas={teamInfoState?.member} person={1} profileRef={profileRef} />
-      <TeamSettingButtonContainer clickUpdateButton={clickUpdateButton} />
+      <TeamSettingButtonContainer clickUpdateButton={clickUpdateButton} clickExitButton={clickExitButton} />
     </div>
   );
 }

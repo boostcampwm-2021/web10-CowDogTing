@@ -38,7 +38,10 @@ export default function RequestList({ datas, setOpenModal, type, profileRef }: R
   return (
     <div css={ProfileListStyle} onClick={(e) => handleModalClick(e, profileRef, setOpenModal)}>
       {datas?.map((data, idx): React.ReactElement | undefined => {
-        const { sex } = data.info;
+        let { sex } = data.info;
+        if (data.info.member) {
+          sex = "team";
+        }
         return (
           <div css={ProfileStyle}>
             <div ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx}>

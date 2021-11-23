@@ -15,24 +15,24 @@ import { chatTarget, userState } from "../Recoil/Atom";
 import { getLocalStream } from "../Socket/webRTC";
 import { Button } from "../Atom/Button";
 
-const GameVideoStyle = css`
-  top: -10%;
-  width: 150px;
-  height: 150px;
-`;
+// const GameVideoStyle = css`
+//   top: -10%;
+//   width: 150px;
+//   height: 150px;
+// `;
 
-const GatherVideoStyle = css`
-  width: 150px;
-  height: 150px;
-`;
+// const GatherVideoStyle = css`
+//   width: 150px;
+//   height: 150px;
+// `;
 
-const videoStyle = (props: { type: string }) => css`
-  width: 240px;
-  height: 240px;
-  border: 1px solid #000000;
-  ${props.type === "Game" && GameVideoStyle}
-  ${props.type === "Gather" && GatherVideoStyle}
-`;
+// const videoStyle = (props: { type: string }) => css`
+//   width: 240px;
+//   height: 240px;
+//   border: 1px solid #000000;
+//   ${props.type === "Game" && GameVideoStyle}
+//   ${props.type === "Gather" && GatherVideoStyle}
+// `;
 
 const GameStyle = css`
   top: 0%;
@@ -60,7 +60,7 @@ const containerStyle = (props: { type: string }) => css`
   align-items: center;
   padding: 30px;
   padding-top: 0;
-  position: absolute;
+  position: relative;
   ${props.type === "Game" && GameStyle}
   ${props.type === "Gather" && GatherStyle}
 `;
@@ -110,6 +110,7 @@ export default function ChatRoomBasic({ type }: { type: string }) {
       socket!.off("getSenderCandidate", getSenderCandidateEvent);
       socket!.off("getReceiverAnswer", getReceiverAnswerEvent);
       socket!.off("getReceiverCandidate", getReceiverCandidateEvent);
+      localStreamRef.current?.getTracks().forEach((track) => track.stop());
     };
   }, []);
 
@@ -151,21 +152,21 @@ export default function ChatRoomBasic({ type }: { type: string }) {
   return (
     <div>
       <div css={containerStyle({ type })}>
+        {/* <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />
         <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />
         <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />
         <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />
-        <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />
-        <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay />
+        <video css={videoStyle({ type })} muted ref={localVideoRef} autoPlay /> */}
         {users?.map((user) => {
           console.log(user);
           return <Video stream={user.stream} key={user.id} type={type} />;
         })}
       </div>
       <Button type="Small" onClick={muteCam}>
-        camOff
+        cam On/Off
       </Button>
       <Button type="Small" onClick={muteMic}>
-        micOff
+        mic On/Off
       </Button>
     </div>
   );
