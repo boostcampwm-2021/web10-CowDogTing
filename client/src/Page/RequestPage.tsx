@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import { RequestType } from "../util/type";
 import { requestState, userState } from "../Recoil/Atom";
 import { checkLogin, passToLoginPage } from "../util";
-import RequestListContainer from "../Template/RequestListContainer";
+import RequestListContainer from "../Template/Request/RequestListContainer";
 
 const RequestPageStyle = css`
   display: flex;
@@ -17,13 +17,14 @@ const RequestPageStyle = css`
 `;
 
 export default function RequestPage() {
+  const userInfo = useRecoilValue(userState);
+  if (!checkLogin(userInfo)) passToLoginPage();
+
   const { id: myId, gid: mygId } = useRecoilValue(userState);
   const requestDatas = useRecoilValue(requestState);
 
   const [RequestForMe, setRequestForMe] = useState<RequestType[]>([]);
   const [RequestToMe, setRequestToMe] = useState<RequestType[]>([]);
-  const userInfo = useRecoilValue(userState);
-  if (!checkLogin(userInfo)) passToLoginPage();
 
   const getDatas = () => {
     setRequestForMe(

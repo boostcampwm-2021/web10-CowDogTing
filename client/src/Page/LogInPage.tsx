@@ -9,9 +9,9 @@ import { useLocation } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { postLogin } from "../util/data";
 import { errorState } from "../Recoil/Atom";
-import SocialLoginContainer from "../Molecules/SocialLoginContainer";
-import LoginButtonContainer from "../Molecules/LoginButtonContainer";
-import LoginMainInput from "../Molecules/LoginMainInput";
+import SocialLoginContainer from "../Molecules/Login/SocialLoginContainer";
+import LoginButtonContainer from "../Molecules/Login/LoginButtonContainer";
+import LoginMainInput from "../Molecules/Login/LoginMainInput";
 
 declare const window: any;
 
@@ -26,9 +26,11 @@ const containerStyle = css`
 export default function LogInPage() {
   const searchParams = new URLSearchParams(useLocation().search);
   const social = searchParams.get("social") ?? "";
+
   const idRef = useRef<HTMLInputElement>(null);
   const pwRef = useRef<HTMLInputElement>(null);
   const setErrorValue = useSetRecoilState(errorState);
+
   const clickLogin = async () => {
     if (!idRef.current || !pwRef.current) return;
     const id = idRef.current.value;

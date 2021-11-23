@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router";
-import Header from "../Organism/Header";
+import Header from "../Organism/Core/Header";
 import ChatListPage from "./ChatListPage";
 import CowDogPage from "./CowDogPage";
 import LogInPage from "./LogInPage";

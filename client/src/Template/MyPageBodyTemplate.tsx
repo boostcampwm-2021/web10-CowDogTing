@@ -2,7 +2,7 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { css } from "@emotion/react";
-import MyPageSideBar from "../Organism/MyPageSideBar";
+import MyPageSideBar from "../Organism/Core/MyPageSideBar";
 import MyInfo from "./MyPageMain/MyInfo";
 import QuestionList from "./MyPageMain/QuestionList";
 import Review from "./MyPageMain/Review";
