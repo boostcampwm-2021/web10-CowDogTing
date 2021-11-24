@@ -14,6 +14,7 @@ const ChatProfileContainerStyle = css`
   border-right: 1px solid;
   padding-top: 3vh;
   min-width: 400px;
+  overflow: auto;
 `;
 
 function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileContainerType) {

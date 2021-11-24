@@ -50,9 +50,7 @@ export const inviteTeam = async (req: Request, res: Response, next: NextFunction
     const { userId } = inviteInfo;
     const result = await handleInviteTeam({ gid, userId, sex });
     if (!result) return res.status(401).send({ error: "팀 초대 실패" });
-    else {
-      return res.status(200).send({ success: "팀 초대  성공" });
-    }
+    return res.send({ ...(result as any).dataValues, id: userId });
   } catch (error) {
     next(error);
   }

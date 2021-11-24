@@ -60,6 +60,8 @@ function App() {
       setErrorValue({ errorStr: `${data.to}님이 요청을 거절하셨습니다.`, timeOut: 1000 });
     };
     const handleReceiveAcceptEvent = (data: { chat: ChatInfoType; from: string; to: string }) => {
+      console.log(data);
+      console.log("accept 이벤트 발생했엉");
       handleReceiveAcceptSocket({ setRequest, setJoinChat, setChat, data });
       if (data.from !== user.id) return;
       setErrorValue({ errorStr: `${data.to}님이 요청을 승인하셨습니다.`, timeOut: 1000 });

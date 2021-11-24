@@ -41,7 +41,8 @@ export const handleInviteTeam = async ({ gid, userId, sex }: { gid: number; user
     if (checkNum > 4) return false;
     const checkUser = await findUser({ uid: userId });
     if (!checkUser || checkUser.sex !== sex || checkUser.gid !== null) return false;
-    return await Users.update({ gid }, { where: { uid: userId }, returning: true });
+    await Users.update({ gid }, { where: { uid: userId }, returning: true });
+    return checkUser;
   } catch (error) {
     return new Error("업데이트 실패");
   }

@@ -30,12 +30,13 @@ export default function InfoImageContainer() {
   const imageInputTag = useRef<HTMLInputElement | null>(null);
   const [profileImage, setProfileImage] = useState<string | ArrayBuffer | null>(null);
   const [imageFile, setImageFile] = useState<Blob>(initBlob);
+  const { image: userImage } = useRecoilValue(userState);
+  const { image: teamImage } = useRecoilValue(teamState);
 
-  if (window.location.href.includes("myinfo")) {
-    image = useRecoilValue(userState).image;
-  } else {
-    image = useRecoilValue(teamState).image;
-  }
+  useEffect(() => {
+    image = window.location.href.includes("myinfo") ? userImage : teamImage;
+    setProfileImage(image ?? defaultImage);
+  }, [userImage, teamImage]);
 
   const clickImageTag = () => {
     (imageInputTag.current as HTMLInputElement).click();
@@ -74,10 +75,6 @@ export default function InfoImageContainer() {
     };
     reader.readAsDataURL(imageFile);
   }, [imageFile]);
-
-  useEffect(() => {
-    setProfileImage(image ?? defaultImage);
-  }, []);
 
   return (
     <div css={TeamInfoImageContainerStyle}>

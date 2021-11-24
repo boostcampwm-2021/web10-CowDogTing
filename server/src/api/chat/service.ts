@@ -56,7 +56,7 @@ export const findChatRoomsInfo = async ({ uid }: { uid: string }) => {
   return filteredData;
 };
 
-export const findChatRoomInfo = async ({ chatRoomId }: { chatRoomId: number }) => {
+export const findChatRoomInfo = async ({ chatRoomId, type }: { chatRoomId: number; type: string }) => {
   const query = ({ chatRoomId }: { chatRoomId: number }) => {
     return {
       raw: true,
@@ -84,6 +84,9 @@ export const findChatRoomInfo = async ({ chatRoomId }: { chatRoomId: number }) =
     };
   });
   const chatMessage = await findMessages(chatRoomId, 0);
+  if (type === "team") {
+    return { chatRoomId, chatMessage };
+  }
   return { chatRoomId, member: filteredMemberData, chatMessage };
 };
 
@@ -119,12 +122,21 @@ export const createParticipant = async ({ from, to, chatRoomId }: { from: string
   return await Promise.all(promiseArr);
 };
 
+export const createSingleParticipant = async ({ uid, chatRoomId }: { uid: string; chatRoomId: number }) => {
+  return await Participant.create({ uid, chatRoomId });
+};
+
 export const createChatMessage = async ({ chatRoomId, message }: SendChatType) => {
+  console.log(message);
   const createdChatMessage = await Chat.create({ uid: message.from, message: message.message, src: message.source, chatRoomId });
   return createdChatMessage;
 };
 
 export const createReadRow = async ({ chatId, chatRoomId, uid, isRead }: { chatId: number; chatRoomId: number; uid: string; isRead: boolean }) => {
+  console.log("chatId", chatId);
+  console.log("chatRoomId", chatRoomId);
+  console.log("uid", uid);
+  console.log("isRead", isRead);
   ReadTable.create({ chatId, chatRoomId, uid, isRead });
 };
 

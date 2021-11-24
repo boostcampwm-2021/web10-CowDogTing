@@ -9,7 +9,15 @@ export const handleReceiveDenySocket = ({ setRequest, data }: ReceiveDenySocketT
 };
 
 export const handleReceiveAcceptSocket = ({ setRequest, setJoinChat, setChat, data }: ReceiveAcceptSocketType) => {
-  setRequest((prev: RequestType[]) => prev.filter((item) => item.from !== data.from));
+  setRequest((prev: RequestType[]) =>
+    prev.filter((item) => {
+      console.log("item.from", item.from);
+      console.log("item.to", item.to);
+      console.log("data.from", data.from);
+      console.log("data.to", data.to);
+      return item.to !== data.to;
+    })
+  );
   setJoinChat((prev: joinChatType[]) => [
     ...prev,
     {

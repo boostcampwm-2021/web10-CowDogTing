@@ -31,6 +31,7 @@ export const getJoinChatInfo = async (req: Request, res: Response, next: NextFun
     if (!req.user) return res.send(defaultJoinChatRoom);
     const uid = String(req.user!.uid);
     const data = await findChatRoomNotReadNum({ uid });
+    console.log(data);
     return res.send(data);
   } catch (error) {
     return next(error);
@@ -54,7 +55,9 @@ export const postRequest = async (req: Request, res: Response, next: NextFunctio
   try {
     if (!req.user) return res.status(402).send({ error: "isn`t Login" });
     const { from, to } = req.body;
+    console.log(from, to);
     const toValidation = await validationTeamAndUser(to);
+    console.log(toValidation);
     if (!toValidation) return res.status(403).send({ error: "to isn`t exist" });
     await addRequest({ from, to });
     sendRequest({ from, to });
