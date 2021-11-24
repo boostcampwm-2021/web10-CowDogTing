@@ -20,36 +20,42 @@ export const handleReceiveAcceptSocket = ({ setRequest, setJoinChat, setChat, da
   setChat((prev: ChatInfoType[]) => [...prev, data.chat]);
 };
 
-export const handleReceiveChatSocket = ({ setJoinChat, setChat, setChatInfo, data }: ReceiveChatSocketType) => {
+export const handleReceiveChatSocket = ({ setJoinChat, setChat, setChatInfo, data, setErrorValue }: ReceiveChatSocketType) => {
   const { chatRoomId, message } = data;
-  setJoinChat((prev: joinChatType[]) =>
-    prev.map((item) => {
-      if (item.chatRoomId === chatRoomId) {
-        return {
-          ...item,
-          notReadNum: item.notReadNum + 1,
-        };
-      }
-      return item;
-    })
-  );
+  let targetRoomId: number = 0;
 
-  setChat((prev: ChatInfoType[]) =>
-    prev.map((item) => {
-      if (item.chatRoomId === chatRoomId) {
-        return {
-          ...item,
-          chatMessage: [...item.chatMessage, message],
-        };
-      }
-      return item;
-    })
-  );
   setChatInfo((prev: ChatInfoType) => {
+    targetRoomId = prev.chatRoomId;
     if (Number(chatRoomId) !== prev.chatRoomId) return prev;
     return {
       ...prev,
       chatMessage: [...prev.chatMessage, message],
     };
   });
+
+  console.log(targetRoomId);
+
+  setJoinChat((prev: joinChatType[]) =>
+    prev.map((item) => {
+      if (item.chatRoomId !== Number(chatRoomId)) return item;
+      if (targetRoomId === Number(chatRoomId)) return item;
+      return {
+        ...item,
+        notReadNum: item.notReadNum + 1,
+      };
+    })
+  );
+
+  setChat((prev: ChatInfoType[]) =>
+    prev.map((item) => {
+      if (item.chatRoomId !== Number(chatRoomId)) return item;
+      return {
+        ...item,
+        chatMessage: [...item.chatMessage, message],
+      };
+    })
+  );
+
+  if (targetRoomId === Number(chatRoomId)) return;
+  setErrorValue({ errorStr: `${message.from}님에게 채팅이 왔습니다.`, timeOut: 1000 });
 };

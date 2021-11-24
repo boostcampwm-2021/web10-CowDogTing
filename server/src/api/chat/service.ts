@@ -1,3 +1,4 @@
+import { ReadTable } from "../../db/models/read";
 import { Chat } from "../../db/models/chat";
 import { ChatRoom } from "../../db/models/chatRoom";
 import { Participant, ParticipantAttributes } from "../../db/models/participant";
@@ -99,7 +100,7 @@ export const findJoinChatRooms = async ({ uid }: { uid: string }) => {
 export const findMessages = async (chatRoomId: number, index: number) => {
   const query = {
     raw: true,
-    attributes: [["uid", "from"], "message", ["src", "source"], ["isRead", "read"]],
+    attributes: [["uid", "from"], "message", ["src", "source"]],
     limit: 10,
     where: { chatRoomId: chatRoomId },
     offset: 10 * index,
@@ -119,6 +120,18 @@ export const createParticipant = async ({ from, to, chatRoomId }: { from: string
 };
 
 export const createChatMessage = async ({ chatRoomId, message }: SendChatType) => {
-  const createdChatMessage = await Chat.create({ uid: message.from, message: message.message, isRead: message.read, src: message.source, chatRoomId });
-  return createChatMessage;
+  const createdChatMessage = await Chat.create({ uid: message.from, message: message.message, src: message.source, chatRoomId });
+  return createdChatMessage;
+};
+
+export const createReadRow = async ({ chatId, chatRoomId, uid, isRead }: { chatId: number; chatRoomId: number; uid: string; isRead: boolean }) => {
+  ReadTable.create({ chatId, chatRoomId, uid, isRead });
+};
+
+export const findParticipants = async ({ chatRoomId }: { chatRoomId: number }) => {
+  return await Participant.findAll({ raw: true, where: { chatRoomId } });
+};
+
+export const handleMessageRead = async ({ uid, chatRoomId }: { uid: string; chatRoomId: number }) => {
+  return await ReadTable.update({ isRead: true }, { where: { uid, chatRoomId } });
 };

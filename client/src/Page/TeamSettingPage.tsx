@@ -7,9 +7,8 @@ import { userState } from "../Recoil/Atom";
 import { checkLogin, passToLoginPage } from "../util";
 
 function TeamSettingPage() {
-  const userInfo = useRecoilValue(userState);
-  const { gid } = userInfo;
-  if (!checkLogin(userInfo)) {
+  const { gid } = useRecoilValue(userState);
+  if (!checkLogin()) {
     passToLoginPage();
   }
 

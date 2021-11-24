@@ -5,11 +5,11 @@ import { ChildrenType } from "../util/type";
 
 const TeamButtonContainerStyle = css`
   display: flex;
-  width: 100%;
+  width: 60vw;
   height: 20%;
   align-items: center;
   justify-content: space-around;
-  margin-top: 3vh;
+  margin-bottom: 3vh;
 `;
 function TeamButtonContainer({ children }: ChildrenType) {
   return <div css={TeamButtonContainerStyle}>{children}</div>;

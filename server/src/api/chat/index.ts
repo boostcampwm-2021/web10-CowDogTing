@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { getChatMessage, getChatsInfo, postChatMessage } from "./controller";
+import { getChatMessage, getChatsInfo, postChatMessage, readChat } from "./controller";
+
 const multer = require("multer");
 import * as fs from "fs";
 import * as path from "path";
@@ -28,5 +29,6 @@ export const upload = multer({
 chatRouter.get("/info", getChatsInfo);
 chatRouter.get("/messages", getChatMessage);
 chatRouter.post("/postChat", upload.single("image"), postChatMessage);
+chatRouter.post("/read", readChat);
 
 export default chatRouter;

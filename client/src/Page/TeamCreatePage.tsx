@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { MouseEventHandler, useRef, useState } from "react";
 import { css } from "@emotion/react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { createTeam } from "../util/data";
 import { errorState, userState } from "../Recoil/Atom";
 import { checkLogin, passToLoginPage } from "../util";
@@ -18,9 +18,7 @@ const TeamCreatePageStyle = css`
 `;
 
 function TeamCreatePage() {
-  const userInfo = useRecoilValue(userState);
-
-  if (!checkLogin(userInfo)) passToLoginPage();
+  if (!checkLogin()) passToLoginPage();
 
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);

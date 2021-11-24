@@ -2,15 +2,14 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
-import { Button } from "../../Atom/Button";
 
 const containerStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
-  width: 50%;
-  height: 50%;
+  margin-left: 20vw;
+  width: 50vw;
+  height: 70vh;
   border: 1px solid #000000;
   /* margin-top: 10%; */
 `;
@@ -113,19 +112,17 @@ export default function ChatRoomGame({ width, height }: CanvasProps) {
     };
   }, [startPaint, paint, exitPaint]);
 
-  const handleButtonClick = () => {
-    if (!canvasRef.current) {
-      return;
-    }
+  // const handleButtonClick = () => {
+  //   if (!canvasRef.current) {
+  //     return;
+  //   }
 
-    const canvas: HTMLCanvasElement = canvasRef.current;
-    canvas.getContext("2d")!!.clearRect(0, 0, canvas.width, canvas.height);
-  };
+  //   const canvas: HTMLCanvasElement = canvasRef.current;
+  //   canvas.getContext("2d")!!.clearRect(0, 0, canvas.width, canvas.height);
+  // };
   return (
     <>
-      <div css={ButtonContainerStyle}>
-        <Button onClick={handleButtonClick}>지우기</Button>
-      </div>
+      <div css={ButtonContainerStyle} />
       <div css={containerStyle}>
         <canvas ref={canvasRef} height={height} width={width} className="canvas" />
       </div>

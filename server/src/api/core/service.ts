@@ -1,5 +1,5 @@
 import { app } from "./../../app";
-import { Op, literal } from "sequelize";
+import { Op, literal, col } from "sequelize";
 import { Request } from "../../db/models/request";
 import { Chat } from "../../db/models/chat";
 import { Users } from "../../db/models/users";
@@ -12,6 +12,7 @@ import { findUser } from "../auth/service";
 import { isNumber } from "../../util/utilFunc";
 import { messageType } from "../../util/type";
 import { Image } from "../../db/models/image";
+import { ReadTable } from "../../db/models/read";
 
 const { QueryTypes } = require("sequelize");
 
@@ -50,7 +51,7 @@ const findAllChat = async ({ chatRoomId }: { chatRoomId: number }) => {
       chatRoomId: chatRoomId,
     },
   };
-  return await Chat.count(query);
+  return await ReadTable.count(query);
 };
 
 export const findAllRequest = async ({ uid }: { uid: string }) => {
@@ -224,10 +225,10 @@ export const findUserInfo = async ({ uid }: { uid: string }) => {
 
 export const findAllProfile = async (person: number, index: number, myId: string, age: number | object, sex: string | object, location: string | object) => {
   let query;
+  if (typeof age === "number") {
+    age = { [Op.gte]: Number(age), [Op.lt]: Number(age) + 10 };
+  }
   if (person === 1) {
-    if (typeof age === "number") {
-      age = { [Op.gte]: Number(age), [Op.lt]: Number(age) + 10 };
-    }
     query = {
       raw: true,
       attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
@@ -240,16 +241,20 @@ export const findAllProfile = async (person: number, index: number, myId: string
     return data;
   } else {
     const teamIds = await findTeam(person, myId);
+    const memberSex = col("member.sex");
+    const memberAge = col("member.age");
     query = {
+      raw: true,
       attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
       include: [
         {
           model: Users,
           as: "member",
           attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+          where: { sex: sex, age: age },
         },
       ],
-      where: { gid: { [Op.in]: teamIds }, age, sex, location },
+      where: { gid: { [Op.in]: teamIds }, location: location },
       offset: 10 * index,
       limit: 10,
       logging: true,
@@ -401,6 +406,5 @@ const makeMessageObject = ({ from, to, message }: { from: string; to: string; me
   return {
     from: to,
     message,
-    read: false,
   };
 };

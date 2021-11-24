@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { errorState } from "../../Recoil/Atom";
 
 const ErrorModalStyle = css`
-  position: absolute;
+  position: fixed;
   display: flex;
   left: 68%;
   top: 2%;

@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import { css } from "@emotion/react";
 import { ChatProfileContainerType } from "../../util/type";
 import ChatProfile from "./ChatProfile";
+import NotReadNum from "../../Molecules/Chat/NotReadNum";
 
 const ChatProfileContainerStyle = css`
   width: 50%;
@@ -17,7 +18,7 @@ const ChatProfileContainerStyle = css`
 
 function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileContainerType) {
   const chatRoomRef = useRef<HTMLDivElement[]>([]);
-  console.log("in the chatProfile", chatsInfo);
+
   const profileClickEvent = (e: React.MouseEvent) => {
     if (!chatRoomRef.current) {
       return;
@@ -43,7 +44,12 @@ function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileCon
     <div css={ChatProfileContainerStyle} onClick={profileClickEvent}>
       {chatsInfo?.map((data, idx) => {
         if (!data.chatMessage.length) return false;
-        return <ChatProfile data={data} idx={idx} chatRoomRef={chatRoomRef} />;
+        return (
+          <>
+            <ChatProfile data={data} idx={idx} chatRoomRef={chatRoomRef} />
+            <NotReadNum type={String(data.chatRoomId)} />
+          </>
+        );
       })}
     </div>
   );
