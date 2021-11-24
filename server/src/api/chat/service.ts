@@ -133,6 +133,10 @@ export const createChatMessage = async ({ chatRoomId, message }: SendChatType) =
 };
 
 export const createReadRow = async ({ chatId, chatRoomId, uid, isRead }: { chatId: number; chatRoomId: number; uid: string; isRead: boolean }) => {
+  console.log("chatId", chatId);
+  console.log("chatRoomId", chatRoomId);
+  console.log("uid", uid);
+  console.log("isRead", isRead);
   ReadTable.create({ chatId, chatRoomId, uid, isRead });
 };
 

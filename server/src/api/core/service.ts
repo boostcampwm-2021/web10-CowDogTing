@@ -14,6 +14,7 @@ import { messageType } from "../../util/type";
 import { Image } from "../../db/models/image";
 import { ReadTable } from "../../db/models/read";
 import { isObject } from "util";
+import { totalmem } from "os";
 
 const { QueryTypes } = require("sequelize");
 
@@ -395,8 +396,6 @@ const acceptRequestTeam = async ({ from, to }: { from: string; to: number }) => 
 
   //io.to(fromSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
   membersArr.forEach((member: any) => {
-    console.log({ ...chatRoomData, member: membersArr });
-    console.log(SocketMap);
     if (!SocketMap.has(String(member.id))) return;
     const toSocketId = SocketMap.get(String(member.id));
     io.to(toSocketId).emit("receiveAcceptRequest", { chat: { ...chatRoomData, member: membersArr }, from, to });
@@ -430,9 +429,10 @@ const makeMessageObject = ({ from, to, message }: { from: string; to: string; me
 const createParticipants = async ({ from, to, chatRoomId }: { from: string; to: number; chatRoomId: number }) => {
   const toTeamInfo = (await findTeamMembers({ gid: to })) as any;
   const fromTeamInfo = (await findTeamMembersByLeader({ leader: from })) as any;
-
-  const members = [...toTeamInfo.member, ...fromTeamInfo.member];
-  const promiseArr = members.map((member: any) => createSingleParticipant({ uid: member.uid, chatRoomId }));
+  const members = [...(toTeamInfo as any).dataValues.member, ...(fromTeamInfo as any).dataValues.member];
+  const promiseArr = members.map((member: any) => {
+    return createSingleParticipant({ uid: (member as any).dataValues.id, chatRoomId });
+  });
   await Promise.all(promiseArr);
   return members;
 };
