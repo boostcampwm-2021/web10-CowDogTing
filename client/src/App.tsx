@@ -16,7 +16,7 @@ import { ChatInfoType, RequestType, MessageType } from "./util/type";
 import { CHAT_INFO_URL, JOIN_CHAT_URL, REQUEST_URL, USER_URL } from "./util/URL";
 import { getFetch } from "./util/data";
 import reset from "./util/reset";
-import { chatsState, chatTarget, joinChatRoomState, requestState, userState } from "./Recoil/Atom";
+import { chatsState, chatTarget, errorState, joinChatRoomState, requestState, userState } from "./Recoil/Atom";
 
 function App() {
   const [user, setUser] = useRecoilState(userState);
@@ -24,6 +24,7 @@ function App() {
   const [joinChat, setJoinChat] = useRecoilState(joinChatRoomState);
   const setChat = useSetRecoilState(chatsState);
   const setChatInfo = useSetRecoilState(chatTarget);
+  const setErrorValue = useSetRecoilState(errorState);
 
   const getInitData = async () => {
     try {
@@ -49,17 +50,22 @@ function App() {
     const socket = new ClientSocket(user.id);
 
     const handleReceiveRequestEvent = (data: RequestType) => {
-      console.log(data);
       handleReceiveRequestSocket({ setRequest, data });
+      if (data.from === user.id) return;
+      setErrorValue({ errorStr: "채팅 요청이 왔습니다.", timeOut: 1000 });
     };
     const handleReceiveDenyEvent = (data: { from: string; to: string }) => {
       handleReceiveDenySocket({ setRequest, data });
+      if (data.from !== user.id) return;
+      setErrorValue({ errorStr: `${data.to}님이 요청을 거절하셨습니다.`, timeOut: 1000 });
     };
     const handleReceiveAcceptEvent = (data: { chat: ChatInfoType; from: string; to: string }) => {
       handleReceiveAcceptSocket({ setRequest, setJoinChat, setChat, data });
+      if (data.from !== user.id) return;
+      setErrorValue({ errorStr: `${data.to}님이 요청을 승인하셨습니다.`, timeOut: 1000 });
     };
     const handleReceiveChatEvent = (data: { message: MessageType; chatRoomId: number }) => {
-      handleReceiveChatSocket({ setJoinChat, setChat, setChatInfo, data });
+      handleReceiveChatSocket({ setJoinChat, setChat, setChatInfo, data, setErrorValue });
     };
 
     socket.addEvent({ handleReceiveRequestEvent, handleReceiveDenyEvent, handleReceiveAcceptEvent, handleReceiveChatEvent, joinChat });

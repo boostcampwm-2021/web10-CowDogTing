@@ -84,7 +84,6 @@ export type SmallModalType = {
 export type MessageType = {
   from: string;
   message: string;
-  read: boolean;
   source: string;
 };
 
@@ -214,6 +213,7 @@ export type ReceiveChatSocketType = {
   setJoinChat: any;
   setChat: any;
   setChatInfo: any;
+  setErrorValue: Function;
   data: {
     message: MessageType;
     chatRoomId: number;

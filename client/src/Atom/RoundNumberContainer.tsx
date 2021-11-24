@@ -12,7 +12,7 @@ const ContainerStyle = css`
   justify-content: center;
   align-items: center;
   position: relative;
-  top: -25px;
+  top: -125px;
   left: 215px;
 `;
 
