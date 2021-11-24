@@ -1,5 +1,6 @@
 import express = require("express");
 import { Server, Socket } from "socket.io";
+import { addReadRow } from "../api/chat/controller";
 import { createChatMessage } from "../api/chat/service";
 import { SendChatType, receiverPCType, senderPCsType, usersType, socketToRoomType, userType } from "../util/type";
 const wrtc = require("wrtc");
@@ -32,8 +33,9 @@ export const socketInit = (server: any, app: express.Application) => {
       socket.join(chatroomId);
     });
 
-    socket.on("sendChat", ({ chatRoomId, message }: SendChatType) => {
-      createChatMessage({ chatRoomId, message });
+    socket.on("sendChat", async ({ chatRoomId, message }: SendChatType) => {
+      const createdChatMeesage = await createChatMessage({ chatRoomId, message });
+      await addReadRow({ chatId: createdChatMeesage.chatId, chatRoomId, uid: message.from });
       io.sockets.in(String(chatRoomId)).emit("receiveChat", { chatRoomId: chatRoomId, message });
     });
 

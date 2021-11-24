@@ -56,7 +56,7 @@ Users.init(
       type: DataTypes.STRING(30),
     },
     image: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(100),
     },
     age: {
       type: DataTypes.INTEGER,
