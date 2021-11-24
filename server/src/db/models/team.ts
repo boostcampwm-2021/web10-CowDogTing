@@ -29,7 +29,7 @@ Team.init(
       autoIncrement: true,
     },
     image: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(100),
     },
     name: {
       type: DataTypes.STRING(30),

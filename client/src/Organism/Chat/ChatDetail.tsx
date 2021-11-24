@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useRef, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
-import { chatTarget } from "../../Recoil/Atom";
-import { getChatMessage } from "../../util/data";
+import { chatTarget, joinChatRoomState } from "../../Recoil/Atom";
+import { changeNotReadToRead, getChatMessage } from "../../util/data";
 import Chats from "../../Molecules/Chat/Chats";
+import { joinChatType } from "../../util/type";
 
 const ChatContainerStyle = css`
   width: 100%;
@@ -16,6 +17,7 @@ const ChatContainerStyle = css`
 export default function ChatDetail() {
   const [chatInfo, setChatInfo] = useRecoilState(chatTarget);
   const { chatRoomId, chatMessage: chats } = chatInfo;
+  const setJoinChatInfo = useSetRecoilState(joinChatRoomState);
   const [dataIndex, setDataIndex] = useState<number>(1);
   const [currentScrollTop, SetCurrentScrollTop] = useState<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -65,7 +67,19 @@ export default function ChatDetail() {
   }, [chatRoomId, chatInfo, dataIndex]);
 
   useEffect(() => {
+    changeNotReadToRead(chatRoomId);
+    setJoinChatInfo((prev: joinChatType[]) =>
+      prev.map((item: joinChatType) => {
+        if (item.chatRoomId !== chatRoomId) return item;
+        return {
+          ...item,
+          notReadNum: 0,
+        };
+      })
+    );
+
     return () => {
+      changeNotReadToRead(chatRoomId);
       setChatInfo({
         chatRoomId: 0,
         member: [],

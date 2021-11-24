@@ -12,6 +12,7 @@ import { findUser } from "../auth/service";
 import { isNumber } from "../../util/utilFunc";
 import { messageType } from "../../util/type";
 import { Image } from "../../db/models/image";
+import { ReadTable } from "../../db/models/read";
 
 const { QueryTypes } = require("sequelize");
 
@@ -50,7 +51,7 @@ const findAllChat = async ({ chatRoomId }: { chatRoomId: number }) => {
       chatRoomId: chatRoomId,
     },
   };
-  return await Chat.count(query);
+  return await ReadTable.count(query);
 };
 
 export const findAllRequest = async ({ uid }: { uid: string }) => {
@@ -405,6 +406,5 @@ const makeMessageObject = ({ from, to, message }: { from: string; to: string; me
   return {
     from: to,
     message,
-    read: false,
   };
 };
