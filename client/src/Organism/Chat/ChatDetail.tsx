@@ -30,7 +30,7 @@ export default function ChatDetail() {
     if (scrollTop !== 0) return;
 
     const chatMessages = await getChatMessage({ index: dataIndex, chatRoomId });
-    if (!chatMessages.length) return;
+    if (!chatMessages.length || chatMessages === "error") return;
 
     setChatInfo((prev) => {
       return {
