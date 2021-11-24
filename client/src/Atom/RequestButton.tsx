@@ -28,16 +28,14 @@ export default function RequestButton({ type, data, isTeam }: { type: string; da
   if (isTeam === "team" && mygId) {
     toId = mygId;
   }
-  const {
-    info: { id },
-  } = data;
+  const { from } = data;
 
   const handleAcceptClick = () => {
-    requestAccept({ from: id, to: toId });
+    requestAccept({ from, to: toId });
   };
 
   const handleDenyClick = () => {
-    requestDeny({ from: id, to: toId });
+    requestDeny({ from, to: toId });
   };
 
   const { state } = data;

@@ -5,7 +5,8 @@ import { useSetRecoilState } from "recoil";
 import { Button } from "../../Atom/Button";
 import InputLabel from "../../Molecules/Core/InputLabel";
 import { inviteTeam } from "../../util/data";
-import { errorState } from "../../Recoil/Atom";
+import { errorState, teamState } from "../../Recoil/Atom";
+import { TeamInfoType } from "../../util/type";
 
 const inviteModalStyle = css`
   position: fixed;
@@ -26,6 +27,7 @@ const inviteModalStyle = css`
 
 export default function InviteModal({ setInviteModalState }: { setInviteModalState: Function }) {
   const userIdRef = useRef<HTMLInputElement>(null);
+  const setTeamInfo = useSetRecoilState(teamState);
   const setErrorValue = useSetRecoilState(errorState);
 
   const clickInvite: MouseEventHandler = async () => {
@@ -42,6 +44,13 @@ export default function InviteModal({ setInviteModalState }: { setInviteModalSta
       setErrorValue({ errorStr: "초대 실패했습니다", timeOut: 1000 });
       return;
     }
+    setTeamInfo((prev: TeamInfoType) => {
+      const teamMember = prev.member ?? [];
+      return {
+        ...prev,
+        member: [...teamMember, result],
+      };
+    });
     setInviteModalState(false);
   };
   return (
