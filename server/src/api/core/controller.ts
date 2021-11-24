@@ -31,6 +31,7 @@ export const getJoinChatInfo = async (req: Request, res: Response, next: NextFun
     if (!req.user) return res.send(defaultJoinChatRoom);
     const uid = String(req.user!.uid);
     const data = await findChatRoomNotReadNum({ uid });
+    console.log(data);
     return res.send(data);
   } catch (error) {
     return next(error);

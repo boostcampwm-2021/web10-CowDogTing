@@ -39,16 +39,17 @@ export const findChatRoomNotReadNum = async ({ uid }: { uid: string }) => {
     joinCathRoom.map(async (RoomNum) => {
       return {
         ...RoomNum,
-        notReadNum: await findAllChat(RoomNum),
+        notReadNum: await findAllChat({ chatRoomId: RoomNum.chatRoomId, uid }),
       };
     }),
   );
   return chatList;
 };
 
-const findAllChat = async ({ chatRoomId }: { chatRoomId: number }) => {
+const findAllChat = async ({ chatRoomId, uid }: { chatRoomId: number; uid: string }) => {
   const query = {
     where: {
+      uid,
       isRead: 0,
       chatRoomId: chatRoomId,
     },

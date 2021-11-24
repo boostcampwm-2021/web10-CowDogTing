@@ -31,6 +31,7 @@ function TeamSettingTemplate() {
 
   useEffect(() => {
     if (teamInfoState.id !== "") return;
+    console.log(teamSelector);
     setTeamInfoState(teamSelector);
   }, [teamSelector]);
 
@@ -60,7 +61,6 @@ function TeamSettingTemplate() {
       teamInfo: teamInfoRef?.current?.value || teamInfoState.info,
       location: locSelected ?? teamInfoState.location,
     });
-
     if (result === "error") {
       setErrorValue({ errorStr: "팀 정보 수정에 실패했습니다.", timeOut: 1000 });
       return;
