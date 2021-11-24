@@ -151,7 +151,7 @@ export type LinkButtonType = {
   url: string | undefined;
   type: string;
   content: string;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  onClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
   refProps?: RefObject<HTMLDivElement>;
   id?: string;
 };

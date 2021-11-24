@@ -17,8 +17,7 @@ const RequestPageStyle = css`
 `;
 
 export default function RequestPage() {
-  const userInfo = useRecoilValue(userState);
-  if (!checkLogin(userInfo)) passToLoginPage();
+  if (!checkLogin()) passToLoginPage();
 
   const { id: myId, gid: mygId } = useRecoilValue(userState);
   const requestDatas = useRecoilValue(requestState);

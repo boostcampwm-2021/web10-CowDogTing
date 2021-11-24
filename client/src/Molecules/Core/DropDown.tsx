@@ -1,10 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { DropDownType, menuType } from "../../util/type";
-import LinkButton from "./LinkButton";
+import { DropDownType } from "../../util/type";
 import { MENU_LIST } from "../../util/constant";
-import { logOutUser } from "../../util/data";
+import DropDownElement from "../../Atom/DropDownElement";
 
 const borderTop = css`
   border-top-left-radius: 27px;
@@ -102,23 +101,13 @@ export default function DropDown(props: DropDownType) {
 
   const list = MENU_LIST[type];
 
-  const LogOut = async () => {
-    const data = await logOutUser();
-    if (data) {
-      window.location.replace("/main");
-    } else {
-      alert("실패 ㅋㅋ");
-    }
-  };
-
-  const getElement = (menu: menuType) => {
-    if (menu.name === "로그아웃") return <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} onClick={LogOut} />;
-    return <LinkButton url={menu.link} type="LargeDropDown" content={menu.name} onClick={onClick} id={menu.name} />;
-  };
-
   return (
-    <DropDownContainer type={type} className={className}>
-      {list.map((menu) => getElement(menu))}
-    </DropDownContainer>
+    <>
+      <DropDownContainer type={type} className={className}>
+        {list.map((menu) => (
+          <DropDownElement menu={menu} onClick={onClick} />
+        ))}
+      </DropDownContainer>
+    </>
   );
 }

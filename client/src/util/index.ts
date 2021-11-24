@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import { RefObject } from "react";
-import { PersonInfoType } from "./type";
 
 export const handleModalClick = (e: React.MouseEvent, refs: RefObject<HTMLDivElement[]>, handler: (value: any) => void) => {
   if (!refs.current) {
@@ -32,8 +31,9 @@ export const passToLoginPage = () => {
   window.location.href = "/sub/login";
 };
 
-export const checkLogin = (userInfo: PersonInfoType) => {
-  return userInfo.id !== "";
+export const checkLogin = () => {
+  const isLogin = sessionStorage.getItem("isLogin");
+  return isLogin === "true";
 };
 
 export const checkGameInUrl = () => {

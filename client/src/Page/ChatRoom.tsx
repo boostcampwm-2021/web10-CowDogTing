@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 import ChatRoomLeft from "../Template/ChatRoom/ChatRoomLeft";
 import ChatRoomRight from "../Template/ChatRoom/ChatRoomRight";
 import { checkLogin, passToLoginPage } from "../util";
-import { chatsState, chatTarget, userState } from "../Recoil/Atom";
+import { chatsState, chatTarget } from "../Recoil/Atom";
 
 const ChatRoomStyle = css`
   width: 400px;
@@ -15,8 +15,7 @@ const ChatRoomStyle = css`
 `;
 
 export default function ChatRoom() {
-  const userInfo = useRecoilValue(userState);
-  if (!checkLogin(userInfo)) passToLoginPage();
+  if (!checkLogin()) passToLoginPage();
 
   const setChatInfo = useSetRecoilState(chatTarget);
   const chatDatas = useRecoilValue(chatsState);
