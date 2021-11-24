@@ -5,7 +5,7 @@ import { Chat } from "../../db/models/chat";
 import { Users } from "../../db/models/users";
 import { Team } from "../../db/models/team";
 import { sequelize } from "../../db/models";
-import { createChatMessage, createChatRoom, createParticipant, findChatRoomInfo, findJoinChatRooms } from "../chat/service";
+import { createChatMessage, createChatRoom, createParticipant, createSingleParticipant, findChatRoomInfo, findJoinChatRooms } from "../chat/service";
 import { SocketMap } from "../../webSocket/socket";
 import { validateTeam } from "../team/service";
 import { findUser } from "../auth/service";
@@ -13,6 +13,7 @@ import { isNumber } from "../../util/utilFunc";
 import { messageType } from "../../util/type";
 import { Image } from "../../db/models/image";
 import { ReadTable } from "../../db/models/read";
+import { isObject } from "util";
 
 const { QueryTypes } = require("sequelize");
 
@@ -175,10 +176,9 @@ const findTeamRequest = async ({ from, to, type }: { from: string; to: number; t
         },
       ],
       where: { gid: to },
-      // where: type === "to" ?{ gid: to } : {leader:from},
     };
     infoData = await Team.findOne(query as object);
-    return { from, to, type, info: infoData };
+    return { from, to, state: "ready", info: infoData };
   } else {
     query = {
       attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
@@ -192,7 +192,7 @@ const findTeamRequest = async ({ from, to, type }: { from: string; to: number; t
       where: { leader: from },
     };
     infoData = await Team.findOne(query as object);
-    return { from, to, type, info: infoData };
+    return { from, to, state: "ready", info: infoData };
   }
 };
 
@@ -241,10 +241,7 @@ export const findAllProfile = async (person: number, index: number, myId: string
     return data;
   } else {
     const teamIds = await findTeam(person, myId);
-    const memberSex = col("member.sex");
-    const memberAge = col("member.age");
     query = {
-      raw: true,
       attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
       include: [
         {
@@ -296,10 +293,8 @@ export const addRequest = async ({ from, to }: { from: string; to: string }) => 
 
 export const sendRequest = ({ from, to }: { from: string; to: string }) => {
   if (isNumber(to)) {
-    console.log(1);
     sendRequestToTeam({ from: from, to: Number(to) });
   } else {
-    console.log(2);
     sendRequestToUser({ from, to });
   }
 };
@@ -313,7 +308,8 @@ const sendRequestToTeam = async ({ from, to }: { from: string; to: number }) => 
   const toLeader = String(await findLeaders(to));
   if (!SocketMap.has(toLeader)) return;
   const toRequestData = await findTeamRequest({ from, to, type: "to" });
-  const toSocketId = SocketMap.get(String(toLeader));
+  const toSocketId = SocketMap.get(toLeader);
+  console.log(toLeader, toSocketId);
   io.to(toSocketId).emit("receiveRequest", toRequestData);
 };
 
@@ -322,8 +318,8 @@ const findLeaders = async (gid: number) => {
     attributes: ["leader"],
     where: { gid },
   };
-  const leader = await Team.findOne(query);
-  return leader;
+  const info = await Team.findOne(query);
+  return info?.getDataValue("leader");
 };
 
 const sendRequestToUser = async ({ from, to }: { from: string; to: string }) => {
@@ -376,15 +372,35 @@ const deleteRequest = async ({ from, to }: { from: string; to: string }) => {
 };
 
 export const _acceptRequest = async ({ from, to }: { from: string; to: string }) => {
+  console.log("is number", isNumber(to));
+  console.log(from, to);
   if (isNumber(to)) {
-    acceptRequestTeam({ from: Number(from), to: Number(to) });
+    acceptRequestTeam({ from, to: Number(to) });
   } else {
     acceptRequestUser({ from, to });
   }
 };
 
-const acceptRequestTeam = async ({ from, to }: { from: number; to: number }) => {
-  await deleteRequest({ from: String(from), to: String(to) });
+const acceptRequestTeam = async ({ from, to }: { from: string; to: number }) => {
+  await deleteRequest({ from, to: String(to) });
+  const createdChatRoom = await createChatRoom(); // 방생성
+  const chatRoomId = createdChatRoom.get({ plain: true }).chatRoomId; // id 가져오기
+  const members = await createParticipants({ from, to, chatRoomId });
+  const membersArr = members.map((member: any) => member.dataValues);
+  await createChatMessage({ chatRoomId, message: makeMessageObject({ from, to: from, message: `${from}가 채팅을 수락했습니다.` }) });
+  const chatRoomData = await findChatRoomInfo({ chatRoomId, type: "team" });
+  console.log("chatRoomData", chatRoomData);
+  const io = app.get("io");
+  const fromSocketId = SocketMap.get(from);
+
+  //io.to(fromSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
+  membersArr.forEach((member: any) => {
+    console.log({ ...chatRoomData, member: membersArr });
+    console.log(SocketMap);
+    if (!SocketMap.has(String(member.id))) return;
+    const toSocketId = SocketMap.get(String(member.id));
+    io.to(toSocketId).emit("receiveAcceptRequest", { chat: { ...chatRoomData, member: membersArr }, from, to });
+  });
 };
 
 const acceptRequestUser = async ({ from, to }: { from: string; to: string }) => {
@@ -393,10 +409,12 @@ const acceptRequestUser = async ({ from, to }: { from: string; to: string }) => 
   const chatRoomId = createdChatRoom.get({ plain: true }).chatRoomId;
   await createParticipant({ from, to, chatRoomId });
   await createChatMessage({ chatRoomId, message: makeMessageObject({ from, to, message: `${to}가 채팅을 수락했습니다.` }) });
-  const chatRoomData = await findChatRoomInfo({ chatRoomId });
+  const chatRoomData = await findChatRoomInfo({ chatRoomId, type: "user" });
+  // from 에게 보내기 시작
   const io = app.get("io");
   const fromSocketId = SocketMap.get(from);
   io.to(fromSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
+  // to 에게 보내기 시작
   if (!SocketMap.has(to)) return;
   const toSocketId = SocketMap.get(to);
   io.to(toSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
@@ -407,4 +425,50 @@ const makeMessageObject = ({ from, to, message }: { from: string; to: string; me
     from: to,
     message,
   };
+};
+
+const createParticipants = async ({ from, to, chatRoomId }: { from: string; to: number; chatRoomId: number }) => {
+  const toTeamInfo = (await findTeamMembers({ gid: to })) as any;
+  const fromTeamInfo = (await findTeamMembersByLeader({ leader: from })) as any;
+
+  const members = [...toTeamInfo.member, ...fromTeamInfo.member];
+  const promiseArr = members.map((member: any) => createSingleParticipant({ uid: member.uid, chatRoomId }));
+  await Promise.all(promiseArr);
+  return members;
+};
+
+const findTeamMembers = async ({ gid }: { gid: number }) => {
+  const query = {
+    attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
+    include: [
+      {
+        model: Users,
+        as: "member",
+        attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+      },
+    ],
+    where: { gid },
+  };
+  const infoData = await Team.findOne(query as object);
+  return infoData;
+};
+
+const findTeamMembersByLeader = async ({ leader }: { leader: string }) => {
+  const query = {
+    attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
+    include: [
+      {
+        model: Users,
+        as: "member",
+        attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+      },
+    ],
+    where: { leader },
+  };
+  return await Team.findOne(query as object);
+};
+
+const findTeamLeaderByGid = async ({ gid }: { gid: number }) => {
+  const teamInfo = await Team.findOne({ raw: true, where: { gid } });
+  return teamInfo?.leader;
 };
