@@ -13,13 +13,14 @@ import ChatRoom from "./Page/ChatRoom";
 import ClientSocket from "./Socket";
 import { handleReceiveAcceptSocket, handleReceiveChatSocket, handleReceiveDenySocket, handleReceiveRequestSocket } from "./Socket/chatSocket";
 import { ChatInfoType, RequestType, MessageType } from "./util/type";
-import { CHAT_INFO_URL, JOIN_CHAT_URL, REQUEST_URL, USER_URL } from "./util/URL";
+import { CHAT_INFO_URL, JOIN_CHAT_URL, REQUEST_URL, TEAM_INFO_URL, USER_URL } from "./util/URL";
 import { getFetch } from "./util/data";
 import reset from "./util/reset";
-import { chatsState, chatTarget, errorState, joinChatRoomState, requestState, userState } from "./Recoil/Atom";
+import { chatsState, chatTarget, errorState, joinChatRoomState, requestState, teamState, userState } from "./Recoil/Atom";
 
 function App() {
   const [user, setUser] = useRecoilState(userState);
+  const setTeamInfo = useSetRecoilState(teamState);
   const setRequest = useSetRecoilState(requestState);
   const [joinChat, setJoinChat] = useRecoilState(joinChatRoomState);
   const setChat = useSetRecoilState(chatsState);
@@ -29,14 +30,15 @@ function App() {
   const getInitData = async () => {
     try {
       const userData = await getFetch({ url: USER_URL, query: "" });
+      const teamData = await getFetch({ url: TEAM_INFO_URL, query: "" });
       const requestData = await getFetch({ url: REQUEST_URL, query: "" });
       const joinChatData = await getFetch({ url: JOIN_CHAT_URL, query: "" });
       const chatData = await getFetch({ url: CHAT_INFO_URL, query: "" });
       if (userData) {
-        console.log(userData);
         sessionStorage.setItem("isLogin", "true");
       }
       setUser(userData);
+      setTeamInfo(teamData);
       setRequest(requestData);
       setJoinChat(joinChatData);
       setChat(chatData);
@@ -60,8 +62,6 @@ function App() {
       setErrorValue({ errorStr: `${data.to}님이 요청을 거절하셨습니다.`, timeOut: 1000 });
     };
     const handleReceiveAcceptEvent = (data: { chat: ChatInfoType; from: string; to: string }) => {
-      console.log(data);
-      console.log("accept 이벤트 발생했엉");
       handleReceiveAcceptSocket({ setRequest, setJoinChat, setChat, data });
       if (data.from !== user.id) return;
       setErrorValue({ errorStr: `${data.to}님이 요청을 승인하셨습니다.`, timeOut: 1000 });

@@ -4,7 +4,8 @@ import { createServer } from "https";
 import { sequelize } from "../db/models";
 import { socketInit } from "../webSocket/socket";
 
-const app = createApp();
+export const app = createApp();
+
 const port: number = Number(process.env.PORT) || 4000;
 
 const server = createServer(

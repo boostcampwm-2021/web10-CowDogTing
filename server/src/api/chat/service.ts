@@ -127,16 +127,11 @@ export const createSingleParticipant = async ({ uid, chatRoomId }: { uid: string
 };
 
 export const createChatMessage = async ({ chatRoomId, message }: SendChatType) => {
-  console.log(message);
   const createdChatMessage = await Chat.create({ uid: message.from, message: message.message, src: message.source, chatRoomId });
   return createdChatMessage;
 };
 
 export const createReadRow = async ({ chatId, chatRoomId, uid, isRead }: { chatId: number; chatRoomId: number; uid: string; isRead: boolean }) => {
-  console.log("chatId", chatId);
-  console.log("chatRoomId", chatRoomId);
-  console.log("uid", uid);
-  console.log("isRead", isRead);
   ReadTable.create({ chatId, chatRoomId, uid, isRead });
 };
 

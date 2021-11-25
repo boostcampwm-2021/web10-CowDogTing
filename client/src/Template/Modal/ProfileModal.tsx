@@ -15,7 +15,6 @@ export default function ProfileModal(): JSX.Element {
   const { leader } = useRecoilValue(teamState);
   const { id: myId } = useRecoilValue(userState);
   const setErrorValue = useSetRecoilState(errorState);
-
   const [index, setIndex] = useState<number>(0);
   const [target, setTarget] = useState<ProfileType | null>(datas[0]);
   const [request, setRequest] = useState<boolean>(false);
