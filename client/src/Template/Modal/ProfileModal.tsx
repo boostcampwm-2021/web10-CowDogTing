@@ -5,20 +5,20 @@ import { Button } from "../../Atom/Button";
 import ProfileInfo from "../../Atom/ProfileInfo";
 import LargeModal from "../../Organism/Core/LargeModal";
 import RequestModal from "./RequestModal";
-import { profileModalDatas, requestTarget, userState } from "../../Recoil/Atom";
+import { errorState, profileModalDatas, requestTarget, teamState, userState } from "../../Recoil/Atom";
 import { ProfileType } from "../../util/type";
 import { requestChat } from "../../util/data";
 
 export default function ProfileModal(): JSX.Element {
   const setRequestTarget = useSetRecoilState(requestTarget);
   const datas = useRecoilValue(profileModalDatas);
+  const { leader } = useRecoilValue(teamState);
   const { id: myId } = useRecoilValue(userState);
+  const setErrorValue = useSetRecoilState(errorState);
 
   const [index, setIndex] = useState<number>(0);
   const [target, setTarget] = useState<ProfileType | null>(datas[0]);
   const [request, setRequest] = useState<boolean>(false);
-  // const [fromId, setFromId] = useState<number | string>(myId);
-  // const [toId, setToId] = useState<string | number>("");
 
   useEffect(() => {
     setTarget(datas[0]);
@@ -41,6 +41,10 @@ export default function ProfileModal(): JSX.Element {
   };
 
   const handleRequestClick = (): void => {
+    if (datas.length > 1 && myId !== leader) {
+      setErrorValue({ errorStr: "팀 리더에게 문의하세요.", timeOut: 1000 });
+      return;
+    }
     const res = requestChat({ from: myId, to: datas.length === 1 ? datas[0].id : datas[0].gid ?? 0 });
     if (!res) {
       console.log("error");

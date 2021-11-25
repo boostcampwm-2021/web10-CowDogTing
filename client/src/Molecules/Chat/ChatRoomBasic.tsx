@@ -94,7 +94,7 @@ export default function ChatRoomBasic({ type }: { type: string }) {
   const { chatRoomId } = useRecoilValue(chatTarget);
   const { id } = useRecoilValue(userState);
   const [users, setUsers] = useState<Array<IWebRTCUser>>([]);
-  // const videoRef = useRef<HTMLDivElement>();
+
   const localStreamRef = useRef<MediaStream>();
   const localVideoRef = useRef<HTMLVideoElement>(null);
   const { socket } = new ClientSocket(id);

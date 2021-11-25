@@ -13,6 +13,9 @@ passportConfig();
 export const app = express();
 app.use(morgan("dev"));
 app.use("/uploads", express.static("uploads"));
+app.get("/mafia", (req, res, next) => {
+  res.sendFile(__dirname + "/mafia.html");
+});
 export const createApp = () => {
   loadApp(app);
   return app;
