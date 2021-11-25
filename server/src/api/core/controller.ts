@@ -1,6 +1,5 @@
-import { NextFunction, Request, RequestParamHandler, Response } from "express";
-import path = require("path");
-import { findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser, sendRequest, validationTeamAndUser, _denyRequest, _acceptRequest, addRequest, updateProfileImage, findAllTeamRequest } from "./service";
+import { NextFunction, Request, Response } from "express";
+import { findChatRoomNotReadNum, findAllRequest, findUserInfo, findAllProfile, updateUser, sendRequest, validationTeamAndUser, _denyRequest, _acceptRequest, addRequest, updateProfileImage, findAllTeamRequest, isLeader } from "./service";
 import { Op } from "sequelize";
 
 const defaultUser = {
@@ -31,7 +30,6 @@ export const getJoinChatInfo = async (req: Request, res: Response, next: NextFun
     if (!req.user) return res.send(defaultJoinChatRoom);
     const uid = String(req.user!.uid);
     const data = await findChatRoomNotReadNum({ uid });
-    console.log(data);
     return res.send(data);
   } catch (error) {
     return next(error);
@@ -43,9 +41,12 @@ export const getRequest = async (req: Request, res: Response, next: NextFunction
     if (!req.user) return res.send(defaultRequest);
     const uid = String(req.user.uid);
     const gid = Number(req.user.gid);
-    const userData = await findAllRequest({ uid });
-    const data = await findAllTeamRequest({ uid, gid, userData });
-    return res.send(data);
+    let userData = await findAllRequest({ uid });
+    if (await isLeader({ uid, gid })) {
+      const data = await findAllTeamRequest({ uid, gid, userData });
+      return res.send(data);
+    }
+    return res.send(userData);
   } catch (error) {
     return next(error);
   }
