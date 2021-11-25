@@ -1,6 +1,6 @@
 import { Team, TeamAttributes } from "../../db/models/team";
 import { Users } from "../../db/models/users";
-import { findUser } from "../auth/service";
+import { findUser } from "../util";
 
 export const findTeam = async ({ gid }: { gid: number }) => {
   const query = {
@@ -57,10 +57,6 @@ export const _getGroupId = async ({ teamName }: { teamName: string }) => {
   return await Team.findOne(query);
 };
 
-export const validateTeam = async ({ gid }: { gid: number }) => {
-  return await Team.findOne({ where: { gid } });
-};
-
 export const handleExitTeam = async ({ uid }: { uid: string }) => {
-  return await Users.update({ gid: null }, { where: { uid }, logging: true });
+  return await Users.update({ gid: null }, { where: { uid } });
 };
