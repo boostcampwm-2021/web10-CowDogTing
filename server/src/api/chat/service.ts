@@ -3,7 +3,6 @@ import { Chat } from "../../db/models/chat";
 import { ChatRoom } from "../../db/models/chatRoom";
 import { Participant, ParticipantAttributes } from "../../db/models/participant";
 import { Users } from "../../db/models/users";
-import { SendChatType } from "../../util/type";
 
 interface infoAttribute extends ParticipantAttributes {
   [key: string]: string | number | null | undefined;
@@ -113,10 +112,6 @@ export const findMessages = async (chatRoomId: number, index: number) => {
   return data.reverse();
 };
 
-export const createChatRoom = async () => {
-  return ChatRoom.create();
-};
-
 export const createParticipant = async ({ from, to, chatRoomId }: { from: string; to: string; chatRoomId: number }) => {
   const promiseArr = [Participant.create({ uid: to, chatRoomId }), Participant.create({ uid: from, chatRoomId })];
   return await Promise.all(promiseArr);
@@ -126,17 +121,7 @@ export const createSingleParticipant = async ({ uid, chatRoomId }: { uid: string
   return await Participant.create({ uid, chatRoomId });
 };
 
-export const createChatMessage = async ({ chatRoomId, message }: SendChatType) => {
-  console.log(message);
-  const createdChatMessage = await Chat.create({ uid: message.from, message: message.message, src: message.source, chatRoomId });
-  return createdChatMessage;
-};
-
 export const createReadRow = async ({ chatId, chatRoomId, uid, isRead }: { chatId: number; chatRoomId: number; uid: string; isRead: boolean }) => {
-  console.log("chatId", chatId);
-  console.log("chatRoomId", chatRoomId);
-  console.log("uid", uid);
-  console.log("isRead", isRead);
   ReadTable.create({ chatId, chatRoomId, uid, isRead });
 };
 

@@ -1,6 +1,7 @@
 import * as passport from "passport";
 import { NextFunction, Request, Response } from "express";
-import { findUser, createUser, addKakaoID, addGithubID, addNaverID } from "./service";
+import { createUser, addKakaoID, addGithubID, addNaverID } from "./service";
+import { findUser } from "../util";
 
 export const handleRegister = async (req: Request, res: Response, next: NextFunction) => {
   try {

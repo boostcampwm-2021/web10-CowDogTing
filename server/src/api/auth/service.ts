@@ -2,10 +2,6 @@ import { UserAttributes } from "./../../db/models/users";
 import { Users } from "../../db/models/users";
 import * as bcrypt from "bcrypt";
 
-export const findUser = async ({ uid }: { uid: string }) => {
-  return await Users.findOne({ where: { uid } });
-};
-
 export const createUser = async ({ uid, password, location, age, sex, info }: UserAttributes) => {
   const hash: string = await bcrypt.hash(password, 12);
   return await Users.create({

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getJoinChatInfo, getRequest, getUserInfo, getProfile, postUserUpdate, postRequest, denyRequest, acceptRequest, postImage } from "./controller";
+import { getJoinChatInfo, getUserInfo, getProfile, postUserUpdate, postImage } from "./controller";
 import * as path from "path";
 import multer = require("multer");
 
@@ -26,10 +26,6 @@ const coreRouter = Router();
 
 coreRouter.get("/userInfo", getUserInfo);
 coreRouter.get("/joinChatInfo", getJoinChatInfo);
-coreRouter.get("/request", getRequest);
-coreRouter.post("/postRequest", postRequest);
-coreRouter.post("/denyRequest", denyRequest);
-coreRouter.post("/acceptRequest", acceptRequest);
 coreRouter.get("/profile", getProfile);
 coreRouter.post("/userInfo", postUserUpdate);
 coreRouter.post("/postImage", upload.single("image"), postImage);

@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { createChatMessage, createReadRow, findChatRoomsInfo, findMessages, findParticipants, handleMessageRead } from "./service";
+import { createReadRow, findChatRoomsInfo, findMessages, findParticipants, handleMessageRead } from "./service";
 import { app } from "../../app";
 import { Participant } from "../../db/models/participant";
+import { createChatMessage } from "../util";
 export const getChatsInfo = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.user) return res.status(401).send({ error: "로그인을 하지 않았습니다" });
@@ -31,7 +32,6 @@ export const postChatMessage = async (req: Request, res: Response, next: NextFun
     if (req.file) {
       message_obj = { from, message, source: "/" + req.file.path };
       const createdChatMessage = await createChatMessage({ chatRoomId, message: message_obj });
-      console.log(createChatMessage);
       await addReadRow({ chatId: createdChatMessage.chatId, chatRoomId, uid: from });
     }
     app.get("io").sockets.in(String(chatRoomId)).emit("receiveChat", { chatRoomId, message: message_obj });
