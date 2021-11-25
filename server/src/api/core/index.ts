@@ -1,9 +1,7 @@
-import { Request, Router } from "express";
-
+import { Router } from "express";
 import { getJoinChatInfo, getRequest, getUserInfo, getProfile, postUserUpdate, postRequest, denyRequest, acceptRequest, postImage } from "./controller";
 import * as path from "path";
-import { Multer } from "multer";
-const multer = require("multer");
+import multer = require("multer");
 
 import * as fs from "fs";
 try {

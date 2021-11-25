@@ -1,7 +1,6 @@
 import { app } from "./../../app";
-import { Op, literal, col } from "sequelize";
+import { Op, literal } from "sequelize";
 import { Request } from "../../db/models/request";
-import { Chat } from "../../db/models/chat";
 import { Users } from "../../db/models/users";
 import { Team } from "../../db/models/team";
 import { sequelize } from "../../db/models";
@@ -11,12 +10,9 @@ import { validateTeam } from "../team/service";
 import { findUser } from "../auth/service";
 import { isNumber } from "../../util/utilFunc";
 import { messageType } from "../../util/type";
-import { Image } from "../../db/models/image";
 import { ReadTable } from "../../db/models/read";
-import { isObject } from "util";
-import { totalmem } from "os";
 
-const { QueryTypes } = require("sequelize");
+import { QueryTypes } from "sequelize";
 
 export const updateProfileImage = async ({ image, id }: { image: string; id: string }) => {
   if (isNumber(id)) {
@@ -77,18 +73,60 @@ export const findAllRequest = async ({ uid }: { uid: string }) => {
   const fromResult = results_from(users);
   return [...toResult, ...fromResult];
 };
+export const isLeader = async ({ uid, gid }: { uid: string; gid: number }) => {
+  const leader = await Team.findOne({ attributes: ["leader"], where: { gid } });
+  console.log(leader);
+  if (leader && leader.leader === uid) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
 export const findAllTeamRequest = async ({ uid, gid, userData }: { uid: string; gid: number; userData: any }) => {
   const requestListToQuery = {
     attributes: ["from", "to", "state"],
-    where: { from: uid },
+    where: { to: gid },
   };
   const requestToList = await Request.findAll(requestListToQuery);
   const toList = requestToList.filter((request) => {
     if (!isNumber(request.to)) return false;
     return true;
   });
-  const toQuery = ({ to }: { to: number }) => {
+  const toQuery = ({ from }: { from: string }) => {
+    return {
+      attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
+      include: [
+        {
+          model: Users,
+          as: "member",
+          attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
+        },
+      ],
+      where: { leader: from },
+    };
+  };
+  const promiseArr = toList.map(async (request) => {
+    const from = request.from;
+    const data = await Team.findOne(toQuery({ from }) as object);
+    if (!data) {
+      return;
+    }
+    return { from: request.from, to: request.to, state: "ready", info: data };
+  });
+  const datasTo = await Promise.all(promiseArr);
+  console.log("to", datasTo);
+
+  const requestListFromQuery = {
+    attributes: ["from", "to", "state"],
+    where: { from: uid },
+  };
+  const requestFromList = await Request.findAll(requestListFromQuery);
+  const fromList = requestFromList.filter((request) => {
+    if (!isNumber(request.to)) return false;
+    return true;
+  });
+  const fromQuery = ({ to }: { to: number }) => {
     return {
       attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
       include: [
@@ -101,41 +139,13 @@ export const findAllTeamRequest = async ({ uid, gid, userData }: { uid: string; 
       where: { gid: to },
     };
   };
-  const promiseArr = toList.map(async (request) => {
-    const to = Number(request.to);
-    const data = await Team.findOne(toQuery({ to }) as object);
-    return { from: request.from, to: request.to, state: "ready", info: data };
-  });
-  const datasTo = await Promise.all(promiseArr);
-
-  const requestListFromQuery = {
-    attributes: ["from", "to", "state"],
-    where: { to: gid },
-  };
-  const requestFromList = await Request.findAll(requestListFromQuery);
-  const fromList = requestFromList.filter((request) => {
-    if (!isNumber(request.to)) return false;
-    return true;
-  });
-  const fromQuery = ({ leader }: { leader: string }) => {
-    return {
-      attributes: ["gid", ["name", "id"], "image", "location", ["description", "info"]],
-      include: [
-        {
-          model: Users,
-          as: "member",
-          attributes: [["uid", "id"], "image", "location", "sex", "age", "info"],
-        },
-      ],
-      where: { leader: leader },
-    };
-  };
   const promiseArrFrom = fromList.map(async (request) => {
-    const leader = String(request.from);
-    const data = await Team.findOne(fromQuery({ leader }) as object);
+    const to = Number(request.to);
+    const data = await Team.findOne(fromQuery({ to }) as object);
     return { from: request.from, to: request.to, state: "ready", info: data };
   });
   const datasFrom = await Promise.all(promiseArrFrom);
+  console.log("from", datasFrom);
   return [...userData, ...datasTo, ...datasFrom];
 };
 
@@ -239,7 +249,7 @@ export const findAllProfile = async (person: number, index: number, myId: string
       limit: 10,
       logging: true,
     };
-    let data = await Users.findAll(query as object);
+    const data = await Users.findAll(query as object);
     return data;
   } else {
     const teamIds = await findTeam(person, myId);
@@ -258,7 +268,7 @@ export const findAllProfile = async (person: number, index: number, myId: string
       limit: 10,
       logging: true,
     };
-    let data = await Team.findAll(query as object);
+    const data = await Team.findAll(query as object);
     return data;
   }
 };
@@ -311,7 +321,7 @@ const sendRequestToTeam = async ({ from, to }: { from: string; to: number }) => 
   if (!SocketMap.has(toLeader)) return;
   const toRequestData = await findTeamRequest({ from, to, type: "to" });
   const toSocketId = SocketMap.get(toLeader);
-  console.log(toLeader, toSocketId);
+
   io.to(toSocketId).emit("receiveRequest", toRequestData);
 };
 
@@ -345,14 +355,21 @@ export const validationTeamAndUser = async (to: string) => {
 
 export const _denyRequest = async ({ from, to }: { from: string; to: string }) => {
   if (isNumber(to)) {
-    denyRequestTeam({ from: Number(from), to: Number(to) });
+    denyRequestTeam({ from, to: Number(to) });
   } else {
     denyRequestUser({ from, to });
   }
 };
 
-const denyRequestTeam = async ({ from, to }: { from: number; to: number }) => {
-  await deleteRequest({ from: String(from), to: String(to) });
+const denyRequestTeam = async ({ from, to }: { from: string; to: number }) => {
+  await deleteRequest({ from, to: String(to) });
+  const io = app.get("io");
+  const toLeader = String(await findLeaders(to));
+  const toSocketId = SocketMap.get(toLeader);
+  io.to(toSocketId).emit("receiveDenyRequest", { from, to });
+  if (!SocketMap.has(from)) return;
+  const fromSocketId = SocketMap.get(from);
+  io.to(fromSocketId).emit("receiveDenyRequest", { from, to });
 };
 
 const denyRequestUser = async ({ from, to }: { from: string; to: string }) => {
@@ -374,8 +391,6 @@ const deleteRequest = async ({ from, to }: { from: string; to: string }) => {
 };
 
 export const _acceptRequest = async ({ from, to }: { from: string; to: string }) => {
-  console.log("is number", isNumber(to));
-  console.log(from, to);
   if (isNumber(to)) {
     acceptRequestTeam({ from, to: Number(to) });
   } else {
@@ -391,9 +406,7 @@ const acceptRequestTeam = async ({ from, to }: { from: string; to: number }) => 
   const membersArr = members.map((member: any) => member.dataValues);
   await createChatMessage({ chatRoomId, message: makeMessageObject({ from, to: from, message: `${from}가 채팅을 수락했습니다.` }) });
   const chatRoomData = await findChatRoomInfo({ chatRoomId, type: "team" });
-  console.log("chatRoomData", chatRoomData);
   const io = app.get("io");
-  const fromSocketId = SocketMap.get(from);
 
   //io.to(fromSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
   membersArr.forEach((member: any) => {
@@ -467,9 +480,4 @@ const findTeamMembersByLeader = async ({ leader }: { leader: string }) => {
     where: { leader },
   };
   return await Team.findOne(query as object);
-};
-
-const findTeamLeaderByGid = async ({ gid }: { gid: number }) => {
-  const teamInfo = await Team.findOne({ raw: true, where: { gid } });
-  return teamInfo?.leader;
 };

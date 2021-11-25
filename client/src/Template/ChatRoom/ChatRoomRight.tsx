@@ -1,14 +1,15 @@
 /* eslint-disable no-nested-ternary */
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import { css } from "@emotion/react";
+import { useRecoilValue } from "recoil";
 import { Button } from "../../Atom/Button";
-import ChatRoomGather from "./ChatRoomGather";
 import { checkGameInUrl, checkGatherInUrl } from "../../util";
 import ChatRoomBasic from "../../Molecules/Chat/ChatRoomBasic";
 import ChatRoomFooter from "../../Molecules/Chat/ChatRoomFooter";
 import ChatRoomGame from "../../Molecules/Chat/ChatRoomGame";
+import { chatTarget } from "../../Recoil/Atom";
 
 const headerStyle = css`
   display: flex;
@@ -18,11 +19,14 @@ const headerStyle = css`
 
 export default function ChatRoomRight() {
   const [roomType, setRoomType] = useState("Basic");
-
+  const { chatRoomId } = useRecoilValue(chatTarget);
+  const searchParams = new URLSearchParams(useLocation().search);
   const history = useHistory();
 
   const handleCloseRoomClick = () => {
-    history.goBack();
+    const isGameIn = Number(searchParams.get("index"));
+    if (!isGameIn) history.push("/sub/chatList");
+    else history.push(`/ChatRoom?chatRoomId=${chatRoomId}`);
   };
 
   useEffect(() => {
@@ -40,7 +44,6 @@ export default function ChatRoomRight() {
       <ChatRoomBasic type={roomType} />
       <Switch>
         <Route path="/ChatRoom/Game" component={ChatRoomGame} />
-        <Route path="/ChatRoom/Gather" component={ChatRoomGather} />
       </Switch>
       {roomType === "Basic" && <ChatRoomFooter />}
     </div>
