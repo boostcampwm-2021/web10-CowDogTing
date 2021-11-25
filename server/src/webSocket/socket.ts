@@ -1,7 +1,7 @@
 import express = require("express");
 import { Server, Socket } from "socket.io";
+import { createChatMessage } from "../api/util";
 import { addReadRow } from "../api/chat/controller";
-import { createChatMessage } from "../api/chat/service";
 import { SendChatType, receiverPCType, senderPCsType, usersType, socketToRoomType, userType } from "../util/type";
 const wrtc = require("wrtc");
 
@@ -213,7 +213,6 @@ const createSenderPeerConnection = (receiversocketId: string, sendersocketId: st
 const getOtherUsersInRoom = (socketId: string, roomId: string) => {
   let allUsers: { id: string }[] = [];
   if (!users[roomId]) return allUsers;
-  console.log(users[roomId]);
   allUsers = users[roomId]
     .filter((user: userType) => {
       return user.id !== socketId;
