@@ -28,6 +28,7 @@ export default function RequestPage() {
   const getDatas = () => {
     setRequestForMe(
       requestDatas.filter((data: RequestType) => {
+        console.log(data);
         if (data == null) return false;
         if (!data.info.member) {
           return data?.from !== myId;
