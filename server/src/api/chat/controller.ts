@@ -3,6 +3,7 @@ import { createReadRow, findChatRoomsInfo, findMessages, findParticipants, handl
 import { app } from "../../bin/www";
 import { Participant } from "../../db/models/participant";
 import { createChatMessage } from "../util";
+
 export const getChatsInfo = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.user) return res.status(401).send({ error: "로그인을 하지 않았습니다" });
