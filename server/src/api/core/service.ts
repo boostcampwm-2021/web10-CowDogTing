@@ -1,4 +1,4 @@
-import { app } from "./../../app";
+import { app } from "./../../bin/www";
 import { Op, literal } from "sequelize";
 import { Request } from "../../db/models/request";
 import { Users } from "../../db/models/users";
@@ -75,7 +75,6 @@ export const findAllRequest = async ({ uid }: { uid: string }) => {
 };
 export const isLeader = async ({ uid, gid }: { uid: string; gid: number }) => {
   const leader = await Team.findOne({ attributes: ["leader"], where: { gid } });
-  console.log(leader);
   if (leader && leader.leader === uid) {
     return true;
   } else {
@@ -145,7 +144,6 @@ export const findAllTeamRequest = async ({ uid, gid, userData }: { uid: string; 
     return { from: request.from, to: request.to, state: "ready", info: data };
   });
   const datasFrom = await Promise.all(promiseArrFrom);
-  console.log("from", datasFrom);
   return [...userData, ...datasTo, ...datasFrom];
 };
 
