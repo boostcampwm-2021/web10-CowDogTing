@@ -63,7 +63,6 @@ export default function Navbar({ setCategory }: { setCategory: Function }) {
   const handleSetCategory = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLElement;
     const category = target.dataset.id;
-    console.log(category);
     setCategory(category);
   };
 

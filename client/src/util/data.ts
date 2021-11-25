@@ -99,8 +99,6 @@ export const registerUser = async ({ id, pw, location, age, sex, info }: registe
 
 export const getCowDogInfo = async (person: number, index: number, category: string) => {
   try {
-    console.log(`${PROFILE_API_URL}?person=${person}&index=${index}${category}`);
-
     const { data } = await axios.get(`${PROFILE_API_URL}?person=${person}&index=${index}${category}`, {
       withCredentials: true,
     });

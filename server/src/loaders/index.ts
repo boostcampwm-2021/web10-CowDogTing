@@ -26,6 +26,7 @@ export const loadApp = (app: Express) => {
       },
     }),
   );
+
   app.use(express.static("src/public"));
   app.use(passport.initialize());
   app.use(passport.session());
@@ -36,5 +37,9 @@ export const loadApp = (app: Express) => {
     }),
   );
   app.use(morgan("dev"));
+  app.use("/uploads", express.static("uploads"));
   app.use("/api", apiRouter);
+  app.get("/mafia", (req, res, next) => {
+    res.sendFile(__dirname + "mafia.htm");
+  });
 };

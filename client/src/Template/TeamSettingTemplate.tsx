@@ -1,12 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
+import React, { MouseEventHandler, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
 import ProfileList from "./Profile/ProfileList";
 import { errorState, teamState, userState } from "../Recoil/Atom";
 import { changeTeamInfo, exitTeam } from "../util/data";
-import { fetchGet } from "../Recoil/Selector";
-import { TEAM_INFO_URL } from "../util/URL";
 import TeamSettingButtonContainer from "../Molecules/Team/TeamSettingButtonContainer";
 import TeamInfo from "../Organism/Info/TeamInfo";
 
@@ -27,13 +25,6 @@ function TeamSettingTemplate() {
   const teamInfoRef = useRef<HTMLInputElement>(null);
   const profileRef = useRef<HTMLDivElement[]>([]);
   const setErrorValue = useSetRecoilState(errorState);
-  const teamSelector = useRecoilValue(fetchGet({ url: TEAM_INFO_URL, query: "" }));
-
-  useEffect(() => {
-    if (teamInfoState.id !== "") return;
-    console.log(teamSelector);
-    setTeamInfoState(teamSelector);
-  }, [teamSelector]);
 
   const resetInput = () => {
     if (!teamNameRef.current || !teamInfoRef.current || !locSelected) return;

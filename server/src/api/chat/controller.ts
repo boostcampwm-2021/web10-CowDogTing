@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { createReadRow, findChatRoomsInfo, findMessages, findParticipants, handleMessageRead } from "./service";
-import { app } from "../../app";
+import { app } from "../../bin/www";
 import { Participant } from "../../db/models/participant";
 import { createChatMessage } from "../util";
 export const getChatsInfo = async (req: Request, res: Response, next: NextFunction) => {
@@ -56,7 +56,6 @@ export const readChat = async (req: Request, res: Response, next: NextFunction) 
   try {
     const { chatRoomId } = req.body;
     const uid = String(req.user.uid);
-    console.log(chatRoomId, uid);
     await handleMessageRead({ uid, chatRoomId });
     return res.send({ success: "메시지 읽기 성공!!!" });
   } catch (error) {

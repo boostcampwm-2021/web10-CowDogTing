@@ -3,7 +3,7 @@ import { Team } from "../../db/models/team";
 import { sequelize } from "../../db/models";
 import { Request } from "../../db/models/request";
 import { Users } from "../../db/models/users";
-import { app } from "../../app";
+import { app } from "./../../bin/www";
 import { SocketMap } from "../../webSocket/socket";
 import { ChatRoom } from "../../db/models/chatRoom";
 import { createChatMessage, findUser } from "../util";
