@@ -58,5 +58,5 @@ export const _getGroupId = async ({ teamName }: { teamName: string }) => {
 };
 
 export const handleExitTeam = async ({ uid }: { uid: string }) => {
-  return await Users.update({ gid: null }, { where: { uid }, logging: true });
+  return await Users.update({ gid: null }, { where: { uid } });
 };

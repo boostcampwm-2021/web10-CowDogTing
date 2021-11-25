@@ -213,7 +213,6 @@ const createSenderPeerConnection = (receiversocketId: string, sendersocketId: st
 const getOtherUsersInRoom = (socketId: string, roomId: string) => {
   let allUsers: { id: string }[] = [];
   if (!users[roomId]) return allUsers;
-  console.log(users[roomId]);
   allUsers = users[roomId]
     .filter((user: userType) => {
       return user.id !== socketId;

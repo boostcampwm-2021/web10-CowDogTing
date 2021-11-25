@@ -64,7 +64,6 @@ export const findAllProfile = async (person: number, index: number, myId: string
       where: { uid: { [Op.ne]: myId }, age, sex, location },
       offset: 10 * index,
       limit: 10,
-      logging: true,
     };
     const data = await Users.findAll(query as object);
     return data;
@@ -83,7 +82,6 @@ export const findAllProfile = async (person: number, index: number, myId: string
       where: { gid: { [Op.in]: teamIds }, location: location },
       offset: 10 * index,
       limit: 10,
-      logging: true,
     };
     const data = await Team.findAll(query as object);
     return data;
