@@ -321,7 +321,7 @@ const sendRequestToTeam = async ({ from, to }: { from: string; to: number }) => 
   if (!SocketMap.has(toLeader)) return;
   const toRequestData = await findTeamRequest({ from, to, type: "to" });
   const toSocketId = SocketMap.get(toLeader);
-  console.log(toLeader, toSocketId);
+
   io.to(toSocketId).emit("receiveRequest", toRequestData);
 };
 
@@ -355,14 +355,21 @@ export const validationTeamAndUser = async (to: string) => {
 
 export const _denyRequest = async ({ from, to }: { from: string; to: string }) => {
   if (isNumber(to)) {
-    denyRequestTeam({ from: Number(from), to: Number(to) });
+    denyRequestTeam({ from, to: Number(to) });
   } else {
     denyRequestUser({ from, to });
   }
 };
 
-const denyRequestTeam = async ({ from, to }: { from: number; to: number }) => {
-  await deleteRequest({ from: String(from), to: String(to) });
+const denyRequestTeam = async ({ from, to }: { from: string; to: number }) => {
+  await deleteRequest({ from, to: String(to) });
+  const io = app.get("io");
+  const toLeader = String(await findLeaders(to));
+  const toSocketId = SocketMap.get(toLeader);
+  io.to(toSocketId).emit("receiveDenyRequest", { from, to });
+  if (!SocketMap.has(from)) return;
+  const fromSocketId = SocketMap.get(from);
+  io.to(fromSocketId).emit("receiveDenyRequest", { from, to });
 };
 
 const denyRequestUser = async ({ from, to }: { from: string; to: string }) => {
@@ -384,8 +391,6 @@ const deleteRequest = async ({ from, to }: { from: string; to: string }) => {
 };
 
 export const _acceptRequest = async ({ from, to }: { from: string; to: string }) => {
-  console.log("is number", isNumber(to));
-  console.log(from, to);
   if (isNumber(to)) {
     acceptRequestTeam({ from, to: Number(to) });
   } else {
@@ -401,7 +406,6 @@ const acceptRequestTeam = async ({ from, to }: { from: string; to: number }) => 
   const membersArr = members.map((member: any) => member.dataValues);
   await createChatMessage({ chatRoomId, message: makeMessageObject({ from, to: from, message: `${from}가 채팅을 수락했습니다.` }) });
   const chatRoomData = await findChatRoomInfo({ chatRoomId, type: "team" });
-  console.log("chatRoomData", chatRoomData);
   const io = app.get("io");
 
   //io.to(fromSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
