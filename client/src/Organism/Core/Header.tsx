@@ -2,14 +2,13 @@
 import { css } from "@emotion/react";
 import { useRef, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useRecoilValue } from "recoil";
 import MainHeaderLogo from "../../Atom/MainHeaderLogo";
 import Menu from "../../Atom/Menu";
 import UserIcon from "../../Atom/UserIcon";
 import useDropDownCloseEvent from "../../Hook/useDropDownCloseEvent";
 import DropDown from "../../Molecules/Core/DropDown";
 import LinkButton from "../../Molecules/Core/LinkButton";
-import { userState } from "../../Recoil/Atom";
+import { checkLogin } from "../../util";
 
 const HeaderStyle = css`
   display: flex;
@@ -33,9 +32,6 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
   const [meetingOpen, setMeetingOpen] = useState(false);
-
-  const userInfo = useRecoilValue(userState);
-  const { id } = userInfo;
 
   const menuRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
@@ -75,7 +71,7 @@ export default function Header() {
       <Link to="/main">
         <MainHeaderLogo />
       </Link>
-      {id === "" ? (
+      {!checkLogin() ? (
         <LinkButton url="/sub/login" type="Small" content="로그인" />
       ) : (
         <div ref={userRef}>
