@@ -7,7 +7,7 @@ const wrtc = require("wrtc");
 import { createAdapter } from "@socket.io/redis-adapter";
 import { createClient } from "redis";
 
-export const SocketMap = new Map<string, string>();
+export const pubClient = createClient({ url: "redis://redis-18425.c294.ap-northeast-1-2.ec2.cloud.redislabs.com:18425", password: "rpDSMhyBU3UrAvIVvSCb4OfKzNX2hEfV" });
 
 export const socketInit = (server: any, app: express.Application) => {
   const io = new Server(server, {
@@ -17,7 +17,6 @@ export const socketInit = (server: any, app: express.Application) => {
     },
   });
 
-  const pubClient = createClient(process.env.NODE_ENV === "development" ? { host: "localhost", port: 6379 } : { url: "redis://redis-13084.c294.ap-northeast-1-2.ec2.cloud.redislabs.com:13084", password: "gYDCUqHkwaj9j65TXvkc4zB997pESLfe" });
   const subClient = pubClient.duplicate();
 
   io.adapter(createAdapter(pubClient, subClient));
@@ -32,8 +31,8 @@ export const socketInit = (server: any, app: express.Application) => {
     //여기 부터 chating
 
     socket.on("setUid", (Id: string) => {
-      SocketMap.set(Id, socket.id);
-      console.log(SocketMap);
+      pubClient.hmset("socketIdMap",Id, socket.id);
+      console.log(pubClient.keys);
     });
 
     socket.on("joinChatRoom", (chatroomId: string[]) => {
