@@ -11,6 +11,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@socket.io/redis-adapter": "^7.0.1",
         "@types/redis": "^2.8.32",
         "bcrypt": "^5.0.1",
         "connect-redis": "^6.0.0",

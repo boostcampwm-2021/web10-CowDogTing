@@ -4,6 +4,8 @@ import { createChatMessage } from "../api/util";
 import { addReadRow } from "../api/chat/controller";
 import { SendChatType, receiverPCType, senderPCsType, usersType, socketToRoomType, userType } from "../util/type";
 const wrtc = require("wrtc");
+import { createAdapter } from "@socket.io/redis-adapter";
+import { createClient } from "redis";
 
 export const SocketMap = new Map<string, string>();
 
@@ -14,6 +16,11 @@ export const socketInit = (server: any, app: express.Application) => {
       methods: ["GET", "POST"],
     },
   });
+
+  const pubClient = createClient(process.env.NODE_ENV === "development" ? { host: "localhost", port: 6379 } : { url: "redis://redis-13084.c294.ap-northeast-1-2.ec2.cloud.redislabs.com:13084", password: "gYDCUqHkwaj9j65TXvkc4zB997pESLfe" });
+  const subClient = pubClient.duplicate();
+
+  io.adapter(createAdapter(pubClient, subClient));
 
   app.set("io", io);
   io.on("connection", (socket) => {
