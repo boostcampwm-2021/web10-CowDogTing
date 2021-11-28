@@ -20,7 +20,7 @@ export const loadApp = async (app: Express) => {
   app.use(
     session({
       store: new redisStore({
-        client: createClient(6379),
+        client: createClient({url:"redis://redis-13084.c294.ap-northeast-1-2.ec2.cloud.redislabs.com:13084", password:"gYDCUqHkwaj9j65TXvkc4zB997pESLfe"}),
         prefix: "session:",
         logErrors: true,
       }),
