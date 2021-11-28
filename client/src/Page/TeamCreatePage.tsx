@@ -2,12 +2,11 @@
 import React, { MouseEventHandler, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
-import { createTeam, getFetch } from "../util/data";
-import { errorState, teamState, userState } from "../Recoil/Atom";
+import { createTeam } from "../util/data";
+import { errorState, userState } from "../Recoil/Atom";
 import { checkLogin, passToLoginPage } from "../util";
 import TeamInfo from "../Organism/Info/TeamInfo";
 import TeamCreateButtonContainer from "../Molecules/Team/TeamCreateButtonContainer";
-import { TEAM_INFO_URL } from "../util/URL";
 
 const TeamCreatePageStyle = css`
   position: relative;
@@ -27,7 +26,6 @@ function TeamCreatePage() {
 
   const setUserInfo = useSetRecoilState(userState);
   const setErrorValue = useSetRecoilState(errorState);
-  const setTeamInfo = useSetRecoilState(teamState);
 
   const clickCreateButton: MouseEventHandler = async () => {
     if (!teamNameRef.current || !teamInfoRef.current) return;
@@ -51,8 +49,6 @@ function TeamCreatePage() {
       setErrorValue({ errorStr: "팀 생성에 실패했습니다", timeOut: 1000 });
       return;
     }
-    const teamData = await getFetch({ url: TEAM_INFO_URL, query: "" });
-    setTeamInfo(teamData);
     setUserInfo((prev) => {
       return { ...prev, gid };
     });
