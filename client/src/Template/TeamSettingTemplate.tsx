@@ -25,7 +25,6 @@ function TeamSettingTemplate() {
   const teamInfoRef = useRef<HTMLInputElement>(null);
   const profileRef = useRef<HTMLDivElement[]>([]);
   const setErrorValue = useSetRecoilState(errorState);
-
   const resetInput = () => {
     if (!teamNameRef.current || !teamInfoRef.current || !locSelected) return;
     teamNameRef.current.value = "";
