@@ -4,7 +4,7 @@ import { sequelize } from "../../db/models";
 import { Request } from "../../db/models/request";
 import { Users } from "../../db/models/users";
 import { app } from "./../../bin/www";
-import { SocketMap } from "../../webSocket/socket";
+import { pubClient } from "../../webSocket/socket";
 import { ChatRoom } from "../../db/models/chatRoom";
 import { createChatMessage, findUser } from "../util";
 import { createParticipant, createSingleParticipant, findChatRoomInfo } from "../chat/service";
@@ -97,12 +97,12 @@ export const addRequest = async ({ from, to }: { from: string; to: string }) => 
 const sendRequestToTeam = async ({ from, to }: { from: string; to: number }) => {
   const io = app.get("io");
   const fromRequestData = await findTeamRequest({ from, to, type: "from" });
-  const fromSocketId = SocketMap.get(String(from));
+  const fromSocketId = pubClient.hmget("socketIdMap",String(from));
   io.to(fromSocketId).emit("receiveRequest", fromRequestData);
   const toLeader = String(await findLeaders(to));
-  if (!SocketMap.has(toLeader)) return;
+  if (!pubClient.hmget("socketIdMap",toLeader)) return;
   const toRequestData = await findTeamRequest({ from, to, type: "to" });
-  const toSocketId = SocketMap.get(toLeader);
+  const toSocketId = pubClient.hmget("socketIdMap",toLeader);
   io.to(toSocketId).emit("receiveRequest", toRequestData);
 };
 
@@ -176,12 +176,12 @@ const findLeaders = async (gid: number) => {
 
 const sendRequestToUser = async ({ from, to }: { from: string; to: string }) => {
   const io = app.get("io");
-  const fromSocketId = SocketMap.get(from);
+  const fromSocketId = pubClient.hmget("socketIdMap",from);
   const fromRequestData = await findOneRequest({ from, to, type: "from" });
   io.to(fromSocketId).emit("receiveRequest", fromRequestData);
-  if (!SocketMap.has(to)) return;
+  if (!pubClient.hmget("socketIdMap",to)) return;
 
-  const toSocketId = SocketMap.get(to);
+  const toSocketId = pubClient.hmget("socketIdMap",to);
   const toRequestData = await findOneRequest({ from, to, type: "to" });
   io.to(toSocketId).emit("receiveRequest", toRequestData);
 };
@@ -190,20 +190,20 @@ const denyRequestTeam = async ({ from, to }: { from: string; to: number }) => {
   await deleteRequest({ from, to: String(to) });
   const io = app.get("io");
   const toLeader = String(await findLeaders(to));
-  const toSocketId = SocketMap.get(toLeader);
+  const toSocketId = pubClient.hmget("socketIdMap",toLeader);
   io.to(toSocketId).emit("receiveDenyRequest", { from, to });
-  if (!SocketMap.has(from)) return;
-  const fromSocketId = SocketMap.get(from);
+  if (!pubClient.hmget("socketIdMap",from)) return;
+  const fromSocketId = pubClient.hmget("socketIdMap",from);
   io.to(fromSocketId).emit("receiveDenyRequest", { from, to });
 };
 
 const denyRequestUser = async ({ from, to }: { from: string; to: string }) => {
   await deleteRequest({ from, to });
   const io = app.get("io");
-  const toSocketId = SocketMap.get(to);
+  const toSocketId = pubClient.hmget("socketIdMap",to);
   io.to(toSocketId).emit("receiveDenyRequest", { from, to });
-  if (!SocketMap.has(from)) return;
-  const fromSocketId = SocketMap.get(from);
+  if (!pubClient.hmget("socketIdMap",from)) return;
+  const fromSocketId = pubClient.hmget("socketIdMap",from);
   io.to(fromSocketId).emit("receiveDenyRequest", { from, to });
 };
 
@@ -217,8 +217,8 @@ const acceptRequestTeam = async ({ from, to }: { from: string; to: number }) => 
   const chatRoomData = await findChatRoomInfo({ chatRoomId, type: "team" });
   const io = app.get("io");
   membersArr.forEach((member: any) => {
-    if (!SocketMap.has(String(member.id))) return;
-    const toSocketId = SocketMap.get(String(member.id));
+    if (!pubClient.hmget("socketIdMap",String(member.id))) return;
+    const toSocketId = pubClient.hmget("socketIdMap",String(member.id));
     io.to(toSocketId).emit("receiveAcceptRequest", { chat: { ...chatRoomData, member: membersArr }, from, to });
   });
 };
@@ -231,10 +231,10 @@ const acceptRequestUser = async ({ from, to }: { from: string; to: string }) => 
   await createChatMessage({ chatRoomId, message: makeMessageObject({ from, to, message: `${to}가 채팅을 수락했습니다.` }) });
   const chatRoomData = await findChatRoomInfo({ chatRoomId, type: "user" });
   const io = app.get("io");
-  const fromSocketId = SocketMap.get(from);
+  const fromSocketId = pubClient.hmget("socketIdMap",from);
   io.to(fromSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
-  if (!SocketMap.has(to)) return;
-  const toSocketId = SocketMap.get(to);
+  if (!pubClient.hmget("socketIdMap",to)) return;
+  const toSocketId = pubClient.hmget("socketIdMap",to);
   io.to(toSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
 };
 
