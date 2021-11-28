@@ -6,8 +6,10 @@ import * as cookieParser from "cookie-parser";
 import * as passport from "passport";
 import { Express } from "express";
 import apiRouter from "../api";
+const redisStore = require("connect-redis")(session);
+import { createClient } from "redis";
 
-export const loadApp = (app: Express) => {
+export const loadApp = async (app: Express) => {
   app.use(express.json());
   app.use(
     express.urlencoded({
@@ -17,7 +19,12 @@ export const loadApp = (app: Express) => {
   app.use(cookieParser(process.env.COOKIE_SECRET));
   app.use(
     session({
-      resave: true,
+      store: new redisStore({
+        client: createClient(6379),
+        prefix: "session:",
+        logErrors: true,
+      }),
+      resave: false,
       saveUninitialized: false,
       secret: String(process.env.COOKIE_SECRET),
       cookie: {
@@ -32,7 +39,7 @@ export const loadApp = (app: Express) => {
   app.use(passport.session());
   app.use(
     cors({
-      origin: true,
+      origin: ["https://localhost:3000"],
       credentials: true,
     }),
   );

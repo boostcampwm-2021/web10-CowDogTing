@@ -2,10 +2,9 @@
 
 import { css } from "@emotion/react";
 import React, { useRef, useState } from "react";
-import { useRecoilValue } from "recoil";
 import UserIcon from "../../Atom/UserIcon";
 import useDropDownCloseEvent from "../../Hook/useDropDownCloseEvent";
-import { userState } from "../../Recoil/Atom";
+import { checkLogin } from "../../util";
 // import { logOutUser } from "../../util/data";
 import DropDown from "../Core/DropDown";
 import LinkButton from "../Core/LinkButton";
@@ -18,9 +17,6 @@ const MainHeaderRightContainer = css`
   align-items: center;
 `;
 function MainHeaderRightSide() {
-  const userInfo = useRecoilValue(userState);
-  const { id } = userInfo;
-
   const [userOpen, setUser] = useState(false);
   const ToggleUserModal = () => {
     setUser((isOpen) => !isOpen);
@@ -31,7 +27,7 @@ function MainHeaderRightSide() {
   return (
     <>
       <div css={MainHeaderRightContainer}>
-        {id === "" ? (
+        {!checkLogin() ? (
           <LinkButton url="/sub/login" type="Small" content="로그인" />
         ) : (
           <div ref={userRef}>
