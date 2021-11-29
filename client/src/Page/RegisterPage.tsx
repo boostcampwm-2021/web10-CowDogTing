@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 /* eslint-disable no-return-assign */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable use-isnan */
@@ -82,7 +83,7 @@ export default function RegisterPage() {
     const age = refArray.current[2].value;
     const info = refArray.current[3].value;
 
-    if (typeof age !== "number") {
+    if (!Number(age)) {
       setErrorValue({ errorStr: "나이는 숫자만 입력해주세요.", timeOut: 1000 });
       return;
     }
