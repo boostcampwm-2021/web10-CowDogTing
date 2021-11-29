@@ -3,7 +3,11 @@ import { Users } from "../db/models/users";
 import { SendChatType } from "../util/type";
 
 export const findUser = async ({ uid }: { uid: string }) => {
-  return await Users.findOne({ where: { uid } });
+  try {
+    return await Users.findOne({ where: { uid } });
+  } catch (e) {
+    return false;
+  }
 };
 
 export const createChatMessage = async ({ chatRoomId, message }: SendChatType) => {

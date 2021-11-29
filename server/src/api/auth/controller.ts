@@ -77,10 +77,11 @@ export const handleIdValidation = async (req: Request, res: Response, next: Next
   const uid = String(req.query.uid);
   try {
     const result = await findUser({ uid });
+    console.log(result);
     if (result) {
-      return res.send(true);
+      return res.send(false);
     }
-    return res.status(401).send(false);
+    return res.send(true);
   } catch (e) {
     next(e);
   }

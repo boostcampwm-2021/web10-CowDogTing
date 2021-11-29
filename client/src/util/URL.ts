@@ -26,3 +26,4 @@ export const TEAM_INFO_API_URL = `${URL}${process.env.REACT_APP_TEAM_INFO_API_UR
 export const POST_IMAGE_API_URL = `${URL}${process.env.REACT_APP_POST_IMAGE_API_URL}`;
 export const POST_CHAT_API_URL = `${URL}${process.env.REACT_APP_POST_CHAT_API_URL}`;
 export const POST_CHAT_READ_API_URL = `${URL}${process.env.REACT_APP_POST_CHAT_READ_API_URL}`;
+export const CHECK_ID_VALIDATION_URL = `${URL}${process.env.REACT_APP_GET_ID_VALIDATION}`;
