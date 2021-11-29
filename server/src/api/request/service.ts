@@ -179,12 +179,15 @@ const sendRequestToUser = async ({ from, to }: { from: string; to: string }) => 
   const io = app.get("io");
   pubClient.get(from, async (err, fromSocketId) => {
     const fromRequestData = await findOneRequest({ from, to, type: "from" });
-    console.log(fromSocketId);
+    console.log("here", fromSocketId);
+    console.log("from", from);
     io.to(fromSocketId).emit("receiveRequest", fromRequestData);
   });
 
   pubClient.get(to, async (err, toSocketId) => {
     const toRequestData = await findOneRequest({ from, to, type: "to" });
+    console.log("to is here", toSocketId);
+    console.log("to", to);
     io.to(toSocketId).emit("receiveRequest", toRequestData);
   });
 };
