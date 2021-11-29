@@ -205,6 +205,5 @@ export const changeNotReadToRead = (chatRoomId: number) => {
 
 export const checkIdValidation = async (uid: string) => {
   const { data } = await axios.get(`${CHECK_ID_VALIDATION_URL}?uid=${uid}`, { withCredentials: true });
-  console.log(data);
   return data;
 };

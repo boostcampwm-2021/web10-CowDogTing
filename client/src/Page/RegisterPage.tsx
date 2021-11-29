@@ -82,6 +82,11 @@ export default function RegisterPage() {
     const age = refArray.current[2].value;
     const info = refArray.current[3].value;
 
+    if (typeof age !== "number") {
+      setErrorValue({ errorStr: "나이는 숫자만 입력해주세요.", timeOut: 1000 });
+      return;
+    }
+
     const check = checkInput({ id, pw, location: loc, age: Number(age), sex, info });
     if (!check) {
       setErrorValue({ errorStr: "모든 입력을 확인해 주세요", timeOut: 1000 });
@@ -100,7 +105,6 @@ export default function RegisterPage() {
   const handleIdValidation = async () => {
     const uid = refArray.current[0].value;
     const result = await checkIdValidation(uid);
-    console.log(result);
     if (!result) setErrorValue({ errorStr: "중복된 아이디입니다.", timeOut: 1000 });
     setIdValidation(result);
   };
