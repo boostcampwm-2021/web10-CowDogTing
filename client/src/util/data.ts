@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-debugger */
 import axios from "axios";
-import { TEAM_EXIT_API_URL, ACCEPT_API_URL, CHAT_MESSAGES_API_URL, DENY_API_URL, LOGIN_API_URL, LOGOUT_API_URL, POST_CHAT_API_URL, POST_IMAGE_API_URL, PROFILE_API_URL, REGISTER_API_URL, REQUEST_API_URL, TEAM_CREATE_API_URL, TEAM_INVITE_API_URL, TEAM_UPDATE_API_URL, USER_INFO_API_URL, POST_CHAT_READ_API_URL } from "./URL";
+import { TEAM_EXIT_API_URL, ACCEPT_API_URL, CHAT_MESSAGES_API_URL, DENY_API_URL, LOGIN_API_URL, LOGOUT_API_URL, POST_CHAT_API_URL, POST_IMAGE_API_URL, PROFILE_API_URL, REGISTER_API_URL, REQUEST_API_URL, TEAM_CREATE_API_URL, TEAM_INVITE_API_URL, TEAM_UPDATE_API_URL, USER_INFO_API_URL, POST_CHAT_READ_API_URL, CHECK_ID_VALIDATION_URL } from "./URL";
 import { ChangeTeamInfoType, loginInfo, PostTeamType, registerInfo } from "./type";
 import { fromImageToForm } from ".";
 
@@ -201,4 +201,9 @@ export const postChat = async (chatRoomId: number, uId: string, file: Blob) => {
 
 export const changeNotReadToRead = (chatRoomId: number) => {
   axios.post(POST_CHAT_READ_API_URL, { chatRoomId }, { withCredentials: true });
+};
+
+export const checkIdValidation = async (uid: string) => {
+  const { data } = await axios.get(`${CHECK_ID_VALIDATION_URL}?uid=${uid}`, { withCredentials: true });
+  return data;
 };

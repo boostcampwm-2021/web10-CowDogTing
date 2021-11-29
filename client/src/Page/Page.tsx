@@ -5,6 +5,7 @@ import ChatListPage from "./ChatListPage";
 import CowDogPage from "./CowDogPage";
 import LogInPage from "./LogInPage";
 import MyPage from "./MyPage";
+import Project from "./Project";
 import RegisterPage from "./RegisterPage";
 import RequestPage from "./RequestPage";
 import TeamSettingPage from "./TeamSettingPage";
@@ -21,6 +22,7 @@ function App() {
         <Route path="/sub/mypage" component={MyPage} />
         <Route path="/sub/chatList" component={ChatListPage} />
         <Route path="/sub/Request" component={RequestPage} />
+        <Route path="/sub/Project" component={Project} />
       </Switch>
     </>
   );

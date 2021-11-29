@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 /* eslint-disable no-return-assign */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable use-isnan */
@@ -9,7 +10,7 @@ import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
 import { Button } from "../Atom/Button";
 import { Input } from "../Atom/Input";
-import { registerUser } from "../util/data";
+import { checkIdValidation, registerUser } from "../util/data";
 import { registerInfo } from "../util/type";
 import { errorState } from "../Recoil/Atom";
 
@@ -56,6 +57,8 @@ export default function RegisterPage() {
 
   const [locSelected, setLocSelected] = useState<string>("");
   const [sexSelected, setSexSelected] = useState<string>("");
+  const [idValidation, setIdValidation] = useState(false);
+
   const refArray = useRef<HTMLInputElement[]>([]);
   const setErrorValue = useSetRecoilState(errorState);
 
@@ -66,8 +69,11 @@ export default function RegisterPage() {
     }
     return true;
   };
-
   const clickRegister = async () => {
+    if (!idValidation) {
+      setErrorValue({ errorStr: "아이디 중복체크가 필요합니다.", timeOut: 1000 });
+      return;
+    }
     if (!refArray.current[0] || !refArray.current[1] || !refArray.current[2] || !refArray.current[3] || !locSelected || !sexSelected) return;
 
     const id = refArray.current[0].value;
@@ -76,6 +82,11 @@ export default function RegisterPage() {
     const sex = sexSelected === "남성" ? "male" : "female";
     const age = refArray.current[2].value;
     const info = refArray.current[3].value;
+
+    if (!Number(age)) {
+      setErrorValue({ errorStr: "나이는 숫자만 입력해주세요.", timeOut: 1000 });
+      return;
+    }
 
     const check = checkInput({ id, pw, location: loc, age: Number(age), sex, info });
     if (!check) {
@@ -92,13 +103,23 @@ export default function RegisterPage() {
     window.location.href = "/";
   };
 
+  const handleIdValidation = async () => {
+    const uid = refArray.current[0].value;
+    const result = await checkIdValidation(uid);
+    if (!result) setErrorValue({ errorStr: "중복된 아이디입니다.", timeOut: 1000 });
+    setIdValidation(result);
+  };
+
   return (
     <>
       <div css={RegisterContainerStyle}>
         <div>ID</div>
         <div css={IdContainerStyle}>
           <Input ref={(el) => (refArray.current[0] = el as HTMLInputElement)} placeholder="ID" autoComplete="off" />
-          <Button type="Small"> 중복 체크 </Button>
+          <Button type="Small" onClick={handleIdValidation}>
+            {" "}
+            중복 체크{" "}
+          </Button>
         </div>
         <div>Password</div>
         <Input

@@ -38,7 +38,7 @@ function ChatImageContainer({ profileRef }: ChatImageContainerType) {
   const history = useHistory();
 
   const handleCloseRoomClick = () => {
-    history.goBack();
+    history.push("/main");
   };
 
   return (
