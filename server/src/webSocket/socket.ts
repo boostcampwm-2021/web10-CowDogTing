@@ -30,9 +30,9 @@ export const socketInit = (server: any, app: express.Application) => {
 
     //여기 부터 chating
 
-    socket.on("setUid", (Id: string) => {
-      pubClient.hmset("socketIdMap",Id, socket.id);
-      console.log(pubClient.keys);
+    socket.on("setUid", async (Id: string) => {
+      pubClient.set(Id, socket.id);
+      pubClient.get(Id);
     });
 
     socket.on("joinChatRoom", (chatroomId: string[]) => {
