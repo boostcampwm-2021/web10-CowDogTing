@@ -6,13 +6,13 @@
         "migration_all": "ts-node ./src/db/migrations/createTableAll.ts",
         "data": "ts-node ./src/db/seeders/createDataAll.ts",
         "start": "nodemon ./src/bin/www.ts",
+        "starts": "pm2 start ecosystem.config.js",
         "build": "pm2 start ts-node -- -P tsconfig.json ./src/bin/www.ts"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
         "@socket.io/redis-adapter": "^7.0.1",
-        "@types/redis": "^2.8.32",
         "bcrypt": "^5.0.1",
         "connect-redis": "^6.0.0",
         "cookie-parser": "^1.4.5",
@@ -51,6 +51,7 @@
         "@types/passport-kakao": "^0.2.1",
         "@types/passport-local": "^1.0.34",
         "@types/passport-naver": "^0.2.1",
+        "@types/redis": "^2.8.32",
         "@types/socket.io": "^3.0.2",
         "@types/validator": "^13.6.6",
         "@types/webrtc": "^0.0.31",
