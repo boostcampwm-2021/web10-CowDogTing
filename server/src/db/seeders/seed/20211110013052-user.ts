@@ -1,18 +1,19 @@
-"use strict";
+import * as bcrypt from "bcrypt";
 import { sequelize } from "../../models";
 const queryInterface = sequelize.getQueryInterface();
-const up = async (queryInterface) => {
+const up = async (queryInterface: any) => {
   let user = [];
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 2000; i++) {
+    const hash = await bcrypt.hash("1234", 12);
     let obj = {
       uid: "test" + i,
-      password: "1234",
+      password: hash,
       location: "우만" + 1 + "동",
-      image: i,
-      age: 25 + i,
+      image: null,
+      age: 25 + (i % 10),
       sex: "male",
       info: "안녕하세요",
-      gid: (i % 3) + 1,
+      gid: null,
     };
     user.push(obj);
   }
@@ -20,7 +21,7 @@ const up = async (queryInterface) => {
   return await queryInterface.bulkInsert("Users", user, {});
 };
 
-const down = async (queryInterface) => {
+const down = async (queryInterface: any) => {
   return await queryInterface.bulkDelete("Users", null, {});
 };
 
