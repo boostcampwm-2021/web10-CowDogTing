@@ -1,13 +1,26 @@
 import express = require("express");
 import { Server, Socket } from "socket.io";
-import { createChatMessage } from "../api/util";
+const wrtc = require("wrtc");
+import { createClient } from "redis";
+import { createAdapter } from "@socket.io/redis-adapter";
 import { addReadRow } from "../api/chat/controller";
 import { SendChatType, receiverPCType, senderPCsType, usersType, socketToRoomType, userType } from "../util/type";
-const wrtc = require("wrtc");
-import { createAdapter } from "@socket.io/redis-adapter";
-import { createClient } from "redis";
+import { createChatMessage } from "../api/util";
 
-export const pubClient = createClient({ url: "redis://redis-18425.c294.ap-northeast-1-2.ec2.cloud.redislabs.com:18425", password: "rpDSMhyBU3UrAvIVvSCb4OfKzNX2hEfV" });
+export const pubClient = createClient({ url: process.env.CHAT_REDIS_URL, password: process.env.CHAT_REDIS_PWD });
+export const rtcRedis = createClient({ url: process.env.WEBRTC_REDIS_URL });
+
+let senderPCs: senderPCsType = {}; // [index: string]: senderPCType[];
+let users: usersType = {}; //[index: string]: userType[]
+let socketToRoom: socketToRoomType = {}; // [index: string]: string;
+
+const RTCPeerConnection__Proto = new wrtc.RTCPeerConnection().__proto__;
+const parse = (str: string) => {
+  const result = JSON.parse(str);
+  result._pc = RTCPeerConnection__Proto._pc;
+  result.__proto__ = RTCPeerConnection__Proto;
+  return result;
+};
 
 export const socketInit = (server: any, app: express.Application) => {
   const io = new Server(server, {
@@ -18,10 +31,10 @@ export const socketInit = (server: any, app: express.Application) => {
   });
 
   const subClient = pubClient.duplicate();
-
   io.adapter(createAdapter(pubClient, subClient));
 
   app.set("io", io);
+
   io.on("connection", (socket) => {
     const req = socket.request;
     const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
@@ -77,8 +90,13 @@ export const socketInit = (server: any, app: express.Application) => {
 
     socket.on("senderCandidate", async (data: { senderSocketID: string; candidate: any }) => {
       try {
-        let pc = receiverPCs[data.senderSocketID];
-        await pc.addIceCandidate(new wrtc.RTCIceCandidate(data.candidate));
+        rtcRedis.hget("receiverPCs", data.senderSocketID, async (err, pcStr) => {
+          if (err) throw new Error();
+          const pc = parse(pcStr) as RTCPeerConnection;
+          console.log("it`s me ", pc.addIceCandidate);
+          await pc.addIceCandidate.bind(pc)(new wrtc.RTCIceCandidate(data.candidate));
+          rtcRedis.hset("receiverPCs", data.senderSocketID, JSON.stringify(pc));
+        });
       } catch (error) {
         console.log(error);
       }
@@ -137,11 +155,6 @@ export const socketInit = (server: any, app: express.Application) => {
   });
 };
 
-let receiverPCs: receiverPCType = {};
-let senderPCs: senderPCsType = {};
-let users: usersType = {};
-let socketToRoom: socketToRoomType = {};
-
 const pc_config = {
   iceServers: [
     // {
@@ -159,10 +172,11 @@ const isIncluded = (array: any[], Id: string) => array.some((item) => item.id ==
 
 const createReceiverPeerConnection = (socketId: string, socket: Socket, roomId: string) => {
   const pc = new wrtc.RTCPeerConnection(pc_config);
-
-  if (receiverPCs[socketId]) receiverPCs[socketId] = pc;
-  else receiverPCs = { ...receiverPCs, [socketId]: pc };
-
+  // if (receiverPCs[socketId]) receiverPCs[socketId] = pc;
+  // else receiverPCs = { ...receiverPCs, [socketId]: pc };
+  rtcRedis.hset("receiverPCs", socketId, JSON.stringify(pc));
+  console.log("pc_pc", pc._pc);
+  rtcRedis.hset("_receivePCs", socketId, JSON.stringify(pc._pc));
   pc.onicecandidate = (e: RTCPeerConnectionIceEvent) => {
     socket.to(socketId).emit("getSenderCandidate", {
       candidate: e.candidate,
@@ -185,6 +199,7 @@ const createReceiverPeerConnection = (socketId: string, socket: Socket, roomId: 
         },
       ];
     }
+
     socket.to(roomId).emit("userEnter", { id: socketId });
   };
 
@@ -243,10 +258,18 @@ const deleteUser = (socketId: string, roomId: string) => {
 };
 
 const closeReceiverPC = (socketId: string) => {
-  if (!receiverPCs[socketId]) return;
+  rtcRedis.hget("receiverPCs", socketId, (err, pcStr) => {
+    if (err) {
+      return;
+    }
+    const pc = parse(pcStr) as RTCPeerConnection;
+    pc.close();
+    rtcRedis.hdel("receiverPCs", socketId);
+  });
+  // if (!receiverPCs[socketId]) return;
 
-  receiverPCs[socketId].close();
-  delete receiverPCs[socketId];
+  // receiverPCs[socketId].close();
+  // delete receiverPCs[socketId];
 };
 
 const closeSenderPCs = (socketId: string) => {
