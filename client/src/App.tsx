@@ -17,6 +17,7 @@ import { CHAT_INFO_URL, JOIN_CHAT_URL, REQUEST_URL, TEAM_INFO_URL, USER_URL } fr
 import { getFetch } from "./util/data";
 import reset from "./util/reset";
 import { chatsState, chatTarget, errorState, joinChatRoomState, requestState, teamState, userState } from "./Recoil/Atom";
+import Project from "./Page/Project";
 
 function App() {
   const [user, setUser] = useRecoilState(userState);
@@ -95,6 +96,7 @@ function App() {
         <Route path="/main" component={MainPage} />
         <Route path="/sub" component={Page} />
         <Route path="/ChatRoom" component={ChatRoom} />
+        <Route path="/Project" component={Project} />
         <Redirect path="*" to="/main" />
       </Switch>
       <Footer />

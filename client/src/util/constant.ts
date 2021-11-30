@@ -22,12 +22,10 @@ export const MENU_LIST: menuListType = {
   ],
 };
 
-// http://mafia31.kro.kr/
 export const gameDatas = [
-  { title: "마피아 Web31", src: "https://www.google.ie/gwt/x?u=http://mafia31.kro.kr/", color: "rgb(202, 122, 49)" },
   { title: "라이어게임 Web17", src: "https://liarking.kro.kr", color: "#000000" },
   { title: "부트리스 Web24", src: "https://boostris.com/login", color: "#154089" },
-  { title: "부덕사운드 Web2", src: "http://booducksound.kro.kr", color: "#c3e3f0" },
+  { title: "부덕사운드 Web2", src: "https://booducksound.kro.kr", color: "#c3e3f0" },
 ];
 export function getGameDatas(index: number) {
   return gameDatas[index];

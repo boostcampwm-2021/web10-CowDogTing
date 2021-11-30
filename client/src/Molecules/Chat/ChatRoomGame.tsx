@@ -27,11 +27,13 @@ export default function ChatRoomGame() {
   const searchParams = new URLSearchParams(useLocation().search);
   const index = Number(searchParams.get("index"));
 
+  console.log(index);
+  console.log(gameDatas[index - 1].title, gameDatas[index - 1].src);
   return (
     <>
       <div css={ButtonContainerStyle} />
       <div css={containerStyle}>
-        <iframe title={gameDatas[index].title} src={gameDatas[index - 1].src} width="100%" height="100%" />
+        <iframe title={gameDatas[index - 1].title} src={gameDatas[index - 1].src} width="100%" height="100%" />
       </div>
     </>
   );

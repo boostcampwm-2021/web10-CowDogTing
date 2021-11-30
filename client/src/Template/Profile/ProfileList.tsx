@@ -12,7 +12,6 @@ const ProfileListStyle = css`
   justify-content: space-around;
   flex-wrap: wrap;
   margin-bottom: 10px;
-  height: 100vh;
 `;
 
 export default function ProfileList({ datas, person, setOpenModal, profileRef }: ProfileListType) {
