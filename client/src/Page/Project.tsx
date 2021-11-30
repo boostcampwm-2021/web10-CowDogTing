@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import character1 from "../assets/캐릭터/1.png";
 import character2 from "../assets/캐릭터/2.png";
 import Header from "../Organism/Core/Header";
-import { drawImage, moveCharacter } from "../util/canvas";
+import { drawHeart, moveCharacter } from "../util/canvas";
 import ProjectWordContainer from "../Organism/ProjectWordContainer";
 
 const CANVAS_WIDTH = 800;
@@ -38,13 +38,14 @@ export default function Project() {
 
   const handleScrollEvent = () => {
     const { scrollTop } = document.documentElement;
+    if (scrollTop > 975) drawHeart(canvasRef, scrollTop);
     setWork(Math.floor(scrollTop / ONE_STEP));
   };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScrollEvent);
     moveCharacter(image1, image2, canvasRef, work);
-    drawImage(canvasRef);
+    drawHeart(canvasRef, work * ONE_STEP);
     return () => {
       window.removeEventListener("scroll", handleScrollEvent);
     };

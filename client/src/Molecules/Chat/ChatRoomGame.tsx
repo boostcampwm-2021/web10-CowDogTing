@@ -27,8 +27,6 @@ export default function ChatRoomGame() {
   const searchParams = new URLSearchParams(useLocation().search);
   const index = Number(searchParams.get("index"));
 
-  console.log(index);
-  console.log(gameDatas[index - 1].title, gameDatas[index - 1].src);
   return (
     <>
       <div css={ButtonContainerStyle} />

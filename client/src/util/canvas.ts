@@ -17,29 +17,46 @@ const RIGHT_CHARACTER_LEFT_MOVE = 4;
 const RIGHT_CHARACTER_RIGHT_MOVE = 5;
 const MAX_WORKER = 65; // CANVAS_WIDTH / 2 (400) - IMAGE_SIZE_UP * PIXEL = 336 // 1000 / 15 = 66 // 336 / 66 = 5.xxx
 const IMAGE_SIZE_UP = 2;
+const HEART_START_WORK = 975;
+const FIRST_HEART_TIME = 150;
+const SECOND_HEART_TIME = 225;
+// const SECOND_HEART_TIME = 375;
+const SECOND_RATE = 675;
 
-export function drawImage(ref: RefObject<HTMLCanvasElement>) {
-  if (!ref.current) return;
-  const ctx: CanvasRenderingContext2D = ref.current.getContext("2d")!;
+export function drawHeart(ref: RefObject<HTMLCanvasElement>, work: number) {
+  if (work < HEART_START_WORK) return;
+  if (ref.current === null) return;
+  const ctx: CanvasRenderingContext2D = (ref.current as HTMLCanvasElement)?.getContext("2d")!;
+  const time = work - HEART_START_WORK;
+  const secondTime = time - FIRST_HEART_TIME;
+  const rate = secondTime / SECOND_RATE;
 
   ctx.strokeStyle = "#ffcfcf";
   ctx.lineWidth = 1;
   ctx.lineWidth = 5.0;
 
-  ctx.beginPath();
-  ctx.moveTo(CIRCLE_WIDTH, CIRCLE_HEIGHT / 2); // 중앙에서 시작
-  ctx.arc(CIRCLE_WIDTH - RADIUS, CIRCLE_HEIGHT / 2, RADIUS, 0, Math.PI, true);
-  ctx.moveTo(CIRCLE_WIDTH, CIRCLE_HEIGHT / 2); // 중앙으로 이동
-  ctx.arc(CIRCLE_WIDTH + RADIUS, CIRCLE_HEIGHT / 2, RADIUS, Math.PI, 2 * Math.PI);
-  ctx.moveTo(CIRCLE_WIDTH - 2 * RADIUS, CIRCLE_HEIGHT / 2); // 하단 원 그리기 이동
-  ctx.arc(CIRCLE_WIDTH, CIRCLE_HEIGHT / 2, 2 * RADIUS, Math.PI, (Math.PI * 4) / 6, true);
-  ctx.lineTo(CIRCLE_WIDTH, CIRCLE_HEIGHT);
-  ctx.moveTo(CIRCLE_WIDTH + 2 * RADIUS, CIRCLE_HEIGHT / 2); // 하단 원 그리기 이동
-  ctx.arc(CIRCLE_WIDTH, CIRCLE_HEIGHT / 2, 2 * RADIUS, 0, Math.PI / 3);
-  ctx.lineTo(CIRCLE_WIDTH, CIRCLE_HEIGHT);
+  if (time <= FIRST_HEART_TIME) {
+    ctx.moveTo(CIRCLE_WIDTH, CIRCLE_HEIGHT / 2); // 중앙에서 시작
+    ctx.arc(CIRCLE_WIDTH - RADIUS, CIRCLE_HEIGHT / 2, RADIUS, 0, -Math.PI * (time / FIRST_HEART_TIME), true);
+    ctx.moveTo(CIRCLE_WIDTH, CIRCLE_HEIGHT / 2); // 중앙으로 이동
+    ctx.arc(CIRCLE_WIDTH + RADIUS, CIRCLE_HEIGHT / 2, RADIUS, Math.PI, Math.PI * (1 + time / FIRST_HEART_TIME));
+  }
+
+  if (time >= FIRST_HEART_TIME) {
+    if (rate <= 2 / 6) {
+      ctx.moveTo(CIRCLE_WIDTH - 2 * RADIUS, CIRCLE_HEIGHT / 2); // 하단 원 그리기 이동
+      ctx.arc(CIRCLE_WIDTH, CIRCLE_HEIGHT / 2, 2 * RADIUS, Math.PI, Math.PI * (1 - rate), true);
+    }
+    if (secondTime >= SECOND_HEART_TIME) ctx.lineTo(CIRCLE_WIDTH, CIRCLE_HEIGHT);
+
+    if (rate <= 2 / 6) {
+      ctx.moveTo(CIRCLE_WIDTH + 2 * RADIUS, CIRCLE_HEIGHT / 2); // 하단 원 그리기 이동
+      ctx.arc(CIRCLE_WIDTH, CIRCLE_HEIGHT / 2, 2 * RADIUS, 0, Math.PI * rate);
+    }
+    if (secondTime >= SECOND_HEART_TIME) ctx.lineTo(CIRCLE_WIDTH, CIRCLE_HEIGHT);
+  }
   ctx.stroke();
 }
-
 export function moveCharacter(image1: HTMLImageElement, image2: HTMLImageElement, ref: RefObject<HTMLCanvasElement>, work: number) {
   if (!ref.current) return;
   const ctx: CanvasRenderingContext2D = ref.current.getContext("2d")!;
