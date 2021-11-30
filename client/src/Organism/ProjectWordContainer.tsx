@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import ProjectWord from "../Molecules/ProjectWord";
 
 const FIRST_WORD_STEP = 22.5;
-const SECOND_WORD_STEP = 14.8;
+const SECOND_WORD_STEP = 6.3;
 
 export default function ProjectWordContainer({ work }: { work: number }) {
   const firstWordRef = useRef<HTMLDivElement>(null);
@@ -16,18 +16,21 @@ export default function ProjectWordContainer({ work }: { work: number }) {
     if (!firstWordRef.current || !secondWordRef.current) return;
     const first = firstWordRef.current;
     const second = secondWordRef.current;
-    if (work <= 100) {
+    if (work <= 90) {
       first.style.display = "none";
       second.style.display = "none";
-    } else if (work <= 120) {
-      const set = work - 100;
-      second.style.display = "none";
-      first.style.display = "block";
-      first.style.bottom = `${FIRST_WORD_STEP * set}px`;
     } else {
-      const set = work - 120;
+      if (work <= 120) {
+        second.style.display = "none";
+        first.style.display = "block";
+      }
+      const firstSet = work - 100;
+      const firstStep = firstSet > 20 ? 20 : firstSet;
+      first.style.bottom = `${FIRST_WORD_STEP * firstStep}px`;
+
+      const secondSet = work - 120;
       second.style.display = "block";
-      second.style.bottom = `${SECOND_WORD_STEP * set}px`;
+      second.style.bottom = `${SECOND_WORD_STEP * secondSet}px`;
     }
   };
 

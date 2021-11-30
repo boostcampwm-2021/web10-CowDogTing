@@ -11,10 +11,10 @@ import ProjectWordContainer from "../Organism/ProjectWordContainer";
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 400;
-const ONE_STEP = 15;
+const ONE_STEP = 45;
 
 const Container = css`
-  height: 3000px;
+  height: 9000px;
   display: flex;
   justify-content: center;
 `;
@@ -38,7 +38,7 @@ export default function Project() {
 
   const handleScrollEvent = () => {
     const { scrollTop } = document.documentElement;
-    if (scrollTop > 975) drawHeart(canvasRef, scrollTop);
+    if (scrollTop > 1950) drawHeart(canvasRef, scrollTop);
     setWork(Math.floor(scrollTop / ONE_STEP));
   };
 
