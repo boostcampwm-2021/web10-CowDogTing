@@ -6,7 +6,6 @@ import { createAdapter } from "@socket.io/redis-adapter";
 import { addReadRow } from "../api/chat/controller";
 import { SendChatType, receiverPCType, senderPCsType, usersType, socketToRoomType, userType } from "../util/type";
 import { createChatMessage } from "../api/util";
-
 export const pubClient = createClient({ url: process.env.CHAT_REDIS_URL, password: process.env.CHAT_REDIS_PWD });
 export const rtcRedis = createClient({ url: process.env.WEBRTC_REDIS_URL });
 
@@ -14,13 +13,13 @@ let senderPCs: senderPCsType = {}; // [index: string]: senderPCType[];
 let users: usersType = {}; //[index: string]: userType[]
 let socketToRoom: socketToRoomType = {}; // [index: string]: string;
 
-const RTCPeerConnection__Proto = new wrtc.RTCPeerConnection().__proto__;
-const parse = (str: string) => {
-  const result = JSON.parse(str);
-  result._pc = RTCPeerConnection__Proto._pc;
-  result.__proto__ = RTCPeerConnection__Proto;
-  return result;
-};
+// const RTCPeerConnection__Proto = new wrtc.RTCPeerConnection().__proto__;
+// const parse = (str: string) => {
+//   const result = JSON.parse(str);
+//   result._pc = RTCPeerConnection__Proto._pc;
+//   result.__proto__ = RTCPeerConnection__Proto;
+//   return result;
+// };
 
 export const socketInit = (server: any, app: express.Application) => {
   const io = new Server(server, {
@@ -55,8 +54,8 @@ export const socketInit = (server: any, app: express.Application) => {
     });
 
     socket.on("sendChat", async ({ chatRoomId, message }: SendChatType) => {
-      const createdChatMeesage = await createChatMessage({ chatRoomId, message });
-      await addReadRow({ chatId: createdChatMeesage.chatId, chatRoomId, uid: message.from });
+      const createdChatMessage = await createChatMessage({ chatRoomId, message });
+      await addReadRow({ chatId: createdChatMessage.chatId, chatRoomId, uid: message.from });
       io.sockets.in(String(chatRoomId)).emit("receiveChat", { chatRoomId: chatRoomId, message });
     });
 
@@ -92,9 +91,11 @@ export const socketInit = (server: any, app: express.Application) => {
       try {
         rtcRedis.hget("receiverPCs", data.senderSocketID, async (err, pcStr) => {
           if (err) throw new Error();
-          const pc = parse(pcStr) as RTCPeerConnection;
+          console.log("pc", pcStr);
+          const pc = JSON.parse(pcStr) as RTCPeerConnection;
+          console.log("pc", pc);
           console.log("it`s me ", pc.addIceCandidate);
-          await pc.addIceCandidate.bind(pc)(new wrtc.RTCIceCandidate(data.candidate));
+          await pc.addIceCandidate(new wrtc.RTCIceCandidate(data.candidate));
           rtcRedis.hset("receiverPCs", data.senderSocketID, JSON.stringify(pc));
         });
       } catch (error) {
@@ -174,9 +175,28 @@ const createReceiverPeerConnection = (socketId: string, socket: Socket, roomId: 
   const pc = new wrtc.RTCPeerConnection(pc_config);
   // if (receiverPCs[socketId]) receiverPCs[socketId] = pc;
   // else receiverPCs = { ...receiverPCs, [socketId]: pc };
+
+  // pc.toJSON = () => {
+  //   // start with an empty object (see other alternatives below)
+  //   const jsonObj: any = {};
+
+  //   // add all properties
+  //   const proto = Object.getPrototypeOf(this);
+  //   for (const key of Object.getOwnPropertyNames(proto)) {
+  //     const desc: any = Object.getOwnPropertyDescriptor(proto, key);
+  //     const hasGetter = desc && typeof desc.get === "function";
+  //     if (hasGetter) {
+  //       jsonObj[key] = desc.get();
+  //     }
+  //   }
+
+  //   return jsonObj;
+  // };
+  console.log("처음생성", pc);
+  const newPc = JSON.stringify(pc);
+  console.log("애는 모야", newPc);
+
   rtcRedis.hset("receiverPCs", socketId, JSON.stringify(pc));
-  console.log("pc_pc", pc._pc);
-  rtcRedis.hset("_receivePCs", socketId, JSON.stringify(pc._pc));
   pc.onicecandidate = (e: RTCPeerConnectionIceEvent) => {
     socket.to(socketId).emit("getSenderCandidate", {
       candidate: e.candidate,
@@ -262,7 +282,7 @@ const closeReceiverPC = (socketId: string) => {
     if (err) {
       return;
     }
-    const pc = parse(pcStr) as RTCPeerConnection;
+    const pc = JSON.parse(pcStr) as RTCPeerConnection;
     pc.close();
     rtcRedis.hdel("receiverPCs", socketId);
   });
