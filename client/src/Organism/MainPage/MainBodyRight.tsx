@@ -18,7 +18,7 @@ const mainBodyRightStyle = css`
 
 const list = [
   { type: "short", title: "이벤트" },
-  { type: "long", title: "프로젝트 소개", link: "/sub/Project" },
+  { type: "long", title: "프로젝트 소개", link: "/Project" },
   { type: "left-long", title: "공지사항" },
   { type: "short", title: "문의사항" },
 ];
