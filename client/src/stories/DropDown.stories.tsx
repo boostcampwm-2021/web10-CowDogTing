@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import DropDown from "../Molecules/Core/DropDown";
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -13,7 +15,13 @@ export default {
 } as ComponentMeta<typeof DropDown>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof DropDown> = (args) => <DropDown {...args} />;
+const Template: ComponentStory<typeof DropDown> = (args) => (
+  <RecoilRoot>
+    <BrowserRouter>
+      <DropDown {...args} />
+    </BrowserRouter>
+  </RecoilRoot>
+);
 
 export const location = Template.bind({});
 location.args = { type: "Location" };

@@ -10,7 +10,7 @@ export default () => {
     done(null, user.uid);
   });
 
-  passport.deserializeUser((uid, done) => {
+  passport.deserializeUser((uid: string, done) => {
     Users.findOne({ where: { uid } })
       .then((user: any) => done(null, user))
       .catch((err) => done(err));

@@ -102,12 +102,10 @@ export default function DropDown(props: DropDownType) {
   const list = MENU_LIST[type];
 
   return (
-    <>
-      <DropDownContainer type={type} className={className}>
-        {list.map((menu) => (
-          <DropDownElement menu={menu} onClick={onClick} />
-        ))}
-      </DropDownContainer>
-    </>
+    <DropDownContainer type={type} className={className}>
+      {list.map((menu) => (
+        <DropDownElement menu={menu} onClick={onClick} />
+      ))}
+    </DropDownContainer>
   );
 }
