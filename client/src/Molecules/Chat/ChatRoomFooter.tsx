@@ -8,12 +8,11 @@ import useDropDownCloseEvent from "../../Hook/useDropDownCloseEvent";
 import LargeModal from "../../Organism/Core/LargeModal";
 import { gameDatas, getGameDatas } from "../../util/constant";
 import LinkButton from "../Core/LinkButton";
-import zeroGame from "../../assets/게임/0.gif";
-import oneGame from "../../assets/게임/1.jpeg";
-import twoGame from "../../assets/게임/2.gif";
-import threeGame from "../../assets/게임/3.png";
+import oneGame from "../../assets/게임/0.jpeg";
+import twoGame from "../../assets/게임/1.gif";
+import threeGame from "../../assets/게임/2.png";
 
-const gameImages = [zeroGame, oneGame, twoGame, threeGame];
+const gameImages = [oneGame, twoGame, threeGame];
 
 const footerStyle = css`
   display: flex;

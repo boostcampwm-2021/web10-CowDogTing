@@ -31,7 +31,7 @@ export default function ChatRoomGame() {
     <>
       <div css={ButtonContainerStyle} />
       <div css={containerStyle}>
-        <iframe title={gameDatas[index].title} src={gameDatas[index - 1].src} width="100%" height="100%" />
+        <iframe title={gameDatas[index - 1].title} src={gameDatas[index - 1].src} width="100%" height="100%" />
       </div>
     </>
   );
