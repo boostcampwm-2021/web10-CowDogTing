@@ -1,13 +1,12 @@
 import express = require("express");
 import { Server, Socket } from "socket.io";
-import { createChatMessage } from "../api/util";
+const wrtc = require("wrtc");
+import { createClient } from "redis";
+import { createAdapter } from "@socket.io/redis-adapter";
 import { addReadRow } from "../api/chat/controller";
 import { SendChatType, receiverPCType, senderPCsType, usersType, socketToRoomType, userType } from "../util/type";
-const wrtc = require("wrtc");
-import { createAdapter } from "@socket.io/redis-adapter";
-import { createClient } from "redis";
-
-export const pubClient = createClient({ url: "redis://redis-18425.c294.ap-northeast-1-2.ec2.cloud.redislabs.com:18425", password: "rpDSMhyBU3UrAvIVvSCb4OfKzNX2hEfV" });
+import { createChatMessage } from "../api/util";
+export const pubClient = createClient({ url: process.env.CHAT_REDIS_URL, password: process.env.CHAT_REDIS_PWD });
 
 export const socketInit = (server: any, app: express.Application) => {
   const io = new Server(server, {
@@ -18,21 +17,17 @@ export const socketInit = (server: any, app: express.Application) => {
   });
 
   const subClient = pubClient.duplicate();
-
   io.adapter(createAdapter(pubClient, subClient));
 
   app.set("io", io);
+
   io.on("connection", (socket) => {
     const req = socket.request;
     const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     console.log("socket 연결 성공 ip : ", ip);
     console.log(socket.id);
 
-    //여기 부터 chating
-
     socket.on("setUid", async (Id: string) => {
-      console.log("ID:", Id);
-      console.log("socket.id:", socket.id);
       pubClient.set(Id, socket.id);
       pubClient.get(Id);
     });
@@ -42,12 +37,10 @@ export const socketInit = (server: any, app: express.Application) => {
     });
 
     socket.on("sendChat", async ({ chatRoomId, message }: SendChatType) => {
-      const createdChatMeesage = await createChatMessage({ chatRoomId, message });
-      await addReadRow({ chatId: createdChatMeesage.chatId, chatRoomId, uid: message.from });
+      const createdChatMessage = await createChatMessage({ chatRoomId, message });
+      await addReadRow({ chatId: createdChatMessage.chatId, chatRoomId, uid: message.from });
       io.sockets.in(String(chatRoomId)).emit("receiveChat", { chatRoomId: chatRoomId, message });
     });
-
-    //여기부터 rtc
 
     socket.on("joinRoom", (data: { id: string; chatRoomId: string }) => {
       try {

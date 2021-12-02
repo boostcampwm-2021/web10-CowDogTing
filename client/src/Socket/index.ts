@@ -19,7 +19,7 @@ export default class ClientSocket {
   }
 
   connect() {
-    this.socket = io(`${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}`);
+    this.socket = io(`${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}`, { transports: ["websocket"] });
   }
 
   setUid(id: string) {
