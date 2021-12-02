@@ -7,19 +7,6 @@ import { addReadRow } from "../api/chat/controller";
 import { SendChatType, receiverPCType, senderPCsType, usersType, socketToRoomType, userType } from "../util/type";
 import { createChatMessage } from "../api/util";
 export const pubClient = createClient({ url: process.env.CHAT_REDIS_URL, password: process.env.CHAT_REDIS_PWD });
-// export const rtcRedis = createClient({ url: process.env.WEBRTC_REDIS_URL });
-
-// let senderPCs: senderPCsType = {}; // [index: string]: senderPCType[];
-// let users: usersType = {}; //[index: string]: userType[]
-// let socketToRoom: socketToRoomType = {}; // [index: string]: string;
-
-// const RTCPeerConnection__Proto = new wrtc.RTCPeerConnection().__proto__;
-// const parse = (str: string) => {
-//   const result = JSON.parse(str);
-//   result._pc = RTCPeerConnection__Proto._pc;
-//   result.__proto__ = RTCPeerConnection__Proto;
-//   return result;
-// };
 
 export const socketInit = (server: any, app: express.Application) => {
   const io = new Server(server, {
@@ -40,11 +27,7 @@ export const socketInit = (server: any, app: express.Application) => {
     console.log("socket 연결 성공 ip : ", ip);
     console.log(socket.id);
 
-    //여기 부터 chating
-
     socket.on("setUid", async (Id: string) => {
-      console.log("ID:", Id);
-      console.log("socket.id:", socket.id);
       pubClient.set(Id, socket.id);
       pubClient.get(Id);
     });
@@ -58,8 +41,6 @@ export const socketInit = (server: any, app: express.Application) => {
       await addReadRow({ chatId: createdChatMessage.chatId, chatRoomId, uid: message.from });
       io.sockets.in(String(chatRoomId)).emit("receiveChat", { chatRoomId: chatRoomId, message });
     });
-
-    //여기부터 rtc
 
     socket.on("joinRoom", (data: { id: string; chatRoomId: string }) => {
       try {

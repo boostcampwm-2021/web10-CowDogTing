@@ -41,7 +41,7 @@ export const findChatRoomsInfo = async ({ uid }: { uid: string }) => {
       };
     });
   });
-  // chatMessage
+
   const datas = joinChatRooms.map((chatRoomId, idx) => {
     return { ...chatRoomId, member: filteredMemberData[idx] };
   });
