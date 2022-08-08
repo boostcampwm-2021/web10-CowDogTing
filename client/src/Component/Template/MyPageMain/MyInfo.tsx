@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { InfoImageContainer } from "@Hoc/.";
+import { InfoImage } from "@Core/.";
 import { MyInfoContainer } from "@Organism/.";
 
 const MyInfoStyle = css`
@@ -13,7 +13,7 @@ export const MyInfo = () => {
   return (
     <div css={MyInfoStyle}>
       <MyInfoContainer />
-      <InfoImageContainer />
+      <InfoImage />
     </div>
   );
 };

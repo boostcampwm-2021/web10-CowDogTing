@@ -22,6 +22,7 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "react/jsx-props-no-spreading" : 0,
     "react/jsx-no-useless-fragment" : 0,
     "no-shadow" : 0,
     "no-return-assign" : 0,

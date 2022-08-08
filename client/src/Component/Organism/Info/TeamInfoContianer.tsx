@@ -12,9 +12,9 @@ const LabelStyle = css`
 `;
 
 type props = { teamNameRef: RefObject<HTMLInputElement>; teamInfoRef: RefObject<HTMLInputElement>; setLocSelected: (value: string) => void };
+
 export const TeamInfoContainer = ({ teamNameRef, teamInfoRef, setLocSelected }: props) => {
   const { id, info } = useRecoilValue(teamState);
-
   return (
     <InfoContainer>
       <InputLabel label="팀명" placeholder={id} refProps={teamNameRef} />

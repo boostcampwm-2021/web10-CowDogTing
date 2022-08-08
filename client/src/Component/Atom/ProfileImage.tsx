@@ -1,12 +1,14 @@
+import React from "react";
 import { css } from "@emotion/react";
 import { ProfileImageType } from "@Util/type";
 import { URL } from "@Util/URL";
+
 const defaultImage = "/Asset/meetingImage.png";
 export const ProfileImage: React.FC<ProfileImageType> = ({ type, onClick, ref, children, image }) => {
   const src = String(image).includes("/uploads") ? URL + String(image ?? defaultImage) : image ?? defaultImage;
   return (
     <div ref={ref}>
-      <img alt="ProfileImage" css={profileImageStyle({ type })} src={String(src)} onClick={onClick} />
+      <img alt="ProfileImage" aria-hidden="true" css={profileImageStyle({ type })} src={String(src)} onClick={onClick} />
       {children}
     </div>
   );
