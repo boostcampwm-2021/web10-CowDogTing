@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import RoundNumberContainer from "../../Atom/RoundNumberContainer";
 import { joinChatRoomState } from "../../../Recoil/Atom";
-import { joinChatType } from "../../../util/type";
+import { joinChatType } from "../../../Util/type";
 
 export default function NotReadNum({ type }: { type: string }) {
   const datas = useRecoilValue(joinChatRoomState);

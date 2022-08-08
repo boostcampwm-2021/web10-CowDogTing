@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import useModalCloseEvent from "../../../Hook/useModalCloseEvent";
 import { profileModalDatas, teamState, userState } from "../../../Recoil/Atom";
-import { RequestType } from "../../../util/type";
+import { RequestType } from "../../../Util/type";
 import { ProfileModal } from "../Modal/ProfileModal";
 import RequestList from "./RequestList";
 

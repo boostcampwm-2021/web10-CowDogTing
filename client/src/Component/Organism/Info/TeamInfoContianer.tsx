@@ -3,7 +3,7 @@ import React, { RefObject } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
 import LocationDropDown from "../../Atom/LocationDropDown";
-import InputLabel from "../../Molecules/Core/InputLabel";
+import InputLabel from "../../Core/InputLabel";
 import { teamState } from "../../../Recoil/Atom";
 import { InfoContainer } from "Component/Hoc";
 

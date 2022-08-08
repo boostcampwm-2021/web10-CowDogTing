@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { ImageDivType } from "../../util/type";
+import { ImageDivType } from "../../Util/type";
 
 const bigImageDivStyle = css`
   width: 40vw;

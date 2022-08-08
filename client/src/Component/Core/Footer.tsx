@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { useRef, useState } from "react";
 import { css } from "@emotion/react";
-import ChatIcon from "../../Atom/ChatIcon";
-import useDropDownCloseEvent from "../../../Hook/useDropDownCloseEvent";
+import ChatIcon from "../Atom/ChatIcon";
+import useDropDownCloseEvent from "../../Hook/useDropDownCloseEvent";
 import DropDown from "./DropDown";
-import { checkLogin, passToLoginPage } from "../../../util";
+import { checkLogin, passToLoginPage } from "../../Util";
 
 const FooterStyle = css`
   z-index: 998;

@@ -1,4 +1,4 @@
-import { ChatInfoType, joinChatType, ReceiveAcceptSocketType, ReceiveChatSocketType, ReceiveDenySocketType, ReceiveRequestSocketType, RequestType } from "../util/type";
+import { ChatInfoType, joinChatType, ReceiveAcceptSocketType, ReceiveChatSocketType, ReceiveDenySocketType, ReceiveRequestSocketType, RequestType } from "../Util/type";
 
 export const handleReceiveRequestSocket = ({ setRequest, data }: ReceiveRequestSocketType) => {
   setRequest((prev: RequestType[]) => [...prev, data]);

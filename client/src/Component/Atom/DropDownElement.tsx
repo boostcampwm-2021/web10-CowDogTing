@@ -1,7 +1,7 @@
 import { MouseEventHandler } from "react";
-import LinkButton from "../Molecules/Core/LinkButton";
-import { logOutUser } from "../../util/data";
-import { menuType } from "../../util/type";
+import { LinkButton } from "../Core/LinkButton";
+import { logOutUser } from "../../Util/data";
+import { menuType } from "../../Util/type";
 
 export default function DropDownElement({ menu, onClick }: { menu: menuType; onClick: MouseEventHandler<HTMLDivElement> | undefined }) {
   const LogOut = async () => {

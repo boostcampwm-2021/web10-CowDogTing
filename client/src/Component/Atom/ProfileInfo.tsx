@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import { ProfileInfoDataType } from "../../util/type";
+import { ProfileInfoDataType } from "../../Util/type";
 import ProfileImage from "./ProfileImage";
 
 const ContainerStyle = css`

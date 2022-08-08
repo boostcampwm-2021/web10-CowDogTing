@@ -4,8 +4,8 @@ import React from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
 import { Button } from "./Button";
-import { RequestType } from "../../util/type";
-import { requestAccept, requestDeny } from "../../util/data";
+import { RequestType } from "../../Util/type";
+import { requestAccept, requestDeny } from "../../Util/data";
 import { userState } from "../../Recoil/Atom";
 
 const StateStyle = css`

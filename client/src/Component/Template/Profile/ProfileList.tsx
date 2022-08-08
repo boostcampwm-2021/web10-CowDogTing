@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import { ProfileListType } from "../../../util/type";
-import { handleModalClick } from "../../../util";
+import { ProfileListType } from "../../../Util/type";
+import { handleModalClick } from "../../../Util";
 import { ProfileComponent } from "./ProfileComponent";
 
 const ProfileListStyle = css`

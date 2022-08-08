@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import ProfileImage from "../Atom/ProfileImage";
 import { Button } from "../Atom/Button";
-import { postImage } from "../../util/data";
+import { postImage } from "../../Util/data";
 import { teamState, userState } from "../../Recoil/Atom";
 import defaultImage from "../assets/meetingImage.png";
 

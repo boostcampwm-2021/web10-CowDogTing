@@ -3,7 +3,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 import RequestButton from "../../Atom/RequestButton";
-import { RequestType } from "../../../util/type";
+import { RequestType } from "../../../Util/type";
 import { UserContainer } from "Component/Hoc";
 
 const ProfileSideStyle = css`

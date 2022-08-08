@@ -7,7 +7,7 @@ import React, { useRef } from "react";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { postLogin } from "../../../util/data";
+import { postLogin } from "../../../Util/data";
 import { errorState } from "../../../Recoil/Atom";
 import SocialLoginContainer from "../../Molecules/Login/SocialLoginContainer";
 import LoginButtonContainer from "../../Molecules/Login/LoginButtonContainer";

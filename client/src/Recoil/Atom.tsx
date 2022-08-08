@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { ChatInfoType, ErrorType, joinChatType, PersonInfoType, ProfileType, RequestType, TeamInfoType } from "../util/type";
+import { ChatInfoType, ErrorType, joinChatType, PersonInfoType, ProfileType, RequestType, TeamInfoType } from "../Util/type";
 
 export const userState = atom<PersonInfoType>({
   key: "user",

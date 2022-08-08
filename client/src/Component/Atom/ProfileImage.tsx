@@ -2,8 +2,8 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import { ProfileImageType } from "../../util/type";
-import { URL } from "../../util/URL";
+import { ProfileImageType } from "../../Util/type";
+import { URL } from "../../Util/URL";
 import defaultImage from "../assets/meetingImage.png";
 
 const bigProfileImageStyle = css`

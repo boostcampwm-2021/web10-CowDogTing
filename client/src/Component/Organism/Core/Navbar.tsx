@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { Input } from "../../Atom/Input";
 import SearchIcon from "../../Atom/SearchIcon";
-import DropDown from "../../Molecules/Core/DropDown";
+import DropDown from "../../Core/DropDown";
 import useModalCloseEvent from "../../../Hook/useModalCloseEvent";
 import NavBarComponent from "./NavBarComponent";
 

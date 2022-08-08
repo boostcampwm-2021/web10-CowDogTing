@@ -13,7 +13,7 @@ import { chatTarget, userState } from "../../../Recoil/Atom";
 import ClientSocket from "../../../Socket";
 import { userExitEvent, allUsersEvent, userEnterEvent, getSenderAnswerEvent, getSenderCandidateEvent, getReceiverAnswerEvent, getReceiverCandidateEvent } from "../../../Socket/util";
 import { getLocalStream } from "../../../Socket/webRTC";
-import { IWebRTCUser } from "../../../util/type";
+import { IWebRTCUser } from "../../../Util/type";
 
 const GameVideoStyle = css`
   top: -10%;

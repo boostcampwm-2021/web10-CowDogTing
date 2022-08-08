@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import { Input } from "../../Atom/Input";
 import { chatTarget, userState } from "../../../Recoil/Atom";
 import ClientSocket from "../../../Socket";
-import { postChat } from "../../../util/data";
+import { postChat } from "../../../Util/data";
 import ImageSendButton from "../../assets/ImageSendButton.svg";
 import SendButton from "../../assets/SendButton.svg";
 

@@ -1,8 +1,8 @@
 import { Route } from "react-router";
 import { Navigate, Routes } from "react-router-dom";
-import Footer from "./Component/Molecules/Core/Footer";
+import Footer from "./Component/Core/Footer";
 import ErrorModal from "./Component/Template/Modal/ErrorModal";
-import MainPage from "./Component/Page/MainPage/MainPage";
+import { MainPage } from "@Page/.";
 import { useSocketConnect } from "./Hook/useSocket";
 import { ChatRoom, Page, Project } from "./Component/Page";
 
@@ -17,8 +17,8 @@ const App: React.FC = () => {
         <Route path="/Project" element={<Project />} />
         <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
-      <Footer />
-      <ErrorModal />
+      {/* <Footer />
+      <ErrorModal /> */}
     </>
   );
 };

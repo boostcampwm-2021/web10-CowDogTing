@@ -3,8 +3,8 @@ import React from "react";
 import { css } from "@emotion/react";
 import ChatImageContainer from "./ChatImageContainer";
 import ChatListDetail from "./ChatListDetail";
-import { ChatListContainerType } from "../../../util/type";
-import { handleModalClick } from "../../../util";
+import { ChatListContainerType } from "../../../Util/type";
+import { handleModalClick } from "../../../Util";
 
 const ChatListContainerStyle = css`
   width: 50%;

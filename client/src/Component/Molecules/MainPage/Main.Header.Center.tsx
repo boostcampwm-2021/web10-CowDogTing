@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import MainHeaderLogo from "../../Atom/MainHeaderLogo";
+import { MainHeaderLogo } from "@Atom/.";
 
 const mainHeaderCenterStyle = css`
   position: relative;
@@ -10,12 +10,10 @@ const mainHeaderCenterStyle = css`
   top: 30%;
 `;
 
-function MainHeaderCenter() {
+export const MainHeaderCenter: React.FC = () => {
   return (
     <div css={mainHeaderCenterStyle}>
       <MainHeaderLogo />
     </div>
   );
-}
-
-export default MainHeaderCenter;
+};

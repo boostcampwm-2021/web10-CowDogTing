@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil";
-import { getFetch } from "../util/data";
-import { RequestType } from "../util/type";
-import { REQUEST_URL } from "../util/URL";
+import { getFetch } from "../Util/data";
+import { RequestType } from "../Util/type";
+import { REQUEST_URL } from "../Util/URL";
 
 export const requestState = atom<RequestType[]>({
   key: "requestState",

@@ -1,5 +1,5 @@
 import React from "react";
-import { PersonInfoType, ProfileType } from "../../../util/type";
+import { PersonInfoType, ProfileType } from "../../../Util/type";
 import { UserContainer } from "Component/Hoc";
 
 type props = { sex: string; data: PersonInfoType | ProfileType; profileRef: React.RefObject<HTMLDivElement[]>; idx: number };

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useRef } from "react";
 import { css } from "@emotion/react";
-import { ChatProfileContainerType } from "../../../util/type";
+import { ChatProfileContainerType } from "../../../Util/type";
 import ChatProfile from "./ChatProfile";
 import NotReadNum from "../../Molecules/Chat/NotReadNum";
 

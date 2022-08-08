@@ -4,11 +4,11 @@ import { useRef, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import MainHeaderLogo from "../../Atom/MainHeaderLogo";
 import Menu from "../../Atom/Menu";
-import UserIcon from "../../Atom/UserIcon";
+import { UserIcon } from "@Atom/UserIcon";
 import useDropDownCloseEvent from "../../../Hook/useDropDownCloseEvent";
-import DropDown from "../../Molecules/Core/DropDown";
-import LinkButton from "../../Molecules/Core/LinkButton";
-import { checkLogin } from "../../../util";
+import DropDown from "../../Core/DropDown";
+import { LinkButton } from "@Core/LinkButton";
+import { checkLogin } from "../../../Util";
 
 const HeaderStyle = css`
   display: flex;

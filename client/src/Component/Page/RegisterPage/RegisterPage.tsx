@@ -10,8 +10,8 @@ import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
 import { Button } from "../../Atom/Button";
 import { Input } from "../../Atom/Input";
-import { checkIdValidation, registerUser } from "../../../util/data";
-import { registerInfo } from "../../../util/type";
+import { checkIdValidation, registerUser } from "../../../Util/data";
+import { registerInfo } from "../../../Util/type";
 import { errorState } from "../../../Recoil/Atom";
 
 const RegisterContainerStyle = css`

@@ -4,9 +4,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
 import { chatTarget, joinChatRoomState } from "../../../Recoil/Atom";
-import { changeNotReadToRead, getChatMessage } from "../../../util/data";
+import { changeNotReadToRead, getChatMessage } from "../../../Util/data";
 import Chats from "../../Molecules/Chat/Chats";
-import { joinChatType } from "../../../util/type";
+import { joinChatType } from "../../../Util/type";
 
 const ChatContainerStyle = css`
   width: 100%;

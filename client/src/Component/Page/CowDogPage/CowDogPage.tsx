@@ -8,8 +8,8 @@ import { ProfileList } from "../../Template/Profile/ProfileList";
 import { ProfileModal } from "../../Template/Modal/ProfileModal";
 import useModalCloseEvent from "../../../Hook/useModalCloseEvent";
 import { cowDogState, profileModalDatas } from "../../../Recoil/Atom";
-import { getCowDogInfo } from "../../../util/data";
-import { checkLogin, makeCategory, passToLoginPage } from "../../../util";
+import { getCowDogInfo } from "../../../Util/data";
+import { checkLogin, makeCategory, passToLoginPage } from "../../../Util";
 
 const ListContainer = css`
   margin: 0 auto;

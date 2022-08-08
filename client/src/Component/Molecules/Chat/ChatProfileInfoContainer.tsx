@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import { ChatListInfoType } from "../../../util/type";
+import { ChatListInfoType } from "../../../Util/type";
 
 const ChatProfileInfoContainerStyle = css`
   width: 50%;

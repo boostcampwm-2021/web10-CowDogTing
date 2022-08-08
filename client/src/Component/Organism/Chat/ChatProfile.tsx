@@ -4,7 +4,7 @@ import ProfileCard from "../../Atom/ProfileCard";
 import ProfileImage from "../../Atom/ProfileImage";
 import { ProfileImageContainer } from "Component/Hoc";
 import ChatProfileInfoContainer from "../../Molecules/Chat/ChatProfileInfoContainer";
-import { ChatInfoType } from "../../../util/type";
+import { ChatInfoType } from "../../../Util/type";
 import dummyImage from "../../assets/meetingImage.png";
 
 export default function ChatProfile({ data, idx, chatRoomRef }: { data: ChatInfoType; idx: number; chatRoomRef: React.MutableRefObject<HTMLDivElement[]> }) {

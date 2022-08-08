@@ -2,8 +2,8 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import { Modal } from "../../Molecules/Core/Modal";
-import { LargeModalType } from "../../../util/type";
+import { Modal } from "../../Core/Modal";
+import { LargeModalType } from "../../../Util/type";
 import RightBtn from "../../assets/RightButton.svg";
 import LeftBtn from "../../assets/LeftButton.svg";
 

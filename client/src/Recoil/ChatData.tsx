@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil";
-import { getFetch } from "../util/data";
-import { ChatInfoType, joinChatType } from "../util/type";
-import { CHAT_INFO_URL, JOIN_CHAT_URL } from "../util/URL";
+import { getFetch } from "../Util/data";
+import { ChatInfoType, joinChatType } from "../Util/type";
+import { CHAT_INFO_URL, JOIN_CHAT_URL } from "../Util/URL";
 
 export const joinChatRoomState = atom<joinChatType[]>({
   key: "joinChatRoomState",

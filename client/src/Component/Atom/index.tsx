@@ -10,3 +10,4 @@ export * from "./Menu";
 export * from "./NavbarDiv";
 export * from "./ProfileCard";
 export * from "./ProfileImage";
+export * from "./UserIcon";

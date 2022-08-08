@@ -5,7 +5,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useLocation } from "react-router-dom";
 import { ChatRoomLeft } from "../../Template/ChatRoomLeft/ChatRoomLeft";
 import { ChatRoomRight } from "../../Template/ChatRoomRight/ChatRoomRight";
-import { checkLogin, passToLoginPage } from "../../../util";
+import { checkLogin, passToLoginPage } from "../../../Util";
 import { chatsState, chatTarget } from "../../../Recoil/Atom";
 
 const ChatRoomStyle = css`

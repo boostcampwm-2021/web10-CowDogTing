@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import React from "react";
-import { Input } from "../../Atom/Input";
-import { InputLabelType } from "../../../util/type";
+import { Input } from "../Atom/Input";
+import { InputLabelType } from "../../Util/type";
 
 const InputLabelStyle = css`
   margin: 1% 2%;

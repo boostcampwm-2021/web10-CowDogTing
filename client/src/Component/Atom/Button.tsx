@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { ButtonType } from "../../util/type";
+import { ButtonType } from "../../Util/type";
 
 /* 확인 , 취소 ... */
 const StateButtonStyle = css`

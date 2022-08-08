@@ -4,9 +4,9 @@ import { useRecoilValue } from "recoil";
 import { css } from "@emotion/react";
 import { Button } from "../../Atom/Button";
 import ProfileInfo from "../../Atom/ProfileInfo";
-import { Modal } from "../../Molecules/Core/Modal";
+import { Modal } from "../../Core/Modal";
 import { requestTarget } from "../../../Recoil/Atom";
-import { SmallModalType } from "../../../util/type";
+import { SmallModalType } from "../../../Util/type";
 
 const textStyle = css`
   margin: 15px 0;

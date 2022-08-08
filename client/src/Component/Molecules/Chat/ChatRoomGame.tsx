@@ -3,7 +3,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router";
-import { gameDatas } from "../../../util/constant";
+import { gameDatas } from "../../../Util/constant";
 
 const containerStyle = css`
   display: flex;

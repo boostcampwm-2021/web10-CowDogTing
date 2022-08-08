@@ -1,9 +1,20 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { DropDownType } from "../../../util/type";
-import { MENU_LIST } from "../../../util/constant";
-import DropDownElement from "../../Atom/DropDownElement";
+import { DropDownType } from "../../Util/type";
+import { MENU_LIST } from "../../Util/constant";
+import DropDownElement from "../Atom/DropDownElement";
+
+export const DropDown: React.FC<DropDownType> = ({ type, className, onClick }) => {
+  const list = MENU_LIST[type];
+  return (
+    <DropDownContainer type={type} className={className}>
+      {list.map((menu) => (
+        <DropDownElement menu={menu} onClick={onClick} />
+      ))}
+    </DropDownContainer>
+  );
+};
 
 const borderTop = css`
   border-top-left-radius: 27px;
@@ -95,19 +106,3 @@ const DropDownContainer = styled.div`
   position: absolute;
   ${DropDownStyle}
 `;
-
-export default function DropDown(props: DropDownType) {
-  const { type, className, onClick } = props;
-
-  const list = MENU_LIST[type];
-
-  return (
-    <>
-      <DropDownContainer type={type} className={className}>
-        {list.map((menu) => (
-          <DropDownElement menu={menu} onClick={onClick} />
-        ))}
-      </DropDownContainer>
-    </>
-  );
-}

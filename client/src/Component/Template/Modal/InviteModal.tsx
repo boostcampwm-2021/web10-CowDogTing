@@ -3,10 +3,10 @@ import React, { MouseEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
 import { Button } from "../../Atom/Button";
-import InputLabel from "../../Molecules/Core/InputLabel";
-import { inviteTeam } from "../../../util/data";
+import InputLabel from "../../Core/InputLabel";
+import { inviteTeam } from "../../../Util/data";
 import { errorState, teamState } from "../../../Recoil/Atom";
-import { TeamInfoType } from "../../../util/type";
+import { TeamInfoType } from "../../../Util/type";
 
 const inviteModalStyle = css`
   position: fixed;

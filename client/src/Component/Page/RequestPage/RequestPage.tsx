@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
-import { RequestType } from "../../../util/type";
+import { RequestType } from "../../../Util/type";
 import { requestState, userState } from "../../../Recoil/Atom";
-import { checkLogin, passToLoginPage } from "../../../util";
+import { checkLogin, passToLoginPage } from "../../../Util";
 import RequestListContainer from "../../Template/Request/RequestListContainer";
 
 const RequestPageStyle = css`
