@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import MyPageBodyTemplate from "./MyPageBodyTemplate";
+import { MyPageBodyTemplate } from "./MyPageBodyTemplate";
 
 const MyPageStyle = css`
   width: 100vw;
@@ -12,10 +12,10 @@ const MyPageStyle = css`
   align-items: center;
 `;
 
-export default function MyPageTemplate() {
+export const MyPageTemplate = () => {
   return (
     <div css={MyPageStyle}>
       <MyPageBodyTemplate />
     </div>
   );
-}
+};

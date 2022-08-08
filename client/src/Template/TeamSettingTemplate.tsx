@@ -2,11 +2,11 @@
 import React, { MouseEventHandler, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
-import ProfileList from "./Profile/ProfileList";
 import { errorState, teamState, userState } from "../Recoil/Atom";
 import { changeTeamInfo, exitTeam } from "../util/data";
 import TeamSettingButtonContainer from "../Molecules/Team/TeamSettingButtonContainer";
 import TeamInfo from "../Organism/Info/TeamInfo";
+import { ProfileList } from "./Profile/ProfileList";
 
 const TeamSettingTemPlateStyle = css`
   display: flex;
@@ -17,7 +17,7 @@ const TeamSettingTemPlateStyle = css`
   align-items: center;
 `;
 
-function TeamSettingTemplate() {
+export const TeamSettingTemplate: React.FC = () => {
   const [teamInfoState, setTeamInfoState] = useRecoilState(teamState);
   const userInfoState = useRecoilValue(userState);
   const [locSelected, setLocSelected] = useState<string>("");
@@ -64,10 +64,8 @@ function TeamSettingTemplate() {
   return (
     <div css={TeamSettingTemPlateStyle}>
       <TeamInfo setLocSelected={setLocSelected} teamNameRef={teamNameRef} teamInfoRef={teamInfoRef} />
-      <ProfileList datas={teamInfoState?.member} person={1} profileRef={profileRef} />
+      <ProfileList setOpenModal={() => undefined} datas={teamInfoState?.member} person={1} profileRef={profileRef} />
       <TeamSettingButtonContainer clickUpdateButton={clickUpdateButton} clickExitButton={clickExitButton} />
     </div>
   );
-}
-
-export default TeamSettingTemplate;
+};

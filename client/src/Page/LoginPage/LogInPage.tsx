@@ -7,11 +7,11 @@ import React, { useRef } from "react";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { postLogin } from "../util/data";
-import { errorState } from "../Recoil/Atom";
-import SocialLoginContainer from "../Molecules/Login/SocialLoginContainer";
-import LoginButtonContainer from "../Molecules/Login/LoginButtonContainer";
-import LoginMainInput from "../Molecules/Login/LoginMainInput";
+import { postLogin } from "../../util/data";
+import { errorState } from "../../Recoil/Atom";
+import SocialLoginContainer from "../../Molecules/Login/SocialLoginContainer";
+import LoginButtonContainer from "../../Molecules/Login/LoginButtonContainer";
+import LoginMainInput from "../../Molecules/Login/LoginMainInput";
 
 declare const window: any;
 
@@ -23,7 +23,7 @@ const containerStyle = css`
   margin-top: 50px;
 `;
 
-export default function LogInPage() {
+export const LogInPage: React.FC = () => {
   const searchParams = new URLSearchParams(useLocation().search);
   const social = searchParams.get("social") ?? "";
 
@@ -62,4 +62,4 @@ export default function LogInPage() {
       </div>
     </>
   );
-}
+};

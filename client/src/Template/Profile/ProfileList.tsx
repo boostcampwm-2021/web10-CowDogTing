@@ -3,7 +3,7 @@ import React from "react";
 import { css } from "@emotion/react";
 import { ProfileListType } from "../../util/type";
 import { handleModalClick } from "../../util";
-import ProfileComponent from "./ProfileComponent";
+import { ProfileComponent } from "./ProfileComponent";
 
 const ProfileListStyle = css`
   margin: 0 auto;
@@ -14,7 +14,8 @@ const ProfileListStyle = css`
   margin-bottom: 10px;
 `;
 
-export default function ProfileList({ datas, person, setOpenModal, profileRef }: ProfileListType) {
+type props = ProfileListType;
+export const ProfileList: React.FC<props> = ({ datas, person, setOpenModal, profileRef }) => {
   return (
     <div css={ProfileListStyle} onClick={(e) => handleModalClick(e, profileRef, setOpenModal)}>
       {datas?.map((data, idx): React.ReactElement | undefined => {
@@ -23,8 +24,8 @@ export default function ProfileList({ datas, person, setOpenModal, profileRef }:
       })}
     </div>
   );
-}
+};
 
 ProfileList.defaultProps = {
-  setOpenModal: () => {},
+  setOpenModal: () => undefined,
 };

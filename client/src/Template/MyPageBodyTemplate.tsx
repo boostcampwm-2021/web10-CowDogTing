@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { css } from "@emotion/react";
 import MyPageSideBar from "../Organism/Core/MyPageSideBar";
-import MyInfo from "./MyPageMain/MyInfo";
-import QuestionList from "./MyPageMain/QuestionList";
-import Review from "./MyPageMain/Review";
-import LikeList from "./MyPageMain/LikeList";
+import { MyInfo } from "./MyPageMain/MyInfo";
+import { QuestionList } from "./MyPageMain/QuestionList";
+import { Review } from "./MyPageMain/Review";
+import { LikeList } from "./MyPageMain/LikeList";
 
 const MyPageBodyStyle = css`
   display: flex;
@@ -16,17 +15,17 @@ const MyPageBodyStyle = css`
   height: 100%;
 `;
 
-export default function MyPageBodyTemplate() {
+export const MyPageBodyTemplate = () => {
   return (
     <div css={MyPageBodyStyle} id="mypage-body">
       <MyPageSideBar />
-      <Switch>
-        <Route path="/sub/mypage/myinfo" component={MyInfo} />
-        <Route path="/sub/mypage/question" component={QuestionList} />
-        <Route path="/sub/mypage/review" component={Review} />
-        <Route path="/sub/mypage/likelist" component={LikeList} />
-        <Redirect path="/*" to="/sub/mypage/myinfo" />
-      </Switch>
+      <Routes>
+        <Route path="/sub/mypage/myinfo" element={<MyInfo />} />
+        <Route path="/sub/mypage/question" element={<QuestionList />} />
+        <Route path="/sub/mypage/review" element={<Review />} />
+        <Route path="/sub/mypage/likelist" element={<LikeList />} />
+        <Route path="/*" element={<Navigate to="/sub/mypage/myinfo" replace />} />
+      </Routes>
     </div>
   );
-}
+};

@@ -5,7 +5,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import useModalCloseEvent from "../../Hook/useModalCloseEvent";
 import { profileModalDatas, teamState, userState } from "../../Recoil/Atom";
 import { RequestType } from "../../util/type";
-import ProfileModal from "../Modal/ProfileModal";
+import { ProfileModal } from "../Modal/ProfileModal";
 import RequestList from "./RequestList";
 
 const RequestListStyle = css`

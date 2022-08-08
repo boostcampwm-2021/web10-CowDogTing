@@ -5,9 +5,9 @@ import { css } from "@emotion/react";
 import { useEffect, useRef, useState } from "react";
 import character1 from "../assets/캐릭터/1.png";
 import character2 from "../assets/캐릭터/2.png";
-import Header from "../Organism/Core/Header";
-import { drawHeart, moveCharacter } from "../util/canvas";
-import ProjectWordContainer from "../Organism/ProjectWordContainer";
+import Header from "../../Organism/Core/Header";
+import { drawHeart, moveCharacter } from "../../util/canvas";
+import ProjectWordContainer from "../../Organism/ProjectWordContainer";
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 400;
@@ -27,7 +27,7 @@ const HeaderContainer = css`
   position: fixed;
 `;
 
-export default function Project() {
+export const Project: React.FC = () => {
   const [work, setWork] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -62,4 +62,4 @@ export default function Project() {
       <ProjectWordContainer work={work} />
     </div>
   );
-}
+};

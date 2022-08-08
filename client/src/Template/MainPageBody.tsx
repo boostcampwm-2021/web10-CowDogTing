@@ -12,13 +12,11 @@ const mainPageBodyStyle = css`
   align-items: center;
 `;
 
-function MainPageBody() {
+export const MainPageBody: React.FC = () => {
   return (
     <div css={mainPageBodyStyle}>
       <MainBodyLeft />
       <MainBodyRight />
     </div>
   );
-}
-
-export default MainPageBody;
+};

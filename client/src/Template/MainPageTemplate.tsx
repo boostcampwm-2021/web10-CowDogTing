@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import MainPageBody from "./MainPageBody";
+import { MainPageBody } from "./MainPageBody";
 import MainHeader from "../Organism/MainPage/MainHeader";
 
 const mainPageTemplateStyle = css`
@@ -9,13 +9,11 @@ const mainPageTemplateStyle = css`
   height: 100vh;
 `;
 
-function MainPageTemplate() {
+export const MainPageTemplate = () => {
   return (
     <div css={mainPageTemplateStyle}>
       <MainHeader />
       <MainPageBody />
     </div>
   );
-}
-
-export default MainPageTemplate;
+};

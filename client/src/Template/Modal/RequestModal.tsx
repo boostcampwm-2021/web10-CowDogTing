@@ -12,7 +12,8 @@ const textStyle = css`
   margin: 15px 0;
 `;
 
-export default function RequestModal({ setRequest }: SmallModalType) {
+type props = { setRequest: any };
+export const RequestModal: React.FC<props> = ({ setRequest }) => {
   const data = useRecoilValue(requestTarget);
 
   const requestModalClose = (): void => {
@@ -30,4 +31,4 @@ export default function RequestModal({ setRequest }: SmallModalType) {
       </Button>
     </Modal>
   );
-}
+};

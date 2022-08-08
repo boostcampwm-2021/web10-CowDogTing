@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
-import { RequestType } from "../util/type";
-import { requestState, userState } from "../Recoil/Atom";
-import { checkLogin, passToLoginPage } from "../util";
-import RequestListContainer from "../Template/Request/RequestListContainer";
+import { RequestType } from "../../util/type";
+import { requestState, userState } from "../../Recoil/Atom";
+import { checkLogin, passToLoginPage } from "../../util";
+import RequestListContainer from "../../Template/Request/RequestListContainer";
 
 const RequestPageStyle = css`
   display: flex;
@@ -16,7 +16,7 @@ const RequestPageStyle = css`
   justify-content: center;
 `;
 
-export default function RequestPage() {
+export const RequestPage: React.FC = () => {
   if (!checkLogin()) passToLoginPage();
 
   const { id: myId, gid: mygId } = useRecoilValue(userState);
@@ -56,4 +56,4 @@ export default function RequestPage() {
       <RequestListContainer type="ToMe" datas={RequestToMe} />
     </div>
   );
-}
+};

@@ -3,10 +3,10 @@ import React, { useEffect } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useLocation } from "react-router-dom";
-import ChatRoomLeft from "../Template/ChatRoom/ChatRoomLeft";
-import ChatRoomRight from "../Template/ChatRoom/ChatRoomRight";
-import { checkLogin, passToLoginPage } from "../util";
-import { chatsState, chatTarget } from "../Recoil/Atom";
+import { ChatRoomLeft } from "../../Template/ChatRoomLeft/ChatRoomLeft";
+import { ChatRoomRight } from "../../Template/ChatRoomRight/ChatRoomRight";
+import { checkLogin, passToLoginPage } from "../../util";
+import { chatsState, chatTarget } from "../../Recoil/Atom";
 
 const ChatRoomStyle = css`
   width: 400px;
@@ -14,7 +14,7 @@ const ChatRoomStyle = css`
   border-right: 1px solid #000000;
 `;
 
-export default function ChatRoom() {
+export const ChatRoom: React.FC = () => {
   if (!checkLogin()) passToLoginPage();
 
   const setChatInfo = useSetRecoilState(chatTarget);
@@ -34,4 +34,4 @@ export default function ChatRoom() {
       <ChatRoomRight />
     </div>
   );
-}
+};

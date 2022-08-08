@@ -8,11 +8,11 @@
 import React, { useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
-import { Button } from "../Atom/Button";
-import { Input } from "../Atom/Input";
-import { checkIdValidation, registerUser } from "../util/data";
-import { registerInfo } from "../util/type";
-import { errorState } from "../Recoil/Atom";
+import { Button } from "../../Atom/Button";
+import { Input } from "../../Atom/Input";
+import { checkIdValidation, registerUser } from "../../util/data";
+import { registerInfo } from "../../util/type";
+import { errorState } from "../../Recoil/Atom";
 
 const RegisterContainerStyle = css`
   width: 450px;
@@ -50,7 +50,7 @@ const InfoStyle = css`
   text-align: center;
 `;
 
-export default function RegisterPage() {
+export const RegisterPage: React.FC = () => {
   const [firstPassword, setFirstPassword] = useState<string>("");
   const [secondPassword, setSecondPassword] = useState<string>("");
   const [passwordCheck, setPasswordCheck] = useState<boolean>(true);
@@ -148,7 +148,7 @@ export default function RegisterPage() {
           onKeyUp={() => setPasswordCheck(firstPassword === secondPassword)}
         />
         <div>Location</div>
-        <select css={InfoStyle} onChange={(e) => setLocSelected(e.target.value)}>
+        {/* <select css={InfoStyle} onChange={(e) => setLocSelected(e.target.value)}>
           <option selected value="" disabled>
             거주지를 선택해주세요.
           </option>
@@ -160,7 +160,7 @@ export default function RegisterPage() {
           <option value="광주">광주</option>
           <option value="부산">부산</option>
           <option value="울산">울산</option>
-        </select>
+        </select> */}
         <div>Age</div>
         <Input ref={(el) => (refArray.current[2] = el as HTMLInputElement)} placeholder="Age" autoComplete="off" />
         <div>Sex</div>
@@ -187,4 +187,4 @@ export default function RegisterPage() {
       </div>
     </>
   );
-}
+};

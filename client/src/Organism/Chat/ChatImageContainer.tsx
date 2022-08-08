@@ -3,7 +3,6 @@
 /* eslint-disable no-return-assign */
 /** @jsxImportSource @emotion/react */
 import React from "react";
-import { useHistory } from "react-router";
 import { useRecoilValue } from "recoil";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -11,6 +10,7 @@ import { ChatImageContainerType } from "../../util/type";
 import ProfileImage from "../../Atom/ProfileImage";
 import { Button } from "../../Atom/Button";
 import { chatTarget, userState } from "../../Recoil/Atom";
+import { useNavigate } from "react-router-dom";
 
 const ChatListHeader = styled.div`
   display: flex;
@@ -34,11 +34,10 @@ const ChatImageContainerStyle = css`
 function ChatImageContainer({ profileRef }: ChatImageContainerType) {
   const { member } = useRecoilValue(chatTarget);
   const { id: myId } = useRecoilValue(userState);
-
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleCloseRoomClick = () => {
-    history.push("/main");
+    navigate("/main");
   };
 
   return (

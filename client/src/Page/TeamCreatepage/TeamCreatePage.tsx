@@ -2,12 +2,12 @@
 import React, { MouseEventHandler, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
-import { createTeam, getFetch } from "../util/data";
-import { errorState, teamState, userState } from "../Recoil/Atom";
-import { checkLogin, passToLoginPage } from "../util";
-import TeamInfo from "../Organism/Info/TeamInfo";
-import TeamCreateButtonContainer from "../Molecules/Team/TeamCreateButtonContainer";
-import { TEAM_INFO_URL } from "../util/URL";
+import { createTeam, getFetch } from "../../util/data";
+import { errorState, teamState, userState } from "../../Recoil/Atom";
+import { checkLogin, passToLoginPage } from "../../util";
+import TeamInfo from "../../Organism/Info/TeamInfo";
+import TeamCreateButtonContainer from "../../Molecules/Team/TeamCreateButtonContainer";
+import { TEAM_INFO_URL } from "../../util/URL";
 
 const TeamCreatePageStyle = css`
   position: relative;
@@ -18,7 +18,7 @@ const TeamCreatePageStyle = css`
   flex-direction: column;
 `;
 
-function TeamCreatePage() {
+export const TeamCreatePage: React.FC = () => {
   if (!checkLogin()) passToLoginPage();
 
   const teamNameRef = useRef<HTMLInputElement>(null);
@@ -64,6 +64,6 @@ function TeamCreatePage() {
       <TeamCreateButtonContainer clickCreateButton={clickCreateButton} />
     </div>
   );
-}
+};
 
 export default TeamCreatePage;

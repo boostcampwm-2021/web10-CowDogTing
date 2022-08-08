@@ -11,11 +11,11 @@ const MyInfoStyle = css`
   align-items: center;
 `;
 
-export default function MyInfo() {
+export const MyInfo = () => {
   return (
     <div css={MyInfoStyle}>
       <MyInfoContainer />
       <InfoImageContainer />
     </div>
   );
-}
+};
