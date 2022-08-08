@@ -14,6 +14,6 @@ const InfoContainerStyle = css`
   margin-right: 100px;
 `;
 
-export default function InfoContainer({ children }: ChildrenType) {
+export const InfoContainer: React.FC<ChildrenType> = ({ children }) => {
   return <div css={InfoContainerStyle}>{children}</div>;
-}
+};

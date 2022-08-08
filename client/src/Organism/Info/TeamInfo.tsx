@@ -2,7 +2,7 @@
 import React, { RefObject } from "react";
 import { css } from "@emotion/react";
 import TeamInfoContainer from "./TeamInfoContianer";
-import InfoImageContainer from "../../Container/InfoImageContainer";
+import { InfoImageContainer } from "@Hoc/.";
 
 const TeamInfoContainerStyle = css`
   display: flex;

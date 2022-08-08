@@ -8,7 +8,7 @@
       "@Molecules/*": ["./Molecules/*"],
       "@Organism/*": ["./Organism/*"],
       "@Template/*": ["./Template/*"],
-      "@HOC/*": ["./HOC/*"],
+      "@Hoc/*": ["./Hoc/*"],
     }
   }
 }

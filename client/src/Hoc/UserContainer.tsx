@@ -12,7 +12,9 @@ const ProfileStyle = css`
   margin: 30px 0px;
 `;
 
-export default function UserContainer({ sex, data, profileRef, idx, children }: { sex: string; data: PersonInfoType | ProfileType; profileRef: React.RefObject<HTMLDivElement[]>; idx: number; children?: JSX.Element | undefined }) {
+type props = { sex: string; data: PersonInfoType | ProfileType; profileRef: React.RefObject<HTMLDivElement[]>; idx: number; children?: JSX.Element | undefined };
+
+export const UserContainer: React.FC<props> = ({ sex, data, profileRef, idx, children }) => {
   return (
     <div css={ProfileStyle}>
       <div ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx}>
@@ -23,7 +25,7 @@ export default function UserContainer({ sex, data, profileRef, idx, children }: 
       {children}
     </div>
   );
-}
+};
 
 UserContainer.defaultProps = {
   children: undefined,

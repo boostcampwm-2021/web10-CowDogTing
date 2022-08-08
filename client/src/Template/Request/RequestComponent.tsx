@@ -4,7 +4,7 @@ import React from "react";
 import { css } from "@emotion/react";
 import RequestButton from "../../Atom/RequestButton";
 import { RequestType } from "../../util/type";
-import UserContainer from "../../Container/UserContainer";
+import { UserContainer } from "@Hoc/.";
 
 const ProfileSideStyle = css`
   display: flex;

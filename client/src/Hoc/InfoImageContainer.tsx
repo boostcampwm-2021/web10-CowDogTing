@@ -19,7 +19,7 @@ const TeamInfoImageContainerStyle = css`
 const imageInputStyle = css`
   display: none;
 `;
-export default function InfoImageContainer() {
+export const InfoImageContainer: React.FC = () => {
   const { id, gid } = useRecoilValue(userState);
   const setUserInfo = useSetRecoilState(userState);
   const setTeamInfo = useSetRecoilState(teamState);
@@ -86,4 +86,4 @@ export default function InfoImageContainer() {
       <input ref={imageInputTag} onChange={changeImage} css={imageInputStyle} type="file" accept="image/*" />
     </div>
   );
-}
+};

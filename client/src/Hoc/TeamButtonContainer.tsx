@@ -11,8 +11,6 @@ const TeamButtonContainerStyle = css`
   justify-content: space-around;
   margin-bottom: 3vh;
 `;
-function TeamButtonContainer({ children }: ChildrenType) {
+export const TeamButtonContainer: React.FC<ChildrenType> = ({ children }) => {
   return <div css={TeamButtonContainerStyle}>{children}</div>;
-}
-
-export default TeamButtonContainer;
+};

@@ -11,8 +11,8 @@ const ProfileImageContainerStyle = css`
   justify-content: center;
 `;
 
-function ProfileImageContainer({ children }: ChildrenType) {
+export const ProfileImageContainer: React.FC<ChildrenType> = ({ children }) => {
   return <div css={ProfileImageContainerStyle}>{children}</div>;
-}
+};
 
 export default ProfileImageContainer;

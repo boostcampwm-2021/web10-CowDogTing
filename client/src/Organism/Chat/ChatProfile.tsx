@@ -2,7 +2,7 @@
 /* eslint-disable no-return-assign */
 import ProfileCard from "../../Atom/ProfileCard";
 import ProfileImage from "../../Atom/ProfileImage";
-import ProfileImageContainer from "../../Container/ProfileImageContainer";
+import { ProfileImageContainer } from "@Hoc/.";
 import ChatProfileInfoContainer from "../../Molecules/Chat/ChatProfileInfoContainer";
 import { ChatInfoType } from "../../util/type";
 import dummyImage from "../../assets/meetingImage.png";
