@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-/** @jsxImportSource @emotion/react */
+
 import { useMemo } from "react";
 import { Route, Routes } from "react-router-dom";
 import { css } from "@emotion/react";

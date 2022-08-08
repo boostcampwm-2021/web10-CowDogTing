@@ -1,8 +1,6 @@
-/** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import searchIcon from "../assets/search.png";
-
+const searchIcon = "/Asset/search.png";
 const searchIconStyle = css`
   position: relative;
   width: 48px;

@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-/** @jsxImportSource @emotion/react */
 
 const NavbarDivStyle = css`
   cursor: pointer;

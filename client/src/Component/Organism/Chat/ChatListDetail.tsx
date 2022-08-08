@@ -8,7 +8,7 @@ import { chatTarget } from "../../../Recoil/Atom";
 
 export default function ChatListDetail() {
   const { chatRoomId } = useRecoilValue(chatTarget);
-  if (chatRoomId === 0) return <></>;
+  if (chatRoomId === 0) return null;
   return (
     <>
       <ChatDetail />

@@ -11,6 +11,7 @@
       "@Template/*": ["./Component/Template/*"],
       "@Hoc/*": ["./Component/Hoc/*"],
       "@Util/*": ["./Util/*"],
+      "@Asset/*": ["./Asset/*"],
     }
   }
 }

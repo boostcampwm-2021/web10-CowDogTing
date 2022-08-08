@@ -2,7 +2,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
 /* eslint-disable no-restricted-globals */
-/** @jsxImportSource @emotion/react */
+
 import React, { useRef } from "react";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router-dom";

@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 import { Button } from "../../Atom/Button";
-/** @jsxImportSource @emotion/react */
 
 const ButtonContainerStyle = css`
   display: flex;

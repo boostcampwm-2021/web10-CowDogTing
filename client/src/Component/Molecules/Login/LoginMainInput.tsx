@@ -2,7 +2,6 @@ import { css } from "@emotion/react";
 import { RefObject } from "react";
 import { Input } from "../../Atom/Input";
 
-/** @jsxImportSource @emotion/react */
 const titleStyle = css`
   font-size: 64px;
   text-align: center;

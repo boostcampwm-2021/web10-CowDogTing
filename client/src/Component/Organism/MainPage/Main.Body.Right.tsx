@@ -1,10 +1,9 @@
-/** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 import { ImageDiv, Button } from "@Atom/.";
 import { MainBodyRightButtonContainer } from "@Molecules/.";
-import meetingImage from "../../assets/meetingImage.png";
+const meetingImage = "Asset/meetingImage.png";
 
 export const MainBodyRight = () => {
   return (

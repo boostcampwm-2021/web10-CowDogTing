@@ -1,13 +1,13 @@
 /* eslint-disable no-nested-ternary */
-/** @jsxImportSource @emotion/react */
+
 // import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { useEffect, useRef, useState } from "react";
-import character1 from "../assets/캐릭터/1.png";
-import character2 from "../assets/캐릭터/2.png";
-import Header from "../../Organism/Core/Header";
-import { drawHeart, moveCharacter } from "../../../Util/canvas";
-import ProjectWordContainer from "../../Organism/ProjectWordContainer";
+const character1 = "/Asset/캐릭터/1.png";
+const character2 = "/Asset/캐릭터/2.png";
+import Header from "@Organism/Core/Header";
+import { drawHeart, moveCharacter } from "@Util/canvas";
+import ProjectWordContainer from "@Organism/ProjectWordContainer";
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 400;

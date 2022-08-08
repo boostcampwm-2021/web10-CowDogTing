@@ -1,6 +1,6 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable no-param-reassign */
-/** @jsxImportSource @emotion/react */
+
 import React from "react";
 import { css } from "@emotion/react";
 import ProfileCard from "../Atom/ProfileCard";

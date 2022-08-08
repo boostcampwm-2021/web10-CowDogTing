@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
-/** @jsxImportSource @emotion/react */
 
 import React, { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";

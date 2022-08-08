@@ -1,8 +1,7 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../Recoil/Atom";
-import { URL } from "../../Util/URL";
+import { URL } from "@Util/URL";
 
 const MyChatStyle = css`
   background: #b0c2ff;

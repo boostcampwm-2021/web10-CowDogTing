@@ -1,8 +1,6 @@
-/** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import userIcon from "../assets/userIcon.svg";
-
+const userIcon = "/Asset/userIcon.svg";
 type UserIconProps = { onClick: () => void };
 export const UserIcon: React.FC<UserIconProps> = ({ onClick }) => {
   return (

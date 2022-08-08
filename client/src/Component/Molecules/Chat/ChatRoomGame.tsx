@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-/** @jsxImportSource @emotion/react */
+
 import React from "react";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router";

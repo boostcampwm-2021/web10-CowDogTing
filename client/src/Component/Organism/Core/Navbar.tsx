@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { Input } from "../../Atom/Input";

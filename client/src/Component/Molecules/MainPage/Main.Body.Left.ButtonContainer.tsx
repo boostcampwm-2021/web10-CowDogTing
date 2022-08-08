@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
 import { LinkButton } from "../../Core/LinkButton";

@@ -4,7 +4,7 @@
 /* eslint-disable use-isnan */
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
-/** @jsxImportSource @emotion/react */
+
 import React, { useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";

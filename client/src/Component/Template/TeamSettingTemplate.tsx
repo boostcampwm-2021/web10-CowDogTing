@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React, { MouseEventHandler, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";

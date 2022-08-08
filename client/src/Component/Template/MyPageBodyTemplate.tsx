@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Navigate, Route, Routes } from "react-router-dom";
 import { css } from "@emotion/react";
 import MyPageSideBar from "../Organism/Core/MyPageSideBar";

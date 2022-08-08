@@ -1,7 +1,5 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import MenuImg from "../assets/Menu.png";
-
+const MenuImg = "/Asset/Menu.png";
 const MenuStyle = css`
   width: 71px;
   height: 71px;

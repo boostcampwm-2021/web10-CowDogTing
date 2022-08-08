@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { css } from "@emotion/react";

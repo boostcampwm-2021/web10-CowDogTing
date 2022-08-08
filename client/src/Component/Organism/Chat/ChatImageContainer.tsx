@@ -1,14 +1,9 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-return-assign */
-/** @jsxImportSource @emotion/react */
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { ChatImageContainerType } from "../../../Util/type";
-import ProfileImage from "../../Atom/ProfileImage";
-import { Button } from "../../Atom/Button";
+import { ChatImageContainerType } from "@Util/type";
+import { ProfileImage, Button } from "@Atom/.";
 import { chatTarget, userState } from "../../../Recoil/Atom";
 import { useNavigate } from "react-router-dom";
 

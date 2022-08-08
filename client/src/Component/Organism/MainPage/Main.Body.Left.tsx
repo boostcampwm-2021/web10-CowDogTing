@@ -1,6 +1,5 @@
-/** @jsxImportSource @emotion/react */
 import React from "react";
-import meetingImage from "../../assets/meetingImage.png";
+const meetingImage = "Asset/meetingImage.png";
 import { ImageDiv } from "@Atom/.";
 import { MainBodyLeftButtonContainer } from "@Molecules/.";
 

@@ -1,8 +1,7 @@
-/** @jsxImportSource @emotion/react */
 import React, { RefObject } from "react";
 import { css } from "@emotion/react";
 import TeamInfoContainer from "./TeamInfoContianer";
-import { InfoImageContainer } from "Component/Hoc";
+import { InfoImageContainer } from "@Hoc/.";
 
 const TeamInfoContainerStyle = css`
   display: flex;

@@ -6,7 +6,7 @@ import { MainPage } from "@Page/.";
 import { useSocketConnect } from "./Hook/useSocket";
 import { ChatRoom, Page, Project } from "./Component/Page";
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   useSocketConnect();
   return (
     <>
@@ -22,5 +22,3 @@ const App: React.FC = () => {
     </>
   );
 };
-
-export default App;

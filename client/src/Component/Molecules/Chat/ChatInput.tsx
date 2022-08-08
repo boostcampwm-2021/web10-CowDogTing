@@ -1,13 +1,12 @@
-/** @jsxImportSource @emotion/react */
 import React, { ChangeEvent, ChangeEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
-import { Input } from "../../Atom/Input";
+import { Input } from "@Atom/.";
 import { chatTarget, userState } from "../../../Recoil/Atom";
 import ClientSocket from "../../../Socket";
-import { postChat } from "../../../Util/data";
-import ImageSendButton from "../../assets/ImageSendButton.svg";
-import SendButton from "../../assets/SendButton.svg";
+import { postChat } from "@Util/data";
+const ImageSendButton = "/Asset/ImageSendButton.svg";
+const SendButton = "/Asset/SendButton.svg";
 
 const InputContainer = css`
   display: flex;

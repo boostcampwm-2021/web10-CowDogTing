@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Button } from "../../Atom/Button";
 import useDropDownCloseEvent from "../../../Hook/useDropDownCloseEvent";
-import { TeamButtonContainer } from "Component/Hoc";
+import { TeamButtonContainer } from "@Hoc/.";
 import InviteModal from "../../Template/Modal/InviteModal";
 
 export default function TeamSettingButtonContainer({ clickUpdateButton, clickExitButton }: { clickUpdateButton: React.MouseEventHandler; clickExitButton: React.MouseEventHandler }) {

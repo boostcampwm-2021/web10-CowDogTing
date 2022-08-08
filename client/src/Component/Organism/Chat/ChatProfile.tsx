@@ -1,11 +1,11 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
 import ProfileCard from "../../Atom/ProfileCard";
-import ProfileImage from "../../Atom/ProfileImage";
-import { ProfileImageContainer } from "Component/Hoc";
+import { ProfileImage } from "../../Atom/ProfileImage";
+import { ProfileImageContainer } from "@Hoc/.";
 import ChatProfileInfoContainer from "../../Molecules/Chat/ChatProfileInfoContainer";
 import { ChatInfoType } from "../../../Util/type";
-import dummyImage from "../../assets/meetingImage.png";
+const dummyImage = "Asset/meetingImage.png";
 
 export default function ChatProfile({ data, idx, chatRoomRef }: { data: ChatInfoType; idx: number; chatRoomRef: React.MutableRefObject<HTMLDivElement[]> }) {
   const memberType = data.member.length > 2 ? "team" : data.member[0].sex;

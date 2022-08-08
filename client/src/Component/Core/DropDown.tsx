@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { DropDownType } from "../../Util/type";

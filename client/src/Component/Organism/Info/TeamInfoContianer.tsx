@@ -1,11 +1,10 @@
-/** @jsxImportSource @emotion/react */
 import React, { RefObject } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
 import LocationDropDown from "../../Atom/LocationDropDown";
 import InputLabel from "../../Core/InputLabel";
 import { teamState } from "../../../Recoil/Atom";
-import { InfoContainer } from "Component/Hoc";
+import { InfoContainer } from "@Hoc/.";
 
 const LabelStyle = css`
   height: 20%;

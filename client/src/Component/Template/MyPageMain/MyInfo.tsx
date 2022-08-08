@@ -1,7 +1,5 @@
-/** @jsxImportSource @emotion/react */
-
 import { css } from "@emotion/react";
-import { InfoImageContainer } from "Component/Hoc";
+import { InfoImageContainer } from "@Hoc/.";
 import MyInfoContainer from "../../Organism/Info/MyInfoContainer";
 
 const MyInfoStyle = css`

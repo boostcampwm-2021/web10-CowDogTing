@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-/** @jsxImportSource @emotion/react */
+
 import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";

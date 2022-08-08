@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React, { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
