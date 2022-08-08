@@ -1,10 +1,10 @@
 import { Route } from "react-router";
 import { Navigate, Routes } from "react-router-dom";
-import Footer from "./Molecules/Core/Footer";
-import ErrorModal from "./Template/Modal/ErrorModal";
-import MainPage from "./Page/MainPage/MainPage";
+import Footer from "./Component/Molecules/Core/Footer";
+import ErrorModal from "./Component/Template/Modal/ErrorModal";
+import MainPage from "./Component/Page/MainPage/MainPage";
 import { useSocketConnect } from "./Hook/useSocket";
-import { ChatRoom, Page, Project } from "./Page";
+import { ChatRoom, Page, Project } from "./Component/Page";
 
 const App: React.FC = () => {
   useSocketConnect();
