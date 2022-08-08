@@ -11,6 +11,7 @@ module.exports = override(
     "@Page": resolve("./src/Page/"),
     "@Molecules": resolve("./src/Molecules/"),
     "@Organism": resolve("./src/Organism/"),
+    "@Template": resolve("./src/Template/"),
     "@HOC": resolve("./src/HOC/"),
   })
 );
