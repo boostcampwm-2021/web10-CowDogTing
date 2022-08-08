@@ -1,5 +1,5 @@
+import React, { RefObject } from "react";
 import { css } from "@emotion/react";
-import { RefObject } from "react";
 import { Input } from "@Atom/.";
 
 const titleStyle = css`
