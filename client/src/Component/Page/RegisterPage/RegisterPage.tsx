@@ -1,10 +1,3 @@
-/* eslint-disable no-extra-boolean-cast */
-/* eslint-disable no-return-assign */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable use-isnan */
-/* eslint-disable no-console */
-/* eslint-disable no-alert */
-
 import React, { useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
@@ -62,7 +55,7 @@ export const RegisterPage: React.FC = () => {
   const setErrorValue = useSetRecoilState(errorState);
 
   const checkInput = ({ id, pw, location, age, sex, info }: registerInfo): boolean => {
-    if (!id || !pw || !location || age === NaN || !sex || !info) {
+    if (!id || !pw || !location || Number.isNaN(age) || !sex || !info) {
       alert("모든 입력값을 제대로 입력해 주십시오.");
       return false;
     }
@@ -110,44 +103,43 @@ export const RegisterPage: React.FC = () => {
   };
 
   return (
-    <>
-      <div css={RegisterContainerStyle}>
-        <div>ID</div>
-        <div css={IdContainerStyle}>
-          <Input ref={(el) => (refArray.current[0] = el as HTMLInputElement)} placeholder="ID" autoComplete="off" />
-          <Button type="Small" onClick={handleIdValidation}>
-            {" "}
-            중복 체크{" "}
-          </Button>
-        </div>
-        <div>Password</div>
-        <Input
-          ref={(el) => (refArray.current[1] = el as HTMLInputElement)}
-          placeholder="Password"
-          type="password"
-          autoComplete="off"
-          value={firstPassword}
-          onChange={(e) => {
-            setFirstPassword(e.target.value);
-          }}
-          onKeyUp={() => setPasswordCheck(firstPassword === secondPassword)}
-        />
-        <div css={passwordCheckContainerStyle}>
-          <div>Password Check</div>
-          {!passwordCheck && <div css={checkPasswordStyle}>패스워드가 다릅니다.</div>}
-        </div>
-        <Input
-          placeholder="PW"
-          type="password"
-          autoComplete="off"
-          value={secondPassword}
-          onChange={(e) => {
-            setSecondPassword(e.target.value);
-          }}
-          onKeyUp={() => setPasswordCheck(firstPassword === secondPassword)}
-        />
-        <div>Location</div>
-        {/* <select css={InfoStyle} onChange={(e) => setLocSelected(e.target.value)}>
+    <div css={RegisterContainerStyle}>
+      <div>ID</div>
+      <div css={IdContainerStyle}>
+        <Input ref={(el) => (refArray.current[0] = el as HTMLInputElement)} placeholder="ID" autoComplete="off" />
+        <Button type="Small" onClick={handleIdValidation}>
+          {" "}
+          중복 체크{" "}
+        </Button>
+      </div>
+      <div>Password</div>
+      <Input
+        ref={(el) => (refArray.current[1] = el as HTMLInputElement)}
+        placeholder="Password"
+        type="password"
+        autoComplete="off"
+        value={firstPassword}
+        onChange={(e) => {
+          setFirstPassword(e.target.value);
+        }}
+        onKeyUp={() => setPasswordCheck(firstPassword === secondPassword)}
+      />
+      <div css={passwordCheckContainerStyle}>
+        <div>Password Check</div>
+        {!passwordCheck && <div css={checkPasswordStyle}>패스워드가 다릅니다.</div>}
+      </div>
+      <Input
+        placeholder="PW"
+        type="password"
+        autoComplete="off"
+        value={secondPassword}
+        onChange={(e) => {
+          setSecondPassword(e.target.value);
+        }}
+        onKeyUp={() => setPasswordCheck(firstPassword === secondPassword)}
+      />
+      <div>Location</div>
+      {/* <select css={InfoStyle} onChange={(e) => setLocSelected(e.target.value)}>
           <option selected value="" disabled>
             거주지를 선택해주세요.
           </option>
@@ -160,30 +152,29 @@ export const RegisterPage: React.FC = () => {
           <option value="부산">부산</option>
           <option value="울산">울산</option>
         </select> */}
-        <div>Age</div>
-        <Input ref={(el) => (refArray.current[2] = el as HTMLInputElement)} placeholder="Age" autoComplete="off" />
-        <div>Sex</div>
-        <div css={InfoStyle}>
-          <div>
-            <label htmlFor="male">남성</label>
-            <input id="male" type="radio" value="남성" name="sex" onChange={(e) => setSexSelected(e.target.value)} />
-          </div>
-          <div>
-            <label htmlFor="female">여성</label>
-            <input id="female" type="radio" value="여성" name="sex" onChange={(e) => setSexSelected(e.target.value)} />
-          </div>
-          <div>
-            <label htmlFor="female">기타</label>
-            <input id="etc" type="radio" value="기타" name="sex" onChange={(e) => setSexSelected(e.target.value)} />
-          </div>
+      <div>Age</div>
+      <Input ref={(el) => (refArray.current[2] = el as HTMLInputElement)} placeholder="Age" autoComplete="off" />
+      <div>Sex</div>
+      <div css={InfoStyle}>
+        <div>
+          <label htmlFor="male">남성</label>
+          <input id="male" type="radio" value="남성" name="sex" onChange={(e) => setSexSelected(e.target.value)} />
         </div>
-        <div>Introduce</div>
-        <Input ref={(el) => (refArray.current[3] = el as HTMLInputElement)} placeholder="Introduce" autoComplete="off" />
-        <Button type="Long" onClick={clickRegister}>
-          {" "}
-          회원가입{" "}
-        </Button>
+        <div>
+          <label htmlFor="female">여성</label>
+          <input id="female" type="radio" value="여성" name="sex" onChange={(e) => setSexSelected(e.target.value)} />
+        </div>
+        <div>
+          <label htmlFor="female">기타</label>
+          <input id="etc" type="radio" value="기타" name="sex" onChange={(e) => setSexSelected(e.target.value)} />
+        </div>
       </div>
-    </>
+      <div>Introduce</div>
+      <Input ref={(el) => (refArray.current[3] = el as HTMLInputElement)} placeholder="Introduce" autoComplete="off" />
+      <Button type="Long" onClick={clickRegister}>
+        {" "}
+        회원가입{" "}
+      </Button>
+    </div>
   );
 };
