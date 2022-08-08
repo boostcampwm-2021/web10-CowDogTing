@@ -1,11 +1,12 @@
 import React, { MouseEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
-import { Button } from "../../Atom/Button";
-import InputLabel from "../../Core/InputLabel";
-import { inviteTeam } from "../../../Util/data";
-import { errorState, teamState } from "../../../Recoil/Atom";
-import { TeamInfoType } from "../../../Util/type";
+import { Button } from "@Atom/Button";
+import { InputLabel } from "@Core/InputLabel";
+import { inviteTeam } from "@Util/data";
+import { TeamInfoType } from "@Util/type";
+import { errorState } from "@Recoil/Atom";
+import { teamState } from "@Recoil/TeamData";
 
 const inviteModalStyle = css`
   position: fixed;

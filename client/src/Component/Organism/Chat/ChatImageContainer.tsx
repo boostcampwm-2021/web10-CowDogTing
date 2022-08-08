@@ -4,7 +4,8 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ChatImageContainerType } from "@Util/type";
 import { ProfileImage, Button } from "@Atom/.";
-import { chatTarget, userState } from "../../../Recoil/Atom";
+import { chatTarget } from "../../../Recoil/Atom";
+import { userState } from "@Recoil/UserData";
 import { useNavigate } from "react-router-dom";
 
 const ChatListHeader = styled.div`

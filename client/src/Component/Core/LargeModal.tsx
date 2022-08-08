@@ -2,8 +2,8 @@
 
 import React from "react";
 import { css } from "@emotion/react";
-import { Modal } from "../../Core/Modal";
-import { LargeModalType } from "../../../Util/type";
+import { Modal } from "@Core/Modal";
+import { LargeModalType } from "@Util/type";
 const RightBtn = "/Asset/RightButton.svg";
 const LeftBtn = "/Asset/LeftButton.svg";
 
@@ -40,13 +40,8 @@ const RightButton = (props: { visiable: boolean }) => css`
 `;
 
 export default function LargeModal({ index, children, length, decreaseIndex, inCreaseIndex }: LargeModalType) {
-  const inCrease = (e: React.MouseEvent<HTMLElement>): void => {
-    inCreaseIndex(e);
-  };
-
-  const decrease = (e: React.MouseEvent<HTMLElement>): void => {
-    decreaseIndex(e);
-  };
+  const inCrease = (e: React.MouseEvent<HTMLElement>): void => inCreaseIndex(e);
+  const decrease = (e: React.MouseEvent<HTMLElement>): void => decreaseIndex(e);
 
   return (
     <Modal type="Large">

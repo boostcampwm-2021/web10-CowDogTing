@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { css } from "@emotion/react";
-import { ChatProfileContainerType } from "../../../Util/type";
+import { ChatProfileContainerType } from "@Util/type";
 import ChatProfile from "./ChatProfile";
-import NotReadNum from "../../Molecules/Chat/NotReadNum";
+import { NotReadNum } from "@Molecules/.";
 
 const ChatProfileContainerStyle = css`
   width: 50%;

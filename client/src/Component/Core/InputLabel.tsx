@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
 import React from "react";
-import { Input } from "../Atom/Input";
-import { InputLabelType } from "../../Util/type";
+import { css } from "@emotion/react";
+import { Input } from "@Atom/Input";
+import { InputLabelType } from "@Util/type";
 
 const InputLabelStyle = css`
   margin: 1% 2%;
@@ -14,14 +14,12 @@ const LabelStyle = css`
   height: 20%;
   width: 90%;
 `;
-function InputLabel(props: InputLabelType) {
-  const { refProps, label, placeholder } = props;
+
+export const InputLabel: React.FC<InputLabelType> = ({ refProps, label, placeholder }) => {
   return (
     <div css={InputLabelStyle}>
       <p css={LabelStyle}>{label}</p>
       <Input placeholder={placeholder} ref={refProps} />
     </div>
   );
-}
-
-export default InputLabel;
+};

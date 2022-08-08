@@ -16,5 +16,6 @@ module.exports = override(
     "@Hoc": resolve("./src/Component/Hoc/"),
     "@Util": resolve("./src/Util/"),
     "@Asset": resolve("./src/Asset/"),
+    "@Recoil": resolve("./src/Recoil"),
   })
 );

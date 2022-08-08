@@ -4,13 +4,12 @@ import { css } from "@emotion/react";
 import VideoSupport from "./VideoSupport";
 import { Button } from "@Atom/Button";
 import useDropDownCloseEvent from "@Hook/useDropDownCloseEvent";
-import LargeModal from "@Organism/Core/LargeModal";
+import LargeModal from "@Core/LargeModal";
 import { gameDatas, getGameDatas } from "@Util/constant";
 import { LinkButton } from "@Core/LinkButton";
 const oneGame = "/Asset/게임/0.jpeg";
 const twoGame = "/Asset/게임/1.gif";
 const threeGame = "/Asset/게임/2.png";
-
 const gameImages = [oneGame, twoGame, threeGame];
 
 const footerStyle = css`

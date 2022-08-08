@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router";
 import { ChatListPage, CowDogPage, LogInPage, MyPage, RegisterPage, RequestPage, TeamSettingPage } from "..";
-import Header from "../../Organism/Core/Header";
+import Header from "../../Core/Header";
 
 export const Page: React.FC = () => {
   return (

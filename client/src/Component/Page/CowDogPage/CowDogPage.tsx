@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router-dom";
-import Navbar from "../../Organism/Core/Navbar";
+import Navbar from "@Core/Navbar";
 import { ProfileList } from "../../Template/Profile/ProfileList";
 import { ProfileModal } from "../../Template/Modal/ProfileModal";
 import useModalCloseEvent from "../../../Hook/useModalCloseEvent";

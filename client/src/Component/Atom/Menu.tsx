@@ -11,8 +11,7 @@ const buttonStyle = css`
 interface MenuProps {
   onClick: () => void;
 }
-export default function Menu(props: MenuProps) {
-  const { onClick } = props;
+export const Menu = ({ onClick }: MenuProps) => {
   return (
     <>
       <button type="button" css={buttonStyle} onClick={onClick}>
@@ -20,4 +19,4 @@ export default function Menu(props: MenuProps) {
       </button>
     </>
   );
-}
+};

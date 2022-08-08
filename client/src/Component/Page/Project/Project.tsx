@@ -5,7 +5,7 @@ import { css } from "@emotion/react";
 import { useEffect, useRef, useState } from "react";
 const character1 = "/Asset/캐릭터/1.png";
 const character2 = "/Asset/캐릭터/2.png";
-import Header from "@Organism/Core/Header";
+import Header from "@Core/Header";
 import { drawHeart, moveCharacter } from "@Util/canvas";
 import ProjectWordContainer from "@Organism/ProjectWordContainer";
 

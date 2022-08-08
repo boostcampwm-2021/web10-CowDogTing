@@ -1,6 +1,4 @@
-/* eslint-disable no-return-assign */
-/* eslint-disable no-param-reassign */
-import NavbarDiv from "../../Atom/NavbarDiv";
+import { NavbarDiv } from "@Atom/.";
 
 const list = [
   { id: "Location", name: "지역" },

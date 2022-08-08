@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { ProfileInfoDataType } from "../../Util/type";
-import ProfileImage from "./ProfileImage";
+import { ProfileImage } from "./ProfileImage";
 
 const ContainerStyle = css`
   height: 100%;
@@ -16,7 +16,7 @@ const InfoStyle = css`
     margin: 10px 0;
   }
 `;
-export default function ProfileInfo({ data }: ProfileInfoDataType): JSX.Element {
+export const ProfileInfo = ({ data }: ProfileInfoDataType): JSX.Element => {
   const { id, image, location, sex, age, info, member } = data;
 
   let infoSex = sex;
@@ -41,4 +41,4 @@ export default function ProfileInfo({ data }: ProfileInfoDataType): JSX.Element 
       </div>
     </div>
   );
-}
+};

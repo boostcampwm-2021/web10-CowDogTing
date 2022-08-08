@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import SideBarDiv from "../../Atom/SideBarDiv";
+import { SideBarDiv } from "@Atom/.";
 
 const SideBarStyle = css`
   width: 10vw;

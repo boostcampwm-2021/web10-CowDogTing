@@ -1,9 +1,8 @@
 import { useRef, useState } from "react";
 import { css } from "@emotion/react";
-import { Input } from "../../Atom/Input";
-import SearchIcon from "../../Atom/SearchIcon";
-import DropDown from "../../Core/DropDown";
-import useModalCloseEvent from "../../../Hook/useModalCloseEvent";
+import { SearchIcon, Input } from "@Atom/.";
+import { DropDown } from "@Core/.";
+import useModalCloseEvent from "@Hook/useModalCloseEvent";
 import NavBarComponent from "./NavBarComponent";
 
 const NavbarStyle = css`

@@ -1,10 +1,10 @@
 import React, { RefObject } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
-import LocationDropDown from "../../Atom/LocationDropDown";
-import InputLabel from "../../Core/InputLabel";
-import { teamState } from "../../../Recoil/Atom";
+import { InputLabel } from "@Core/.";
+import LocationDropDown from "@Atom/LocationDropDown";
 import { InfoContainer } from "@Hoc/.";
+import { teamState } from "@Recoil/TeamData";
 
 const LabelStyle = css`
   height: 20%;
@@ -12,8 +12,7 @@ const LabelStyle = css`
 `;
 
 export default function TeamInfoContainer({ teamNameRef, teamInfoRef, setLocSelected }: { teamNameRef: RefObject<HTMLInputElement>; teamInfoRef: RefObject<HTMLInputElement>; setLocSelected: (value: string) => void }) {
-  const teamInfoState = useRecoilValue(teamState);
-  const { id, info } = teamInfoState;
+  const { id, info } = useRecoilValue(teamState);
 
   return (
     <InfoContainer>

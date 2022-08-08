@@ -2,8 +2,8 @@
 
 import React from "react";
 import { css } from "@emotion/react";
-import RequestButton from "../../Atom/RequestButton";
-import { RequestType } from "../../../Util/type";
+import { RequestButton } from "@Atom/.";
+import { RequestType } from "@Util/type";
 import { UserContainer } from "@Hoc/.";
 
 const ProfileSideStyle = css`

@@ -3,7 +3,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
-import { chatTarget, joinChatRoomState } from "../../../Recoil/Atom";
+import { chatTarget } from "../../../Recoil/Atom";
+import { joinChatRoomState } from "@Recoil/ChatData";
 import { changeNotReadToRead, getChatMessage } from "../../../Util/data";
 import Chats from "../../Molecules/Chat/Chats";
 import { joinChatType } from "../../../Util/type";

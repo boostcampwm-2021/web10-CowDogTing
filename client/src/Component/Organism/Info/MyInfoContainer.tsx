@@ -1,12 +1,10 @@
-/* eslint-disable no-return-assign */
-
 import { useRef } from "react";
 import { css } from "@emotion/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { Button } from "../../Atom/Button";
-import { Input } from "../../Atom/Input";
-import { errorState, userState } from "../../../Recoil/Atom";
-import { changeMyInfo } from "../../../Util/data";
+import { Input, Button } from "@Atom/.";
+import { errorState } from "@Recoil/Atom";
+import { changeMyInfo } from "@Util/data";
+import { userState } from "@Recoil/UserData";
 
 const MyInfoContainerStyle = css`
   width: 350px;

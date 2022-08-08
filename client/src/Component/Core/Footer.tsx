@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { css } from "@emotion/react";
-import ChatIcon from "../Atom/ChatIcon";
-import useDropDownCloseEvent from "../../Hook/useDropDownCloseEvent";
-import DropDown from "./DropDown";
-import { checkLogin, passToLoginPage } from "../../Util";
+import ChatIcon from "@Atom/ChatIcon";
+import useDropDownCloseEvent from "@Hook/useDropDownCloseEvent";
+import { checkLogin, passToLoginPage } from "@Util/.";
+import { DropDown } from "./DropDown";
 
 const FooterStyle = css`
   z-index: 998;

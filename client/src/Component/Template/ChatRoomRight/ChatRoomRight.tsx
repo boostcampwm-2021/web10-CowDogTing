@@ -3,11 +3,11 @@
 import { useMemo } from "react";
 import { Route, Routes } from "react-router-dom";
 import { css } from "@emotion/react";
-import { Button } from "../../Atom/Button";
-import { checkGameInUrl, checkGatherInUrl } from "../../../Util";
-import ChatRoomBasic from "../../Molecules/Chat/ChatRoomBasic";
-import ChatRoomFooter from "../../Molecules/Chat/ChatRoomFooter";
-import ChatRoomGame from "../../Molecules/Chat/ChatRoomGame";
+import { Button } from "@Atom/.";
+import { checkGameInUrl, checkGatherInUrl } from "@Util/.";
+import ChatRoomBasic from "@Molecules/Chat/ChatRoomBasic";
+import ChatRoomFooter from "@Molecules/Chat/ChatRoomFooter";
+import ChatRoomGame from "@Molecules/Chat/ChatRoomGame";
 import { useHandleCloseRoom } from "./ChatRoomRight.hook";
 
 const headerStyle = css`

@@ -3,8 +3,8 @@
 
 import React from "react";
 import { css } from "@emotion/react";
-import ProfileCard from "../Atom/ProfileCard";
-import ProfileInfo from "../Atom/ProfileInfo";
+import { ProfileCard } from "@Atom/ProfileCard";
+import { ProfileInfo } from "@Atom/ProfileInfo";
 import { PersonInfoType, ProfileType } from "../../Util/type";
 
 const ProfileStyle = css`

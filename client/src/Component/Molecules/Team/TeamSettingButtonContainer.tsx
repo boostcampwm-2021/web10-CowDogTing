@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import { Button } from "../../Atom/Button";
-import useDropDownCloseEvent from "../../../Hook/useDropDownCloseEvent";
+import { Button } from "@Atom/.";
+import useDropDownCloseEvent from "@Hook/useDropDownCloseEvent";
 import { TeamButtonContainer } from "@Hoc/.";
 import InviteModal from "../../Template/Modal/InviteModal";
 

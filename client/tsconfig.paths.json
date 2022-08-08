@@ -12,6 +12,7 @@
       "@Hoc/*": ["./Component/Hoc/*"],
       "@Util/*": ["./Util/*"],
       "@Asset/*": ["./Asset/*"],
+      "@Recoil/*": ["./Recoil/*"],
     }
   }
 }

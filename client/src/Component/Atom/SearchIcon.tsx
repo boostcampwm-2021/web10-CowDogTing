@@ -8,6 +8,6 @@ const searchIconStyle = css`
   margin-bottom: 20px;
   cursor: pointer;
 `;
-export default function SearchIcon() {
+export const SearchIcon = () => {
   return <img alt="search Icon" src={searchIcon} css={searchIconStyle} />;
-}
+};

@@ -1,10 +1,9 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
-import ProfileCard from "../../Atom/ProfileCard";
-import { ProfileImage } from "../../Atom/ProfileImage";
+import { ProfileCard, ProfileImage } from "@Atom/.";
 import { ProfileImageContainer } from "@Hoc/.";
-import ChatProfileInfoContainer from "../../Molecules/Chat/ChatProfileInfoContainer";
-import { ChatInfoType } from "../../../Util/type";
+import ChatProfileInfoContainer from "@Molecules/Chat/ChatProfileInfoContainer";
+import { ChatInfoType } from "@Util/type";
 const dummyImage = "Asset/meetingImage.png";
 
 export default function ChatProfile({ data, idx, chatRoomRef }: { data: ChatInfoType; idx: number; chatRoomRef: React.MutableRefObject<HTMLDivElement[]> }) {

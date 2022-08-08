@@ -11,11 +11,10 @@ const NavbarDivStyle = css`
 interface DivProps {
   children: string;
 }
-export default function NavbarDiv(props: DivProps) {
-  const { children } = props;
+export const NavbarDiv = ({ children }: DivProps) => {
   return (
     <div css={NavbarDivStyle} className="navbar-div">
       {children}
     </div>
   );
-}
+};

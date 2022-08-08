@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import { Button } from "./Button";
 import { RequestType } from "../../Util/type";
 import { requestAccept, requestDeny } from "../../Util/data";
-import { userState } from "../../Recoil/Atom";
+import { userState } from "@Recoil/UserData";
 
 const StateStyle = css`
   width: 130px;
@@ -22,7 +22,8 @@ const StateStyle = css`
   border: 2px solid #ffcfcf;
 `;
 
-export default function RequestButton({ type, data, isTeam }: { type: string; data: RequestType; isTeam: string }) {
+type props = { type: string; data: RequestType; isTeam: string };
+export const RequestButton = ({ type, data, isTeam }: props) => {
   const { id: myId, gid: mygId } = useRecoilValue(userState);
   let toId: number | string = myId;
   if (isTeam === "team" && mygId) {
@@ -53,4 +54,4 @@ export default function RequestButton({ type, data, isTeam }: { type: string; da
     );
   }
   return <div css={StateStyle}>{state}</div>;
-}
+};

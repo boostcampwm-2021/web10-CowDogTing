@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
-import { RequestType } from "../../../Util/type";
-import { requestState, userState } from "../../../Recoil/Atom";
-import { checkLogin, passToLoginPage } from "../../../Util";
+import { RequestType } from "@Util/type";
+
+import { checkLogin, passToLoginPage } from "@Util/.";
 import RequestListContainer from "../../Template/Request/RequestListContainer";
+import { userState } from "@Recoil/UserData";
+import { requestState } from "@Recoil/RequestData";
 
 const RequestPageStyle = css`
   display: flex;

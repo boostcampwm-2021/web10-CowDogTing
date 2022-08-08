@@ -2,18 +2,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { DropDownType } from "../../Util/type";
 import { MENU_LIST } from "../../Util/constant";
-import DropDownElement from "../Atom/DropDownElement";
-
-export const DropDown: React.FC<DropDownType> = ({ type, className, onClick }) => {
-  const list = MENU_LIST[type];
-  return (
-    <DropDownContainer type={type} className={className}>
-      {list.map((menu) => (
-        <DropDownElement menu={menu} onClick={onClick} />
-      ))}
-    </DropDownContainer>
-  );
-};
+import DropDownElement from "@Atom/DropDownElement";
 
 const borderTop = css`
   border-top-left-radius: 27px;
@@ -91,11 +80,11 @@ const MeetingDropDownStyle = css`
 const DropDownStyle = (props: { type: string; className: string }) => css`
   ${props.type === "Menu" && BasicDropDownStyle}
   ${props.type === "Meeting" && MeetingDropDownStyle}
-  ${props.type === "User" && UserDropDownStyle}
-  ${props.type === "Location" && LocationDropDownStyle}
-  ${props.type === "Age" && AgeDropDownStyle}
-  ${props.type === "Sex" && SexDropDownStyle}
-  ${props.type === "Chat" && ChatDropDownStyle}
+    ${props.type === "User" && UserDropDownStyle}
+    ${props.type === "Location" && LocationDropDownStyle}
+    ${props.type === "Age" && AgeDropDownStyle}
+    ${props.type === "Sex" && SexDropDownStyle}
+    ${props.type === "Chat" && ChatDropDownStyle}
 `;
 
 const DropDownContainer = styled.div`
@@ -105,3 +94,14 @@ const DropDownContainer = styled.div`
   position: absolute;
   ${DropDownStyle}
 `;
+
+export const DropDown: React.FC<DropDownType> = ({ type, className, onClick }) => {
+  const list = MENU_LIST[type];
+  return (
+    <DropDownContainer type={type} className={className}>
+      {list.map((menu) => (
+        <DropDownElement menu={menu} onClick={onClick} />
+      ))}
+    </DropDownContainer>
+  );
+};

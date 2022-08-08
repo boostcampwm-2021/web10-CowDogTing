@@ -1,11 +1,10 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { css } from "@emotion/react";
-import { Button } from "../../Atom/Button";
-import ProfileInfo from "../../Atom/ProfileInfo";
-import { Modal } from "../../Core/Modal";
-import { requestTarget } from "../../../Recoil/Atom";
-import { SmallModalType } from "../../../Util/type";
+import { ProfileInfo, Button } from "@Atom/.";
+import { Modal } from "@Core/Modal";
+import { requestTarget } from "@Recoil/Atom";
+import { SmallModalType } from "@Util/type";
 
 const textStyle = css`
   margin: 15px 0;

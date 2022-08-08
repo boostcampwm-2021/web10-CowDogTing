@@ -6,13 +6,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 // import { Socket } from "socket.io-client";
 import { css } from "@emotion/react";
-import { Button } from "../../Atom/Button";
-import Video from "../../Atom/Video";
-import { chatTarget, userState } from "../../../Recoil/Atom";
+import { Video, Button } from "@Atom/.";
+import { chatTarget } from "@Recoil/Atom";
+import { userState } from "@Recoil/UserData";
 import ClientSocket from "../../../Socket";
 import { userExitEvent, allUsersEvent, userEnterEvent, getSenderAnswerEvent, getSenderCandidateEvent, getReceiverAnswerEvent, getReceiverCandidateEvent } from "../../../Socket/util";
 import { getLocalStream } from "../../../Socket/webRTC";
-import { IWebRTCUser } from "../../../Util/type";
+import { IWebRTCUser } from "@Util/type";
 
 const GameVideoStyle = css`
   top: -10%;

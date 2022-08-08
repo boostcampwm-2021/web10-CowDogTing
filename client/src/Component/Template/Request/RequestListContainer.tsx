@@ -1,11 +1,13 @@
 import { css } from "@emotion/react";
 import { useState, useRef, useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import useModalCloseEvent from "../../../Hook/useModalCloseEvent";
-import { profileModalDatas, teamState, userState } from "../../../Recoil/Atom";
-import { RequestType } from "../../../Util/type";
+import useModalCloseEvent from "@Hook/useModalCloseEvent";
+import { profileModalDatas } from "@Recoil/Atom";
+import { RequestType } from "@Util/type";
 import { ProfileModal } from "../Modal/ProfileModal";
 import RequestList from "./RequestList";
+import { teamState } from "@Recoil/TeamData";
+import { userState } from "@Recoil/UserData";
 
 const RequestListStyle = css`
   width: 41%;

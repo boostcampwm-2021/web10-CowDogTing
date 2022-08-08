@@ -8,11 +8,10 @@
 import React, { useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
-import { Button } from "../../Atom/Button";
-import { Input } from "../../Atom/Input";
-import { checkIdValidation, registerUser } from "../../../Util/data";
-import { registerInfo } from "../../../Util/type";
-import { errorState } from "../../../Recoil/Atom";
+import { Input, Button } from "@Atom/.";
+import { checkIdValidation, registerUser } from "@Util/data";
+import { registerInfo } from "@Util/type";
+import { errorState } from "@Recoil/Atom";
 
 const RegisterContainerStyle = css`
   width: 450px;

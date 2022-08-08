@@ -33,7 +33,7 @@ interface Props {
   muted?: boolean;
 }
 
-export default function Video({ type, stream, muted }: Props) {
+export const Video = ({ type, stream, muted }: Props) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState<boolean>(false);
 
@@ -49,7 +49,7 @@ export default function Video({ type, stream, muted }: Props) {
       <VideoContainer ref={videoRef} muted={isMuted} autoPlay />
     </div>
   );
-}
+};
 
 Video.defaultProps = {
   muted: false,
