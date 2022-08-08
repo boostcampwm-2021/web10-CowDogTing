@@ -1,13 +1,13 @@
-/** @jsxImportSource @emotion/react */
 import React, { ChangeEvent, ChangeEventHandler, useEffect, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import ProfileImage from "../Atom/ProfileImage";
-import { Button } from "../Atom/Button";
-import { postImage } from "../../Util/data";
-import { teamState, userState } from "../../Recoil/Atom";
-import defaultImage from "../assets/meetingImage.png";
+import { ProfileImage } from "@Atom/ProfileImage";
+import { Button } from "@Atom/Button";
+import { postImage } from "@Util/data";
+import { userState } from "@Recoil/UserData";
+import { teamState } from "@Recoil/TeamData";
 
+const defaultImage = "/Asset/meetingImage.png";
 const TeamInfoImageContainerStyle = css`
   width: 100%;
   height: 100%;

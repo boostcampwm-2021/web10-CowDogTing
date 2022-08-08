@@ -1,6 +1,4 @@
-/* eslint-disable no-return-assign */
-/* eslint-disable no-param-reassign */
-import NavbarDiv from "../../Atom/NavbarDiv";
+import { NavbarDiv } from "@Atom/.";
 
 const list = [
   { id: "Location", name: "지역" },
@@ -8,7 +6,8 @@ const list = [
   { id: "Sex", name: "성별" },
 ];
 
-export default function NavBarComponent({ navBarRef }: { navBarRef: React.MutableRefObject<HTMLDivElement[]> }) {
+type props = { navBarRef: React.MutableRefObject<HTMLDivElement[]> };
+export const NavBarComponent = ({ navBarRef }: props) => {
   return (
     <>
       {list.map((item, idx) => {
@@ -21,4 +20,4 @@ export default function NavBarComponent({ navBarRef }: { navBarRef: React.Mutabl
       })}
     </>
   );
-}
+};

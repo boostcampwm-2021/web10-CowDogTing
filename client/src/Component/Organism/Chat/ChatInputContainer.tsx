@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
 import { ChildrenType } from "../../../Util/type";
@@ -11,7 +10,6 @@ const ChatInputContainerStyle = css`
   justify-content: space-around;
 `;
 
-function ChatInputContainer({ children }: ChildrenType) {
+export const ChatInputContainer = ({ children }: ChildrenType) => {
   return <div css={ChatInputContainerStyle}>{children}</div>;
-}
-export default ChatInputContainer;
+};

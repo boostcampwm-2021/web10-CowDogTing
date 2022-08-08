@@ -1,17 +1,15 @@
-/** @jsxImportSource @emotion/react */
 import React, { useRef, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { css } from "@emotion/react";
-import VideoSupport from "./VideoSupport";
-import { Button } from "../../Atom/Button";
-import useDropDownCloseEvent from "../../../Hook/useDropDownCloseEvent";
-import LargeModal from "../../Organism/Core/LargeModal";
-import { gameDatas, getGameDatas } from "../../../Util/constant";
-import { LinkButton } from "../../Core/LinkButton";
-import oneGame from "../../assets/게임/0.jpeg";
-import twoGame from "../../assets/게임/1.gif";
-import threeGame from "../../assets/게임/2.png";
-
+import { VideoSupport } from "./VideoSupport";
+import { Button } from "@Atom/Button";
+import useDropDownCloseEvent from "@Hook/useDropDownCloseEvent";
+import { LargeModal } from "@Core/.";
+import { gameDatas, getGameDatas } from "@Util/constant";
+import { LinkButton } from "@Core/LinkButton";
+const oneGame = "/Asset/게임/0.jpeg";
+const twoGame = "/Asset/게임/1.gif";
+const threeGame = "/Asset/게임/2.png";
 const gameImages = [oneGame, twoGame, threeGame];
 
 const footerStyle = css`
@@ -32,7 +30,7 @@ const gameTitleStype = ({ color }: { color: string }) => css`
   color: ${color};
 `;
 
-export default function ChatRoomFooter() {
+export const ChatRoomFooter = () => {
   const [openGame, setOpenGame] = useState<boolean>(false);
   const [index, setIndex] = useState<number>(0);
   const [datas, setDatas] = useState<any>(null);
@@ -88,4 +86,4 @@ export default function ChatRoomFooter() {
       </div>
     </div>
   );
-}
+};

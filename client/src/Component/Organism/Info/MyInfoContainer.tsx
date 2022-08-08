@@ -1,12 +1,10 @@
-/* eslint-disable no-return-assign */
-/** @jsxImportSource @emotion/react */
 import { useRef } from "react";
 import { css } from "@emotion/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { Button } from "../../Atom/Button";
-import { Input } from "../../Atom/Input";
-import { errorState, userState } from "../../../Recoil/Atom";
-import { changeMyInfo } from "../../../Util/data";
+import { Input, Button } from "@Atom/.";
+import { errorState } from "@Recoil/Atom";
+import { changeMyInfo } from "@Util/data";
+import { userState } from "@Recoil/UserData";
 
 const MyInfoContainerStyle = css`
   width: 350px;
@@ -30,7 +28,7 @@ const MyInfoContainerStyle = css`
     height: 60vh;
   }
 `;
-export default function MyInfoContainer() {
+export const MyInfoContainer = () => {
   const [myInfo, setMyInfo] = useRecoilState(userState);
   const { id, location, age, info } = myInfo;
   const setErrorValue = useSetRecoilState(errorState);
@@ -79,4 +77,4 @@ export default function MyInfoContainer() {
       </div>
     </>
   );
-}
+};

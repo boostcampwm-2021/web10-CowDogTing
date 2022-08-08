@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React, { useEffect } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -6,7 +5,8 @@ import { useLocation } from "react-router-dom";
 import { ChatRoomLeft } from "../../Template/ChatRoomLeft/ChatRoomLeft";
 import { ChatRoomRight } from "../../Template/ChatRoomRight/ChatRoomRight";
 import { checkLogin, passToLoginPage } from "../../../Util";
-import { chatsState, chatTarget } from "../../../Recoil/Atom";
+import { chatTarget } from "../../../Recoil/Atom";
+import { chatsState } from "@Recoil/ChatData";
 
 const ChatRoomStyle = css`
   width: 400px;

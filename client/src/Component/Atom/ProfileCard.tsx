@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
@@ -20,6 +19,6 @@ const ProfileCardContainer = styled.div`
   ${typeStyle}
 `;
 
-export default function ProfileCard({ type, children }: ProfileCardType) {
+export const ProfileCard = ({ type, children }: ProfileCardType) => {
   return <ProfileCardContainer type={type}>{children}</ProfileCardContainer>;
-}
+};

@@ -1,9 +1,10 @@
 import { MouseEventHandler } from "react";
-import { LinkButton } from "../Core/LinkButton";
-import { logOutUser } from "../../Util/data";
-import { menuType } from "../../Util/type";
+import { LinkButton } from "@Core/LinkButton";
+import { logOutUser } from "@Util/data";
+import { menuType } from "@Util/type";
 
-export default function DropDownElement({ menu, onClick }: { menu: menuType; onClick: MouseEventHandler<HTMLDivElement> | undefined }) {
+type props = { menu: menuType; onClick: MouseEventHandler<HTMLDivElement> | undefined };
+export default function DropDownElement({ menu, onClick }: props) {
   const LogOut = async () => {
     const data = await logOutUser();
     if (data) {

@@ -1,10 +1,9 @@
-/** @jsxImportSource @emotion/react */
 import { useRef, useState } from "react";
 import { css } from "@emotion/react";
-import ChatIcon from "../Atom/ChatIcon";
-import useDropDownCloseEvent from "../../Hook/useDropDownCloseEvent";
-import DropDown from "./DropDown";
-import { checkLogin, passToLoginPage } from "../../Util";
+import ChatIcon from "@Atom/ChatIcon";
+import useDropDownCloseEvent from "@Hook/useDropDownCloseEvent";
+import { checkLogin, passToLoginPage } from "@Util/.";
+import { DropDown } from "./DropDown";
 
 const FooterStyle = css`
   z-index: 998;
@@ -18,7 +17,7 @@ const FooterStyle = css`
     display: block;
   }
 `;
-export default function Footer() {
+export const Footer = () => {
   const [chatDropDown, setChatDropDown] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
 
@@ -33,4 +32,4 @@ export default function Footer() {
       <ChatIcon onClick={() => (checkLogin() ? ToggleChatDropDown() : passToLoginPage())} />
     </div>
   );
-}
+};

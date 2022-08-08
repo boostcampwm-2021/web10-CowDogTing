@@ -1,15 +1,15 @@
 import { css } from "@emotion/react";
 import { RefObject } from "react";
-import { Input } from "../../Atom/Input";
+import { Input } from "@Atom/.";
 
-/** @jsxImportSource @emotion/react */
 const titleStyle = css`
   font-size: 64px;
   text-align: center;
   margin-bottom: 20px;
 `;
 
-export default function LoginMainInput({ idRef, pwRef }: { idRef: RefObject<HTMLInputElement>; pwRef: RefObject<HTMLInputElement> }) {
+type props = { idRef: RefObject<HTMLInputElement>; pwRef: RefObject<HTMLInputElement> };
+export const LoginMainInput = ({ idRef, pwRef }: props) => {
   return (
     <>
       <div css={titleStyle}>Sign in</div>
@@ -17,4 +17,4 @@ export default function LoginMainInput({ idRef, pwRef }: { idRef: RefObject<HTML
       <Input ref={pwRef} placeholder="PW" type="password" autoComplete="off" />
     </>
   );
-}
+};

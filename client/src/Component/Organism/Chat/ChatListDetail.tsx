@@ -1,14 +1,14 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import ChatInput from "../../Molecules/Chat/ChatInput";
+import { ChatInput } from "@Molecules/Chat/ChatInput";
 import { LinkButton } from "@Core/LinkButton";
-import ChatDetail from "./ChatDetail";
-import ChatInputContainer from "./ChatInputContainer";
-import { chatTarget } from "../../../Recoil/Atom";
+import { ChatDetail } from "./ChatDetail";
+import { ChatInputContainer } from "./ChatInputContainer";
+import { chatTarget } from "@Recoil/Atom";
 
-export default function ChatListDetail() {
+export const ChatListDetail = () => {
   const { chatRoomId } = useRecoilValue(chatTarget);
-  if (chatRoomId === 0) return <></>;
+  if (chatRoomId === 0) return null;
   return (
     <>
       <ChatDetail />
@@ -18,4 +18,4 @@ export default function ChatListDetail() {
       </ChatInputContainer>
     </>
   );
-}
+};

@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-/** @jsxImportSource @emotion/react */
+
 import React from "react";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router";
@@ -23,7 +23,7 @@ const ButtonContainerStyle = css`
   margin-right: 10%;
 `;
 
-export default function ChatRoomGame() {
+export const ChatRoomGame = () => {
   const searchParams = new URLSearchParams(useLocation().search);
   const index = Number(searchParams.get("index"));
 
@@ -35,4 +35,4 @@ export default function ChatRoomGame() {
       </div>
     </>
   );
-}
+};

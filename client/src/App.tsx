@@ -1,20 +1,20 @@
+import React from "react";
 import { Route } from "react-router";
 import { Navigate, Routes } from "react-router-dom";
-import Footer from "./Component/Core/Footer";
-import ErrorModal from "./Component/Template/Modal/ErrorModal";
 import { MainPage } from "@Page/.";
+import { Footer } from "@Core/.";
 import { useSocketConnect } from "./Hook/useSocket";
-import { ChatRoom, Page, Project } from "./Component/Page";
+import ErrorModal from "./Component/Template/Modal/ErrorModal";
+import { ChatRoom, Page } from "./Component/Page";
 
-const App: React.FC = () => {
-  useSocketConnect();
+export const App: React.FC = () => {
+  // useSocketConnect();
   return (
     <>
       <Routes>
-        <Route path="/main" element={<MainPage />} />
+        <Route path="/" element={<MainPage />} />
         {/* <Route path="/sub" element={<Page />} />
         <Route path="/ChatRoom" element={<ChatRoom />} />
-        <Route path="/Project" element={<Project />} />
         <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
       {/* <Footer />
@@ -22,5 +22,3 @@ const App: React.FC = () => {
     </>
   );
 };
-
-export default App;

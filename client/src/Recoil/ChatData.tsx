@@ -9,7 +9,7 @@ export const joinChatRoomState = atom<joinChatType[]>({
 });
 
 export const joinChatRoomSelector = selector<joinChatType[]>({
-  key: "",
+  key: "joinChatRoomSelector",
   get: () => {
     return getFetch({ url: JOIN_CHAT_URL, query: "" });
   },
@@ -21,7 +21,7 @@ export const chatsState = atom<ChatInfoType[]>({
 });
 
 export const chatSelector = selector<ChatInfoType[]>({
-  key: "",
+  key: "chatSelector",
   get: () => {
     return getFetch({ url: CHAT_INFO_URL, query: "" });
   },

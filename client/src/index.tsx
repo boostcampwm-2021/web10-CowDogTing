@@ -3,8 +3,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import App from "./App";
-import reset from "./Util/reset";
+import reset from "@Util/reset";
+import { App } from "./App";
 
 const container = document.getElementById("root") as HTMLElement;
 

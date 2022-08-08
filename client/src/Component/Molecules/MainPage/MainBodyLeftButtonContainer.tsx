@@ -1,17 +1,7 @@
-/** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
 import { LinkButton } from "../../Core/LinkButton";
 
-export const MainBodyLeftButtonContainer = () => {
-  return (
-    <div css={mainBodyLeftButtonContainerStyle}>
-      {LinkList.map((menu) => (
-        <LinkButton url={menu.link} type="Medium" content={menu.name} />
-      ))}
-    </div>
-  );
-};
 const mainBodyLeftButtonContainerStyle = css`
   display: none;
   top: 100px;
@@ -30,3 +20,12 @@ const LinkList = [
   { link: "/sub/CowDogPage?person=4", name: "4:4 미팅" },
   { link: "/sub/teamSetting", name: "팀 설정" },
 ];
+export const MainBodyLeftButtonContainer = () => {
+  return (
+    <div css={mainBodyLeftButtonContainerStyle}>
+      {LinkList.map((menu) => (
+        <LinkButton url={menu.link} type="Medium" content={menu.name} />
+      ))}
+    </div>
+  );
+};

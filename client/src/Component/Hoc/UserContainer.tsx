@@ -1,10 +1,10 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable no-param-reassign */
-/** @jsxImportSource @emotion/react */
+
 import React from "react";
 import { css } from "@emotion/react";
-import ProfileCard from "../Atom/ProfileCard";
-import ProfileInfo from "../Atom/ProfileInfo";
+import { ProfileCard } from "@Atom/ProfileCard";
+import { ProfileInfo } from "@Atom/ProfileInfo";
 import { PersonInfoType, ProfileType } from "../../Util/type";
 
 const ProfileStyle = css`

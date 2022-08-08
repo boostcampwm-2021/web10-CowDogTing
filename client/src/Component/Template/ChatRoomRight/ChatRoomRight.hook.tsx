@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { chatTarget } from "../../../Recoil/Atom";
+import { chatTarget } from "@Recoil/Atom";
 
 export const useHandleCloseRoom = () => {
   const { chatRoomId } = useRecoilValue(chatTarget);

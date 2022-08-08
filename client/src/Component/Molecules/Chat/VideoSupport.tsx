@@ -22,7 +22,7 @@ const containerStyle = (props: { type: string }) => css`
   ${props.type === "basic" && flexStyle}
 `;
 
-export default function VideoSupport(props: { type: string }) {
+export const VideoSupport = (props: { type: string }) => {
   const { type } = props;
   return (
     <div css={containerStyle({ type })}>
@@ -30,4 +30,4 @@ export default function VideoSupport(props: { type: string }) {
       <div css={supportStyle} />
     </div>
   );
-}
+};

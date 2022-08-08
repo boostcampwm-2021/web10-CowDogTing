@@ -1,19 +1,18 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
-/** @jsxImportSource @emotion/react */
 
 import React, { useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 // import { Socket } from "socket.io-client";
 import { css } from "@emotion/react";
-import { Button } from "../../Atom/Button";
-import Video from "../../Atom/Video";
-import { chatTarget, userState } from "../../../Recoil/Atom";
+import { Video, Button } from "@Atom/.";
+import { chatTarget } from "@Recoil/Atom";
+import { userState } from "@Recoil/UserData";
 import ClientSocket from "../../../Socket";
 import { userExitEvent, allUsersEvent, userEnterEvent, getSenderAnswerEvent, getSenderCandidateEvent, getReceiverAnswerEvent, getReceiverCandidateEvent } from "../../../Socket/util";
 import { getLocalStream } from "../../../Socket/webRTC";
-import { IWebRTCUser } from "../../../Util/type";
+import { IWebRTCUser } from "@Util/type";
 
 const GameVideoStyle = css`
   top: -10%;
@@ -90,7 +89,7 @@ const GameRoomStyle = css`
   position: absolute;
 `;
 
-export default function ChatRoomBasic({ type }: { type: string }) {
+export const ChatRoomBasic = ({ type }: { type: string }) => {
   const { chatRoomId } = useRecoilValue(chatTarget);
   const { id } = useRecoilValue(userState);
   const [users, setUsers] = useState<Array<IWebRTCUser>>([]);
@@ -180,4 +179,4 @@ export default function ChatRoomBasic({ type }: { type: string }) {
       </div>
     </div>
   );
-}
+};

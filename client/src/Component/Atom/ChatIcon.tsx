@@ -1,8 +1,6 @@
-/** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import ChatIconImg from "../assets/ChatIcon.png";
-
+const ChatIconImg = "/Asset/ChatIcon.png";
 const ChatIconStyle = css`
   position: relative;
   width: 48px;

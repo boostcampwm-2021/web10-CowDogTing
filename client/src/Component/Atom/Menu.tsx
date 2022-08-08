@@ -1,7 +1,5 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import MenuImg from "../assets/Menu.png";
-
+const MenuImg = "/Asset/Menu.png";
 const MenuStyle = css`
   width: 71px;
   height: 71px;
@@ -13,8 +11,7 @@ const buttonStyle = css`
 interface MenuProps {
   onClick: () => void;
 }
-export default function Menu(props: MenuProps) {
-  const { onClick } = props;
+export const Menu = ({ onClick }: MenuProps) => {
   return (
     <>
       <button type="button" css={buttonStyle} onClick={onClick}>
@@ -22,4 +19,4 @@ export default function Menu(props: MenuProps) {
       </button>
     </>
   );
-}
+};

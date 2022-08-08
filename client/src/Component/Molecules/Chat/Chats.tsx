@@ -1,9 +1,9 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import Chat from "../../Atom/Chat";
-import { chatTarget } from "../../../Recoil/Atom";
+import { Chat } from "@Atom/.";
+import { chatTarget } from "@Recoil/Atom";
 
-export default function Chats() {
+export const Chats = () => {
   const { chatMessage: chats } = useRecoilValue(chatTarget);
   return (
     <>
@@ -13,4 +13,4 @@ export default function Chats() {
       })}
     </>
   );
-}
+};

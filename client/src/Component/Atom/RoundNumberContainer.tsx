@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
 const ContainerStyle = css`
@@ -16,6 +15,6 @@ const ContainerStyle = css`
   left: 215px;
 `;
 
-export default function RoundNumberContainer({ num }: { num: number }) {
+export const RoundNumberContainer = ({ num }: { num: number }) => {
   return <div css={ContainerStyle}>{num}</div>;
-}
+};

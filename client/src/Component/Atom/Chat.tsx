@@ -1,8 +1,7 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
-import { userState } from "../../Recoil/Atom";
-import { URL } from "../../Util/URL";
+import { userState } from "@Recoil/UserData";
+import { URL } from "@Util/URL";
 
 const MyChatStyle = css`
   background: #b0c2ff;
@@ -42,7 +41,8 @@ const ImageStyle = css`
   width: 100px;
   height: 100px;
 `;
-export default function Chat({ from, message, src }: { from: string; message: string; src: string | null }) {
+type props = { from: string; message: string; src: string | null };
+export const Chat = ({ from, message, src }: props) => {
   const { id: myId } = useRecoilValue(userState);
   const type = from === myId ? "Mine" : "Other";
 
@@ -52,4 +52,4 @@ export default function Chat({ from, message, src }: { from: string; message: st
       {src ? <img alt="ProfileImage" src={String(URL + src)} css={ImageStyle} /> : <div css={ChatTypeStyle({ type })}>{message}</div>}
     </div>
   );
-}
+};

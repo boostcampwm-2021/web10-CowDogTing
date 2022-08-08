@@ -1,15 +1,11 @@
-/* eslint-disable consistent-return */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-return-assign */
-/** @jsxImportSource @emotion/react */
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { ChatImageContainerType } from "../../../Util/type";
-import ProfileImage from "../../Atom/ProfileImage";
-import { Button } from "../../Atom/Button";
-import { chatTarget, userState } from "../../../Recoil/Atom";
+import { ChatImageContainerType } from "@Util/type";
+import { ProfileImage, Button } from "@Atom/.";
+import { chatTarget } from "../../../Recoil/Atom";
+import { userState } from "@Recoil/UserData";
 import { useNavigate } from "react-router-dom";
 
 const ChatListHeader = styled.div`
@@ -31,7 +27,7 @@ const ChatImageContainerStyle = css`
   justify-content: space-evenly;
 `;
 
-function ChatImageContainer({ profileRef }: ChatImageContainerType) {
+export const ChatImageContainer = ({ profileRef }: ChatImageContainerType) => {
   const { member } = useRecoilValue(chatTarget);
   const { id: myId } = useRecoilValue(userState);
   const navigate = useNavigate();
@@ -51,6 +47,4 @@ function ChatImageContainer({ profileRef }: ChatImageContainerType) {
       <Button onClick={handleCloseRoomClick}>나가기</Button>
     </ChatListHeader>
   );
-}
-
-export default ChatImageContainer;
+};

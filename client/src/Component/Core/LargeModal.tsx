@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
-/** @jsxImportSource @emotion/react */
+
 import React from "react";
 import { css } from "@emotion/react";
-import { Modal } from "../../Core/Modal";
-import { LargeModalType } from "../../../Util/type";
-import RightBtn from "../../assets/RightButton.svg";
-import LeftBtn from "../../assets/LeftButton.svg";
+import { Modal } from "@Core/Modal";
+import { LargeModalType } from "@Util/type";
+const RightBtn = "/Asset/RightButton.svg";
+const LeftBtn = "/Asset/LeftButton.svg";
 
 const InfoContainer = css`
   display: flex;
@@ -39,14 +39,9 @@ const RightButton = (props: { visiable: boolean }) => css`
   ${props.visiable && { visibility: "hidden" }};
 `;
 
-export default function LargeModal({ index, children, length, decreaseIndex, inCreaseIndex }: LargeModalType) {
-  const inCrease = (e: React.MouseEvent<HTMLElement>): void => {
-    inCreaseIndex(e);
-  };
-
-  const decrease = (e: React.MouseEvent<HTMLElement>): void => {
-    decreaseIndex(e);
-  };
+export const LargeModal = ({ index, children, length, decreaseIndex, inCreaseIndex }: LargeModalType) => {
+  const inCrease = (e: React.MouseEvent<HTMLElement>): void => inCreaseIndex(e);
+  const decrease = (e: React.MouseEvent<HTMLElement>): void => decreaseIndex(e);
 
   return (
     <Modal type="Large">
@@ -58,4 +53,4 @@ export default function LargeModal({ index, children, length, decreaseIndex, inC
       {children[1]}
     </Modal>
   );
-}
+};

@@ -1,14 +1,11 @@
-/** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useRef, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import MainHeaderLogo from "../../Atom/MainHeaderLogo";
-import Menu from "../../Atom/Menu";
-import { UserIcon } from "@Atom/UserIcon";
-import useDropDownCloseEvent from "../../../Hook/useDropDownCloseEvent";
-import DropDown from "../../Core/DropDown";
+import { UserIcon, Menu, MainHeaderLogo } from "@Atom/.";
+import useDropDownCloseEvent from "@Hook/useDropDownCloseEvent";
 import { LinkButton } from "@Core/LinkButton";
-import { checkLogin } from "../../../Util";
+import { checkLogin } from "@Util/.";
+import { DropDown } from ".";
 
 const HeaderStyle = css`
   display: flex;
@@ -25,7 +22,7 @@ const HeaderStyle = css`
   }
 `;
 
-export default function Header() {
+export const Header = () => {
   const serarchParams = new URLSearchParams(useLocation().search);
   const person = Number(serarchParams.get("person"));
 
@@ -81,4 +78,4 @@ export default function Header() {
       )}
     </div>
   );
-}
+};

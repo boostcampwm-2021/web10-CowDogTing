@@ -1,8 +1,6 @@
-/** @jsxImportSource @emotion/react */
-
 import { css } from "@emotion/react";
-import { InfoImageContainer } from "Component/Hoc";
-import MyInfoContainer from "../../Organism/Info/MyInfoContainer";
+import { InfoImageContainer } from "@Hoc/.";
+import { MyInfoContainer } from "@Organism/.";
 
 const MyInfoStyle = css`
   padding-left: 50px;

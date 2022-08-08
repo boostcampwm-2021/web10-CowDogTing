@@ -1,13 +1,13 @@
-/** @jsxImportSource @emotion/react */
 import React, { ChangeEvent, ChangeEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
-import { Input } from "../../Atom/Input";
-import { chatTarget, userState } from "../../../Recoil/Atom";
+import { Input } from "@Atom/.";
+import { chatTarget } from "../../../Recoil/Atom";
+import { userState } from "@Recoil/UserData";
 import ClientSocket from "../../../Socket";
-import { postChat } from "../../../Util/data";
-import ImageSendButton from "../../assets/ImageSendButton.svg";
-import SendButton from "../../assets/SendButton.svg";
+import { postChat } from "@Util/data";
+const ImageSendButton = "/Asset/ImageSendButton.svg";
+const SendButton = "/Asset/SendButton.svg";
 
 const InputContainer = css`
   display: flex;
@@ -43,7 +43,7 @@ const ImageInputStlye = css`
   display: none;
 `;
 
-export default function ChatInput() {
+export const ChatInput = () => {
   const { chatRoomId } = useRecoilValue(chatTarget);
   const { id: uid } = useRecoilValue(userState);
 
@@ -84,4 +84,4 @@ export default function ChatInput() {
       <input ref={imageInputTag} type="file" accept="image/*" css={ImageInputStlye} onChange={changeImage} />
     </div>
   );
-}
+};

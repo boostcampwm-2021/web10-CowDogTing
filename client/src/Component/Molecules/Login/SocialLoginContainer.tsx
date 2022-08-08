@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
-import { Button } from "../../Atom/Button";
+import { Button } from "@Atom/.";
 import { SOCIAL_NAVER_LOGIN, SOCIAL_GITHUB_LOGIN, SOCIAL_KAKAO_LOGIN } from "../../../Util/URL";
-/** @jsxImportSource @emotion/react */
 
 const SocialLoginButtonContainerStyle = css`
   div:nth-child(1) {
@@ -11,7 +10,7 @@ const SocialLoginButtonContainerStyle = css`
     margin: 10px 0;
   }
 `;
-export default function SocialLoginContainer() {
+export const SocialLoginContainer = () => {
   return (
     <div css={SocialLoginButtonContainerStyle}>
       <a href={`${SOCIAL_NAVER_LOGIN}`}>
@@ -31,4 +30,4 @@ export default function SocialLoginContainer() {
       </a>
     </div>
   );
-}
+};

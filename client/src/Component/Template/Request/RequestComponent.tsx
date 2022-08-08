@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/** @jsxImportSource @emotion/react */
+
 import React from "react";
 import { css } from "@emotion/react";
-import RequestButton from "../../Atom/RequestButton";
-import { RequestType } from "../../../Util/type";
-import { UserContainer } from "Component/Hoc";
+import { RequestButton } from "@Atom/.";
+import { RequestType } from "@Util/type";
+import { UserContainer } from "@Hoc/.";
 
 const ProfileSideStyle = css`
   display: flex;

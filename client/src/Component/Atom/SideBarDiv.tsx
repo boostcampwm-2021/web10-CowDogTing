@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 
@@ -18,11 +16,10 @@ interface SideBarDivProps {
   menu: string;
   link: string;
 }
-export default function SideBarDiv(props: SideBarDivProps) {
-  const { link, menu } = props;
+export const SideBarDiv = ({ link, menu }: SideBarDivProps) => {
   return (
     <div css={SideBarDIv}>
       <Link to={link}>{menu}</Link>
     </div>
   );
-}
+};
