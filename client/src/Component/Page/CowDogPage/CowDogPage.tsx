@@ -1,86 +1,35 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import React, { useRef } from "react";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router-dom";
 import { Navbar } from "@Core/.";
 import { ProfileList } from "@Template/Profile/ProfileList";
 import { ProfileModal } from "@Template/Modal/ProfileModal";
 import useModalCloseEvent from "@Hook/useModalCloseEvent";
-import { cowDogState, profileModalDatas } from "@Recoil/Atom";
-import { getCowDogInfo } from "@Util/data";
-import { checkLogin, makeCategory, passToLoginPage } from "@Util/.";
+import { handleModalClick } from "@Util/.";
+import { useGetUserProfiler, useModalDatasHook } from "./CowDogPage.hook";
 
 const ListContainer = css`
   margin: 0 auto;
 `;
 
 export const CowDogPage: React.FC = () => {
-  if (!checkLogin()) passToLoginPage();
-
-  const setModalDatas = useSetRecoilState(profileModalDatas);
-  const [datas, setDatas] = useRecoilState(cowDogState);
-
-  const [openModal, setOpenModal] = useState<number | null>(null);
-  const [dataIndex, setDataIndex] = useState<number>(0);
-  const [category, setCategory] = useState<string | null>(null);
-
+  // if (!checkLogin()) passToLoginPage();
   const searchParams = new URLSearchParams(useLocation().search);
   const person = Number(searchParams.get("person"));
 
+  const { datas, handleSetCategory } = useGetUserProfiler(person);
+  const { openModal, setOpenModal, initModalState } = useModalDatasHook();
+
   const profileRef = useRef<HTMLDivElement[]>([]);
   const modalRef = useRef<HTMLDivElement>(null);
-
-  useModalCloseEvent(modalRef, profileRef, () => {
-    setOpenModal(null);
-  });
-
-  const getDatas = async () => {
-    const filterCategory = makeCategory(category);
-    const item = await getCowDogInfo(person, 0, filterCategory);
-    setDatas(item);
-    setDataIndex(1);
-  };
-
-  const addDatas = async () => {
-    const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
-    if (scrollTop + clientHeight >= scrollHeight) {
-      const filterCategory = makeCategory(category);
-      const item = await getCowDogInfo(person, dataIndex, filterCategory);
-      setDatas([...datas, ...item]);
-      setDataIndex((prev) => prev + 1);
-    }
-  };
-
-  useEffect(() => {
-    if (openModal === null) {
-      setModalDatas([]);
-      return;
-    }
-
-    setModalDatas(() => {
-      const data = datas[Number(openModal)];
-      const { member } = data;
-      const teamPerson = member || [];
-      return [data, ...teamPerson];
-    });
-  }, [openModal]);
-
-  useEffect(() => {
-    getDatas();
-  }, [person, category]);
-
-  useEffect(() => {
-    document.addEventListener("scroll", addDatas);
-    return () => {
-      document.removeEventListener("scroll", addDatas);
-    };
-  }, [dataIndex, category]);
+  useModalCloseEvent(modalRef, profileRef, initModalState);
+  const handleProfileListContainer = handleModalClick(profileRef, setOpenModal);
 
   return (
     <div>
-      <Navbar setCategory={setCategory} />
+      <Navbar handleSetCategory={handleSetCategory} />
       <div css={ListContainer}>
-        <ProfileList datas={datas} person={person} setOpenModal={setOpenModal} profileRef={profileRef} />
+        <ProfileList datas={datas} person={person} handleProfileListContainer={handleProfileListContainer} profileRef={profileRef} />
         <div ref={modalRef}>{datas && openModal !== null && <ProfileModal />}</div>
       </div>
     </div>

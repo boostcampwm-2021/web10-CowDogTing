@@ -1,7 +1,6 @@
 import React from "react";
 import { css } from "@emotion/react";
-import { ProfileListType } from "../../../Util/type";
-import { handleModalClick } from "../../../Util";
+import { ProfileListType } from "@Util/type";
 import { ProfileComponent } from "./ProfileComponent";
 
 const ProfileListStyle = css`
@@ -14,17 +13,13 @@ const ProfileListStyle = css`
 `;
 
 type props = ProfileListType;
-export const ProfileList: React.FC<props> = ({ datas, person, setOpenModal, profileRef }) => {
+export const ProfileList = ({ datas, person, handleProfileListContainer, profileRef }: props) => {
   return (
-    <div css={ProfileListStyle} onClick={(e) => handleModalClick(e, profileRef, setOpenModal)}>
-      {datas?.map((data, idx): React.ReactElement | undefined => {
+    <div css={ProfileListStyle} aria-hidden="true" onClick={handleProfileListContainer}>
+      {datas?.map((data, idx) => {
         const sex = person > 1 ? "team" : data.sex;
-        return <ProfileComponent sex={sex} data={data} profileRef={profileRef} idx={idx} />;
+        return <ProfileComponent key={idx} sex={sex} data={data} profileRef={profileRef} idx={idx} />;
       })}
     </div>
   );
-};
-
-ProfileList.defaultProps = {
-  setOpenModal: () => undefined,
 };

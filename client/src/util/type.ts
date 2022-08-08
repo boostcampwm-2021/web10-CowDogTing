@@ -59,13 +59,13 @@ export type ProfileInfoDataType = {
 export type ProfileListType = {
   datas: PersonInfoType[] | ProfileType[] | null | undefined;
   person: number;
-  setOpenModal: (prev: any) => void;
+  handleProfileListContainer: (prev: any) => void;
   profileRef: RefObject<HTMLDivElement[]>;
 };
 export type RequestListType = {
   datas: RequestType[];
   type: string;
-  setOpenModal: (prev: any) => void;
+  handleRequestListContainer: (prev: any) => void;
   profileRef: RefObject<HTMLDivElement[]>;
 };
 
@@ -134,7 +134,7 @@ export type ChatListInfoType = {
 
 export type ChatListContainerType = {
   profileRef: RefObject<HTMLDivElement[]>;
-  setOpenModal: (prev: any) => void;
+  onClick: (prev: any) => void;
 };
 
 export type ChatImageContainerType = {

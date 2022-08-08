@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
 import { Input, Button } from "@Atom/.";
 import { checkIdValidation, registerUser } from "@Util/data";
@@ -7,42 +6,7 @@ import { ErrorType, registerInfo } from "@Util/type";
 import { errorState } from "@Recoil/Atom";
 import { useMovePage } from "@Hook/useMovePage";
 import { useCheckDoublePassword, useRegisterRefsHook } from "./RegisterPage.hook";
-
-const RegisterContainerStyle = css`
-  width: 450px;
-  margin: 0 auto;
-  margin-top: 50px;
-  select {
-    height: 50px;
-  }
-`;
-
-const IdContainerStyle = css`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const checkPasswordStyle = css`
-  text-align: end;
-  color: red;
-`;
-
-const passwordCheckContainerStyle = css`
-  width: 300px;
-  display: flex;
-  justify-content: space-between;
-`;
-const InfoStyle = css`
-  width: 300px;
-  height: 50px;
-  align-items: center;
-  display: flex;
-  justify-content: space-around;
-  border: 2px solid #ffcfcf;
-  margin-bottom: 20px;
-  text-align: center;
-`;
+import * as RegisterStyle from "./RegisterPage.style";
 
 export const RegisterPage: React.FC = () => {
   const [locSelected, setLocSelected] = useState<string>("");
@@ -90,9 +54,9 @@ export const RegisterPage: React.FC = () => {
   };
 
   return (
-    <form css={RegisterContainerStyle} onSubmit={clickRegister}>
+    <form css={RegisterStyle.RegisterContainerStyle} onSubmit={clickRegister}>
       <div>ID</div>
-      <form css={IdContainerStyle}>
+      <form css={RegisterStyle.IdContainerStyle}>
         <Input ref={idRef} placeholder="ID" autoComplete="off" />
         <Button size="Small" onClick={handleIdValidation}>
           중복 체크
@@ -102,14 +66,14 @@ export const RegisterPage: React.FC = () => {
       <div>Password</div>
       <Input ref={pwRef} placeholder="Password" type="password" autoComplete="off" />
 
-      <div css={passwordCheckContainerStyle}>
+      <div css={RegisterStyle.passwordCheckContainerStyle}>
         <div>Password Check</div>
-        {!passwordCheck && <div css={checkPasswordStyle}>패스워드가 다릅니다.</div>}
+        {!passwordCheck && <div css={RegisterStyle.checkPasswordStyle}>패스워드가 다릅니다.</div>}
       </div>
       <Input ref={secondPwRef} placeholder="PW" type="password" autoComplete="off" />
 
       <div>Location</div>
-      <select css={InfoStyle} onChange={(e) => setLocSelected(e.target.value)}>
+      <select css={RegisterStyle.InfoStyle} onChange={(e) => setLocSelected(e.target.value)}>
         <option selected value="" disabled>
           거주지를 선택해주세요.
         </option>
@@ -124,7 +88,7 @@ export const RegisterPage: React.FC = () => {
       <Input ref={ageRef} placeholder="Age" autoComplete="off" />
 
       <div>Sex</div>
-      <div css={InfoStyle}>
+      <div css={RegisterStyle.InfoStyle}>
         {sexList.map(({ id, value }) => (
           <div key={id}>
             <label htmlFor="id">
