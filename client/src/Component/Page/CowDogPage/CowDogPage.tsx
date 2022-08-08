@@ -13,7 +13,6 @@ const ListContainer = css`
 `;
 
 export const CowDogPage: React.FC = () => {
-  // if (!checkLogin()) passToLoginPage();
   const searchParams = new URLSearchParams(useLocation().search);
   const person = Number(searchParams.get("person"));
 

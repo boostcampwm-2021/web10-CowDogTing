@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router";
 import { Header } from "@Core/.";
+import { LoginUserRouter } from "@Hoc/LoginUserRouter";
 import { ChatListPage, CowDogPage, LogInPage, MyPage, RegisterPage, RequestPage, TeamSettingPage } from "..";
 
 export const Page: React.FC = () => {
@@ -10,8 +11,22 @@ export const Page: React.FC = () => {
       <Routes>
         <Route path="/Login" element={<LogInPage />} />
         <Route path="/Register" element={<RegisterPage />} />
-        <Route path="/CowDogPage" element={<CowDogPage />} />
-        {/* <Route path="/sub/teamSetting" element={<TeamSettingPage />} /> */}
+        <Route
+          path="/CowDogPage"
+          element={
+            <LoginUserRouter>
+              <CowDogPage />
+            </LoginUserRouter>
+          }
+        />
+        <Route
+          path="/teamSetting"
+          element={
+            <LoginUserRouter>
+              <TeamSettingPage />
+            </LoginUserRouter>
+          }
+        />
         {/* <Route path="/sub/mypage" element={<MyPage />} /> */}
         {/* <Route path="/sub/chatList" element={<ChatListPage />} /> */}
         {/* <Route path="/sub/Request" element={<RequestPage />} /> */}

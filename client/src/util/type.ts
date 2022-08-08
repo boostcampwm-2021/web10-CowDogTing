@@ -11,7 +11,7 @@ export type ImageDivType = {
 };
 
 export type ChildrenType = {
-  children?: JSX.Element | JSX.Element[];
+  children?: React.ReactNode;
 };
 
 export type InputLabelType = {

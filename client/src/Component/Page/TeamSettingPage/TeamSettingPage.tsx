@@ -2,15 +2,13 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { TeamSettingTemplate } from "@Template/TeamSettingTemplate";
-import TeamCreatePage from "../TeamCreatepage/TeamCreatePage";
 import { userState } from "@Recoil/UserData";
-import { checkLogin, passToLoginPage } from "../../../Util";
+import { checkLogin, passToLoginPage } from "@Util/.";
+import TeamCreatePage from "../TeamCreatepage/TeamCreatePage";
 
 export const TeamSettingPage: React.FC = () => {
   const { gid } = useRecoilValue(userState);
-  if (!checkLogin()) {
-    passToLoginPage();
-  }
 
-  return <>{gid && gid !== 0 ? <TeamSettingTemplate /> : <TeamCreatePage />}</>;
+  if (gid && gid !== 0) return <TeamSettingTemplate />;
+  return <TeamCreatePage />;
 };
