@@ -2,10 +2,36 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
+import { ImageDiv, Button } from "@Atom/.";
+import { MainBodyRightButtonContainer } from "@Molecules/.";
 import meetingImage from "../../assets/meetingImage.png";
-import { Button } from "../../Atom/Button";
-import { ImageDiv } from "../../Atom/ImageDiv";
-import MainBodyRightButtonContainer from "../../Molecules/MainPage/MainBodyRightButtonContainer";
+
+export const MainBodyRight = () => {
+  return (
+    <div css={mainBodyRightStyle}>
+      {list.map((item) => (
+        <ImageDiv type={item.type} image={meetingImage}>
+          <MainBodyRightButtonContainer>
+            <MainButton link={item.link} title={item.title} />
+          </MainBodyRightButtonContainer>
+        </ImageDiv>
+      ))}
+    </div>
+  );
+};
+
+const MainButton = ({ link, title }: { link?: string | undefined; title: string }) => {
+  if (!link) return <Button type="Medium">{title}</Button>;
+  return (
+    <Link to={link}>
+      <Button type="Medium">{title}</Button>
+    </Link>
+  );
+};
+
+MainButton.defaultProps = {
+  link: undefined,
+};
 
 const mainBodyRightStyle = css`
   position: relative;
@@ -22,30 +48,3 @@ const list = [
   { type: "left-long", title: "공지사항" },
   { type: "short", title: "문의사항" },
 ];
-
-export default function MainBodyRight() {
-  return (
-    <div css={mainBodyRightStyle}>
-      {list.map((item) => (
-        <ImageDiv type={item.type} image={meetingImage}>
-          <MainBodyRightButtonContainer>
-            <MainButton link={item.link} title={item.title} />
-          </MainBodyRightButtonContainer>
-        </ImageDiv>
-      ))}
-    </div>
-  );
-}
-
-function MainButton({ link, title }: { link?: string | undefined; title: string }) {
-  if (!link) return <Button type="Medium">{title}</Button>;
-  return (
-    <Link to={link}>
-      <Button type="Medium">{title}</Button>
-    </Link>
-  );
-}
-
-MainButton.defaultProps = {
-  link: undefined,
-};

@@ -1,7 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import { ChildrenType } from "../../../Util/type";
+import { ChildrenType } from "@Util/type";
+
+export const MainBodyRightButtonContainer: React.FC<ChildrenType> = ({ children }) => {
+  return <div css={mainBodyRightButtonContainerStyle}>{children}</div>;
+};
 
 const mainBodyRightButtonContainerStyle = css`
   display: none;
@@ -14,9 +18,3 @@ const mainBodyRightButtonContainerStyle = css`
   justify-content: center;
   align-items: center;
 `;
-
-function MainBodyRightButtonContainer({ children }: ChildrenType) {
-  return <div css={mainBodyRightButtonContainerStyle}>{children}</div>;
-}
-
-export default MainBodyRightButtonContainer;

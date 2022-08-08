@@ -1,15 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import meetingImage from "../../assets/meetingImage.png";
-import { ImageDiv } from "../../Atom/ImageDiv";
-import MainBodyLeftButtonContainer from "../../Molecules/MainPage/MainBodyLeftButtonContainer";
+import { ImageDiv } from "@Atom/.";
+import { MainBodyLeftButtonContainer } from "@Molecules/.";
 
-function MainBodyLeft() {
+export const MainBodyLeft = () => {
   return (
     <ImageDiv type="big" image={meetingImage}>
       <MainBodyLeftButtonContainer />
     </ImageDiv>
   );
-}
-
-export default MainBodyLeft;
+};
