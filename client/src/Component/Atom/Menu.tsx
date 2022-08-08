@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+
 const MenuImg = "/Asset/Menu.png";
 const MenuStyle = css`
   width: 71px;
@@ -8,15 +9,11 @@ const MenuStyle = css`
 const buttonStyle = css`
   background: none;
 `;
-interface MenuProps {
-  onClick: () => void;
-}
+type MenuProps = { onClick: () => void };
 export const Menu = ({ onClick }: MenuProps) => {
   return (
-    <>
-      <button type="button" css={buttonStyle} onClick={onClick}>
-        <img src={MenuImg} alt="Menu" css={MenuStyle} />
-      </button>
-    </>
+    <button type="button" css={buttonStyle} onClick={onClick}>
+      <img src={MenuImg} alt="Menu" css={MenuStyle} />
+    </button>
   );
 };

@@ -1,7 +1,10 @@
 import React from "react";
 import { css } from "@emotion/react";
+
 const userIcon = "/Asset/userIcon.svg";
+
 type UserIconProps = { onClick: () => void };
+
 export const UserIcon: React.FC<UserIconProps> = ({ onClick }) => {
   return (
     <button type="button" onClick={onClick} css={buttonStyle}>
