@@ -23,8 +23,8 @@ const LinkList = [
 export const MainBodyLeftButtonContainer = () => {
   return (
     <div css={mainBodyLeftButtonContainerStyle}>
-      {LinkList.map((menu) => (
-        <LinkButton url={menu.link} type="Medium" content={menu.name} />
+      {LinkList.map((menu, i) => (
+        <LinkButton key={i} url={menu.link} type="Medium" content={menu.name} />
       ))}
     </div>
   );
