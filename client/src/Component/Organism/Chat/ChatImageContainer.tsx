@@ -27,7 +27,7 @@ const ChatImageContainerStyle = css`
   justify-content: space-evenly;
 `;
 
-function ChatImageContainer({ profileRef }: ChatImageContainerType) {
+export const ChatImageContainer = ({ profileRef }: ChatImageContainerType) => {
   const { member } = useRecoilValue(chatTarget);
   const { id: myId } = useRecoilValue(userState);
   const navigate = useNavigate();
@@ -47,6 +47,4 @@ function ChatImageContainer({ profileRef }: ChatImageContainerType) {
       <Button onClick={handleCloseRoomClick}>나가기</Button>
     </ChatListHeader>
   );
-}
-
-export default ChatImageContainer;
+};

@@ -3,11 +3,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
-import { chatTarget } from "../../../Recoil/Atom";
+import { chatTarget } from "@Recoil/Atom";
 import { joinChatRoomState } from "@Recoil/ChatData";
-import { changeNotReadToRead, getChatMessage } from "../../../Util/data";
+import { changeNotReadToRead, getChatMessage } from "@Util/data";
 import { Chats } from "@Molecules/.";
-import { joinChatType } from "../../../Util/type";
+import { joinChatType } from "@Util/type";
 
 const ChatContainerStyle = css`
   width: 100%;
@@ -15,7 +15,7 @@ const ChatContainerStyle = css`
   padding: 10px 20px 0;
   overflow: auto;
 `;
-export default function ChatDetail() {
+export const ChatDetail = () => {
   const [chatInfo, setChatInfo] = useRecoilState(chatTarget);
   const { chatRoomId, chatMessage: chats } = chatInfo;
   const setJoinChatInfo = useSetRecoilState(joinChatRoomState);
@@ -94,4 +94,4 @@ export default function ChatDetail() {
       <Chats />
     </div>
   );
-}
+};

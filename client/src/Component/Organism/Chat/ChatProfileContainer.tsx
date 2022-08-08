@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { css } from "@emotion/react";
 import { ChatProfileContainerType } from "@Util/type";
-import ChatProfile from "./ChatProfile";
+import { ChatProfile } from "./ChatProfile";
 import { NotReadNum } from "@Molecules/.";
 
 const ChatProfileContainerStyle = css`
@@ -16,7 +16,7 @@ const ChatProfileContainerStyle = css`
   overflow: auto;
 `;
 
-function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileContainerType) {
+export const ChatProfileContainer = ({ chatsInfo, setClickedRoomIndex }: ChatProfileContainerType) => {
   const chatRoomRef = useRef<HTMLDivElement[]>([]);
 
   const profileClickEvent = (e: React.MouseEvent) => {
@@ -53,6 +53,4 @@ function ChatProfileContainer({ chatsInfo, setClickedRoomIndex }: ChatProfileCon
       })}
     </div>
   );
-}
-
-export default ChatProfileContainer;
+};

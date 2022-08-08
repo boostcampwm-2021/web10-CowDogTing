@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { errorState } from "@Recoil/Atom";
 import { changeTeamInfo, exitTeam } from "@Util/data";
 import { TeamSettingButtonContainer } from "@Molecules/.";
-import TeamInfo from "@Organism/Info/TeamInfo";
+import { TeamInfo } from "@Organism/.";
 import { ProfileList } from "./Profile/ProfileList";
 import { teamState } from "@Recoil/TeamData";
 import { userState } from "@Recoil/UserData";

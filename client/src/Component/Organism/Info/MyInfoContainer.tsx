@@ -28,7 +28,7 @@ const MyInfoContainerStyle = css`
     height: 60vh;
   }
 `;
-export default function MyInfoContainer() {
+export const MyInfoContainer = () => {
   const [myInfo, setMyInfo] = useRecoilState(userState);
   const { id, location, age, info } = myInfo;
   const setErrorValue = useSetRecoilState(errorState);
@@ -77,4 +77,4 @@ export default function MyInfoContainer() {
       </div>
     </>
   );
-}
+};

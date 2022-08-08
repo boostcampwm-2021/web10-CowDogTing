@@ -11,7 +11,8 @@ const LabelStyle = css`
   width: 90%;
 `;
 
-export default function TeamInfoContainer({ teamNameRef, teamInfoRef, setLocSelected }: { teamNameRef: RefObject<HTMLInputElement>; teamInfoRef: RefObject<HTMLInputElement>; setLocSelected: (value: string) => void }) {
+type props = { teamNameRef: RefObject<HTMLInputElement>; teamInfoRef: RefObject<HTMLInputElement>; setLocSelected: (value: string) => void };
+export const TeamInfoContainer = ({ teamNameRef, teamInfoRef, setLocSelected }: props) => {
   const { id, info } = useRecoilValue(teamState);
 
   return (
@@ -24,4 +25,4 @@ export default function TeamInfoContainer({ teamNameRef, teamInfoRef, setLocSele
       </div>
     </InfoContainer>
   );
-}
+};

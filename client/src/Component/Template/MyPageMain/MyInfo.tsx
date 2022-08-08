@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { InfoImageContainer } from "@Hoc/.";
-import MyInfoContainer from "../../Organism/Info/MyInfoContainer";
+import { MyInfoContainer } from "@Organism/.";
 
 const MyInfoStyle = css`
   padding-left: 50px;

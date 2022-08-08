@@ -4,7 +4,7 @@ import { useSetRecoilState } from "recoil";
 import { createTeam, getFetch } from "@Util/data";
 import { errorState } from "@Recoil/Atom";
 import { checkLogin, passToLoginPage } from "@Util/.";
-import TeamInfo from "@Organism/Info/TeamInfo";
+import { TeamInfo } from "@Organism/.";
 import { TeamCreateButtonContainer } from "@Molecules/.";
 import { TEAM_INFO_URL } from "@Util/URL";
 import { userState } from "@Recoil/UserData";

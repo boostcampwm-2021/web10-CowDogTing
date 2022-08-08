@@ -1,7 +1,6 @@
 import { useRef } from "react";
-import useModalCloseEvent from "../../../Hook/useModalCloseEvent";
-import ChatListContainer from "../../Organism/Chat/ChatListContainer";
-import ChatProfileContainer from "../../Organism/Chat/ChatProfileContainer";
+import useModalCloseEvent from "@Hook/useModalCloseEvent";
+import { ChatProfileContainer, ChatListContainer } from "@Organism/.";
 import { ProfileModal } from "../Modal/ProfileModal";
 import { useGetModalData, useToggleModal } from "./ChatListTemplate.hook";
 import { ChatListTemplateStyle } from "./ChatListTemplate.style";

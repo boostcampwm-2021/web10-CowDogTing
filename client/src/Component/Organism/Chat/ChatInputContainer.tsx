@@ -10,7 +10,6 @@ const ChatInputContainerStyle = css`
   justify-content: space-around;
 `;
 
-function ChatInputContainer({ children }: ChildrenType) {
+export const ChatInputContainer = ({ children }: ChildrenType) => {
   return <div css={ChatInputContainerStyle}>{children}</div>;
-}
-export default ChatInputContainer;
+};
