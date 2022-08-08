@@ -23,7 +23,7 @@ const ButtonContainerStyle = css`
   margin-right: 10%;
 `;
 
-export default function ChatRoomGame() {
+export const ChatRoomGame = () => {
   const searchParams = new URLSearchParams(useLocation().search);
   const index = Number(searchParams.get("index"));
 
@@ -35,4 +35,4 @@ export default function ChatRoomGame() {
       </div>
     </>
   );
-}
+};

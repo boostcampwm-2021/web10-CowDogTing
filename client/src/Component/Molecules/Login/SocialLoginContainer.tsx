@@ -10,7 +10,7 @@ const SocialLoginButtonContainerStyle = css`
     margin: 10px 0;
   }
 `;
-export default function SocialLoginContainer() {
+export const SocialLoginContainer = () => {
   return (
     <div css={SocialLoginButtonContainerStyle}>
       <a href={`${SOCIAL_NAVER_LOGIN}`}>
@@ -30,4 +30,4 @@ export default function SocialLoginContainer() {
       </a>
     </div>
   );
-}
+};

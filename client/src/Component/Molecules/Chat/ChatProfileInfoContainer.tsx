@@ -16,13 +16,11 @@ const ChatProfileTextStyle = css`
   font-weight: bold;
 `;
 
-function ChatProfileInfoContainer({ lastChat, from }: ChatListInfoType) {
+export const ChatProfileInfoContainer = ({ lastChat, from }: ChatListInfoType) => {
   return (
     <div css={ChatProfileInfoContainerStyle}>
       <p css={ChatProfileTextStyle}>{from}</p>
       <p css={ChatProfileTextStyle}>{lastChat}</p>
     </div>
   );
-}
-
-export default ChatProfileInfoContainer;
+};

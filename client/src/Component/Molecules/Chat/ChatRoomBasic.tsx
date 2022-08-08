@@ -89,7 +89,7 @@ const GameRoomStyle = css`
   position: absolute;
 `;
 
-export default function ChatRoomBasic({ type }: { type: string }) {
+export const ChatRoomBasic = ({ type }: { type: string }) => {
   const { chatRoomId } = useRecoilValue(chatTarget);
   const { id } = useRecoilValue(userState);
   const [users, setUsers] = useState<Array<IWebRTCUser>>([]);
@@ -179,4 +179,4 @@ export default function ChatRoomBasic({ type }: { type: string }) {
       </div>
     </div>
   );
-}
+};

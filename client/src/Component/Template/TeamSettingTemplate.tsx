@@ -1,11 +1,13 @@
 import React, { MouseEventHandler, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
-import { errorState, teamState, userState } from "../../Recoil/Atom";
-import { changeTeamInfo, exitTeam } from "../../Util/data";
-import TeamSettingButtonContainer from "../Molecules/Team/TeamSettingButtonContainer";
-import TeamInfo from "../Organism/Info/TeamInfo";
+import { errorState } from "@Recoil/Atom";
+import { changeTeamInfo, exitTeam } from "@Util/data";
+import { TeamSettingButtonContainer } from "@Molecules/.";
+import TeamInfo from "@Organism/Info/TeamInfo";
 import { ProfileList } from "./Profile/ProfileList";
+import { teamState } from "@Recoil/TeamData";
+import { userState } from "@Recoil/UserData";
 
 const TeamSettingTemPlateStyle = css`
   display: flex;

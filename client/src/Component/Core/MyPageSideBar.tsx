@@ -22,7 +22,7 @@ const SideBarList = [
   { menu: "나의 문의사항 보기", link: "question" },
   { menu: "리뷰 보기", link: "review" },
 ];
-export default function MyPageSideBar() {
+export const MyPageSideBar = () => {
   return (
     <div css={SideBarStyle}>
       {SideBarList.map((el) => (
@@ -30,4 +30,4 @@ export default function MyPageSideBar() {
       ))}
     </div>
   );
-}
+};

@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { SearchIcon, Input } from "@Atom/.";
 import { DropDown } from "@Core/.";
 import useModalCloseEvent from "@Hook/useModalCloseEvent";
-import NavBarComponent from "./NavBarComponent";
+import { NavBarComponent } from "./NavBarComponent";
 
 const NavbarStyle = css`
   width: 100vw;
@@ -39,7 +39,7 @@ const list = [
   { id: "Sex", name: "성별" },
 ];
 
-export default function Navbar({ setCategory }: { setCategory: Function }) {
+export const Navbar = ({ setCategory }: { setCategory: Function }) => {
   const [dropDownToggle, setDropDownToggle] = useState("");
 
   const navBarRef = useRef<HTMLDivElement[]>([]);
@@ -80,4 +80,4 @@ export default function Navbar({ setCategory }: { setCategory: Function }) {
       </div>
     </>
   );
-}
+};

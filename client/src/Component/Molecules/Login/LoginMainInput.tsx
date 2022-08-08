@@ -8,7 +8,8 @@ const titleStyle = css`
   margin-bottom: 20px;
 `;
 
-export default function LoginMainInput({ idRef, pwRef }: { idRef: RefObject<HTMLInputElement>; pwRef: RefObject<HTMLInputElement> }) {
+type props = { idRef: RefObject<HTMLInputElement>; pwRef: RefObject<HTMLInputElement> };
+export const LoginMainInput = ({ idRef, pwRef }: props) => {
   return (
     <>
       <div css={titleStyle}>Sign in</div>
@@ -16,4 +17,4 @@ export default function LoginMainInput({ idRef, pwRef }: { idRef: RefObject<HTML
       <Input ref={pwRef} placeholder="PW" type="password" autoComplete="off" />
     </>
   );
-}
+};

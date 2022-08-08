@@ -39,7 +39,7 @@ const RightButton = (props: { visiable: boolean }) => css`
   ${props.visiable && { visibility: "hidden" }};
 `;
 
-export default function LargeModal({ index, children, length, decreaseIndex, inCreaseIndex }: LargeModalType) {
+export const LargeModal = ({ index, children, length, decreaseIndex, inCreaseIndex }: LargeModalType) => {
   const inCrease = (e: React.MouseEvent<HTMLElement>): void => inCreaseIndex(e);
   const decrease = (e: React.MouseEvent<HTMLElement>): void => decreaseIndex(e);
 
@@ -53,4 +53,4 @@ export default function LargeModal({ index, children, length, decreaseIndex, inC
       {children[1]}
     </Modal>
   );
-}
+};

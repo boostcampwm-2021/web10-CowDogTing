@@ -1,12 +1,14 @@
 import React, { MouseEventHandler, useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
-import { createTeam, getFetch } from "../../../Util/data";
-import { errorState, teamState, userState } from "../../../Recoil/Atom";
-import { checkLogin, passToLoginPage } from "../../../Util";
-import TeamInfo from "../../Organism/Info/TeamInfo";
-import TeamCreateButtonContainer from "../../Molecules/Team/TeamCreateButtonContainer";
-import { TEAM_INFO_URL } from "../../../Util/URL";
+import { createTeam, getFetch } from "@Util/data";
+import { errorState } from "@Recoil/Atom";
+import { checkLogin, passToLoginPage } from "@Util/.";
+import TeamInfo from "@Organism/Info/TeamInfo";
+import { TeamCreateButtonContainer } from "@Molecules/.";
+import { TEAM_INFO_URL } from "@Util/URL";
+import { userState } from "@Recoil/UserData";
+import { teamState } from "@Recoil/TeamData";
 
 const TeamCreatePageStyle = css`
   position: relative;

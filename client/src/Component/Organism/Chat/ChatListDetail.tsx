@@ -1,10 +1,10 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import ChatInput from "../../Molecules/Chat/ChatInput";
+import { ChatInput } from "@Molecules/Chat/ChatInput";
 import { LinkButton } from "@Core/LinkButton";
 import ChatDetail from "./ChatDetail";
 import ChatInputContainer from "./ChatInputContainer";
-import { chatTarget } from "../../../Recoil/Atom";
+import { chatTarget } from "@Recoil/Atom";
 
 export default function ChatListDetail() {
   const { chatRoomId } = useRecoilValue(chatTarget);

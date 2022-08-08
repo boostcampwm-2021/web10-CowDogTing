@@ -6,7 +6,8 @@ const list = [
   { id: "Sex", name: "성별" },
 ];
 
-export default function NavBarComponent({ navBarRef }: { navBarRef: React.MutableRefObject<HTMLDivElement[]> }) {
+type props = { navBarRef: React.MutableRefObject<HTMLDivElement[]> };
+export const NavBarComponent = ({ navBarRef }: props) => {
   return (
     <>
       {list.map((item, idx) => {
@@ -19,4 +20,4 @@ export default function NavBarComponent({ navBarRef }: { navBarRef: React.Mutabl
       })}
     </>
   );
-}
+};

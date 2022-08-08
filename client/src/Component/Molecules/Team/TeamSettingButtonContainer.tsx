@@ -4,7 +4,8 @@ import useDropDownCloseEvent from "@Hook/useDropDownCloseEvent";
 import { TeamButtonContainer } from "@Hoc/.";
 import InviteModal from "../../Template/Modal/InviteModal";
 
-export default function TeamSettingButtonContainer({ clickUpdateButton, clickExitButton }: { clickUpdateButton: React.MouseEventHandler; clickExitButton: React.MouseEventHandler }) {
+type props = { clickUpdateButton: React.MouseEventHandler; clickExitButton: React.MouseEventHandler };
+export const TeamSettingButtonContainer = ({ clickUpdateButton, clickExitButton }: props) => {
   const [inviteModalState, setInviteModalState] = useState(false);
   const modalRef = useRef<HTMLInputElement>(null);
   useDropDownCloseEvent(modalRef, () => setInviteModalState(false));
@@ -30,4 +31,4 @@ export default function TeamSettingButtonContainer({ clickUpdateButton, clickExi
       </Button>
     </TeamButtonContainer>
   );
-}
+};

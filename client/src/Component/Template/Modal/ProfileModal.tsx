@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 import React from "react";
-import { Button } from "@Atom/Button";
-import ProfileInfo from "@Atom/ProfileInfo";
-import LargeModal from "@Core/LargeModal";
+import { ProfileInfo, Button } from "@Atom/.";
+import { LargeModal } from "@Core/.";
 import { RequestModal } from "./RequestModal";
 import { useDataIndex, useRequestDate } from "./ProfileModal.hook";
 

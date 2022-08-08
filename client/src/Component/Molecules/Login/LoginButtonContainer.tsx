@@ -7,7 +7,7 @@ const ButtonContainerStyle = css`
   justify-content: space-between;
   align-items: center;
 `;
-export default function LoginButtonContainer({ onClick }: { onClick: () => Promise<void> }) {
+export const LoginButtonContainer = ({ onClick }: { onClick: () => Promise<void> }) => {
   return (
     <div css={ButtonContainerStyle}>
       <Link to="/sub/Register">
@@ -18,4 +18,4 @@ export default function LoginButtonContainer({ onClick }: { onClick: () => Promi
       </Button>
     </div>
   );
-}
+};

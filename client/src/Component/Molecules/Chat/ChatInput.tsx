@@ -43,7 +43,7 @@ const ImageInputStlye = css`
   display: none;
 `;
 
-export default function ChatInput() {
+export const ChatInput = () => {
   const { chatRoomId } = useRecoilValue(chatTarget);
   const { id: uid } = useRecoilValue(userState);
 
@@ -84,4 +84,4 @@ export default function ChatInput() {
       <input ref={imageInputTag} type="file" accept="image/*" css={ImageInputStlye} onChange={changeImage} />
     </div>
   );
-}
+};

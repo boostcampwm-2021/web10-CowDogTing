@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router-dom";
-import Navbar from "@Core/Navbar";
-import { ProfileList } from "../../Template/Profile/ProfileList";
-import { ProfileModal } from "../../Template/Modal/ProfileModal";
-import useModalCloseEvent from "../../../Hook/useModalCloseEvent";
-import { cowDogState, profileModalDatas } from "../../../Recoil/Atom";
-import { getCowDogInfo } from "../../../Util/data";
-import { checkLogin, makeCategory, passToLoginPage } from "../../../Util";
+import { Navbar } from "@Core/.";
+import { ProfileList } from "@Template/Profile/ProfileList";
+import { ProfileModal } from "@Template/Modal/ProfileModal";
+import useModalCloseEvent from "@Hook/useModalCloseEvent";
+import { cowDogState, profileModalDatas } from "@Recoil/Atom";
+import { getCowDogInfo } from "@Util/data";
+import { checkLogin, makeCategory, passToLoginPage } from "@Util/.";
 
 const ListContainer = css`
   margin: 0 auto;

@@ -17,7 +17,7 @@ const FooterStyle = css`
     display: block;
   }
 `;
-export default function Footer() {
+export const Footer = () => {
   const [chatDropDown, setChatDropDown] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
 
@@ -32,4 +32,4 @@ export default function Footer() {
       <ChatIcon onClick={() => (checkLogin() ? ToggleChatDropDown() : passToLoginPage())} />
     </div>
   );
-}
+};

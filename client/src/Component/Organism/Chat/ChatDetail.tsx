@@ -6,7 +6,7 @@ import { css } from "@emotion/react";
 import { chatTarget } from "../../../Recoil/Atom";
 import { joinChatRoomState } from "@Recoil/ChatData";
 import { changeNotReadToRead, getChatMessage } from "../../../Util/data";
-import Chats from "../../Molecules/Chat/Chats";
+import { Chats } from "@Molecules/.";
 import { joinChatType } from "../../../Util/type";
 
 const ChatContainerStyle = css`

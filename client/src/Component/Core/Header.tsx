@@ -22,7 +22,7 @@ const HeaderStyle = css`
   }
 `;
 
-export default function Header() {
+export const Header = () => {
   const serarchParams = new URLSearchParams(useLocation().search);
   const person = Number(serarchParams.get("person"));
 
@@ -78,4 +78,4 @@ export default function Header() {
       )}
     </div>
   );
-}
+};
