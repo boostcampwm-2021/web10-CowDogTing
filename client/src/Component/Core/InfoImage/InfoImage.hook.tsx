@@ -10,17 +10,8 @@ export const useHandleImageEdit = (checkPathName: boolean) => {
   const setTeamInfo = useSetRecoilState(teamState);
 
   const handleImageEdit = (imageFile: Blob) => async () => {
-    let targetId;
-    let handler;
-
-    if (checkPathName) {
-      targetId = id;
-      handler = setUserInfo;
-    } else {
-      targetId = String(gid);
-      handler = setTeamInfo;
-    }
-
+    const targetId = checkPathName ? id : String(gid);
+    const handler = checkPathName ? setUserInfo : setTeamInfo;
     const url = await postImage(imageFile, targetId);
 
     handler((prev: any) => ({
