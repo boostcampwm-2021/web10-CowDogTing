@@ -11,9 +11,9 @@ export const LoginButtonContainer = ({ onClick }: { onClick: () => Promise<void>
   return (
     <div css={ButtonContainerStyle}>
       <Link to="/sub/Register">
-        <Button type="Small">회원가입</Button>
+        <Button size="Small">회원가입</Button>
       </Link>
-      <Button type="Small" onClick={onClick}>
+      <Button size="Small" onClick={onClick}>
         로그인
       </Button>
     </div>

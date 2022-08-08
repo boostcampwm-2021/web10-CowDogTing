@@ -1,17 +1,12 @@
-/* eslint-disable no-extra-boolean-cast */
-/* eslint-disable no-return-assign */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable use-isnan */
-/* eslint-disable no-console */
-/* eslint-disable no-alert */
-
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
 import { Input, Button } from "@Atom/.";
 import { checkIdValidation, registerUser } from "@Util/data";
-import { registerInfo } from "@Util/type";
+import { ErrorType, registerInfo } from "@Util/type";
 import { errorState } from "@Recoil/Atom";
+import { useMovePage } from "@Hook/useMovePage";
+import { useCheckDoublePassword, useRegisterRefsHook } from "./RegisterPage.hook";
 
 const RegisterContainerStyle = css`
   width: 450px;
@@ -50,140 +45,175 @@ const InfoStyle = css`
 `;
 
 export const RegisterPage: React.FC = () => {
-  const [firstPassword, setFirstPassword] = useState<string>("");
-  const [secondPassword, setSecondPassword] = useState<string>("");
-  const [passwordCheck, setPasswordCheck] = useState<boolean>(true);
-
   const [locSelected, setLocSelected] = useState<string>("");
   const [sexSelected, setSexSelected] = useState<string>("");
   const [idValidation, setIdValidation] = useState(false);
 
-  const refArray = useRef<HTMLInputElement[]>([]);
+  const { idRef, pwRef, ageRef, infoRef, getRefValue } = useRegisterRefsHook();
+  const { secondPwRef, passwordCheck } = useCheckDoublePassword(pwRef);
   const setErrorValue = useSetRecoilState(errorState);
+  const [goHome] = useMovePage("/");
 
-  const checkInput = ({ id, pw, location, age, sex, info }: registerInfo): boolean => {
-    if (!id || !pw || !location || age === NaN || !sex || !info) {
-      alert("모든 입력값을 제대로 입력해 주십시오.");
-      return false;
-    }
-    return true;
-  };
-  const clickRegister = async () => {
-    if (!idValidation) {
-      setErrorValue({ errorStr: "아이디 중복체크가 필요합니다.", timeOut: 1000 });
-      return;
-    }
-    if (!refArray.current[0] || !refArray.current[1] || !refArray.current[2] || !refArray.current[3] || !locSelected || !sexSelected) return;
+  const getValues = () => ({
+    ...getRefValue(),
+    location: locSelected,
+    sex: sexSelected === "남성" ? "male" : "female",
+  });
 
-    const id = refArray.current[0].value;
-    const pw = refArray.current[1].value;
-    const loc = locSelected;
-    const sex = sexSelected === "남성" ? "male" : "female";
-    const age = refArray.current[2].value;
-    const info = refArray.current[3].value;
+  const clickRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const bool = checkIdValidationCheck(idValidation, setErrorValue);
+    if (!bool) return;
 
-    if (!Number(age)) {
-      setErrorValue({ errorStr: "나이는 숫자만 입력해주세요.", timeOut: 1000 });
+    const { id, pw, age, info, location, sex } = getValues();
+
+    const { value, err } = checkInput({ id, pw, location, age: Number(age), sex, info });
+    if (!value) {
+      setErrorValue({ errorStr: err, timeOut: 1000 });
       return;
     }
 
-    const check = checkInput({ id, pw, location: loc, age: Number(age), sex, info });
-    if (!check) {
-      setErrorValue({ errorStr: "모든 입력을 확인해 주세요", timeOut: 1000 });
-      return;
-    }
-    const result = await registerUser({ id, pw, location: loc, age: Number(age), sex, info });
+    const result = await registerUser({ id, pw, location, age: Number(age), sex, info });
     if (result === "error") {
-      if (!check) {
-        setErrorValue({ errorStr: "회원 가입에 실패했습니다", timeOut: 1000 });
-        return;
-      }
+      setErrorValue({ errorStr: "회원 가입에 실패했습니다", timeOut: 1000 });
+      return;
     }
-    window.location.href = "/";
+    goHome();
   };
 
-  const handleIdValidation = async () => {
-    const uid = refArray.current[0].value;
-    const result = await checkIdValidation(uid);
+  const handleIdValidation = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    const { id } = getRefValue();
+    const result = await checkIdValidation(id);
     if (!result) setErrorValue({ errorStr: "중복된 아이디입니다.", timeOut: 1000 });
     setIdValidation(result);
   };
 
   return (
-    <>
-      <div css={RegisterContainerStyle}>
-        <div>ID</div>
-        <div css={IdContainerStyle}>
-          <Input ref={(el) => (refArray.current[0] = el as HTMLInputElement)} placeholder="ID" autoComplete="off" />
-          <Button type="Small" onClick={handleIdValidation}>
-            {" "}
-            중복 체크{" "}
-          </Button>
-        </div>
-        <div>Password</div>
-        <Input
-          ref={(el) => (refArray.current[1] = el as HTMLInputElement)}
-          placeholder="Password"
-          type="password"
-          autoComplete="off"
-          value={firstPassword}
-          onChange={(e) => {
-            setFirstPassword(e.target.value);
-          }}
-          onKeyUp={() => setPasswordCheck(firstPassword === secondPassword)}
-        />
-        <div css={passwordCheckContainerStyle}>
-          <div>Password Check</div>
-          {!passwordCheck && <div css={checkPasswordStyle}>패스워드가 다릅니다.</div>}
-        </div>
-        <Input
-          placeholder="PW"
-          type="password"
-          autoComplete="off"
-          value={secondPassword}
-          onChange={(e) => {
-            setSecondPassword(e.target.value);
-          }}
-          onKeyUp={() => setPasswordCheck(firstPassword === secondPassword)}
-        />
-        <div>Location</div>
-        {/* <select css={InfoStyle} onChange={(e) => setLocSelected(e.target.value)}>
-          <option selected value="" disabled>
-            거주지를 선택해주세요.
-          </option>
-          <option value="서울">서울</option>
-          <option value="경기">경기</option>
-          <option value="인천">인천</option>
-          <option value="대구">대구</option>
-          <option value="대전">대전</option>
-          <option value="광주">광주</option>
-          <option value="부산">부산</option>
-          <option value="울산">울산</option>
-        </select> */}
-        <div>Age</div>
-        <Input ref={(el) => (refArray.current[2] = el as HTMLInputElement)} placeholder="Age" autoComplete="off" />
-        <div>Sex</div>
-        <div css={InfoStyle}>
-          <div>
-            <label htmlFor="male">남성</label>
-            <input id="male" type="radio" value="남성" name="sex" onChange={(e) => setSexSelected(e.target.value)} />
-          </div>
-          <div>
-            <label htmlFor="female">여성</label>
-            <input id="female" type="radio" value="여성" name="sex" onChange={(e) => setSexSelected(e.target.value)} />
-          </div>
-          <div>
-            <label htmlFor="female">기타</label>
-            <input id="etc" type="radio" value="기타" name="sex" onChange={(e) => setSexSelected(e.target.value)} />
-          </div>
-        </div>
-        <div>Introduce</div>
-        <Input ref={(el) => (refArray.current[3] = el as HTMLInputElement)} placeholder="Introduce" autoComplete="off" />
-        <Button type="Long" onClick={clickRegister}>
-          {" "}
-          회원가입{" "}
+    <form css={RegisterContainerStyle} onSubmit={clickRegister}>
+      <div>ID</div>
+      <form css={IdContainerStyle}>
+        <Input ref={idRef} placeholder="ID" autoComplete="off" />
+        <Button size="Small" onClick={handleIdValidation}>
+          중복 체크
         </Button>
+      </form>
+
+      <div>Password</div>
+      <Input ref={pwRef} placeholder="Password" type="password" autoComplete="off" />
+
+      <div css={passwordCheckContainerStyle}>
+        <div>Password Check</div>
+        {!passwordCheck && <div css={checkPasswordStyle}>패스워드가 다릅니다.</div>}
       </div>
-    </>
+      <Input ref={secondPwRef} placeholder="PW" type="password" autoComplete="off" />
+
+      <div>Location</div>
+      <select css={InfoStyle} onChange={(e) => setLocSelected(e.target.value)}>
+        <option selected value="" disabled>
+          거주지를 선택해주세요.
+        </option>
+        {regionList.map(({ value, id }) => (
+          <option key={id} value={value}>
+            {value}
+          </option>
+        ))}
+      </select>
+
+      <div>Age</div>
+      <Input ref={ageRef} placeholder="Age" autoComplete="off" />
+
+      <div>Sex</div>
+      <div css={InfoStyle}>
+        {sexList.map(({ id, value }) => (
+          <div key={id}>
+            <label htmlFor="id">
+              {value}
+              <input id={id} type="radio" value={value} name="sex" onChange={(e) => setSexSelected(e.target.value)} />
+            </label>
+          </div>
+        ))}
+      </div>
+
+      <div>Introduce</div>
+      <Input ref={infoRef} placeholder="Introduce" autoComplete="off" />
+
+      <Button size="Long" type="submit">
+        회원가입
+      </Button>
+    </form>
   );
 };
+
+const checkIdValidationCheck = (idValidation: boolean, setErrorValue: (valOrUpdater: ErrorType | ((currVal: ErrorType) => ErrorType)) => void) => {
+  if (!idValidation) setErrorValue({ errorStr: "아이디 중복체크가 필요합니다.", timeOut: 1000 });
+  return idValidation;
+};
+
+type checkInputFuncType = (props: registerInfo) => {
+  value: boolean;
+  err: string;
+};
+const checkInput: checkInputFuncType = ({ id, pw, location, age, sex, info }) => {
+  if (!Number(age)) {
+    return {
+      value: false,
+      err: "나이는 숫자만 입력해주세요.",
+    };
+  }
+  if (!id || !pw || !location || Number.isNaN(age) || !sex || !info) {
+    return {
+      value: false,
+      err: "모든 입력값을 제대로 입력해 주십시오.",
+    };
+  }
+  return {
+    value: true,
+    err: "",
+  };
+};
+
+const sexList = [
+  {
+    id: "male",
+    value: "남성",
+  },
+  {
+    id: "female",
+    value: "여성",
+  },
+  {
+    id: "etc",
+    value: "기타",
+  },
+];
+const regionList = [
+  {
+    value: "경기",
+    id: "경기",
+  },
+  {
+    value: "인천",
+    id: "인천",
+  },
+  {
+    value: "대구",
+    id: "대구",
+  },
+  {
+    value: "대전",
+    id: "대전",
+  },
+  {
+    value: "광주",
+    id: "광주",
+  },
+  {
+    value: "부산",
+    id: "부산",
+  },
+  {
+    value: "울산",
+    id: "울산",
+  },
+];

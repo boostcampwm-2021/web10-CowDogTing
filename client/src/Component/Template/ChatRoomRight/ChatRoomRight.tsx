@@ -23,7 +23,7 @@ export const ChatRoomRight = () => {
   return (
     <div style={{ width: "100%" }}>
       <div css={headerStyle}>
-        <Button type="Small" onClick={handleCloseRoomClick}>
+        <Button size="Small" onClick={handleCloseRoomClick}>
           나가기
         </Button>
       </div>

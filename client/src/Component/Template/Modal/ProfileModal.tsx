@@ -15,7 +15,7 @@ export const ProfileModal: React.FC = () => {
     <>
       <LargeModal index={index} length={datas?.length ?? 0} inCreaseIndex={inCreaseIndex} decreaseIndex={decreaseIndex}>
         <ProfileInfo data={target} />
-        <Button type="Large" onClick={handleRequestClick}>
+        <Button size="Large" onClick={handleRequestClick}>
           채팅 신청하기
         </Button>
       </LargeModal>

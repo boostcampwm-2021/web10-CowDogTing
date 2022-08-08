@@ -14,17 +14,17 @@ export const SocialLoginContainer = () => {
   return (
     <div css={SocialLoginButtonContainerStyle}>
       <a href={`${SOCIAL_NAVER_LOGIN}`}>
-        <Button type="Long" color="#2DB400">
+        <Button size="Long" color="#2DB400">
           Sign in with Naver
         </Button>
       </a>
       <a href={`${SOCIAL_GITHUB_LOGIN}`}>
-        <Button type="Long" color="#000000">
+        <Button size="Long" color="#000000">
           Sign in with Github
         </Button>
       </a>
       <a href={`${SOCIAL_KAKAO_LOGIN}`}>
-        <Button type="Long" color="#f3e84d">
+        <Button size="Long" color="#f3e84d">
           Sign in with Kakao
         </Button>
       </a>

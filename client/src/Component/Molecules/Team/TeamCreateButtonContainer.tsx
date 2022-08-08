@@ -7,7 +7,7 @@ export const TeamCreateButtonContainer = ({ clickCreateButton }: { clickCreateBu
   return (
     <TeamButtonContainer>
       <Link to="/sub/teamSetting">
-        <Button type="Medium" onClick={clickCreateButton}>
+        <Button size="Medium" onClick={clickCreateButton}>
           생성
         </Button>
       </Link>
