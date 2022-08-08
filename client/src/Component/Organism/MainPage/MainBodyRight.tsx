@@ -36,10 +36,10 @@ export const MainBodyRight = () => {
 };
 
 const MainButton = ({ link, title }: { link?: string | undefined; title: string }) => {
-  if (!link) return <Button type="Medium">{title}</Button>;
+  if (!link) return <Button size="Medium">{title}</Button>;
   return (
     <Link to={link}>
-      <Button type="Medium">{title}</Button>
+      <Button size="Medium">{title}</Button>
     </Link>
   );
 };

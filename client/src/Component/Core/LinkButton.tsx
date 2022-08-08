@@ -8,13 +8,13 @@ type props = LinkButtonType;
 export const LinkButton: React.FC<props> = ({ url, type, content, onClick, refProps, id }) => {
   if (!(url && url !== ""))
     return (
-      <Button type={type} onClick={onClick} ref={refProps} className={content === "로그아웃" ? "logout" : ""} data-id={id}>
+      <Button size={type} onClick={onClick} ref={refProps} className={content === "로그아웃" ? "logout" : ""} data-id={id}>
         {content}
       </Button>
     );
   return (
     <Link to={url}>
-      <Button type={type} onClick={onClick} ref={refProps}>
+      <Button size={type} onClick={onClick} ref={refProps}>
         {content}
       </Button>
       {content === "채팅 요청 목록" && <NotReadNum type="Total" />}

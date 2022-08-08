@@ -9,10 +9,10 @@ import { css } from "@emotion/react";
 import { Video, Button } from "@Atom/.";
 import { chatTarget } from "@Recoil/Atom";
 import { userState } from "@Recoil/UserData";
+import { IWebRTCUser } from "@Util/type";
 import ClientSocket from "../../../Socket";
 import { userExitEvent, allUsersEvent, userEnterEvent, getSenderAnswerEvent, getSenderCandidateEvent, getReceiverAnswerEvent, getReceiverCandidateEvent } from "../../../Socket/util";
 import { getLocalStream } from "../../../Socket/webRTC";
-import { IWebRTCUser } from "@Util/type";
 
 const GameVideoStyle = css`
   top: -10%;
@@ -170,10 +170,10 @@ export const ChatRoomBasic = ({ type }: { type: string }) => {
         })}
       </div>
       <div css={buttonContainerStyle({ type })}>
-        <Button type="Small" onClick={muteCam}>
+        <Button size="Small" onClick={muteCam}>
           cam On/Off
         </Button>
-        <Button type="Small" onClick={muteMic}>
+        <Button size="Small" onClick={muteMic}>
           mic On/Off
         </Button>
       </div>

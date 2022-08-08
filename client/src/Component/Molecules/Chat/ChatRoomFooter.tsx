@@ -1,12 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { css } from "@emotion/react";
-import { VideoSupport } from "./VideoSupport";
 import { Button } from "@Atom/Button";
 import useDropDownCloseEvent from "@Hook/useDropDownCloseEvent";
 import { LargeModal } from "@Core/.";
 import { gameDatas, getGameDatas } from "@Util/constant";
 import { LinkButton } from "@Core/LinkButton";
+import { VideoSupport } from "./VideoSupport";
+
 const oneGame = "/Asset/게임/0.jpeg";
 const twoGame = "/Asset/게임/1.gif";
 const threeGame = "/Asset/게임/2.png";
@@ -70,7 +71,7 @@ export const ChatRoomFooter = () => {
       <VideoSupport type="basic" />
       <div style={{ display: "flex" }}>
         <div ref={modalGameRef}>
-          <Button type="Small" onClick={handleGameButtonClick}>
+          <Button size="Small" onClick={handleGameButtonClick}>
             게임하기
           </Button>
           {openGame && (

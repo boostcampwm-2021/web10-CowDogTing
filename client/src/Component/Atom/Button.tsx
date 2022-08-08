@@ -4,23 +4,23 @@ import { ButtonType } from "@Util/type";
 
 const ButtonStyle = (props: ButtonType) => css`
   border: 2px solid ${props.color};
-  ${props.type === "State" && StateButtonStyle}
-  ${props.type === "Medium" && MediumButtonStyle}
-  ${props.type === "Large" && LargeButtonStyle}
-  ${props.type === "Long" && LongButtonStyle}
-  ${props.type === "Long" &&
+  ${props.size === "State" && StateButtonStyle}
+  ${props.size === "Medium" && MediumButtonStyle}
+  ${props.size === "Large" && LargeButtonStyle}
+  ${props.size === "Long" && LongButtonStyle}
+  ${props.size === "Long" &&
   css`
     background-color: ${props.color};
   `}
-  ${props.type === "LargeDropDown" && LargeDropDownStyle}
-  ${props.type === "SmallDropDown" && SmallDropDownStyle}
+  ${props.size === "LargeDropDown" && LargeDropDownStyle}
+  ${props.size === "SmallDropDown" && SmallDropDownStyle}
   &:hover {
     background-color: ${props.color};
     color: #ffffff;
   }
 `;
 
-export const Button = styled.div<ButtonType>`
+export const Button = styled.button<ButtonType>`
   width: 125px;
   height: 50px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -40,7 +40,7 @@ export const Button = styled.div<ButtonType>`
 `;
 
 Button.defaultProps = {
-  type: "Small",
+  size: "Small",
   color: "#ffcfcf",
 };
 

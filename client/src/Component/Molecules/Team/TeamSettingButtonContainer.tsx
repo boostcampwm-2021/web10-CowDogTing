@@ -14,7 +14,7 @@ export const TeamSettingButtonContainer = ({ clickUpdateButton, clickExitButton 
     <TeamButtonContainer>
       <div ref={modalRef}>
         <Button
-          type="Medium"
+          size="Medium"
           onClick={() => {
             setInviteModalState((prev) => !prev);
           }}
@@ -23,10 +23,10 @@ export const TeamSettingButtonContainer = ({ clickUpdateButton, clickExitButton 
         </Button>
         {inviteModalState && <InviteModal setInviteModalState={setInviteModalState} />}
       </div>
-      <Button type="Medium" onClick={clickUpdateButton}>
+      <Button size="Medium" onClick={clickUpdateButton}>
         수정하기
       </Button>
-      <Button type="Medium" onClick={clickExitButton}>
+      <Button size="Medium" onClick={clickExitButton}>
         나가기
       </Button>
     </TeamButtonContainer>

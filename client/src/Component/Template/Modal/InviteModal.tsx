@@ -56,7 +56,7 @@ export default function InviteModal({ setInviteModalState }: { setInviteModalSta
   return (
     <div css={inviteModalStyle}>
       <InputLabel refProps={userIdRef} label="초대할 ID" />
-      <Button onClick={clickInvite} type="Large">
+      <Button onClick={clickInvite} size="Large">
         초대하기
       </Button>
     </div>

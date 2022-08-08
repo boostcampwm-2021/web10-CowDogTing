@@ -79,7 +79,7 @@ export const InfoImageContainer: React.FC = () => {
   return (
     <div css={TeamInfoImageContainerStyle}>
       <ProfileImage type="Big" image={profileImage} onClick={clickImageTag}>
-        <Button type="Small" onClick={handleImageEdit}>
+        <Button size="Small" onClick={handleImageEdit}>
           Edit
         </Button>
       </ProfileImage>

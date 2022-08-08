@@ -4,7 +4,7 @@ import { logOutUser } from "@Util/data";
 import { menuType } from "@Util/type";
 import { useMovePage } from "@Hook/useMovePage";
 
-type props = { menu: menuType; onClick: MouseEventHandler<HTMLDivElement> | undefined };
+type props = { menu: menuType; onClick: MouseEventHandler<HTMLButtonElement> | undefined };
 
 export const DropDownElement: React.FC<props> = ({ menu, onClick }) => {
   const [goMain] = useMovePage("/main");

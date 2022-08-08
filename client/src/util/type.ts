@@ -1,7 +1,7 @@
 import React, { RefObject } from "react";
 
 export type ButtonType = {
-  type?: string;
+  size?: string;
   color?: string;
 };
 
@@ -150,8 +150,8 @@ export type LinkButtonType = {
   url: string | undefined;
   type: string;
   content: string;
-  onClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
-  refProps?: RefObject<HTMLDivElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  refProps?: RefObject<HTMLButtonElement>;
   id?: string;
 };
 
@@ -159,7 +159,7 @@ export type DropDownType = {
   DropDownRef?: RefObject<HTMLDivElement>;
   type: string;
   className: string;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   refProps?: RefObject<HTMLDivElement>;
 };
 

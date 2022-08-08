@@ -3,10 +3,10 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
+import { userState } from "@Recoil/UserData";
 import { Button } from "./Button";
 import { RequestType } from "../../Util/type";
 import { requestAccept, requestDeny } from "../../Util/data";
-import { userState } from "@Recoil/UserData";
 
 const StateStyle = css`
   width: 130px;
@@ -44,10 +44,10 @@ export const RequestButton = ({ type, data, isTeam }: props) => {
   if (type === "ForMe") {
     return (
       <>
-        <Button type="small" onClick={handleAcceptClick}>
+        <Button size="small" onClick={handleAcceptClick}>
           수락
         </Button>
-        <Button type="small" onClick={handleDenyClick}>
+        <Button size="small" onClick={handleDenyClick}>
           거절
         </Button>
       </>

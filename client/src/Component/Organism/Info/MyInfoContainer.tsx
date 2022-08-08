@@ -56,25 +56,23 @@ export const MyInfoContainer = () => {
     }
   };
   return (
-    <>
-      <div css={MyInfoContainerStyle}>
-        <div className="myinfo-header">
-          <span>내 프로필</span>
-          <Button type="medium" onClick={handleChangeMyInfo}>
-            edit
-          </Button>
-        </div>
-        <div className="myinfo">
-          <span>이름</span>
-          <Input placeholder={id} autoComplete="off" ref={(el) => (refArray.current[0] = el as HTMLInputElement)} />
-          <span>나이</span>
-          <Input placeholder={String(age)} autoComplete="off" ref={(el) => (refArray.current[1] = el as HTMLInputElement)} />
-          <span>주소</span>
-          <Input placeholder={location} autoComplete="off" ref={(el) => (refArray.current[2] = el as HTMLInputElement)} />
-          <span>소개</span>
-          <Input placeholder={info} autoComplete="off" ref={(el) => (refArray.current[3] = el as HTMLInputElement)} />
-        </div>
+    <div css={MyInfoContainerStyle}>
+      <div className="myinfo-header">
+        <span>내 프로필</span>
+        <Button size="medium" onClick={handleChangeMyInfo}>
+          edit
+        </Button>
       </div>
-    </>
+      <div className="myinfo">
+        <span>이름</span>
+        <Input placeholder={id} autoComplete="off" ref={(el) => (refArray.current[0] = el as HTMLInputElement)} />
+        <span>나이</span>
+        <Input placeholder={String(age)} autoComplete="off" ref={(el) => (refArray.current[1] = el as HTMLInputElement)} />
+        <span>주소</span>
+        <Input placeholder={location} autoComplete="off" ref={(el) => (refArray.current[2] = el as HTMLInputElement)} />
+        <span>소개</span>
+        <Input placeholder={info} autoComplete="off" ref={(el) => (refArray.current[3] = el as HTMLInputElement)} />
+      </div>
+    </div>
   );
 };
