@@ -2,12 +2,15 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "@Atom/*": ["./Atom/*"],
+      "@Atom/*": ["./Component/Atom/*"],
+      "@Core/*": ["./Component/Core/*"],
       "@Hook/*": ["./Hook/*"],
-      "@Page/*": ["./Page/*"],
-      "@Molecules/*": ["./Molecules/*"],
-      "@Organism/*": ["./Organism/*"],
-      "@HOC/*": ["./HOC/*"],
+      "@Page/*": ["./Component/Page/*"],
+      "@Molecules/*": ["./Component/Molecules/*"],
+      "@Organism/*": ["./Component/Organism/*"],
+      "@Template/*": ["./Component/Template/*"],
+      "@Hoc/*": ["./Component/Hoc/*"],
+      "@Util/*": ["./Util/*"],
     }
   }
 }

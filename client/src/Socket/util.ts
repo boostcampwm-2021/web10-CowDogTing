@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { Socket } from "socket.io-client";
 import ClientSocket from ".";
-import { IWebRTCUser } from "../util/type";
+import { IWebRTCUser } from "../Util/type";
 import { createReceivePC } from "./webRTC";
 
 // const socket = ClientSocket.instance.socket as Socket;
