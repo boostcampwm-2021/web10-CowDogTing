@@ -5,9 +5,9 @@ import { errorState } from "@Recoil/Atom";
 import { changeTeamInfo, exitTeam } from "@Util/data";
 import { TeamSettingButtonContainer } from "@Molecules/.";
 import { TeamInfo } from "@Organism/.";
-import { ProfileList } from "./Profile/ProfileList";
 import { teamState } from "@Recoil/TeamData";
 import { userState } from "@Recoil/UserData";
+import { ProfileList } from "./Profile/ProfileList";
 
 const TeamSettingTemPlateStyle = css`
   display: flex;
@@ -65,7 +65,7 @@ export const TeamSettingTemplate: React.FC = () => {
   return (
     <div css={TeamSettingTemPlateStyle}>
       <TeamInfo setLocSelected={setLocSelected} teamNameRef={teamNameRef} teamInfoRef={teamInfoRef} />
-      <ProfileList setOpenModal={() => undefined} datas={teamInfoState?.member} person={1} profileRef={profileRef} />
+      <ProfileList handleProfileListContainer={() => {}} datas={teamInfoState?.member} person={1} profileRef={profileRef} />
       <TeamSettingButtonContainer clickUpdateButton={clickUpdateButton} clickExitButton={clickExitButton} />
     </div>
   );

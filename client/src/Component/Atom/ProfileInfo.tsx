@@ -18,17 +18,8 @@ const InfoStyle = css`
 `;
 export const ProfileInfo = ({ data }: ProfileInfoDataType): JSX.Element => {
   const { id, image, location, sex, age, info, member } = data;
-
-  let infoSex = sex;
-  let infoAge: number = age ?? 0;
-  if (member) {
-    infoSex = member[0].sex;
-    member.forEach((element) => {
-      infoAge += element.age;
-    });
-    infoAge /= member.length;
-  }
-  infoSex = infoSex === "female" ? "여성" : "남성";
+  const infoSex = sex === "female" ? "여성" : "남성";
+  const infoAge = Math.floor((member?.reduce((acc, cur) => acc + Number(cur.age), age) ?? age) / ((member?.length ?? 0) + 1));
   return (
     <div css={ContainerStyle}>
       <ProfileImage type="Small" image={String(image)} />

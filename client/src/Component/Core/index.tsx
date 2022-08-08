@@ -6,5 +6,5 @@ export * from "./LargeModal";
 export * from "./LinkButton";
 export * from "./Modal";
 export * from "./MyPageSideBar";
-export * from "./Navbar";
+export * from "./NavBar/Navbar";
 export * from "./Header/Header";

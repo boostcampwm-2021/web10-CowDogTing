@@ -4,10 +4,11 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import useModalCloseEvent from "@Hook/useModalCloseEvent";
 import { profileModalDatas } from "@Recoil/Atom";
 import { RequestType } from "@Util/type";
-import { ProfileModal } from "../Modal/ProfileModal";
-import RequestList from "./RequestList";
 import { teamState } from "@Recoil/TeamData";
 import { userState } from "@Recoil/UserData";
+import { handleModalClick } from "@Util/.";
+import { ProfileModal } from "../Modal/ProfileModal";
+import RequestList from "./RequestList";
 
 const RequestListStyle = css`
   width: 41%;
@@ -44,6 +45,7 @@ export default function RequestListContainer({ datas, type }: { datas: RequestTy
   const profileRef = useRef<HTMLDivElement[]>([]);
   const modalRef = useRef<HTMLDivElement>(null);
   useModalCloseEvent(modalRef, profileRef, () => setOpenModal(null));
+  const handleRequestListContainer = handleModalClick(profileRef, setOpenModal);
 
   let propsType = type;
 
@@ -61,7 +63,7 @@ export default function RequestListContainer({ datas, type }: { datas: RequestTy
   return (
     <div css={RequestListStyle}>
       <div css={RequestTitleStyle}>{title}</div>
-      <RequestList datas={datas} setOpenModal={setOpenModal} type={propsType} profileRef={profileRef} />
+      <RequestList datas={datas} handleRequestListContainer={handleRequestListContainer} type={propsType} profileRef={profileRef} />
       <div ref={modalRef}>{openModal !== null && <ProfileModal />}</div>
     </div>
   );

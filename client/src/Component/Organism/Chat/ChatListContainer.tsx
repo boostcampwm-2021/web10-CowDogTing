@@ -3,7 +3,6 @@ import { css } from "@emotion/react";
 import { ChatImageContainer } from "./ChatImageContainer";
 import { ChatListDetail } from "./ChatListDetail";
 import { ChatListContainerType } from "../../../Util/type";
-import { handleModalClick } from "../../../Util";
 
 const ChatListContainerStyle = css`
   width: 50%;
@@ -14,9 +13,9 @@ const ChatListContainerStyle = css`
   min-width: 520px;
 `;
 
-export const ChatListContainer = ({ profileRef, setOpenModal }: ChatListContainerType) => {
+export const ChatListContainer = ({ profileRef, onClick }: ChatListContainerType) => {
   return (
-    <div css={ChatListContainerStyle} onClick={(e) => handleModalClick(e, profileRef, setOpenModal)}>
+    <div css={ChatListContainerStyle} aria-hidden="true" onClick={onClick}>
       <ChatImageContainer profileRef={profileRef} />
       <ChatListDetail />
     </div>

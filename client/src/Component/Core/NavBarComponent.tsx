@@ -1,3 +1,4 @@
+import React from "react";
 import { NavbarDiv } from "@Atom/.";
 
 const list = [
@@ -13,7 +14,7 @@ export const NavBarComponent = ({ navBarRef }: props) => {
       {list.map((item, idx) => {
         const { name } = item;
         return (
-          <div className="navbar-item" data-id={idx} ref={(el) => ((navBarRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)}>
+          <div key={idx} className="navbar-item" data-id={idx} ref={(el) => ((navBarRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)}>
             <NavbarDiv>{name}</NavbarDiv>
           </div>
         );

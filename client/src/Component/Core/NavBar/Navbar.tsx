@@ -34,18 +34,12 @@ const DropDownContainerStyle = css`
   position: absolute;
 `;
 
-export const Navbar = ({ setCategory }: { setCategory: Function }) => {
+export const Navbar = ({ handleSetCategory }: { handleSetCategory: React.MouseEventHandler<HTMLButtonElement> }) => {
   const navBarRef = useRef<HTMLDivElement[]>([]);
   const dropDownRef = useRef<HTMLDivElement>(null);
   const { dropDownState, closeCallbackFunc, handleDropDownClick } = useNavBarStateHook(navBarRef);
 
   useModalCloseEvent(dropDownRef, navBarRef, closeCallbackFunc);
-
-  const handleSetCategory = (e: React.MouseEvent<HTMLElement>) => {
-    const target = e.target as HTMLElement;
-    const category = target.dataset.id;
-    setCategory(category);
-  };
 
   return (
     <>

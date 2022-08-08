@@ -10,7 +10,7 @@ export const Page: React.FC = () => {
       <Routes>
         <Route path="/Login" element={<LogInPage />} />
         <Route path="/Register" element={<RegisterPage />} />
-        {/* <Route path="/sub/CowDogPage" element={<CowDogPage />} /> */}
+        <Route path="/CowDogPage" element={<CowDogPage />} />
         {/* <Route path="/sub/teamSetting" element={<TeamSettingPage />} /> */}
         {/* <Route path="/sub/mypage" element={<MyPage />} /> */}
         {/* <Route path="/sub/chatList" element={<ChatListPage />} /> */}
