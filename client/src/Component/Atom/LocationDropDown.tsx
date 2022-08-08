@@ -13,9 +13,9 @@ const InfoStyle = css`
   margin-left: 7px;
 `;
 
-export default function LocationDropDown({ setLocSelected, id }: { setLocSelected: (value: string) => void; id: string }) {
+export default function LocationDropDown({ locSelected, handleLocationSelected, id }: { locSelected: string; handleLocationSelected: (e: React.ChangeEvent<HTMLSelectElement>) => void; id: string }) {
   return (
-    <select css={InfoStyle} onChange={(e) => setLocSelected(e.target.value)}>
+    <select css={InfoStyle} onChange={handleLocationSelected} value={locSelected}>
       <option selected value={id} disabled>
         거주지를 선택해주세요.
       </option>

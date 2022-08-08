@@ -1,13 +1,12 @@
-import React, { MouseEventHandler, useRef, useState } from "react";
+import React, { MouseEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
-import { createTeam, getFetch } from "@Util/data";
 import { errorState } from "@Recoil/Atom";
 import { TeamInfo } from "@Organism/.";
 import { TeamCreateButtonContainer } from "@Molecules/.";
-import { TEAM_INFO_URL } from "@Util/URL";
 import { userState } from "@Recoil/UserData";
 import { teamState } from "@Recoil/TeamData";
+import { postCreateTeam, useLocationSelectHook, validationRefData } from "./TeamCreatePage.hook";
 
 const TeamCreatePageStyle = css`
   position: relative;
@@ -19,46 +18,31 @@ const TeamCreatePageStyle = css`
 `;
 
 export const TeamCreatePage: React.FC = () => {
+  const [locSelected, handleLocationSelected] = useLocationSelectHook();
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);
-  const [locSelected, setLocSelected] = useState<string>("");
 
   const setUserInfo = useSetRecoilState(userState);
-  const setErrorValue = useSetRecoilState(errorState);
   const setTeamInfo = useSetRecoilState(teamState);
+  const setErrorValue = useSetRecoilState(errorState);
 
   const clickCreateButton: MouseEventHandler = async () => {
-    if (!teamNameRef.current || !teamInfoRef.current) return;
-
-    const teamName = teamNameRef.current.value;
-    const teamInfo = teamInfoRef.current.value;
-    const location = locSelected;
-
-    if (teamName === "") {
-      setErrorValue({ errorStr: "팀 이름을 입력해 주세요", timeOut: 1000 });
+    const { bool, value } = validationRefData({ teamNameRef, teamInfoRef, locSelected });
+    if (!bool) {
+      setErrorValue({ errorStr: value as string, timeOut: 1000 });
       return;
     }
 
-    if (location === "") {
-      setErrorValue({ errorStr: "지역을 선택해 주세요", timeOut: 1000 });
-      return;
-    }
-
-    const gid = await createTeam({ teamName, teamInfo, location });
-    if (gid === "error") {
-      setErrorValue({ errorStr: "팀 생성에 실패했습니다", timeOut: 1000 });
-      return;
-    }
-    const teamData = await getFetch({ url: TEAM_INFO_URL, query: "" });
+    const res = await postCreateTeam({ ...(value as Exclude<typeof value, string>), catchError: setErrorValue });
+    if (!res) return;
+    const { gid, teamData } = res;
     setTeamInfo(teamData);
-    setUserInfo((prev) => {
-      return { ...prev, gid };
-    });
+    setUserInfo((prev) => ({ ...prev, gid }));
   };
 
   return (
     <div css={TeamCreatePageStyle}>
-      <TeamInfo setLocSelected={setLocSelected} teamNameRef={teamNameRef} teamInfoRef={teamInfoRef} />
+      <TeamInfo locSelected={locSelected} handleLocationSelected={handleLocationSelected} teamNameRef={teamNameRef} teamInfoRef={teamInfoRef} />
       <TeamCreateButtonContainer clickCreateButton={clickCreateButton} />
     </div>
   );

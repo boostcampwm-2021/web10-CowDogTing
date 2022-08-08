@@ -13,7 +13,7 @@ const TeamInfoContainerStyle = css`
   align-items: center;
 `;
 
-type props = { teamNameRef: RefObject<HTMLInputElement>; teamInfoRef: RefObject<HTMLInputElement>; setLocSelected: (value: string) => void };
+type props = { locSelected: string; teamNameRef: RefObject<HTMLInputElement>; teamInfoRef: RefObject<HTMLInputElement>; handleLocationSelected: (e: React.ChangeEvent<HTMLSelectElement>) => void };
 export const TeamInfo = (props: props) => {
   return (
     <div css={TeamInfoContainerStyle}>

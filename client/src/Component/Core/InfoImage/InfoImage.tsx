@@ -5,18 +5,6 @@ import { Button } from "@Atom/Button";
 import { useGetParams } from "@Hook/useGetParams";
 import { useHandleImage, useHandleImageClick, useHandleImageEdit } from "./InfoImage.hook";
 
-const TeamInfoImageContainerStyle = css`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const imageInputStyle = css`
-  display: none;
-`;
-
 export const InfoImage: React.FC = () => {
   const checkPathName = useGetParams("myInfo");
   const { imageRef, handleClickImage } = useHandleImageClick();
@@ -34,3 +22,15 @@ export const InfoImage: React.FC = () => {
     </div>
   );
 };
+
+const TeamInfoImageContainerStyle = css`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const imageInputStyle = css`
+  display: none;
+`;
