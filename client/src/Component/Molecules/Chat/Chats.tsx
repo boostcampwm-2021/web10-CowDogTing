@@ -1,15 +1,13 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
 import { Chat } from "@Atom/.";
-import { chatTarget } from "@Recoil/Atom";
+import { MessageType } from "@Util/type";
 
-export const Chats = () => {
-  const { chatMessage: chats } = useRecoilValue(chatTarget);
+export const Chats = ({ chats }: { chats: MessageType[] }) => {
   return (
     <>
-      {chats?.map((chat) => {
+      {chats?.map((chat, i) => {
         const { from, message, source } = chat;
-        return <Chat from={from} message={message} src={source} />;
+        return <Chat key={i} from={from} message={message} src={source} />;
       })}
     </>
   );
