@@ -1,6 +1,16 @@
 import { css } from "@emotion/react";
 import { SideBarDiv } from "@Atom/.";
 
+export const MyPageSideBar = () => {
+  return (
+    <div css={SideBarStyle}>
+      {SideBarList.map((el) => (
+        <SideBarDiv key={el.menu} menu={el.menu} link={el.link} />
+      ))}
+    </div>
+  );
+};
+
 const SideBarStyle = css`
   width: 10vw;
   height: 80vh;
@@ -22,12 +32,3 @@ const SideBarList = [
   { menu: "나의 문의사항 보기", link: "question" },
   { menu: "리뷰 보기", link: "review" },
 ];
-export const MyPageSideBar = () => {
-  return (
-    <div css={SideBarStyle}>
-      {SideBarList.map((el) => (
-        <SideBarDiv key={el.menu} menu={el.menu} link={el.link} />
-      ))}
-    </div>
-  );
-};

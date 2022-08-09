@@ -19,10 +19,10 @@ export const MyPageBodyTemplate = () => {
     <div css={MyPageBodyStyle} id="mypage-body">
       <MyPageSideBar />
       <Routes>
-        <Route path="/sub/mypage/myinfo" element={<MyInfo />} />
-        <Route path="/sub/mypage/question" element={<QuestionList />} />
-        <Route path="/sub/mypage/review" element={<Review />} />
-        <Route path="/sub/mypage/likelist" element={<LikeList />} />
+        <Route path="/myinfo" element={<MyInfo />} />
+        <Route path="/question" element={<QuestionList />} />
+        <Route path="/review" element={<Review />} />
+        <Route path="/likelist" element={<LikeList />} />
         <Route path="/*" element={<Navigate to="/sub/mypage/myinfo" replace />} />
       </Routes>
     </div>

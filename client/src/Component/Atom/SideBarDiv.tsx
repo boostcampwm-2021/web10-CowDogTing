@@ -1,6 +1,15 @@
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 
+type SideBarDivProps = { menu: string; link: string };
+export const SideBarDiv = ({ link, menu }: SideBarDivProps) => {
+  return (
+    <div css={SideBarDIv}>
+      <Link to={link}>{menu}</Link>
+    </div>
+  );
+};
+
 const SideBarDIv = css`
   cursor: pointer;
   line-height: 60px;
@@ -12,14 +21,3 @@ const SideBarDIv = css`
     height: 60px;
   }
 `;
-interface SideBarDivProps {
-  menu: string;
-  link: string;
-}
-export const SideBarDiv = ({ link, menu }: SideBarDivProps) => {
-  return (
-    <div css={SideBarDIv}>
-      <Link to={link}>{menu}</Link>
-    </div>
-  );
-};
