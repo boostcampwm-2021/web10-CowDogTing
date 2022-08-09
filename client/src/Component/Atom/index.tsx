@@ -1,6 +1,6 @@
 export * from "./Button/Button";
-export * from "./ChatIcon";
-export * from "./DropDownElement";
+export * from "./ChatIcon/ChatIcon";
+export * from "./DropDownElement/DropDownElement";
 export * from "./ImageDiv";
 export * from "./Input";
 export * from "./LocationDropDown";
@@ -15,5 +15,5 @@ export * from "./NavbarDiv";
 export * from "./ProfileCard";
 export * from "./ProfileInfo";
 export * from "./Video";
-export * from "./Chat";
+export * from "./Chat/Chat";
 export * from "./RequestButton";
