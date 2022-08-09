@@ -43,20 +43,16 @@ export const TeamSettingTemplate: React.FC = () => {
       .then((res) => goMain())
       .catch((e) => setErrorValue({ errorStr: e as string, timeOut: 1000 }));
 
-  const clickUpdateButton: MouseEventHandler = () => {
+  const clickUpdateButton: MouseEventHandler = async () => {
     try {
       const value = teamUpdateDataValidation({ teamNameRef, teamInfoRef, locSelected, teamInfoState, userInfoState });
-      changeTeamInfo(value)
-        .then((res) => {
-          setTeamInfoState((prev) => ({ ...prev, ...res }));
-          resetInput();
-        })
-        .catch((e) => setErrorValue({ errorStr: "팀 정보 수정에 실패했습니다.", timeOut: 1000 }));
+      const res = await changeTeamInfo(value);
+      setTeamInfoState((prev) => ({ ...prev, ...res }));
+      resetInput();
     } catch (e) {
       setErrorValue({ errorStr: e as string, timeOut: 1000 });
     }
   };
-
   return (
     <div css={TeamSettingTemPlateStyle}>
       <TeamInfo locSelected={locSelected} handleLocationSelected={handleLocationSelected} teamNameRef={teamNameRef} teamInfoRef={teamInfoRef} />

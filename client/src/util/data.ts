@@ -1,18 +1,24 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { TEAM_EXIT_API_URL, ACCEPT_API_URL, CHAT_MESSAGES_API_URL, DENY_API_URL, LOGIN_API_URL, LOGOUT_API_URL, POST_CHAT_API_URL, POST_IMAGE_API_URL, PROFILE_API_URL, REGISTER_API_URL, REQUEST_API_URL, TEAM_CREATE_API_URL, TEAM_INVITE_API_URL, TEAM_UPDATE_API_URL, USER_INFO_API_URL, POST_CHAT_READ_API_URL, CHECK_ID_VALIDATION_URL } from "./URL";
-import { ChangeTeamInfoType, loginInfo, PostTeamType, registerInfo } from "./type";
+import { ChangeTeamInfoType, loginInfo, PersonInfoType, PostTeamType, registerInfo } from "./type";
 import { fromImageToForm } from ".";
 
-export const changeTeamInfo = ({ teamName, teamInfo, location }: ChangeTeamInfoType) =>
-  axios.post(
-    TEAM_UPDATE_API_URL,
-    {
-      name: teamName,
-      description: teamInfo,
-      location,
-    },
-    { withCredentials: true }
-  );
+export const changeTeamInfo = async ({ teamName, teamInfo, location }: ChangeTeamInfoType) => {
+  try {
+    const res = await axios.post(
+      TEAM_UPDATE_API_URL,
+      {
+        name: teamName,
+        description: teamInfo,
+        location,
+      },
+      { withCredentials: true }
+    );
+    return res;
+  } catch (e) {
+    throw new Error("팀 정보 수정에 실패했습니다.");
+  }
+};
 
 export const exitTeam = () => axios.post(TEAM_EXIT_API_URL, {}, { withCredentials: true });
 
@@ -36,20 +42,14 @@ export const createTeam = async ({ teamName, teamInfo, location }: PostTeamType)
   }
 };
 
-export const inviteTeam = async ({ userId }: { userId: string }) => {
-  try {
-    const { data } = await axios.post(
-      TEAM_INVITE_API_URL,
-      {
-        userId,
-      },
-      { withCredentials: true }
-    );
-    return data;
-  } catch (error) {
-    return "error";
-  }
-};
+export const inviteTeam = ({ userId }: { userId: string }): Promise<AxiosResponse<PersonInfoType>> =>
+  axios.post(
+    TEAM_INVITE_API_URL,
+    {
+      userId,
+    },
+    { withCredentials: true }
+  );
 
 export const postLogin = async ({ id, pw }: loginInfo) => {
   try {

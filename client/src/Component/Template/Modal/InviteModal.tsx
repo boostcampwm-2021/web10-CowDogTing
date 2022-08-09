@@ -31,27 +31,20 @@ export default function InviteModal({ handleFalseInvite }: { handleFalseInvite: 
   const setErrorValue = useSetRecoilState(errorState);
 
   const clickInvite: MouseEventHandler = async () => {
-    if (!userIdRef.current) {
-      return;
+    try {
+      const inviteUserId = validationUserId({ userIdRef });
+      inviteTeam({ userId: inviteUserId })
+        .then(({ data }) => {
+          setTeamInfo((prev: TeamInfoType) => ({
+            ...prev,
+            member: [...(prev.member ?? []), data],
+          }));
+          handleFalseInvite();
+        })
+        .catch((e) => setErrorValue({ errorStr: "초대 실패했습니다", timeOut: 1000 }));
+    } catch (e) {
+      setErrorValue({ errorStr: e as string, timeOut: 1000 });
     }
-    const inviteUserId = userIdRef.current.value;
-    if (inviteUserId === "") {
-      setErrorValue({ errorStr: "초대할 아이디를 입력해 주세요", timeOut: 1000 });
-      return;
-    }
-    const result = await inviteTeam({ userId: inviteUserId });
-    if (result === "error") {
-      setErrorValue({ errorStr: "초대 실패했습니다", timeOut: 1000 });
-      return;
-    }
-    setTeamInfo((prev: TeamInfoType) => {
-      const teamMember = prev.member ?? [];
-      return {
-        ...prev,
-        member: [...teamMember, result],
-      };
-    });
-    handleFalseInvite();
   };
   return (
     <div css={inviteModalStyle}>
@@ -62,3 +55,9 @@ export default function InviteModal({ handleFalseInvite }: { handleFalseInvite: 
     </div>
   );
 }
+
+const validationUserId = ({ userIdRef }: { userIdRef: React.RefObject<HTMLInputElement> }) => {
+  if (!userIdRef.current) throw new Error("시스템 에러");
+  if (userIdRef.current.value === "") throw new Error("초대할 아이디를 입력해 주세요");
+  return userIdRef.current.value;
+};
