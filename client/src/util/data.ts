@@ -154,15 +154,20 @@ export const requestDeny = async ({ from, to }: { from: string | number; to: str
 };
 
 export const requestChat = async ({ from, to }: { from: string | number; to: string | number }): Promise<boolean> => {
-  const { data } = await axios.post(
-    REQUEST_API_URL,
-    {
-      from,
-      to,
-    },
-    { withCredentials: true }
-  );
-  return data;
+  try {
+    const { data } = await axios.post(
+      REQUEST_API_URL,
+      {
+        from,
+        to,
+      },
+      { withCredentials: true }
+    );
+    if (!data) throw new Error("API Error");
+    return data;
+  } catch (e) {
+    throw new Error(e as string);
+  }
 };
 
 export const getFetch = async ({ url, query }: { url: string; query: string }): Promise<any> => {

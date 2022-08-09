@@ -12,10 +12,7 @@ const textStyle = css`
 type props = { setRequest: any };
 export const RequestModal: React.FC<props> = ({ setRequest }) => {
   const data = useRecoilValue(requestTarget);
-
-  const requestModalClose = (): void => {
-    setRequest(false);
-  };
+  const requestModalClose = () => setRequest(false);
 
   return (
     <Modal type="Small">

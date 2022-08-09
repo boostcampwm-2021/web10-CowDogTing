@@ -32,10 +32,10 @@ export const ChatProfileContainer = ({ chatsInfo, setClickedRoomIndex }: ChatPro
       {chatsInfo?.map((data, idx) => {
         if (!data.chatMessage.length) return null;
         return (
-          <>
+          <React.Fragment key={idx}>
             <ChatProfile data={data} idx={idx} chatRoomRef={chatRoomRef} />
             <NotReadNum type={String(data.chatRoomId)} />
-          </>
+          </React.Fragment>
         );
       })}
     </div>

@@ -8,23 +8,21 @@ import { ProfileType } from "@Util/type";
 
 export const useRequestDate = () => {
   const [request, setRequest] = useState<boolean>(false);
-  const setErrorValue = useSetRecoilState(errorState);
   const datas = useRecoilValue(profileModalDatas);
   const { id: myId } = useRecoilValue(userState);
   const { leader } = useRecoilValue(teamState);
   const setRequestTarget = useSetRecoilState(requestTarget);
+  const setErrorValue = useSetRecoilState(errorState);
 
-  const handleRequestClick = (): void => {
-    if (datas.length > 1 && myId !== leader) {
-      setErrorValue({ errorStr: "팀 리더에게 문의하세요.", timeOut: 1000 });
-      return;
+  const handleRequestClick = async () => {
+    try {
+      if (datas.length > 1 && myId !== leader) throw new Error("팀 리더에게 문의하세요.");
+      await requestChat({ from: myId, to: datas.length === 1 ? datas[0].id : datas[0].gid ?? 0 });
+      setRequestTarget(datas[0]);
+      setRequest(true);
+    } catch (e) {
+      setErrorValue({ errorStr: e as string, timeOut: 1000 });
     }
-    const res = requestChat({ from: myId, to: datas.length === 1 ? datas[0].id : datas[0].gid ?? 0 });
-    if (!res) {
-      console.log("error");
-    }
-    setRequestTarget(datas[0]);
-    setRequest(true);
   };
 
   return { request, setRequest, datas, handleRequestClick };
