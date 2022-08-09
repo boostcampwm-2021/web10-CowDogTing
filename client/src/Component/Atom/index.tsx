@@ -11,7 +11,7 @@ export * from "./RoundNumberContainer";
 export * from "./Menu/Menu";
 export * from "./SideBarDiv";
 export * from "./SearchIcon";
-export * from "./NavbarDiv";
+export * from "./NavbarDiv/NavbarDiv";
 export * from "./ProfileCard";
 export * from "./ProfileInfo";
 export * from "./Video";
