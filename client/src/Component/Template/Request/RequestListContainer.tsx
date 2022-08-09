@@ -1,14 +1,30 @@
+import React, { useRef } from "react";
 import { css } from "@emotion/react";
-import { useState, useRef, useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
 import useModalCloseEvent from "@Hook/useModalCloseEvent";
-import { profileModalDatas } from "@Recoil/Atom";
 import { RequestType } from "@Util/type";
-import { teamState } from "@Recoil/TeamData";
-import { userState } from "@Recoil/UserData";
 import { handleModalClick } from "@Util/.";
 import { ProfileModal } from "../Modal/ProfileModal";
 import RequestList from "./RequestList";
+import { usePropsTypeHook, useRequestModalStateControl } from "./RequestListContainer.hook";
+
+export default function RequestListContainer({ datas, type }: { datas: RequestType[]; type: string }) {
+  const title = type === "ForMe" ? "나에게 온 요청" : "내가 보낸 요청";
+  const propsType = usePropsTypeHook(type);
+
+  const [openModal, setOpenModal] = useRequestModalStateControl(datas);
+  const profileRef = useRef<HTMLDivElement[]>([]);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const handleRequestListContainer = handleModalClick(profileRef, setOpenModal);
+  useModalCloseEvent(modalRef, profileRef, () => setOpenModal(null));
+
+  return (
+    <div css={RequestListStyle}>
+      <div css={RequestTitleStyle}>{title}</div>
+      <RequestList datas={datas} handleRequestListContainer={handleRequestListContainer} type={propsType} profileRef={profileRef} />
+      <div ref={modalRef}>{openModal !== null && <ProfileModal />}</div>
+    </div>
+  );
+}
 
 const RequestListStyle = css`
   width: 41%;
@@ -32,43 +48,3 @@ const RequestTitleStyle = css`
   text-align: center;
   padding: 10vh 0;
 `;
-
-export default function RequestListContainer({ datas, type }: { datas: RequestType[]; type: string }) {
-  const title = type === "ForMe" ? "나에게 온 요청" : "내가 보낸 요청";
-
-  const setModalDatas = useSetRecoilState(profileModalDatas);
-  const teamInfo = useRecoilValue(teamState);
-  const userInfo = useRecoilValue(userState);
-
-  const [openModal, setOpenModal] = useState<number | null>(null);
-
-  const profileRef = useRef<HTMLDivElement[]>([]);
-  const modalRef = useRef<HTMLDivElement>(null);
-  useModalCloseEvent(modalRef, profileRef, () => setOpenModal(null));
-  const handleRequestListContainer = handleModalClick(profileRef, setOpenModal);
-
-  let propsType = type;
-
-  useEffect(() => {
-    if (!datas || openModal === null) return;
-
-    const data = datas[Number(openModal)].info;
-    const teamPerson = data.member || [];
-
-    if (teamPerson.length !== 0 && !checkLeader(teamInfo.leader, userInfo.id)) propsType = "NotLeader";
-
-    setModalDatas([data, ...teamPerson]);
-  }, [openModal]);
-
-  return (
-    <div css={RequestListStyle}>
-      <div css={RequestTitleStyle}>{title}</div>
-      <RequestList datas={datas} handleRequestListContainer={handleRequestListContainer} type={propsType} profileRef={profileRef} />
-      <div ref={modalRef}>{openModal !== null && <ProfileModal />}</div>
-    </div>
-  );
-}
-
-function checkLeader(leader: string, target: string) {
-  return leader === target;
-}

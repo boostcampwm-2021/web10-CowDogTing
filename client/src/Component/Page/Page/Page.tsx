@@ -43,7 +43,14 @@ export const Page: React.FC = () => {
             </LoginUserRouter>
           }
         />
-        {/* <Route path="/sub/Request" element={<RequestPage />} /> */}
+        <Route
+          path="/Request"
+          element={
+            <LoginUserRouter>
+              <RequestPage />
+            </LoginUserRouter>
+          }
+        />
       </Routes>
     </>
   );
