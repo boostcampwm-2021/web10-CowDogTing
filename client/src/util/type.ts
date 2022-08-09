@@ -20,7 +20,8 @@ export type InputLabelType = {
   refProps?: React.MutableRefObject<HTMLInputElement | null>;
 };
 
-export interface PersonInfoType {
+export type PersonInfoType = {
+  [key: string]: string | number | undefined | null;
   id: string;
   image: string | null;
   location: string;
@@ -29,7 +30,7 @@ export interface PersonInfoType {
   info: string;
   gid?: number | null;
   idx?: number;
-}
+};
 export interface PostTeamType {
   teamName: string;
   teamInfo: string;
@@ -48,9 +49,9 @@ export type TeamInfoType = {
   member?: PersonInfoType[] | null;
 };
 
-export interface ProfileType extends PersonInfoType {
+export type ProfileType = PersonInfoType & {
   member?: PersonInfoType[];
-}
+};
 
 export type ProfileInfoDataType = {
   data: ProfileType;

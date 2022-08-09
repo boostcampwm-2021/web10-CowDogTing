@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { css } from "@emotion/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { Input, Button } from "@Atom/.";
@@ -9,7 +9,6 @@ import { PersonInfoType } from "@Util/type";
 
 export const MyInfoContainer = () => {
   const [myInfo, setMyInfo] = useRecoilState(userState);
-  const { id, location, age, info } = myInfo;
   const refArray = useRef<HTMLInputElement[]>([]);
   const setErrorValue = useSetRecoilState(errorState);
 
@@ -35,14 +34,12 @@ export const MyInfoContainer = () => {
         </Button>
       </div>
       <div className="myinfo">
-        <span>이름</span>
-        <Input placeholder={id} autoComplete="off" ref={(el) => (refArray.current[0] = el as HTMLInputElement)} />
-        <span>나이</span>
-        <Input placeholder={String(age)} autoComplete="off" ref={(el) => (refArray.current[1] = el as HTMLInputElement)} />
-        <span>주소</span>
-        <Input placeholder={location} autoComplete="off" ref={(el) => (refArray.current[2] = el as HTMLInputElement)} />
-        <span>소개</span>
-        <Input placeholder={info} autoComplete="off" ref={(el) => (refArray.current[3] = el as HTMLInputElement)} />
+        {infoList.map(({ id, value, key }) => (
+          <React.Fragment key={id}>
+            <span>{value}</span>
+            <Input key={id} placeholder={String(myInfo[key])} autoComplete="off" ref={(el) => (refArray.current[id] = el as HTMLInputElement)} />
+          </React.Fragment>
+        ))}
       </div>
     </div>
   );
@@ -62,6 +59,12 @@ const makeChangeInfo = ({ refArray, myInfo }: { refArray: React.MutableRefObject
   };
 };
 
+const infoList = [
+  { id: 0, value: "이름", key: "id" },
+  { id: 1, value: "나이", key: "age" },
+  { id: 2, value: "주소", key: "location" },
+  { id: 3, value: "소개", key: "info" },
+];
 const MyInfoContainerStyle = css`
   width: 350px;
   height: 80vh;
