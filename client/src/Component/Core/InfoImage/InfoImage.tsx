@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "@emotion/react";
-import { ProfileImage } from "@Atom/ProfileImage";
+import { ProfileImage } from "@Atom/ProfileImage/ProfileImage";
 import { Button } from "@Atom/.";
 import { useGetParams } from "@Hook/useGetParams";
 import { useHandleImage, useHandleImageClick, useHandleImageEdit } from "./InfoImage.hook";

@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { ProfileInfoDataType } from "../../Util/type";
-import { ProfileImage } from "./ProfileImage";
+import { ProfileImage } from "./ProfileImage/ProfileImage";
 
 const ContainerStyle = css`
   height: 100%;

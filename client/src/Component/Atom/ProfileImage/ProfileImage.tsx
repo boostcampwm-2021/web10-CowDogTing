@@ -1,9 +1,16 @@
 import React from "react";
 import { css } from "@emotion/react";
-import { ProfileImageType } from "@Util/type";
 import { URL } from "@Util/URL";
 
 const defaultImage = "/Asset/meetingImage.png";
+export type ProfileImageType = {
+  image: string | ArrayBuffer | null;
+  type: string;
+  onClick?: React.MouseEventHandler;
+  ref?: any;
+  children?: JSX.Element;
+};
+
 export const ProfileImage: React.FC<ProfileImageType> = ({ type, onClick, ref, children, image }) => {
   const src = String(image).includes("/uploads") ? URL + String(image ?? defaultImage) : image ?? defaultImage;
   return (

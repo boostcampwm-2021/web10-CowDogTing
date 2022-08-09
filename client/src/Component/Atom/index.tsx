@@ -5,7 +5,7 @@ export * from "./ImageDiv/ImageDiv";
 export * from "./Input/Input";
 export * from "./LocationDropDown/LocationDropDown";
 export * from "./MainHeaderLogo/MainHeaderLogo";
-export * from "./ProfileImage";
+export * from "./ProfileImage/ProfileImage";
 export * from "./UserIcon";
 export * from "./RoundNumberContainer";
 export * from "./Menu/Menu";

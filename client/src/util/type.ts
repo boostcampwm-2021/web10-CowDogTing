@@ -100,14 +100,6 @@ export type joinChatType = {
   notReadNum: number;
 };
 
-export type ProfileImageType = {
-  image: string | ArrayBuffer | null;
-  type: string;
-  onClick?: React.MouseEventHandler;
-  ref?: any;
-  children?: JSX.Element;
-};
-
 export type ChatProfileContainerType = {
   chatsInfo: ChatInfoType[] | null;
   setClickedRoomIndex: Function;

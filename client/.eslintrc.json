@@ -22,6 +22,7 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "react/require-default-props" : 0,
     "no-nested-ternary" : 0,
     "react/jsx-props-no-spreading" : 0,
     "react/jsx-no-useless-fragment" : 0,
