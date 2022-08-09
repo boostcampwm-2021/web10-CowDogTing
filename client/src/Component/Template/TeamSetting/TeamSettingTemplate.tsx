@@ -8,6 +8,7 @@ import { TeamInfo } from "@Organism/.";
 import { teamState } from "@Recoil/TeamData";
 import { userState } from "@Recoil/UserData";
 import { ProfileList } from "../Profile/ProfileList";
+import { useLocationSelectHook } from "./TeamCreateTemplate.hook";
 
 const TeamSettingTemPlateStyle = css`
   display: flex;
@@ -19,9 +20,10 @@ const TeamSettingTemPlateStyle = css`
 `;
 
 export const TeamSettingTemplate: React.FC = () => {
+  const [locSelected, handleLocationSelected, handleLocationInit] = useLocationSelectHook();
+
   const [teamInfoState, setTeamInfoState] = useRecoilState(teamState);
   const userInfoState = useRecoilValue(userState);
-  const [locSelected, setLocSelected] = useState<string>("");
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);
   const profileRef = useRef<HTMLDivElement[]>([]);
@@ -30,7 +32,7 @@ export const TeamSettingTemplate: React.FC = () => {
     if (!teamNameRef.current || !teamInfoRef.current || !locSelected) return;
     teamNameRef.current.value = "";
     teamInfoRef.current.value = "";
-    setLocSelected("");
+    handleLocationInit();
   };
   const clickExitButton: MouseEventHandler = async () => {
     const result = await exitTeam();
@@ -64,9 +66,45 @@ export const TeamSettingTemplate: React.FC = () => {
 
   return (
     <div css={TeamSettingTemPlateStyle}>
-      {/* <TeamInfo setLocSelected={setLocSelected} teamNameRef={teamNameRef} teamInfoRef={teamInfoRef} /> */}
+      <TeamInfo locSelected={locSelected} handleLocationSelected={handleLocationSelected} teamNameRef={teamNameRef} teamInfoRef={teamInfoRef} />
       <ProfileList handleProfileListContainer={() => {}} datas={teamInfoState?.member} person={1} profileRef={profileRef} />
       <TeamSettingButtonContainer clickUpdateButton={clickUpdateButton} clickExitButton={clickExitButton} />
     </div>
   );
 };
+
+/**
+ * 
+ *  
+ const postAPI = async () => {
+  const res = await axios.post();
+  if(res === "") throw new Error;
+   return res;
+ }
+ 
+ 
+ const handleClickButton = async () => {
+   try{
+     const res = await postAPI();
+     setter(res);
+   }catch(e){
+     handleError(e);
+   }
+ }
+
+
+ const postAPI = async (handleError) => {
+  try{
+    const res = await axios.post();
+    if(res === "") throw new Error;
+    return res;
+  }catch(e){
+    handleError(e);
+    return [];
+  }
+  
+ const handleClickButton = () => postAPI(handleError).then(setter);
+ * 
+ * 
+ * 
+ */

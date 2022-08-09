@@ -27,16 +27,15 @@ export const TeamCreateTemplate: React.FC = () => {
   const setErrorValue = useSetRecoilState(errorState);
 
   const clickCreateButton: MouseEventHandler = async () => {
-    const { bool, value } = validationRefData({ teamNameRef, teamInfoRef, locSelected });
-    if (!bool) {
-      setErrorValue({ errorStr: value as string, timeOut: 1000 });
-      return;
-    }
-    postCreateTeam({ ...(value as Exclude<typeof value, string>), catchError: setErrorValue }).then((res) => {
+    try {
+      const value = validationRefData({ teamNameRef, teamInfoRef, locSelected });
+      const res = await postCreateTeam(value as Exclude<typeof value, undefined>);
       const { gid, teamData } = res as Exclude<typeof res, undefined>;
       setTeamInfo(teamData);
       setUserInfo((prev) => ({ ...prev, gid }));
-    });
+    } catch (e) {
+      setErrorValue({ errorStr: e as string, timeOut: 1000 });
+    }
   };
 
   return (
