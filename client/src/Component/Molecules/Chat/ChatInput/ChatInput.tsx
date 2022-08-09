@@ -1,13 +1,11 @@
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
 import { Input } from "@Atom/.";
-import { userState } from "@Recoil/UserData";
-import { chatTarget } from "@Recoil/Atom";
+import { userChatRoomInfo } from "@Recoil/ChatData";
 import { useChatImageControl, useChatMessageControl } from "./ChatInput.hook";
 
 export const ChatInput = () => {
-  const { chatRoomId } = useRecoilValue(chatTarget);
-  const { id: uid } = useRecoilValue(userState);
+  const { chatRoomId, id: uid } = useRecoilValue(userChatRoomInfo);
   const { messageRef, sendMessage, handleEnterPress } = useChatMessageControl({ uid, chatRoomId });
   const { imageInputTag, handleImageButtonClick, changeImage } = useChatImageControl({ uid, chatRoomId });
 

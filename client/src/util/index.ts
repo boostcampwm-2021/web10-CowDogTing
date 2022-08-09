@@ -36,14 +36,6 @@ export const checkLogin = () => {
   return isLogin === "true";
 };
 
-export const checkGameInUrl = () => {
-  return window.location.href.includes("Game");
-};
-
-export const checkGatherInUrl = () => {
-  return window.location.href.includes("Gather");
-};
-
 export const isNumber = (n: string) => /^-?[\d.]+(?:e-?\d+)?$/.test(n);
 
 export const fileReader = ({ data, handler }: { data: Blob; handler: Function }) => {
