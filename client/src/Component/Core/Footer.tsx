@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { css } from "@emotion/react";
-import ChatIcon from "@Atom/ChatIcon";
+import { ChatIcon } from "@Atom/.";
 import useDropDownCloseEvent from "@Hook/useDropDownCloseEvent";
 import { checkLogin, passToLoginPage } from "@Util/.";
 import { useToggleHook } from "@Hook/useToggleHook";
