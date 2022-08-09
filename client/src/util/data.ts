@@ -38,7 +38,7 @@ export const createTeam = async ({ teamName, teamInfo, location }: PostTeamType)
 
     return gid;
   } catch (error) {
-    return "error";
+    throw new Error();
   }
 };
 
@@ -63,7 +63,7 @@ export const postLogin = async ({ id, pw }: loginInfo) => {
     );
     return data;
   } catch (error) {
-    return "error";
+    throw new Error();
   }
 };
 
@@ -79,7 +79,7 @@ export const registerUser = async ({ id, pw, location, age, sex, info }: registe
     });
     return data;
   } catch (error) {
-    return "error";
+    throw new Error();
   }
 };
 
@@ -90,7 +90,7 @@ export const getCowDogInfo = async (person: number, index: number, category: str
     });
     return data;
   } catch (error) {
-    return [];
+    throw new Error();
   }
 };
 
@@ -99,7 +99,7 @@ export const getChatMessage = async ({ index, chatRoomId }: { index: number; cha
     const { data } = await axios.get(`${CHAT_MESSAGES_API_URL}?chatRoomId=${chatRoomId}&index=${index}`);
     return data;
   } catch (error) {
-    return "error";
+    throw new Error();
   }
 };
 export const changeMyInfo = async ({ id, location, age, info }: { id: string; location: string; age: number; info: string }) => {
@@ -127,7 +127,7 @@ export const logOutUser = async () => {
     const { data } = await axios.get(LOGOUT_API_URL, { withCredentials: true });
     return data;
   } catch (error) {
-    return "error";
+    throw new Error();
   }
 };
 
