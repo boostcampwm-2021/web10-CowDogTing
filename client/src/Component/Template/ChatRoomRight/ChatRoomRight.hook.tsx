@@ -1,17 +1,12 @@
-import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { chatTarget } from "@Recoil/Atom";
+import { useMovePage } from "@Hook/useMovePage";
+import { useGetParams } from "@Hook/useGetParams";
 
 export const useHandleCloseRoom = () => {
   const { chatRoomId } = useRecoilValue(chatTarget);
-  const searchParams = new URLSearchParams(useLocation().search);
-  const navigate = useNavigate();
-
-  const handleCloseRoomClick = () => {
-    const isGameIn = Number(searchParams.get("index"));
-    if (!isGameIn) navigate("/chatList");
-    else navigate(`/ChatRoom?chatRoomId=${chatRoomId}`);
-  };
-
+  const checkIndex = useGetParams("index");
+  const [goBack, goChatList] = useMovePage([`/ChatRoom?chatRoomId=${chatRoomId}`, "/chatList"]);
+  const handleCloseRoomClick = () => (checkIndex ? goBack() : goChatList());
   return handleCloseRoomClick;
 };
