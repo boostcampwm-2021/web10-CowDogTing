@@ -7,8 +7,9 @@ import { TeamSettingButtonContainer } from "@Molecules/.";
 import { TeamInfo } from "@Organism/.";
 import { teamState } from "@Recoil/TeamData";
 import { userState } from "@Recoil/UserData";
+import { useMovePage } from "@Hook/useMovePage";
 import { ProfileList } from "../Profile/ProfileList";
-import { useLocationSelectHook } from "./TeamCreateTemplate.hook";
+import { teamUpdateDataValidation, useLocationSelectHook } from "./TeamCreateTemplate.hook";
 
 const TeamSettingTemPlateStyle = css`
   display: flex;
@@ -21,6 +22,7 @@ const TeamSettingTemPlateStyle = css`
 
 export const TeamSettingTemplate: React.FC = () => {
   const [locSelected, handleLocationSelected, handleLocationInit] = useLocationSelectHook();
+  const [goMain] = useMovePage("/main");
 
   const [teamInfoState, setTeamInfoState] = useRecoilState(teamState);
   const userInfoState = useRecoilValue(userState);
@@ -28,40 +30,31 @@ export const TeamSettingTemplate: React.FC = () => {
   const teamInfoRef = useRef<HTMLInputElement>(null);
   const profileRef = useRef<HTMLDivElement[]>([]);
   const setErrorValue = useSetRecoilState(errorState);
+
   const resetInput = () => {
     if (!teamNameRef.current || !teamInfoRef.current || !locSelected) return;
     teamNameRef.current.value = "";
     teamInfoRef.current.value = "";
     handleLocationInit();
   };
-  const clickExitButton: MouseEventHandler = async () => {
-    const result = await exitTeam();
-    if (result === "error") {
-      setErrorValue({ errorStr: "팀 탈출에 실패했습니다.", timeOut: 1000 });
-    }
-    window.location.replace("/main");
-  };
-  const clickUpdateButton: MouseEventHandler = async () => {
-    if (!teamNameRef.current && !teamInfoRef.current && !locSelected && !teamInfoState.id) return;
 
-    if (teamInfoState.leader !== userInfoState.id) {
-      setErrorValue({ errorStr: "팀 리더가 아닙니다", timeOut: 1000 });
-      return;
-    }
+  const clickExitButton: MouseEventHandler = () =>
+    exitTeam()
+      .then((res) => goMain())
+      .catch((e) => setErrorValue({ errorStr: e as string, timeOut: 1000 }));
 
-    const result = await changeTeamInfo({
-      teamName: teamNameRef?.current?.value || teamInfoState.id,
-      teamInfo: teamInfoRef?.current?.value || teamInfoState.info,
-      location: locSelected ?? teamInfoState.location,
-    });
-    if (result === "error") {
-      setErrorValue({ errorStr: "팀 정보 수정에 실패했습니다.", timeOut: 1000 });
-      return;
+  const clickUpdateButton: MouseEventHandler = () => {
+    try {
+      const value = teamUpdateDataValidation({ teamNameRef, teamInfoRef, locSelected, teamInfoState, userInfoState });
+      changeTeamInfo(value)
+        .then((res) => {
+          setTeamInfoState((prev) => ({ ...prev, ...res }));
+          resetInput();
+        })
+        .catch((e) => setErrorValue({ errorStr: "팀 정보 수정에 실패했습니다.", timeOut: 1000 }));
+    } catch (e) {
+      setErrorValue({ errorStr: e as string, timeOut: 1000 });
     }
-    setTeamInfoState((prev) => {
-      return { ...prev, ...result };
-    });
-    resetInput();
   };
 
   return (
@@ -72,39 +65,3 @@ export const TeamSettingTemplate: React.FC = () => {
     </div>
   );
 };
-
-/**
- * 
- *  
- const postAPI = async () => {
-  const res = await axios.post();
-  if(res === "") throw new Error;
-   return res;
- }
- 
- 
- const handleClickButton = async () => {
-   try{
-     const res = await postAPI();
-     setter(res);
-   }catch(e){
-     handleError(e);
-   }
- }
-
-
- const postAPI = async (handleError) => {
-  try{
-    const res = await axios.post();
-    if(res === "") throw new Error;
-    return res;
-  }catch(e){
-    handleError(e);
-    return [];
-  }
-  
- const handleClickButton = () => postAPI(handleError).then(setter);
- * 
- * 
- * 
- */

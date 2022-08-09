@@ -1,5 +1,5 @@
 import { createTeam, getFetch } from "@Util/data";
-import { ErrorType, TeamInfoType } from "@Util/type";
+import { PersonInfoType, TeamInfoType } from "@Util/type";
 import { TEAM_INFO_URL } from "@Util/URL";
 import { useState } from "react";
 
@@ -12,7 +12,8 @@ export const useLocationSelectHook: useLocationSelectHookType = () => {
 };
 
 type returnType = { teamName: string; teamInfo: string; location: string };
-type validationFuncType = ({ teamNameRef, teamInfoRef, locSelected }: { teamNameRef: React.RefObject<HTMLInputElement>; teamInfoRef: React.RefObject<HTMLInputElement>; locSelected: string }) => returnType | undefined;
+type validationArgsType = { teamNameRef: React.RefObject<HTMLInputElement>; teamInfoRef: React.RefObject<HTMLInputElement>; locSelected: string };
+type validationFuncType = ({ teamNameRef, teamInfoRef, locSelected }: validationArgsType) => returnType | undefined;
 export const validationRefData: validationFuncType = ({ teamNameRef, teamInfoRef, locSelected }) => {
   if (!teamNameRef.current || !teamInfoRef.current) throw new Error("시스템 에러");
 
@@ -26,9 +27,22 @@ export const validationRefData: validationFuncType = ({ teamNameRef, teamInfoRef
 };
 
 type postCreateTeamFuncType = ({ teamName, teamInfo, location }: returnType) => Promise<{ gid: number; teamData: TeamInfoType } | undefined>;
-
 export const postCreateTeam: postCreateTeamFuncType = async ({ teamName, teamInfo, location }) => {
   const [gid, teamData] = await Promise.all([createTeam({ teamName, teamInfo, location }), getFetch({ url: TEAM_INFO_URL, query: "" })]);
   if (gid === "error") throw new Error("팀 생성에 실패했습니다");
   return { gid, teamData };
+};
+
+type teamUpdateDataValidationArgsType = validationArgsType & {
+  teamInfoState: TeamInfoType;
+  userInfoState: PersonInfoType;
+};
+export const teamUpdateDataValidation = ({ teamNameRef, teamInfoRef, locSelected, teamInfoState, userInfoState }: teamUpdateDataValidationArgsType) => {
+  if (!teamNameRef.current && !teamInfoRef.current && !locSelected && !teamInfoState.id) throw new Error("시스템 에러");
+  if (teamInfoState.leader !== userInfoState.id) throw new Error("팀 리더가 아닙니다");
+  return {
+    teamName: teamNameRef?.current?.value || teamInfoState.id,
+    teamInfo: teamInfoRef?.current?.value || teamInfoState.info,
+    location: locSelected ?? teamInfoState.location,
+  };
 };
