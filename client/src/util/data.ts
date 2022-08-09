@@ -119,7 +119,7 @@ export const changeMyInfo = async ({ id, location, age, info }: { id: string; lo
 
     return data;
   } catch (error) {
-    return "error";
+    throw new Error("내 정보 수정에 실패했습니다");
   }
 };
 export const logOutUser = async () => {
