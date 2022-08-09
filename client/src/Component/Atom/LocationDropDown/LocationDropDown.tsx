@@ -13,7 +13,8 @@ const InfoStyle = css`
   margin-left: 7px;
 `;
 
-export default function LocationDropDown({ locSelected, handleLocationSelected, id }: { locSelected: string; handleLocationSelected: (e: React.ChangeEvent<HTMLSelectElement>) => void; id: string }) {
+export type LocationDropDownProps = { locSelected: string; handleLocationSelected: (e: React.ChangeEvent<HTMLSelectElement>) => void; id: string };
+export const LocationDropDown = ({ locSelected, handleLocationSelected, id }: LocationDropDownProps) => {
   return (
     <select css={InfoStyle} onChange={handleLocationSelected} value={locSelected}>
       <option selected value={id} disabled>
@@ -26,7 +27,7 @@ export default function LocationDropDown({ locSelected, handleLocationSelected, 
       ))}
     </select>
   );
-}
+};
 
 const locationList = [
   { id: "서울", value: "서울" },

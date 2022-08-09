@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "@emotion/react";
-import { Input } from "@Atom/Input";
+import { Input } from "@Atom/Input/Input";
 import { InputLabelType } from "@Util/type";
 
 const InputLabelStyle = css`
