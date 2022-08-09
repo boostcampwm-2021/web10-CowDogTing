@@ -1,10 +1,5 @@
 import React, { RefObject } from "react";
 
-export type ButtonType = {
-  size?: string;
-  color?: string;
-};
-
 export type ImageDivType = {
   type: string;
   image: string;

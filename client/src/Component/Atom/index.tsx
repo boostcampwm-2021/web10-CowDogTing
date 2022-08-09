@@ -1,4 +1,4 @@
-export * from "./Button";
+export * from "./Button/Button";
 export * from "./ChatIcon";
 export * from "./DropDownElement";
 export * from "./ImageDiv";

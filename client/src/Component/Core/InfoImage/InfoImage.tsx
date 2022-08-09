@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { ProfileImage } from "@Atom/ProfileImage";
-import { Button } from "@Atom/Button";
+import { Button } from "@Atom/.";
 import { useGetParams } from "@Hook/useGetParams";
 import { useHandleImage, useHandleImageClick, useHandleImageEdit } from "./InfoImage.hook";
 

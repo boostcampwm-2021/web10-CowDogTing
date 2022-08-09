@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
 import { userState } from "@Recoil/UserData";
-import { Button } from "./Button";
+import { Button } from "@Atom/.";
 import { RequestType } from "../../Util/type";
 import { requestAccept, requestDeny } from "../../Util/data";
 
