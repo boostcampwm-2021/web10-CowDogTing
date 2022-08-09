@@ -13,20 +13,28 @@ const InfoStyle = css`
   margin-left: 7px;
 `;
 
-export default function LocationDropDown({ setLocSelected, id }: { setLocSelected: (value: string) => void; id: string }) {
+export default function LocationDropDown({ locSelected, handleLocationSelected, id }: { locSelected: string; handleLocationSelected: (e: React.ChangeEvent<HTMLSelectElement>) => void; id: string }) {
   return (
-    <select css={InfoStyle} onChange={(e) => setLocSelected(e.target.value)}>
+    <select css={InfoStyle} onChange={handleLocationSelected} value={locSelected}>
       <option selected value={id} disabled>
         거주지를 선택해주세요.
       </option>
-      <option value="서울">서울</option>
-      <option value="경기">경기</option>
-      <option value="인천">인천</option>
-      <option value="대구">대구</option>
-      <option value="대전">대전</option>
-      <option value="광주">광주</option>
-      <option value="부산">부산</option>
-      <option value="울산">울산</option>
+      {locationList.map(({ id, value }) => (
+        <option key={id} value={value}>
+          {value}
+        </option>
+      ))}
     </select>
   );
 }
+
+const locationList = [
+  { id: "서울", value: "서울" },
+  { id: "경기", value: "경기" },
+  { id: "인천", value: "인천" },
+  { id: "대구", value: "대구" },
+  { id: "대전", value: "대전" },
+  { id: "광주", value: "광주" },
+  { id: "부산", value: "부산" },
+  { id: "울산", value: "울산" },
+];

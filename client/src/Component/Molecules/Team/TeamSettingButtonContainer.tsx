@@ -1,27 +1,23 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Button } from "@Atom/.";
 import useDropDownCloseEvent from "@Hook/useDropDownCloseEvent";
 import { TeamButtonContainer } from "@Hoc/.";
-import InviteModal from "../../Template/Modal/InviteModal";
+import InviteModal from "@Template/Modal/InviteModal";
+import { useToggleHook } from "@Hook/useToggleHook";
 
 type props = { clickUpdateButton: React.MouseEventHandler; clickExitButton: React.MouseEventHandler };
 export const TeamSettingButtonContainer = ({ clickUpdateButton, clickExitButton }: props) => {
-  const [inviteModalState, setInviteModalState] = useState(false);
+  const [inviteModalState, handleToggleInvite, handleFalseInvite] = useToggleHook();
   const modalRef = useRef<HTMLInputElement>(null);
-  useDropDownCloseEvent(modalRef, () => setInviteModalState(false));
+  useDropDownCloseEvent(modalRef, handleFalseInvite);
 
   return (
     <TeamButtonContainer>
       <div ref={modalRef}>
-        <Button
-          size="Medium"
-          onClick={() => {
-            setInviteModalState((prev) => !prev);
-          }}
-        >
+        <Button size="Medium" onClick={handleToggleInvite}>
           초대하기
         </Button>
-        {inviteModalState && <InviteModal setInviteModalState={setInviteModalState} />}
+        {inviteModalState && <InviteModal handleFalseInvite={handleFalseInvite} />}
       </div>
       <Button size="Medium" onClick={clickUpdateButton}>
         수정하기

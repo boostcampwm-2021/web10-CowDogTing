@@ -11,17 +11,17 @@ const LabelStyle = css`
   width: 90%;
 `;
 
-type props = { teamNameRef: RefObject<HTMLInputElement>; teamInfoRef: RefObject<HTMLInputElement>; setLocSelected: (value: string) => void };
-export const TeamInfoContainer = ({ teamNameRef, teamInfoRef, setLocSelected }: props) => {
-  const { id, info } = useRecoilValue(teamState);
+type props = { locSelected: string; teamNameRef: RefObject<HTMLInputElement>; teamInfoRef: RefObject<HTMLInputElement>; handleLocationSelected: (e: React.ChangeEvent<HTMLSelectElement>) => void };
 
+export const TeamInfoContainer = ({ teamNameRef, teamInfoRef, locSelected, handleLocationSelected }: props) => {
+  const { id, info } = useRecoilValue(teamState);
   return (
     <InfoContainer>
       <InputLabel label="팀명" placeholder={id} refProps={teamNameRef} />
       <InputLabel label="소개" placeholder={info} refProps={teamInfoRef} />
       <div id="location">
         <p css={LabelStyle}>지역</p>
-        <LocationDropDown setLocSelected={setLocSelected} id={id} />
+        <LocationDropDown locSelected={locSelected} handleLocationSelected={handleLocationSelected} id={id} />
       </div>
     </InfoContainer>
   );

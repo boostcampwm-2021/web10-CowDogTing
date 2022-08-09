@@ -8,3 +8,4 @@ export * from "./Modal";
 export * from "./MyPageSideBar";
 export * from "./NavBar/Navbar";
 export * from "./Header/Header";
+export * from "./InfoImage/InfoImage";

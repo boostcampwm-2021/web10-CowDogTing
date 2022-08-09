@@ -1,7 +1,7 @@
 import React, { RefObject } from "react";
 import { css } from "@emotion/react";
+import { InfoImage } from "@Core/.";
 import { TeamInfoContainer } from "./TeamInfoContianer";
-import { InfoImageContainer } from "@Hoc/.";
 
 const TeamInfoContainerStyle = css`
   display: flex;
@@ -13,12 +13,12 @@ const TeamInfoContainerStyle = css`
   align-items: center;
 `;
 
-type props = { teamNameRef: RefObject<HTMLInputElement>; teamInfoRef: RefObject<HTMLInputElement>; setLocSelected: (value: string) => void };
-export const TeamInfo = ({ teamNameRef, teamInfoRef, setLocSelected }: props) => {
+type props = { locSelected: string; teamNameRef: RefObject<HTMLInputElement>; teamInfoRef: RefObject<HTMLInputElement>; handleLocationSelected: (e: React.ChangeEvent<HTMLSelectElement>) => void };
+export const TeamInfo = (props: props) => {
   return (
     <div css={TeamInfoContainerStyle}>
-      <InfoImageContainer />
-      <TeamInfoContainer setLocSelected={setLocSelected} teamNameRef={teamNameRef} teamInfoRef={teamInfoRef} />
+      <InfoImage />
+      <TeamInfoContainer {...props} />
     </div>
   );
 };
