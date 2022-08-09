@@ -12,7 +12,7 @@ export * from "./Menu/Menu";
 export * from "./SideBarDiv";
 export * from "./SearchIcon";
 export * from "./NavbarDiv/NavbarDiv";
-export * from "./ProfileCard";
+export * from "./ProfileCard/ProfileCard";
 export * from "./ProfileInfo";
 export * from "./Video";
 export * from "./Chat/Chat";
