@@ -3,7 +3,7 @@ export * from "./MainPage/MainBody";
 export * from "./MainPage/MainBodyLeft";
 export * from "./MainPage/MainBodyRight";
 
-export * from "./Chat/ChatDetail";
+export * from "./Chat/ChatDetail/ChatDetail";
 export * from "./Chat/ChatImageContainer";
 export * from "./Chat/ChatInputContainer";
 export * from "./Chat/ChatListContainer";
