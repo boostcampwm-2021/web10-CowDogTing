@@ -3,11 +3,9 @@ export * from "./MainPage/MainHeaderCenter";
 export * from "./MainPage/MainBodyLeftButtonContainer";
 export * from "./MainPage/MainBodyRight.ButtonContainer";
 
-export * from "./Chat/ChatInput";
+export * from "./Chat/ChatInput/ChatInput";
 export * from "./Chat/ChatProfileInfoContainer";
-export * from "./Chat/ChatRoomBasic";
-export * from "./Chat/ChatRoomFooter";
-export * from "./Chat/ChatRoomGame";
+export * from "./Chat/ChatRoomBasic/ChatRoomBasic";
 export * from "./Chat/Chats";
 export * from "./Chat/NotReadNum";
 

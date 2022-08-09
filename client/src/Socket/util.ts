@@ -6,12 +6,14 @@ import { createReceivePC } from "./webRTC";
 
 // const socket = ClientSocket.instance.socket as Socket;
 
-export const userEnterEvent = (data: { id: string }, chatRoomId: string, socket: Socket, setUsers: Function) => {
+export const userEnterEvent = (data: { id: string }, chatRoomId: string, socket: Socket | undefined, setUsers: Function) => {
+  if (!socket) return;
   if (data.id === ClientSocket?.instance?.socket?.id) return;
   createReceivePC(data.id, socket, chatRoomId, setUsers);
 };
 
-export const allUsersEvent = (data: { users: Array<{ id: string }> }, chatRoomId: string, socket: Socket, setUsers: Function) => {
+export const allUsersEvent = (data: { users: Array<{ id: string }> }, chatRoomId: string, socket: Socket | undefined, setUsers: Function) => {
+  if (!socket) return;
   data.users.forEach((user) => createReceivePC(user.id, socket, chatRoomId, setUsers));
 };
 

@@ -21,12 +21,3 @@ export const MENU_LIST: menuListType = {
     { link: "", name: "로그아웃" },
   ],
 };
-
-export const gameDatas = [
-  { title: "라이어게임 Web17", src: "https://liarking.kro.kr", color: "#000000" },
-  { title: "부트리스 Web24", src: "https://boostris.com/login", color: "#154089" },
-  { title: "부덕사운드 Web2", src: "https://booducksound.kro.kr", color: "#c3e3f0" },
-];
-export function getGameDatas(index: number) {
-  return gameDatas[index];
-}

@@ -1,14 +1,6 @@
 import React from "react";
 import { css } from "@emotion/react";
 
-const flexStyle = css`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 250px;
-  height: 100px;
-`;
-
 const supportStyle = css`
   width: 100px;
   height: 100px;
@@ -16,16 +8,17 @@ const supportStyle = css`
   border: 1px solid #000000;
 `;
 
-const containerStyle = (props: { type: string }) => css`
-  width: 200px;
-  height: 250px;
-  ${props.type === "basic" && flexStyle}
+const containerStyle = css`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 250px;
+  height: 100px;
 `;
 
-export const VideoSupport = (props: { type: string }) => {
-  const { type } = props;
+export const VideoSupport = () => {
   return (
-    <div css={containerStyle({ type })}>
+    <div css={containerStyle}>
       <div css={supportStyle} />
       <div css={supportStyle} />
     </div>
