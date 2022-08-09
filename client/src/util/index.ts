@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { RefObject } from "react";
 
 export const handleModalClick = (refs: RefObject<HTMLDivElement[]>, handler: (value: any) => void) => (e: React.MouseEvent) => {

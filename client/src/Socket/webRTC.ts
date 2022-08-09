@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { Socket } from "socket.io-client";
 import ClientSocket from ".";
 import { IWebRTCUser } from "../Util/type";

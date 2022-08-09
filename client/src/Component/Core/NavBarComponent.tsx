@@ -8,11 +8,11 @@ const list = [
 ];
 
 type props = { navBarRef: React.MutableRefObject<HTMLDivElement[]> };
+
 export const NavBarComponent = ({ navBarRef }: props) => {
   return (
     <>
-      {list.map((item, idx) => {
-        const { name } = item;
+      {list.map(({ name }, idx) => {
         return (
           <div key={idx} className="navbar-item" data-id={idx} ref={(el) => ((navBarRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)}>
             <NavbarDiv>{name}</NavbarDiv>

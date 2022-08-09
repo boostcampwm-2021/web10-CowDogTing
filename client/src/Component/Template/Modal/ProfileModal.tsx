@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from "react";
 import { ProfileInfo, Button } from "@Atom/.";
 import { LargeModal } from "@Core/.";

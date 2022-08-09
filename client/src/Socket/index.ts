@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-constructor-return */
 import io, { Socket } from "socket.io-client";
 import { joinChatType } from "../Util/type";
 

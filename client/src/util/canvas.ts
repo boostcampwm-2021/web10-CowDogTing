@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-nested-ternary */
 import { RefObject } from "react";
 
 const CANVAS_WIDTH = 800;

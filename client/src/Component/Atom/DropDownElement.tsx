@@ -13,11 +13,12 @@ export const DropDownElement: React.FC<props> = ({ menu, onClick }) => {
 };
 
 const LogOut = (callback: () => void) => async () => {
-  const data = await logOutUser();
-  if (data) {
+  try {
+    const data = await logOutUser();
+    if (!data) throw new Error();
     sessionStorage.setItem("isLogin", "false");
     callback();
-  } else {
-    alert("실패 ㅋㅋ");
+  } catch (e) {
+    throw new Error();
   }
 };

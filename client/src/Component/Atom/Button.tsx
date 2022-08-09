@@ -4,16 +4,14 @@ import { ButtonType } from "@Util/type";
 
 const ButtonStyle = (props: ButtonType) => css`
   border: 2px solid ${props.color};
-  ${props.size === "State" && StateButtonStyle}
   ${props.size === "Medium" && MediumButtonStyle}
   ${props.size === "Large" && LargeButtonStyle}
   ${props.size === "Long" && LongButtonStyle}
+  ${props.size === "LargeDropDown" && LargeDropDownStyle}
   ${props.size === "Long" &&
   css`
     background-color: ${props.color};
   `}
-  ${props.size === "LargeDropDown" && LargeDropDownStyle}
-  ${props.size === "SmallDropDown" && SmallDropDownStyle}
   &:hover {
     background-color: ${props.color};
     color: #ffffff;
@@ -44,12 +42,6 @@ Button.defaultProps = {
   color: "#ffcfcf",
 };
 
-/* 확인 , 취소 ... */
-const StateButtonStyle = css`
-  width: 100px;
-  height: 50px;
-`;
-
 /* 선택 버튼 */
 const MediumButtonStyle = css`
   width: 180px;
@@ -71,12 +63,6 @@ const LongButtonStyle = css`
   &:hover {
     height: 60px;
   }
-`;
-
-const SmallDropDownStyle = css`
-  width: 200px;
-  height: 65px;
-  border-radius: 0;
 `;
 
 const LargeDropDownStyle = css`

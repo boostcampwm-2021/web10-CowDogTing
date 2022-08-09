@@ -1,5 +1,5 @@
-import React from "react";
 import { css } from "@emotion/react";
+
 const searchIcon = "/Asset/search.png";
 const searchIconStyle = css`
   position: relative;

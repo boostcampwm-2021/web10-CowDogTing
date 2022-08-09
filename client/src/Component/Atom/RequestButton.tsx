@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import React from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
@@ -24,22 +22,12 @@ const StateStyle = css`
 
 type props = { type: string; data: RequestType; isTeam: string };
 export const RequestButton = ({ type, data, isTeam }: props) => {
+  const { from, state } = data;
   const { id: myId, gid: mygId } = useRecoilValue(userState);
-  let toId: number | string = myId;
-  if (isTeam === "team" && mygId) {
-    toId = mygId;
-  }
-  const { from } = data;
+  const toId = isTeam === "team" && mygId ? mygId : myId;
 
-  const handleAcceptClick = () => {
-    requestAccept({ from, to: toId });
-  };
-
-  const handleDenyClick = () => {
-    requestDeny({ from, to: toId });
-  };
-
-  const { state } = data;
+  const handleAcceptClick = () => requestAccept({ from, to: toId });
+  const handleDenyClick = () => requestDeny({ from, to: toId });
 
   if (type === "ForMe") {
     return (

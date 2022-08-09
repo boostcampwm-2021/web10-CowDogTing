@@ -24,9 +24,7 @@ export const Video = ({ stream, muted }: Props) => {
   const [isMuted, setIsMuted] = useState<boolean>(false);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.srcObject = stream;
-    }
+    if (videoRef.current) videoRef.current.srcObject = stream;
     if (muted) setIsMuted(muted);
   }, [stream, muted]);
 

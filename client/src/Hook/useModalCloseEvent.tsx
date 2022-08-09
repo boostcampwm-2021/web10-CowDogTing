@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { RefObject, useEffect } from "react";
 
 export default function useModalCloseEvent(ref: RefObject<HTMLDivElement>, profileRef: RefObject<HTMLDivElement[]>, handler: (event: MouseEvent) => void) {

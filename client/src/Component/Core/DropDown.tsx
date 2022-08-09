@@ -4,6 +4,17 @@ import { DropDownElement } from "@Atom/.";
 import { DropDownType } from "../../Util/type";
 import { MENU_LIST } from "../../Util/constant";
 
+export const DropDown: React.FC<DropDownType> = ({ type, className, onClick }) => {
+  const list = MENU_LIST[type];
+  return (
+    <DropDownContainer type={type} className={className}>
+      {list.map((menu, i) => (
+        <DropDownElement key={i} menu={menu} onClick={onClick} />
+      ))}
+    </DropDownContainer>
+  );
+};
+
 const borderTop = css`
   border-top-left-radius: 27px;
   border-top-right-radius: 27px;
@@ -94,14 +105,3 @@ const DropDownContainer = styled.div`
   position: absolute;
   ${DropDownStyle}
 `;
-
-export const DropDown: React.FC<DropDownType> = ({ type, className, onClick }) => {
-  const list = MENU_LIST[type];
-  return (
-    <DropDownContainer type={type} className={className}>
-      {list.map((menu, i) => (
-        <DropDownElement key={i} menu={menu} onClick={onClick} />
-      ))}
-    </DropDownContainer>
-  );
-};

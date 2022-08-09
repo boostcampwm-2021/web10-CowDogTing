@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import React from "react";
 import { css } from "@emotion/react";
 import { RequestButton } from "@Atom/.";

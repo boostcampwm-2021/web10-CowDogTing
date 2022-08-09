@@ -1,6 +1,3 @@
-/* eslint-disable no-return-assign */
-/* eslint-disable no-param-reassign */
-
 import React from "react";
 import { css } from "@emotion/react";
 import { ProfileCard } from "@Atom/ProfileCard";
