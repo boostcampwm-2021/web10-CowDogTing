@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { ChatInput } from "@Molecules/Chat/ChatInput";
+import { ChatInput } from "@Molecules/Chat/ChatInput/ChatInput";
 import { LinkButton } from "@Core/LinkButton";
 import { chatTarget } from "@Recoil/Atom";
 import { ChatDetail } from "./ChatDetail/ChatDetail";

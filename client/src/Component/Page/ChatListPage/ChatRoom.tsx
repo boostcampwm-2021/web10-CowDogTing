@@ -2,11 +2,10 @@ import React, { useEffect } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useLocation } from "react-router-dom";
-import { ChatRoomLeft } from "../../Template/ChatRoomLeft/ChatRoomLeft";
-import { ChatRoomRight } from "../../Template/ChatRoomRight/ChatRoomRight";
-import { checkLogin, passToLoginPage } from "../../../Util";
-import { chatTarget } from "../../../Recoil/Atom";
 import { chatsState } from "@Recoil/ChatData";
+import { ChatRoomLeft } from "@Template/ChatRoomLeft/ChatRoomLeft";
+import { ChatRoomRight } from "@Template/ChatRoomRight/ChatRoomRight";
+import { chatTarget } from "@Recoil/Atom";
 
 const ChatRoomStyle = css`
   width: 400px;
@@ -15,8 +14,6 @@ const ChatRoomStyle = css`
 `;
 
 export const ChatRoom: React.FC = () => {
-  if (!checkLogin()) passToLoginPage();
-
   const setChatInfo = useSetRecoilState(chatTarget);
   const chatDatas = useRecoilValue(chatsState);
   const searchParams = new URLSearchParams(useLocation().search);
