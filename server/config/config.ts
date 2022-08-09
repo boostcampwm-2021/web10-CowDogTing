@@ -12,3 +12,5 @@ export const config = {
     logging: false,
   },
 };
+
+console.log(config);

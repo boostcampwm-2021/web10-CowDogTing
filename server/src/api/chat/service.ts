@@ -26,7 +26,7 @@ export const findChatRoomsInfo = async ({ uid }: { uid: string }) => {
   };
   const joinChatRooms = await findJoinChatRooms({ uid });
   const promiseArr = joinChatRooms.map((chatRoomId) => {
-    return Participant.findAll(query({ chatRoomId }));
+    return Participant.findAll(query({ chatRoomId }) as any);
   });
   const memberData = await Promise.all(promiseArr);
   const filteredMemberData = memberData.map((chatRoomMember) => {

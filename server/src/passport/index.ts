@@ -1,8 +1,8 @@
 import * as passport from "passport";
 import local from "./localStrategy";
-import naver from "./naverStrategy";
-import kakao from "./kakaoStrategy";
-import github from "./githubStrategy";
+// import naver from "./naverStrategy";
+// import kakao from "./kakaoStrategy";
+// import github from "./githubStrategy";
 import { Users } from "../db/models/users";
 
 export default () => {
@@ -11,12 +11,12 @@ export default () => {
   });
 
   passport.deserializeUser((uid, done) => {
-    Users.findOne({ where: { uid } })
+    Users.findOne({ where: { uid } } as any)
       .then((user: any) => done(null, user))
       .catch((err) => done(err));
   });
   local();
-  naver();
-  kakao();
-  github();
+  // naver();
+  // kakao();
+  // github();
 };
