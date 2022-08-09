@@ -25,7 +25,7 @@ const inviteModalStyle = css`
   background-color: #fff;
 `;
 
-export default function InviteModal({ setInviteModalState }: { setInviteModalState: Function }) {
+export default function InviteModal({ handleFalseInvite }: { handleFalseInvite: Function }) {
   const userIdRef = useRef<HTMLInputElement>(null);
   const setTeamInfo = useSetRecoilState(teamState);
   const setErrorValue = useSetRecoilState(errorState);
@@ -51,7 +51,7 @@ export default function InviteModal({ setInviteModalState }: { setInviteModalSta
         member: [...teamMember, result],
       };
     });
-    setInviteModalState(false);
+    handleFalseInvite();
   };
   return (
     <div css={inviteModalStyle}>
