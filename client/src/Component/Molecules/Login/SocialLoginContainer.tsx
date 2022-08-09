@@ -3,10 +3,8 @@ import { Button } from "@Atom/.";
 import { SOCIAL_NAVER_LOGIN, SOCIAL_GITHUB_LOGIN, SOCIAL_KAKAO_LOGIN } from "../../../Util/URL";
 
 const SocialLoginButtonContainerStyle = css`
-  div:nth-child(1) {
-    margin-top: 20px;
-  }
-  div:nth-child(2) {
+  margin-top: 10px;
+  button:nth-child(1) {
     margin: 10px 0;
   }
 `;

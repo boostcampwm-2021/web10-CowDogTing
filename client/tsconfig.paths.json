@@ -13,6 +13,7 @@
       "@Util/*": ["./Util/*"],
       "@Asset/*": ["./Asset/*"],
       "@Recoil/*": ["./Recoil/*"],
+      "@Socket/*": ["./Socket/*"],
     }
   }
 }
