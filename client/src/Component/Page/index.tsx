@@ -7,5 +7,4 @@ export * from "./MyPage/MyPage";
 export * from "./Page/Page";
 export * from "./RegisterPage/RegisterPage";
 export * from "./RequestPage/RequestPage";
-export * from "./TeamCreatepage/TeamCreatePage";
 export * from "./TeamSettingPage/TeamSettingPage";

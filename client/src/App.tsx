@@ -13,6 +13,7 @@ export const App: React.FC = () => {
     <>
       <Routes>
         <Route path="/" element={<MainPage />} />
+        <Route path="/main" element={<MainPage />} />
         <Route path="/sub/*" element={<Page />} />
         {/* <Route path="/ChatRoom" element={<ChatRoom />} /> */}
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}

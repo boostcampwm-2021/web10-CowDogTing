@@ -6,7 +6,7 @@ import { TeamInfo } from "@Organism/.";
 import { TeamCreateButtonContainer } from "@Molecules/.";
 import { userState } from "@Recoil/UserData";
 import { teamState } from "@Recoil/TeamData";
-import { postCreateTeam, useLocationSelectHook, validationRefData } from "./TeamCreatePage.hook";
+import { postCreateTeam, useLocationSelectHook, validationRefData } from "./TeamCreateTemplate.hook";
 
 const TeamCreatePageStyle = css`
   position: relative;
@@ -17,7 +17,7 @@ const TeamCreatePageStyle = css`
   flex-direction: column;
 `;
 
-export const TeamCreatePage: React.FC = () => {
+export const TeamCreateTemplate: React.FC = () => {
   const [locSelected, handleLocationSelected] = useLocationSelectHook();
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamInfoRef = useRef<HTMLInputElement>(null);
@@ -32,12 +32,11 @@ export const TeamCreatePage: React.FC = () => {
       setErrorValue({ errorStr: value as string, timeOut: 1000 });
       return;
     }
-
-    const res = await postCreateTeam({ ...(value as Exclude<typeof value, string>), catchError: setErrorValue });
-    if (!res) return;
-    const { gid, teamData } = res;
-    setTeamInfo(teamData);
-    setUserInfo((prev) => ({ ...prev, gid }));
+    postCreateTeam({ ...(value as Exclude<typeof value, string>), catchError: setErrorValue }).then((res) => {
+      const { gid, teamData } = res as Exclude<typeof res, undefined>;
+      setTeamInfo(teamData);
+      setUserInfo((prev) => ({ ...prev, gid }));
+    });
   };
 
   return (
@@ -47,5 +46,3 @@ export const TeamCreatePage: React.FC = () => {
     </div>
   );
 };
-
-export default TeamCreatePage;
