@@ -10,7 +10,7 @@ const ButtonContainerStyle = css`
 export const LoginButtonContainer = ({ onClick }: { onClick: () => Promise<void> }) => {
   return (
     <div css={ButtonContainerStyle}>
-      <Link to="/sub/Register">
+      <Link to="/Register">
         <Button size="Small">회원가입</Button>
       </Link>
       <Button size="Small" onClick={onClick}>

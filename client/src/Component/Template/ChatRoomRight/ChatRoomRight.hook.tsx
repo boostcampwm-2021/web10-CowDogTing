@@ -9,7 +9,7 @@ export const useHandleCloseRoom = () => {
 
   const handleCloseRoomClick = () => {
     const isGameIn = Number(searchParams.get("index"));
-    if (!isGameIn) navigate("/sub/chatList");
+    if (!isGameIn) navigate("/chatList");
     else navigate(`/ChatRoom?chatRoomId=${chatRoomId}`);
   };
 

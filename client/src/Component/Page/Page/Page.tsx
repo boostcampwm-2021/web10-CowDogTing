@@ -2,7 +2,8 @@ import React from "react";
 import { Route, Routes } from "react-router";
 import { Header } from "@Core/.";
 import { LoginUserRouter } from "@Hoc/LoginUserRouter";
-import { ChatListPage, CowDogPage, LogInPage, MyPage, RegisterPage, RequestPage, TeamSettingPage } from "..";
+import { LogInPage, RegisterPage } from "..";
+import { UserPage } from "./UserPage";
 
 export const Page: React.FC = () => {
   return (
@@ -12,42 +13,10 @@ export const Page: React.FC = () => {
         <Route path="/Login" element={<LogInPage />} />
         <Route path="/Register" element={<RegisterPage />} />
         <Route
-          path="/CowDogPage"
+          path="*"
           element={
             <LoginUserRouter>
-              <CowDogPage />
-            </LoginUserRouter>
-          }
-        />
-        <Route
-          path="/teamSetting"
-          element={
-            <LoginUserRouter>
-              <TeamSettingPage />
-            </LoginUserRouter>
-          }
-        />
-        <Route
-          path="/mypage/*"
-          element={
-            <LoginUserRouter>
-              <MyPage />
-            </LoginUserRouter>
-          }
-        />
-        <Route
-          path="/chatList"
-          element={
-            <LoginUserRouter>
-              <ChatListPage />
-            </LoginUserRouter>
-          }
-        />
-        <Route
-          path="/Request"
-          element={
-            <LoginUserRouter>
-              <RequestPage />
+              <UserPage />
             </LoginUserRouter>
           }
         />

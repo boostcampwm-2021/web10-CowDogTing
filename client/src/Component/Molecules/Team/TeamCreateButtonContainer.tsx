@@ -6,7 +6,7 @@ import { TeamButtonContainer } from "@Hoc/.";
 export const TeamCreateButtonContainer = ({ clickCreateButton }: { clickCreateButton: MouseEventHandler }) => {
   return (
     <TeamButtonContainer>
-      <Link to="/sub/teamSetting">
+      <Link to="/teamSetting">
         <Button size="Medium" onClick={clickCreateButton}>
           생성
         </Button>

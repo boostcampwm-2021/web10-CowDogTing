@@ -23,7 +23,7 @@ export const MyPageBodyTemplate = () => {
         <Route path="/question" element={<QuestionList />} />
         <Route path="/review" element={<Review />} />
         <Route path="/likelist" element={<LikeList />} />
-        <Route path="/*" element={<Navigate to="/sub/mypage/myinfo" replace />} />
+        <Route path="/*" element={<Navigate to="/mypage/myinfo" replace />} />
       </Routes>
     </div>
   );

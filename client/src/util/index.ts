@@ -28,7 +28,7 @@ export const handleModalClick = (refs: RefObject<HTMLDivElement[]>, handler: (va
 };
 
 export const passToLoginPage = () => {
-  window.location.href = "/sub/login";
+  window.location.href = "/login";
 };
 
 export const checkLogin = () => {

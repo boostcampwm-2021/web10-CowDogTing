@@ -23,7 +23,7 @@ export const MainHeaderRightSide: React.FC = () => {
   if (!checkLogin())
     return (
       <div css={MainHeaderRightContainer}>
-        <LinkButton url="/sub/login" type="Small" content="로그인" />
+        <LinkButton url="/login" type="Small" content="로그인" />
       </div>
     );
 

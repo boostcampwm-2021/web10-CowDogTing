@@ -51,7 +51,7 @@ export const Header = () => {
         <MainHeaderLogo />
       </Link>
       {!checkLogin() ? (
-        <LinkButton url="/sub/login" type="Small" content="로그인" />
+        <LinkButton url="/login" type="Small" content="로그인" />
       ) : (
         <div ref={userRef}>
           <UserIcon onClick={handleToggleUser} />

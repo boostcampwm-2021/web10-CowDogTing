@@ -1,9 +1,24 @@
-import { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { css } from "@emotion/react";
 import ChatIcon from "@Atom/ChatIcon";
 import useDropDownCloseEvent from "@Hook/useDropDownCloseEvent";
 import { checkLogin, passToLoginPage } from "@Util/.";
+import { useToggleHook } from "@Hook/useToggleHook";
 import { DropDown } from "./DropDown";
+
+export const Footer = () => {
+  const [chatDropDown, ToggleChatDropDown, handleFalseDropDown] = useToggleHook();
+  const handleChatIconClick = () => (checkLogin() ? ToggleChatDropDown() : passToLoginPage());
+  const chatRef = useRef<HTMLDivElement>(null);
+  useDropDownCloseEvent(chatRef, handleFalseDropDown);
+
+  return (
+    <div css={FooterStyle} ref={chatRef}>
+      <DropDown type="Chat" className={chatDropDown ? "show" : "hide"} />
+      <ChatIcon onClick={handleChatIconClick} />
+    </div>
+  );
+};
 
 const FooterStyle = css`
   z-index: 998;
@@ -17,19 +32,3 @@ const FooterStyle = css`
     display: block;
   }
 `;
-export const Footer = () => {
-  const [chatDropDown, setChatDropDown] = useState(false);
-  const chatRef = useRef<HTMLDivElement>(null);
-
-  useDropDownCloseEvent(chatRef, () => setChatDropDown(false));
-  const ToggleChatDropDown = () => {
-    setChatDropDown((isOpen) => !isOpen);
-  };
-
-  return (
-    <div css={FooterStyle} ref={chatRef}>
-      <DropDown type="Chat" className={chatDropDown ? "show" : "hide"} />
-      <ChatIcon onClick={() => (checkLogin() ? ToggleChatDropDown() : passToLoginPage())} />
-    </div>
-  );
-};
