@@ -35,7 +35,14 @@ export const Page: React.FC = () => {
             </LoginUserRouter>
           }
         />
-        {/* <Route path="/sub/chatList" element={<ChatListPage />} /> */}
+        <Route
+          path="/chatList"
+          element={
+            <LoginUserRouter>
+              <ChatListPage />
+            </LoginUserRouter>
+          }
+        />
         {/* <Route path="/sub/Request" element={<RequestPage />} /> */}
       </Routes>
     </>
