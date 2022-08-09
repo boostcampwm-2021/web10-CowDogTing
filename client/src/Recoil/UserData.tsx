@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil";
-import { getFetch } from "../util/data";
-import { PersonInfoType } from "../util/type";
-import { USER_URL } from "../util/URL";
+import { getFetch } from "../Util/data";
+import { PersonInfoType } from "../Util/type";
+import { USER_URL } from "../Util/URL";
 
 export const userState = atom<PersonInfoType>({
   key: "user",

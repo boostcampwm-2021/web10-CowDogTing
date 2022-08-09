@@ -6,7 +6,7 @@ import { requestState } from "../Recoil/RequestData";
 import { userStateSelector } from "../Recoil/UserData";
 import ClientSocket from "../Socket";
 import { handleReceiveRequestSocket, handleReceiveDenySocket, handleReceiveAcceptSocket, handleReceiveChatSocket } from "../Socket/chatSocket";
-import { RequestType, ChatInfoType, MessageType } from "../util/type";
+import { RequestType, ChatInfoType, MessageType } from "../Util/type";
 
 export const useSocketConnect = () => {
   const { id } = useRecoilValue(userStateSelector);

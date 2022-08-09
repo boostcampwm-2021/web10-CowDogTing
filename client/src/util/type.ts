@@ -1,7 +1,7 @@
 import React, { RefObject } from "react";
 
 export type ButtonType = {
-  type?: string;
+  size?: string;
   color?: string;
 };
 
@@ -11,7 +11,7 @@ export type ImageDivType = {
 };
 
 export type ChildrenType = {
-  children?: JSX.Element | JSX.Element[];
+  children?: React.ReactNode;
 };
 
 export type InputLabelType = {
@@ -20,7 +20,8 @@ export type InputLabelType = {
   refProps?: React.MutableRefObject<HTMLInputElement | null>;
 };
 
-export interface PersonInfoType {
+export type PersonInfoType = {
+  [key: string]: string | number | undefined | null;
   id: string;
   image: string | null;
   location: string;
@@ -29,7 +30,7 @@ export interface PersonInfoType {
   info: string;
   gid?: number | null;
   idx?: number;
-}
+};
 export interface PostTeamType {
   teamName: string;
   teamInfo: string;
@@ -48,9 +49,9 @@ export type TeamInfoType = {
   member?: PersonInfoType[] | null;
 };
 
-export interface ProfileType extends PersonInfoType {
+export type ProfileType = PersonInfoType & {
   member?: PersonInfoType[];
-}
+};
 
 export type ProfileInfoDataType = {
   data: ProfileType;
@@ -59,13 +60,13 @@ export type ProfileInfoDataType = {
 export type ProfileListType = {
   datas: PersonInfoType[] | ProfileType[] | null | undefined;
   person: number;
-  setOpenModal: (prev: any) => void;
+  handleProfileListContainer: (prev: any) => void;
   profileRef: RefObject<HTMLDivElement[]>;
 };
 export type RequestListType = {
   datas: RequestType[];
   type: string;
-  setOpenModal: (prev: any) => void;
+  handleRequestListContainer: (prev: any) => void;
   profileRef: RefObject<HTMLDivElement[]>;
 };
 
@@ -134,7 +135,7 @@ export type ChatListInfoType = {
 
 export type ChatListContainerType = {
   profileRef: RefObject<HTMLDivElement[]>;
-  setOpenModal: (prev: any) => void;
+  onClick: (prev: any) => void;
 };
 
 export type ChatImageContainerType = {
@@ -150,8 +151,8 @@ export type LinkButtonType = {
   url: string | undefined;
   type: string;
   content: string;
-  onClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
-  refProps?: RefObject<HTMLDivElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  refProps?: RefObject<HTMLButtonElement>;
   id?: string;
 };
 
@@ -159,7 +160,7 @@ export type DropDownType = {
   DropDownRef?: RefObject<HTMLDivElement>;
   type: string;
   className: string;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   refProps?: RefObject<HTMLDivElement>;
 };
 
