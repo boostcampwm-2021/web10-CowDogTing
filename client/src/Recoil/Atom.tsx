@@ -1,5 +1,6 @@
-import { atom } from "recoil";
-import { ChatInfoType, ErrorType, joinChatType, PersonInfoType, ProfileType, RequestType, TeamInfoType } from "../Util/type";
+import { atom, selector } from "recoil";
+import { ChatInfoType, ErrorType, ProfileType } from "@Util/type";
+import { userState } from "./UserData";
 
 export const cowDogState = atom<ProfileType[]>({
   key: "cowDogState",
@@ -39,5 +40,14 @@ export const errorState = atom<ErrorType>({
   default: {
     errorStr: "",
     timeOut: 2000,
+  },
+});
+
+export const getChatMemberSelector = selector({
+  key: "getChatMemberSelector",
+  get: ({ get }) => {
+    const { member } = get(chatTarget);
+    const { id: myId } = get(userState);
+    return member.filter((userInfo) => userInfo.id !== myId);
   },
 });

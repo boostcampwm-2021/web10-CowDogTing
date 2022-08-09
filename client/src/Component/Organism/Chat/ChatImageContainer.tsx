@@ -4,9 +4,8 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ChatImageContainerType } from "@Util/type";
 import { ProfileImage, Button } from "@Atom/.";
-import { chatTarget } from "../../../Recoil/Atom";
-import { userState } from "@Recoil/UserData";
-import { useNavigate } from "react-router-dom";
+import { useMovePage } from "@Hook/useMovePage";
+import { getChatMemberSelector } from "@Recoil/Atom";
 
 const ChatListHeader = styled.div`
   display: flex;
@@ -28,21 +27,15 @@ const ChatImageContainerStyle = css`
 `;
 
 export const ChatImageContainer = ({ profileRef }: ChatImageContainerType) => {
-  const { member } = useRecoilValue(chatTarget);
-  const { id: myId } = useRecoilValue(userState);
-  const navigate = useNavigate();
-
-  const handleCloseRoomClick = () => {
-    navigate("/main");
-  };
+  const member = useRecoilValue(getChatMemberSelector);
+  const [handleCloseRoomClick] = useMovePage("/main");
 
   return (
     <ChatListHeader>
       <div css={ChatImageContainerStyle}>
-        {member?.map((userInfo, idx) => {
-          if (userInfo.id === myId) return;
-          return <ProfileImage type="Mini" image={userInfo.image} ref={(el: any) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLImageElement)} data-id={idx} />;
-        })}
+        {member?.map((userInfo, idx) => (
+          <ProfileImage key={idx} type="Mini" image={userInfo.image} ref={(el: any) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLImageElement)} data-id={idx} />
+        ))}
       </div>
       <Button onClick={handleCloseRoomClick}>나가기</Button>
     </ChatListHeader>
