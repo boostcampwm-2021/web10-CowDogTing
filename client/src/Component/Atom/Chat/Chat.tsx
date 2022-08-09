@@ -1,7 +1,17 @@
+import React from "react";
 import { css } from "@emotion/react";
-import { useRecoilValue } from "recoil";
-import { userState } from "@Recoil/UserData";
 import { URL } from "@Util/URL";
+
+export type ChatProps = { from: string; type: "Mine" | "Other"; message: string; src: string | null };
+
+export const Chat = ({ from, type, message, src }: ChatProps) => {
+  return (
+    <div css={ChatContainerStyle({ type })}>
+      <div>{from}</div>
+      {src ? <img alt="ProfileImage" src={String(URL + src)} css={ImageStyle} /> : <div css={ChatTypeStyle({ type })}>{message}</div>}
+    </div>
+  );
+};
 
 const MyChatStyle = css`
   background: #b0c2ff;
@@ -41,15 +51,3 @@ const ImageStyle = css`
   width: 100px;
   height: 100px;
 `;
-type props = { from: string; message: string; src: string | null };
-export const Chat = ({ from, message, src }: props) => {
-  const { id: myId } = useRecoilValue(userState);
-  const type = from === myId ? "Mine" : "Other";
-
-  return (
-    <div css={ChatContainerStyle({ type })}>
-      <div>{from}</div>
-      {src ? <img alt="ProfileImage" src={String(URL + src)} css={ImageStyle} /> : <div css={ChatTypeStyle({ type })}>{message}</div>}
-    </div>
-  );
-};
