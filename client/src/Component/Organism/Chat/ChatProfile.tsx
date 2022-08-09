@@ -1,10 +1,7 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-return-assign */
-import { ProfileCard, ProfileImage } from "@Atom/.";
+import { ProfileCard } from "@Atom/.";
 import { ProfileImageContainer } from "@Hoc/.";
 import { ChatProfileInfoContainer } from "@Molecules/Chat/ChatProfileInfoContainer";
 import { ChatInfoType } from "@Util/type";
-const dummyImage = "Asset/meetingImage.png";
 
 type props = { data: ChatInfoType; idx: number; chatRoomRef: React.MutableRefObject<HTMLDivElement[]> };
 export const ChatProfile = ({ data, idx, chatRoomRef }: props) => {
@@ -13,9 +10,7 @@ export const ChatProfile = ({ data, idx, chatRoomRef }: props) => {
   return (
     <div data-id={idx} ref={(el) => ((chatRoomRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)}>
       <ProfileCard type={memberType}>
-        <ProfileImageContainer>
-          <ProfileImage type="Small" image={dummyImage} />
-        </ProfileImageContainer>
+        <ProfileImageContainer />
         <ChatProfileInfoContainer lastChat={lastChatInfo.message} from={lastChatInfo.from} />
       </ProfileCard>
     </div>
