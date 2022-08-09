@@ -1,28 +1,15 @@
-import React, { ChangeEvent, ChangeEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
 import { Input } from "@Atom/.";
 import { userState } from "@Recoil/UserData";
-import { postChat } from "@Util/data";
 import { chatTarget } from "@Recoil/Atom";
-import { useChatMessageControl } from "./ChatInput.hook";
+import { useChatImageControl, useChatMessageControl } from "./ChatInput.hook";
 
 export const ChatInput = () => {
   const { chatRoomId } = useRecoilValue(chatTarget);
   const { id: uid } = useRecoilValue(userState);
-  const { messageRef, sendMessage } = useChatMessageControl({ uid, chatRoomId });
-  const imageInputTag = useRef<HTMLInputElement>(null);
-  const handleImageButtonClick = () => (imageInputTag.current as HTMLInputElement).click();
-
-  const handleEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.code !== "Enter") return;
-    sendMessage();
-  };
-
-  const changeImage: ChangeEventHandler<HTMLInputElement> = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) return;
-    postChat(chatRoomId, uid, event.target.files[0]);
-  };
+  const { messageRef, sendMessage, handleEnterPress } = useChatMessageControl({ uid, chatRoomId });
+  const { imageInputTag, handleImageButtonClick, changeImage } = useChatImageControl({ uid, chatRoomId });
 
   return (
     <div css={InputContainer}>
