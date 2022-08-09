@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { RefObject } from "react";
 
-export const handleModalClick = (e: React.MouseEvent, refs: RefObject<HTMLDivElement[]>, handler: (value: any) => void) => {
+export const handleModalClick = (refs: RefObject<HTMLDivElement[]>, handler: (value: any) => void) => (e: React.MouseEvent) => {
   if (!refs.current) {
     handler(null);
     return;
@@ -28,20 +28,12 @@ export const handleModalClick = (e: React.MouseEvent, refs: RefObject<HTMLDivEle
 };
 
 export const passToLoginPage = () => {
-  window.location.href = "/sub/login";
+  window.location.href = "/login";
 };
 
 export const checkLogin = () => {
   const isLogin = sessionStorage.getItem("isLogin");
   return isLogin === "true";
-};
-
-export const checkGameInUrl = () => {
-  return window.location.href.includes("Game");
-};
-
-export const checkGatherInUrl = () => {
-  return window.location.href.includes("Gather");
 };
 
 export const isNumber = (n: string) => /^-?[\d.]+(?:e-?\d+)?$/.test(n);

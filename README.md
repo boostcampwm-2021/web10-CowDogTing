@@ -10,19 +10,6 @@ COWDOGTING
 
 ---
 
-# 실행 방법
-
-### Client
-
-- npm install
-- npm run starts [ 맥북 https ]
-- npm run window-start [ 윈도우 https ]
-
-### Server
-
-- npm install
-- npm start
-
 ### 주의할 점
 
 - key.pem , cert.pem , client.env , server.env 필요
@@ -30,7 +17,9 @@ COWDOGTING
 
 ---
 
-## [회고](https://velog.io/@0_jin/%EC%86%8C%EA%B0%9C%ED%8C%85-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%9A%8C%EA%B3%A0)
+## 회고록
+
+- [jin-Pro 작성](https://velog.io/@0_jin/%EC%86%8C%EA%B0%9C%ED%8C%85-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%9A%8C%EA%B3%A0)
 
 ---
 
@@ -44,7 +33,10 @@ COWDOGTING
 
 ## Resources
 
+### Backlog
+
 - [v0.0.1 Backlog](https://docs.google.com/spreadsheets/d/167yJb78hPknp7S7JK_qtHvbFZXPQ6wmps1iL3sgt1es/edit#gid=1761511684)
+- [v0.0.2 Backlog](https://docs.google.com/spreadsheets/d/1KEDtPdyq-6ktoalXyqvbzD71V4ZJRgGZdSqqrwF8L4g/edit#gid=0)
 
 ## 👨 팀원소개
 

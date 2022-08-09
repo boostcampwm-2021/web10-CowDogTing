@@ -1,26 +1,23 @@
+import React from "react";
 import { Route } from "react-router";
-import Footer from "./Molecules/Core/Footer";
-import ErrorModal from "./Template/Modal/ErrorModal";
-import MainPage from "./Page/MainPage/MainPage";
-import { Navigate, Routes } from "react-router-dom";
+import { Routes } from "react-router-dom";
+import { MainPage } from "@Page/.";
+import { Footer } from "@Core/.";
 import { useSocketConnect } from "./Hook/useSocket";
-import { ChatRoom, Page, Project } from "./Page";
+import ErrorModal from "./Component/Template/Modal/ErrorModal";
+import { Page } from "./Component/Page";
 
-function App() {
-  useSocketConnect();
+export const App: React.FC = () => {
+  // useSocketConnect();
   return (
     <>
       <Routes>
+        <Route path="/" element={<MainPage />} />
         <Route path="/main" element={<MainPage />} />
-        <Route path="/sub" element={<Page />} />
-        <Route path="/ChatRoom" element={<ChatRoom />} />
-        <Route path="/Project" element={<Project />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Page />} />
       </Routes>
       <Footer />
       <ErrorModal />
     </>
   );
-}
-
-export default App;
+};
