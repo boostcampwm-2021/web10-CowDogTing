@@ -1,10 +1,5 @@
 import React, { RefObject } from "react";
 
-export type ImageDivType = {
-  type: string;
-  image: string;
-};
-
 export type ChildrenType = {
   children?: React.ReactNode;
 };

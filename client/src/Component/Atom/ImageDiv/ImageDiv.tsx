@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { ImageDivType } from "../../Util/type";
 
 const bigImageDivStyle = css`
   width: 40vw;
@@ -27,6 +26,10 @@ const leftLongImageDivStyle = css`
 const leftLongDivStyle = css`
   top: -30%;
 `;
+export type ImageDivType = {
+  type: string;
+  image: string;
+};
 const ImageDivStyle = (props: ImageDivType) => css`
   position: relative;
   height: fit-content;
