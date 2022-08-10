@@ -11,7 +11,7 @@ export type InputLabelType = {
 };
 
 export type PersonInfoType = {
-  [key: string]: string | number | undefined | null;
+  [key: string]: string | number | undefined | null | PersonInfoType[];
   id: string;
   image: string | null;
   location: string;
@@ -40,11 +40,8 @@ export type TeamInfoType = {
 };
 
 export type ProfileType = PersonInfoType & {
+  // [key: string]: PersonInfoType[] | undefined;
   member?: PersonInfoType[];
-};
-
-export type ProfileInfoDataType = {
-  data: ProfileType;
 };
 
 export type ProfileListType = {

@@ -15,7 +15,7 @@ export const UserContainer: React.FC<props> = ({ sex, data, profileRef, idx, chi
     <div css={ProfileStyle}>
       <div ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx}>
         <ProfileCard type={sex}>
-          <ProfileInfo data={data} />
+          <ProfileInfo {...data} />
         </ProfileCard>
       </div>
       {children}

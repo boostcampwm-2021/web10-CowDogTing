@@ -1,8 +1,8 @@
 import React from "react";
 import { ComponentMeta } from "@storybook/react";
 import { ProfileInfo } from "@Atom/ProfileInfo";
-// import { ChatProfileInfoContainer } from "@Molecules/.";
-// import { ProfileImageContainer } from "../../Hoc";
+import ProfileImageContainer from "@Hoc/ProfileImageContainer";
+import { ChatProfileInfoContainer } from "@Molecules/.";
 import { ProfileCard } from "./ProfileCard";
 
 export default {
@@ -32,18 +32,18 @@ const womanData = {
 };
 export const ManUserProfileCard: React.VFC = () => (
   <ProfileCard type="male">
-    <ProfileInfo data={manData} />
+    <ProfileInfo {...manData} />
   </ProfileCard>
 );
 export const WomanUserProfileCard: React.VFC = () => (
   <ProfileCard type="female">
-    <ProfileInfo data={womanData} />
+    <ProfileInfo {...womanData} />
   </ProfileCard>
 );
 
 // export const ChatProfile: React.VFC = () => (
 //   <ProfileCard type="team">
-//     {/* <ProfileImageContainer /> */}
+//     <ProfileImageContainer />
 //     <ChatProfileInfoContainer lastChat="hihi" from="jinPro" />
 //   </ProfileCard>
 // );

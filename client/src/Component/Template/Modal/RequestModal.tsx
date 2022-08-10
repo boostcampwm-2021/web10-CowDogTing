@@ -17,7 +17,7 @@ export const RequestModal: React.FC<props> = ({ setRequest }) => {
   return (
     <Modal type="Small">
       <div>
-        <ProfileInfo data={data} />
+        <ProfileInfo {...data} />
       </div>
       <div css={textStyle}>{data.id}님에게 채팅 신청이 완료되었습니다.</div>
       <Button size="Mideum" onClick={requestModalClose}>
