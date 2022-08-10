@@ -7,4 +7,4 @@ export default {
   title: "Input",
 } as ComponentMeta<typeof Input>;
 
-export const Primary: React.VFC = () => <Input />;
+export const Primary: React.VFC = (args) => <Input {...args} />;

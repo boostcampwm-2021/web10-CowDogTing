@@ -7,6 +7,7 @@ export default {
   title: "ProfileImage",
 } as ComponentMeta<typeof ProfileImage>;
 
+export const Primary: React.VFC<ProfileImageType> = (args) => <ProfileImage {...args} />;
 export const BigImage: React.VFC<ProfileImageType> = () => <ProfileImage type="Big" image={null} />;
 export const MiniImage: React.VFC<ProfileImageType> = () => <ProfileImage type="Mini" image={null} />;
 export const SmallImage: React.VFC<ProfileImageType> = () => <ProfileImage type="Small" image={null} />;

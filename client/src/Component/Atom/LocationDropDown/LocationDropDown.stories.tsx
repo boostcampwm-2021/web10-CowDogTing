@@ -8,4 +8,5 @@ export default {
 } as ComponentMeta<typeof LocationDropDown>;
 
 const args = { locSelected: "서울", id: "서울", handleLocationSelected: () => {} };
-export const Primary: React.VFC<LocationDropDownProps> = () => <LocationDropDown {...args} />;
+export const Primary: React.VFC<LocationDropDownProps> = (args) => <LocationDropDown {...args} />;
+export const Seoul: React.VFC<LocationDropDownProps> = () => <LocationDropDown {...args} />;

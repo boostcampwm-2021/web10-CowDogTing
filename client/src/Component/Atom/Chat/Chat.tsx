@@ -1,15 +1,16 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { URL } from "@Util/URL";
+import styled from "@emotion/styled";
 
 export type ChatProps = { from: string; type: "Mine" | "Other"; message: string; src: string | null };
 
 export const Chat = ({ from, type, message, src }: ChatProps) => {
   return (
-    <div css={ChatContainerStyle({ type })}>
+    <ChatContainer type={type}>
       <div>{from}</div>
-      {src ? <img alt="ProfileImage" src={String(URL + src)} css={ImageStyle} /> : <div css={ChatTypeStyle({ type })}>{message}</div>}
-    </div>
+      {src ? <img alt="ProfileImage" src={String(URL + src)} css={ImageStyle} /> : <ChatType type={type}>{message}</ChatType>}
+    </ChatContainer>
   );
 };
 
@@ -33,7 +34,8 @@ const MySendStyle = css`
   align-items: flex-end;
 `;
 
-const ChatTypeStyle = (props: { type: string }) => css`
+type stylesType = { type: string };
+const ChatTypeStyle = (props: stylesType) => css`
   display: inline-flex;
   margin-top: 10px;
   max-width: 50%;
@@ -41,10 +43,17 @@ const ChatTypeStyle = (props: { type: string }) => css`
   ${props.type === "Other" && OtherChatStyle}
 `;
 
-const ChatContainerStyle = (props: { type: string }) => css`
+const ChatType = styled.div<stylesType>`
+  ${ChatTypeStyle}
+`;
+
+const ChatContainerStyle = (props: stylesType) => css`
+  ${props.type === "Mine" && MySendStyle}
+`;
+const ChatContainer = styled.div<stylesType>`
   margin: 10px 0;
   width: 100%;
-  ${props.type === "Mine" && MySendStyle}
+  ${ChatContainerStyle}
 `;
 
 const ImageStyle = css`

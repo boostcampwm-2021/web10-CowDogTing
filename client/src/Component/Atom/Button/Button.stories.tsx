@@ -7,11 +7,7 @@ export default {
   title: "Button",
 } as ComponentMeta<typeof Button>;
 
-export const Primary: React.VFC<ButtonType> = () => (
-  <Button color="#ff0" size="">
-    hihi{" "}
-  </Button>
-);
+export const Primary: React.VFC<ButtonType> = (args) => <Button {...args}>hihi</Button>;
 export const MediumButton: React.VFC<ButtonType> = () => <Button size="Medium">hihi</Button>;
 export const LargeButton: React.VFC<ButtonType> = () => <Button size="Large">hihi</Button>;
 export const LargeDropDownButton: React.VFC<ButtonType> = () => <Button size="LargeDropDown">hihi</Button>;

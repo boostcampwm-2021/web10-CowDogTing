@@ -1,8 +1,8 @@
+/* eslint-disable react/destructuring-assignment */
 import React from "react";
 import { ComponentMeta } from "@storybook/react";
 import { ProfileInfo } from "@Atom/ProfileInfo/ProfileInfo";
-import ProfileImageContainer from "@Hoc/ProfileImageContainer";
-import { ChatProfileInfoContainer } from "@Molecules/.";
+import { ProfileCardType } from "@Util/type";
 import { ProfileCard } from "./ProfileCard";
 
 export default {
@@ -30,6 +30,13 @@ const womanData = {
   gid: 1,
   idx: 2,
 };
+
+export const Primary: React.VFC<Pick<ProfileCardType, "type">> = (args) => (
+  <ProfileCard type={args.type}>
+    <ProfileInfo {...manData} />
+  </ProfileCard>
+);
+
 export const ManUserProfileCard: React.VFC = () => (
   <ProfileCard type="male">
     <ProfileInfo {...manData} />

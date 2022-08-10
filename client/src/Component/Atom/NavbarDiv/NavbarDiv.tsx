@@ -1,6 +1,6 @@
-import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
-const NavbarDivStyle = css`
+const NavbarDivStyle = styled.div`
   cursor: pointer;
   width: 15vw;
   border-right: 1px solid black;
@@ -12,9 +12,5 @@ interface DivProps {
   children: string;
 }
 export const NavbarDiv = ({ children }: DivProps) => {
-  return (
-    <div css={NavbarDivStyle} className="navbar-div">
-      {children}
-    </div>
-  );
+  return <NavbarDivStyle className="navbar-div">{children}</NavbarDivStyle>;
 };

@@ -29,5 +29,6 @@ const womanData = {
   idx: 2,
 };
 
+export const Primary: React.VFC<ProfileType> = (args) => <ProfileInfo {...args} />;
 export const ManProfileInfo: React.VFC<ProfileType> = () => <ProfileInfo {...manData} />;
 export const WomanProfileInfo: React.VFC<ProfileType> = () => <ProfileInfo {...womanData} />;

@@ -1,6 +1,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { URL } from "@Util/URL";
+import styled from "@emotion/styled";
 
 const defaultImage = "/Asset/meetingImage.png";
 export type ProfileImageType = {
@@ -15,7 +16,7 @@ export const ProfileImage: React.FC<ProfileImageType> = ({ type, onClick, ref, c
   const src = String(image).includes("/uploads") ? URL + String(image ?? defaultImage) : image ?? defaultImage;
   return (
     <div ref={ref}>
-      <img alt="ProfileImage" aria-hidden="true" css={profileImageStyle({ type })} src={String(src)} onClick={onClick} />
+      <ProfileImageContainer type={type} alt="ProfileImage" aria-hidden="true" src={String(src)} onClick={onClick} />
       {children}
     </div>
   );
@@ -38,10 +39,15 @@ const miniProfileImageStyle = css`
   border-radius: 25px;
 `;
 
-const profileImageStyle = ({ type }: { type: string }) => css`
+type imageType = { type: string };
+const profileImageStyle = ({ type }: imageType) => css`
   ${type === "Big" && bigProfileImageStyle};
   ${type === "Mini" && miniProfileImageStyle};
   ${type === "Small" && smallProfileImageStyle};
+`;
+
+const ProfileImageContainer = styled.img<imageType>`
   background-size: cover;
   cursor: pointer;
+  ${profileImageStyle}
 `;

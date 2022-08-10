@@ -1,6 +1,6 @@
-import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
-const ContainerStyle = css`
+const Container = styled.div`
   width: 50px;
   height: 50px;
   color: #ffffff;
@@ -15,6 +15,7 @@ const ContainerStyle = css`
   left: 215px;
 `;
 
-export const RoundNumberContainer = ({ num }: { num: number }) => {
-  return <div css={ContainerStyle}>{num}</div>;
+export type RoundNumberType = { num: number };
+export const RoundNumberContainer = ({ num }: RoundNumberType) => {
+  return <Container>{num}</Container>;
 };
