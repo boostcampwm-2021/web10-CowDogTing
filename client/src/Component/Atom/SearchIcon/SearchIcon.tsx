@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 const searchIcon = "/Asset/search.png";
-const searchIconStyle = css`
+const SearchIconContainer = styled.img`
   position: relative;
   width: 48px;
   height: 48px;
@@ -9,5 +9,5 @@ const searchIconStyle = css`
   cursor: pointer;
 `;
 export const SearchIcon = () => {
-  return <img alt="search Icon" src={searchIcon} css={searchIconStyle} />;
+  return <SearchIconContainer alt="search Icon" src={searchIcon} />;
 };
