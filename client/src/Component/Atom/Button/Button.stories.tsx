@@ -12,7 +12,7 @@ export const MediumButton: React.VFC<ButtonType> = () => <Button size="Medium">h
 export const LargeButton: React.VFC<ButtonType> = () => <Button size="Large">hihi</Button>;
 export const LargeDropDownButton: React.VFC<ButtonType> = () => <Button size="LargeDropDown">hihi</Button>;
 export const NaverLoginButton: React.VFC<ButtonType> = () => (
-  <Button size="Long" color="#2DB400">
+  <Button size="Long" color="#2DB40100">
     hihi
   </Button>
 );

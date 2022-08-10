@@ -23,7 +23,8 @@
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "chromatic": "npx chromatic --project-token=53d956c30d79"
   },
   "extends": [
     "react-app",
@@ -92,5 +93,7 @@
         }
       }
     ]
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "client@0.1.0"
 }
