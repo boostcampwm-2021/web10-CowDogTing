@@ -3,9 +3,9 @@ import { css } from "@emotion/react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { Input, Button } from "@Atom/.";
 import { errorState } from "@Recoil/Atom";
-import { changeMyInfo } from "@Util/data";
+import { changeMyInfo } from "@Common/api";
 import { userState } from "@Recoil/UserData";
-import { PersonInfoType } from "@Util/type";
+import { PersonInfoType } from "@Common/type";
 
 export const MyInfoContainer = () => {
   const [myInfo, setMyInfo] = useRecoilState(userState);

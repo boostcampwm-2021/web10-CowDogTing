@@ -1,6 +1,6 @@
 import React from "react";
 import { ComponentMeta } from "@storybook/react";
-import { ProfileType } from "@Util/type";
+import { ProfileType } from "@Common/type";
 import { ProfileInfo } from "./ProfileInfo";
 
 export default {

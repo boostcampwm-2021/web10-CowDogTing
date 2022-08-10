@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import { Button } from "@Atom/.";
-import { SOCIAL_NAVER_LOGIN, SOCIAL_GITHUB_LOGIN, SOCIAL_KAKAO_LOGIN } from "../../../Util/URL";
+import { SOCIAL_NAVER_LOGIN, SOCIAL_GITHUB_LOGIN, SOCIAL_KAKAO_LOGIN } from "../../../Common/URL";
 
 const SocialLoginButtonContainerStyle = css`
   margin-top: 10px;

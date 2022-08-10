@@ -1,6 +1,6 @@
 import { cowDogState, profileModalDatas } from "@Recoil/Atom";
-import { makeCategory } from "@Util/.";
-import { getCowDogInfo } from "@Util/data";
+import { makeCategory } from "@Common/util";
+import { getCowDogInfo } from "@Common/api";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 

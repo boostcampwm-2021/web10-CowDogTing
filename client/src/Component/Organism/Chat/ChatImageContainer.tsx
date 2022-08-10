@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { ChatImageContainerType } from "@Util/type";
+import { ChatImageContainerType } from "@Common/type";
 import { ProfileImage, Button } from "@Atom/.";
 import { useMovePage } from "@Hook/useMovePage";
 import { getChatMemberSelector } from "@Recoil/Atom";

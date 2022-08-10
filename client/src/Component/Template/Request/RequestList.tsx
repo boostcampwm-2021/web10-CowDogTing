@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "@emotion/react";
-import { RequestListType } from "@Util/type";
+import { RequestListType } from "@Common/type";
 import RequestComponent from "./RequestComponent";
 
 const ProfileListStyle = css`

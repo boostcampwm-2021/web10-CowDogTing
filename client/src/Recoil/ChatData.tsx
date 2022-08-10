@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil";
-import { getFetch } from "../Util/data";
-import { ChatInfoType, joinChatType } from "../Util/type";
-import { CHAT_INFO_URL, JOIN_CHAT_URL } from "../Util/URL";
+import { getFetch } from "../Common/api";
+import { ChatInfoType, joinChatType } from "../Common/type";
+import { CHAT_INFO_URL, JOIN_CHAT_URL } from "../Common/URL";
 import { chatTarget } from "./Atom";
 import { userState } from "./UserData";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Chat } from "@Atom/.";
-import { MessageType } from "@Util/type";
+import { MessageType } from "@Common/type";
 import { userState } from "@Recoil/UserData";
 import { useRecoilValue } from "recoil";
 

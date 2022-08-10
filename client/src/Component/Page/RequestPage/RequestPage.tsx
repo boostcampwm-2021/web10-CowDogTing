@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
-import { RequestType } from "@Util/type";
+import { RequestType } from "@Common/type";
 import { userState } from "@Recoil/UserData";
 import { requestForMeSelector, requestState, requestToMeSelector } from "@Recoil/RequestData";
 import RequestListContainer from "@Template/Request/RequestListContainer";

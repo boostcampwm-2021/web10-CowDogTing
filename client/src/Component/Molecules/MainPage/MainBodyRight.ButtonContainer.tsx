@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "@emotion/react";
-import { ChildrenType } from "@Util/type";
+import { ChildrenType } from "@Common/type";
 
 export const MainBodyRightButtonContainer: React.FC<ChildrenType> = ({ children }) => {
   return <div css={mainBodyRightButtonContainerStyle}>{children}</div>;

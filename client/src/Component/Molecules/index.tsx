@@ -7,7 +7,7 @@ export * from "./Chat/ChatInput/ChatInput";
 export * from "./Chat/ChatProfileInfoContainer";
 export * from "./Chat/ChatRoomBasic/ChatRoomBasic";
 export * from "./Chat/Chats";
-export * from "./Chat/NotReadNum";
+export * from "./Chat/NotReadNum/NotReadNum";
 
 export * from "./Login/LoginButtonContainer";
 export * from "./Login/LoginMainInput";

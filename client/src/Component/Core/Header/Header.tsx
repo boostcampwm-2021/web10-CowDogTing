@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 import { UserIcon, Menu, MainHeaderLogo } from "@Atom/.";
 import { LinkButton } from "@Core/LinkButton";
-import { checkLogin } from "@Util/.";
+import { checkLogin } from "@Common/util";
 import { useToggleHook } from "@Hook/useToggleHook";
 import { DropDown } from "..";
 import { useCheckHook, useHeaderRefToggle } from "./Header.hook";

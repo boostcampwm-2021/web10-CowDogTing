@@ -2,8 +2,9 @@ import React, { useRef, useState } from "react";
 import { css } from "@emotion/react";
 import { LinkButton, DropDown } from "@Core/.";
 import { UserIcon } from "@Atom/.";
-import { checkLogin } from "@Util/.";
+import { checkLogin } from "@Common/util";
 import useDropDownCloseEvent from "@Hook/useDropDownCloseEvent";
+import { useToggleHook } from "@Hook/useToggleHook";
 
 const MainHeaderRightContainer = css`
   margin-top: 50px;
@@ -14,11 +15,9 @@ const MainHeaderRightContainer = css`
 `;
 
 export const MainHeaderRightSide: React.FC = () => {
-  const [userOpen, setUser] = useState(false);
-  const ToggleUserModal = () => setUser((isOpen) => !isOpen);
-
+  const [userOpen, ToggleUserModal, closeUserModal] = useToggleHook();
   const userRef = useRef<HTMLDivElement>(null);
-  useDropDownCloseEvent(userRef, () => setUser(false));
+  useDropDownCloseEvent(userRef, closeUserModal);
 
   if (!checkLogin())
     return (

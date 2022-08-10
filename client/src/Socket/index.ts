@@ -1,6 +1,6 @@
 /* eslint-disable no-constructor-return */
 import io, { Socket } from "socket.io-client";
-import { joinChatType } from "../Util/type";
+import { joinChatType } from "../Common/type";
 
 export default class ClientSocket {
   socket: Socket | undefined;

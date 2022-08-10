@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "@emotion/react";
-import { ProfileListType } from "@Util/type";
+import { ProfileListType } from "@Common/type";
 import { ProfileComponent } from "./ProfileComponent";
 
 const ProfileListStyle = css`

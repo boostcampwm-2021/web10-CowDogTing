@@ -3,8 +3,8 @@ import { useSetRecoilState, useRecoilValue } from "recoil";
 import { errorState, profileModalDatas, requestTarget } from "@Recoil/Atom";
 import { teamState } from "@Recoil/TeamData";
 import { userState } from "@Recoil/UserData";
-import { requestChat } from "@Util/data";
-import { ProfileType } from "@Util/type";
+import { requestChat } from "@Common/api";
+import { ProfileType } from "@Common/type";
 
 export const useRequestDate = () => {
   const [request, setRequest] = useState<boolean>(false);

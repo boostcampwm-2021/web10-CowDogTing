@@ -14,7 +14,7 @@ module.exports = override(
     "@Organism": resolve("./src/Component/Organism/"),
     "@Template": resolve("./src/Component/Template/"),
     "@Hoc": resolve("./src/Component/Hoc/"),
-    "@Util": resolve("./src/Util/"),
+    "@Common": resolve("./src/Common/"),
     "@Asset": resolve("./src/Asset/"),
     "@Recoil": resolve("./src/Recoil/"),
     "@Socket": resolve("./src/Socket/"),

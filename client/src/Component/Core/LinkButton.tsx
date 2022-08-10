@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@Atom/.";
 import { NotReadNum } from "@Molecules/.";
-import { LinkButtonType } from "@Util/type";
+import { LinkButtonType } from "@Common/type";
 
 type props = LinkButtonType;
 export const LinkButton: React.FC<props> = ({ url, type, content, onClick, refProps, id }) => {

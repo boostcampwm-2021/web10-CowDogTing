@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "@emotion/react";
-import { ChildrenType } from "../../../Util/type";
+import { ChildrenType } from "../../../Common/type";
 
 const ChatInputContainerStyle = css`
   display: flex;

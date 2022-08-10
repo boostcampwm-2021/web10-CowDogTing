@@ -13,4 +13,3 @@
 // export const Primary: React.VFC<DropDownElementProps> = (args) => <DropDownElement {...args} />;
 // export const LogOut: React.VFC<DropDownElementProps> = () => <DropDownElement menu={primaryMenu} onClick={undefined} />;
 // export const DropDown: React.VFC<DropDownElementProps> = () => <DropDownElement menu={OtherMenu} onClick={undefined} />;
-export {};

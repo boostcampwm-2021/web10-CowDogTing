@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "@emotion/react";
-import { URL } from "@Util/URL";
+import { URL } from "@Common/URL";
 import styled from "@emotion/styled";
 
 export type ChatProps = { from: string; type: "Mine" | "Other"; message: string; src: string | null };

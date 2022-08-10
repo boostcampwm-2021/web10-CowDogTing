@@ -1,7 +1,7 @@
 import { profileModalDatas } from "@Recoil/Atom";
 import { teamState } from "@Recoil/TeamData";
 import { userState } from "@Recoil/UserData";
-import { RequestType } from "@Util/type";
+import { RequestType } from "@Common/type";
 import { useState, useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 

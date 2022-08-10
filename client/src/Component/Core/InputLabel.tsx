@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { Input } from "@Atom/Input/Input";
-import { InputLabelType } from "@Util/type";
+import { InputLabelType } from "@Common/type";
 
 const InputLabelStyle = css`
   margin: 1% 2%;

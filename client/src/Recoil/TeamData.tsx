@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil";
-import { getFetch } from "../Util/data";
-import { TeamInfoType } from "../Util/type";
-import { TEAM_INFO_URL } from "../Util/URL";
+import { getFetch } from "../Common/api";
+import { TeamInfoType } from "../Common/type";
+import { TEAM_INFO_URL } from "../Common/URL";
 
 export const teamState = atom<TeamInfoType>({
   key: "teamState",

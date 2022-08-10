@@ -4,15 +4,10 @@ export default function useDropDownCloseEvent(ref: RefObject<HTMLDivElement>, ha
   useEffect(() => {
     const listener = (event: MouseEvent): void => {
       const target: HTMLElement = event.target as HTMLElement;
-      if (!ref.current || ref.current.contains(target)) {
-        return;
-      }
+      if (!ref.current || ref.current.contains(target)) return;
       handler(event);
     };
     document.addEventListener("click", listener);
-
-    return () => {
-      document.removeEventListener("click", listener);
-    };
+    return () => document.removeEventListener("click", listener);
   }, [ref]);
 }
