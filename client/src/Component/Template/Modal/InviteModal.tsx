@@ -1,7 +1,7 @@
 import React, { MouseEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
-import { Button } from "@Atom/Button";
+import { Button } from "@Atom/.";
 import { InputLabel } from "@Core/InputLabel";
 import { inviteTeam } from "@Util/data";
 import { TeamInfoType } from "@Util/type";

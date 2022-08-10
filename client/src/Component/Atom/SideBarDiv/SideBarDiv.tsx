@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import { Link } from "react-router-dom";
 
-type SideBarDivProps = { menu: string; link: string };
+export type SideBarDivProps = { menu: string; link: string };
 export const SideBarDiv = ({ link, menu }: SideBarDivProps) => {
   return (
     <div css={SideBarDIv}>

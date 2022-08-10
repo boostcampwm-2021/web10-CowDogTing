@@ -2,7 +2,7 @@ import React, { RefObject } from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
 import { InputLabel } from "@Core/.";
-import LocationDropDown from "@Atom/LocationDropDown";
+import { LocationDropDown } from "@Atom/.";
 import { InfoContainer } from "@Hoc/.";
 import { teamState } from "@Recoil/TeamData";
 

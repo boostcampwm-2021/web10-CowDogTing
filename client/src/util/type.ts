@@ -1,15 +1,5 @@
 import React, { RefObject } from "react";
 
-export type ButtonType = {
-  size?: string;
-  color?: string;
-};
-
-export type ImageDivType = {
-  type: string;
-  image: string;
-};
-
 export type ChildrenType = {
   children?: React.ReactNode;
 };
@@ -21,7 +11,7 @@ export type InputLabelType = {
 };
 
 export type PersonInfoType = {
-  [key: string]: string | number | undefined | null;
+  [key: string]: string | number | undefined | null | PersonInfoType[];
   id: string;
   image: string | null;
   location: string;
@@ -50,11 +40,8 @@ export type TeamInfoType = {
 };
 
 export type ProfileType = PersonInfoType & {
+  // [key: string]: PersonInfoType[] | undefined;
   member?: PersonInfoType[];
-};
-
-export type ProfileInfoDataType = {
-  data: ProfileType;
 };
 
 export type ProfileListType = {
@@ -108,14 +95,6 @@ export type RequestsType = {
 export type joinChatType = {
   chatRoomId: number;
   notReadNum: number;
-};
-
-export type ProfileImageType = {
-  image: string | ArrayBuffer | null;
-  type: string;
-  onClick?: React.MouseEventHandler;
-  ref?: any;
-  children?: JSX.Element;
 };
 
 export type ChatProfileContainerType = {

@@ -1,7 +1,10 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { ButtonType } from "@Util/type";
 
+export type ButtonType = {
+  size?: string;
+  color?: string;
+};
 const ButtonStyle = (props: ButtonType) => css`
   border: 2px solid ${props.color};
   ${props.size === "Medium" && MediumButtonStyle}

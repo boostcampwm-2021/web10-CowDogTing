@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
 
-const containerStyle = css`
+const Container = styled.div`
   width: 240px;
   height: 240px;
   border: 1px solid #000000;
@@ -14,24 +13,22 @@ const VideoContainer = styled.video`
   background-color: black;
 `;
 
-interface Props {
+export type VideoProps = {
   stream: MediaStream;
   muted?: boolean;
-}
+};
 
-export const Video = ({ stream, muted }: Props) => {
+export const Video = ({ stream, muted }: VideoProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isMuted, setIsMuted] = useState<boolean>(false);
 
   useEffect(() => {
     if (videoRef.current) videoRef.current.srcObject = stream;
-    if (muted) setIsMuted(muted);
-  }, [stream, muted]);
+  }, [stream]);
 
   return (
-    <div css={containerStyle}>
-      <VideoContainer ref={videoRef} muted={isMuted} autoPlay />
-    </div>
+    <Container>
+      <VideoContainer ref={videoRef} muted={muted} autoPlay />
+    </Container>
   );
 };
 

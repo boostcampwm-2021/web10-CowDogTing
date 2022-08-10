@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { ProfileCardType } from "../../Util/type";
+import { ProfileCardType } from "../../../Util/type";
 
 const typeStyle = (props: { type: string }) => css`
   border: 5px solid ${(props.type === "team" && "#CAABFB") || (props.type === "male" && "#CFDAFF") || (props.type === "female" && "#FFCFCF")};

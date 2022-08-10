@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "@emotion/react";
-import { ProfileInfoDataType } from "../../Util/type";
-import { ProfileImage } from "./ProfileImage";
+import { ProfileType } from "@Util/type";
+import { ProfileImage } from "../ProfileImage/ProfileImage";
 
 const ContainerStyle = css`
   height: 100%;
@@ -16,13 +16,13 @@ const InfoStyle = css`
     margin: 10px 0;
   }
 `;
-export const ProfileInfo = ({ data }: ProfileInfoDataType): JSX.Element => {
-  const { id, image, location, sex, age, info, member } = data;
+
+export const ProfileInfo = ({ id, image, location, sex, age, info, member }: ProfileType) => {
   const infoSex = sex === "female" ? "여성" : "남성";
   const infoAge = Math.floor((member?.reduce((acc, cur) => acc + Number(cur.age), age) ?? age) / ((member?.length ?? 0) + 1));
   return (
     <div css={ContainerStyle}>
-      <ProfileImage type="Small" image={String(image)} />
+      <ProfileImage type="Small" image={image ? String(image) : "/Asset/defaultImage.png"} />
       <div css={InfoStyle}>
         <div>제목 : {id}</div>
         <div>지역 : {location}</div>
@@ -32,4 +32,10 @@ export const ProfileInfo = ({ data }: ProfileInfoDataType): JSX.Element => {
       </div>
     </div>
   );
+};
+
+ProfileInfo.defaultProps = {
+  gid: 0,
+  idx: 0,
+  member: [],
 };
