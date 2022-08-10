@@ -22,7 +22,7 @@ jobs:
 
       - name: run chromatic
         working-directory: ${{env.client-directory}}
-        run: npm run chromatic
+        # run: npm run chromatic
 
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
