@@ -1,6 +1,6 @@
 import React from "react";
 import { ComponentMeta } from "@storybook/react";
-import { ProfileInfo } from "@Atom/ProfileInfo";
+import { ProfileInfo } from "@Atom/ProfileInfo/ProfileInfo";
 import ProfileImageContainer from "@Hoc/ProfileImageContainer";
 import { ChatProfileInfoContainer } from "@Molecules/.";
 import { ProfileCard } from "./ProfileCard";
