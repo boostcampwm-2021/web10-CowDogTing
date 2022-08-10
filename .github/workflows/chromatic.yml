@@ -2,7 +2,9 @@
 name: "Chromatic Deployment"
 
 # Event for the workflow
-on: push
+on:
+  push:
+    branches: [dev]
 
 env:
   client-directory: ./client
@@ -16,17 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: install Package
+      - name: Client npm install
         working-directory: ${{env.client-directory}}
         run: npm install
 
-      - name: run chromatic
+      - name: Storybook Deploy
         working-directory: ${{env.client-directory}}
-        # run: npm run chromatic
-
-      - uses: chromaui/action@v1
-        # Options required for Chromatic's GitHub Action
-        with:
-          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ to obtain it
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run
