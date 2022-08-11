@@ -19,10 +19,11 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "jest --detectOpenHandles --forceExit",
-    "eject": "react-app-rewired eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public",
     "chromatic": "npx chromatic --project-token=53d956c30d79",
+    "lint-fix" : "eslint '**/*.{ts,tsx}' --ext .ts,.tsx --fix",
+    "eject": "react-app-rewired eject",
+    "build-storybook": "build-storybook -s public",
     "window-start": "cross-env HTTPS=true SSL_CRT_FILE=cert.pem SSL_KEY_FILE=key.pem react-app-rewired start",
     "starts": "HTTPS=true SSL_CRT_FILE=cert.pem SSL_KEY_FILE=key.pem react-app-rewired start" 
   },
