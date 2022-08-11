@@ -18,13 +18,13 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "jest",
+    "test": "jest --detectOpenHandles --forceExit",
     "eject": "react-app-rewired eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "chromatic": "npx chromatic --project-token=53d956c30d79",
     "window-start": "cross-env HTTPS=true SSL_CRT_FILE=cert.pem SSL_KEY_FILE=key.pem react-app-rewired start",
-    "starts": "HTTPS=true SSL_CRT_FILE=cert.pem SSL_KEY_FILE=key.pem react-app-rewired start"
+    "starts": "HTTPS=true SSL_CRT_FILE=cert.pem SSL_KEY_FILE=key.pem react-app-rewired start" 
   },
   "extends": [
     "react-app",
@@ -96,5 +96,22 @@
     ]
   },
   "readme": "ERROR: No README data found!",
-  "_id": "client@0.1.0"
+  "_id": "client@0.1.0",
+  "jest": {
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testRegex": "\\.test\\.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ],
+    "globals": {
+      "ts-jest": {
+        "diagnostics": true
+      }
+    }
+  }
 }
