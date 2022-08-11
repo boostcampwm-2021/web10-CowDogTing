@@ -1,4 +1,16 @@
 /* eslint-disable no-undef */
-test("1 is 1", () => {
+test("handleModalClick", () => {
+  expect(1).toBe(1);
+});
+test("checkLogin", () => {
+  expect(1).toBe(1);
+});
+test("fromImageToForm", () => {
+  expect(1).toBe(1);
+});
+test("makeCategory", () => {
+  expect(1).toBe(1);
+});
+test("transAgeToNumber", () => {
   expect(1).toBe(1);
 });

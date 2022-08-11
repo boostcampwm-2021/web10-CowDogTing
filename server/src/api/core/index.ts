@@ -28,6 +28,6 @@ coreRouter.get("/userInfo", getUserInfo);
 coreRouter.get("/joinChatInfo", getJoinChatInfo);
 coreRouter.get("/profile", getProfile);
 coreRouter.post("/userInfo", postUserUpdate);
-coreRouter.post("/postImage", upload.single("image"), postImage);
+coreRouter.post("/image", upload.single("image"), postImage);
 
 export default coreRouter;
