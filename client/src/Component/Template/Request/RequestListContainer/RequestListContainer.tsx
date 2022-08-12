@@ -7,7 +7,7 @@ import { ProfileModal } from "@Template/Modal/ProfileModal";
 import { usePropsTypeHook, useRequestModalStateControl } from "./RequestListContainer.hook";
 import RequestList from "../RequestList";
 
-export default function RequestListContainer({ datas, type }: { datas: RequestType[]; type: string }) {
+export const RequestListContainer = ({ datas, type }: { datas: RequestType[]; type: string }) => {
   const title = type === "ForMe" ? "나에게 온 요청" : "내가 보낸 요청";
   const propsType = usePropsTypeHook(type);
 
@@ -24,7 +24,7 @@ export default function RequestListContainer({ datas, type }: { datas: RequestTy
       <div ref={modalRef}>{openModal !== null && <ProfileModal />}</div>
     </div>
   );
-}
+};
 
 const RequestListStyle = css`
   width: 41%;

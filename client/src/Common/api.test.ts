@@ -3,7 +3,7 @@ import { server } from "../../msw/server";
 
 beforeAll(() => server.listen());
 afterAll(() => server.close());
-/* eslint-disable no-undef */
+
 test("changeTeamInfo", async () => {
   const data = {
     teamName: "1",
