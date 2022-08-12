@@ -3,7 +3,7 @@ import useModalCloseEvent from "@Hook/useModalCloseEvent";
 import { ChatProfileContainer, ChatListContainer } from "@Organism/.";
 import { useGetModalData, useToggleModal } from "@Page/ChatListPage/ChatListPage.hook";
 import { ProfileModal } from "@Template/Modal/ProfileModal";
-import { handleModalClick } from "@Util/.";
+import { handleModalClick } from "@Common/util";
 import { ChatListTemplateStyle } from "./ChatListPage.style";
 
 export const ChatListPage: React.FC = () => {

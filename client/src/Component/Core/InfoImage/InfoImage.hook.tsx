@@ -1,6 +1,6 @@
 import { teamState } from "@Recoil/TeamData";
 import { userState } from "@Recoil/UserData";
-import { postImage } from "@Util/data";
+import { postImage } from "@Common/api";
 import { useEffect, useRef, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 

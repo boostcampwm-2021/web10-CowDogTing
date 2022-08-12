@@ -1,6 +1,6 @@
-import { createTeam, getFetch } from "@Util/data";
-import { PersonInfoType, TeamInfoType } from "@Util/type";
-import { TEAM_INFO_URL } from "@Util/URL";
+import { createTeam, getFetch } from "@Common/api";
+import { PersonInfoType, TeamInfoType } from "@Common/type";
+import { TEAM_INFO_URL } from "@Common/URL";
 import { useState } from "react";
 
 type useLocationSelectHookType = () => [string, (e: React.ChangeEvent<HTMLSelectElement>) => void, () => void];

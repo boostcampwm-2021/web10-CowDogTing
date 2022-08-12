@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
-import { RequestType } from "@Util/type";
-import { userState } from "@Recoil/UserData";
-import { requestForMeSelector, requestState, requestToMeSelector } from "@Recoil/RequestData";
-import RequestListContainer from "@Template/Request/RequestListContainer";
+import { requestForMeSelector, requestToMeSelector } from "@Recoil/RequestData";
+import { RequestListContainer } from "@Template/.";
 
 const RequestPageStyle = css`
   display: flex;

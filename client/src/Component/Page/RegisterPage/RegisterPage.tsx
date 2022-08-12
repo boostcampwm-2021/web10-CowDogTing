@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { Input, Button } from "@Atom/.";
-import { checkIdValidation, registerUser } from "@Util/data";
-import { ErrorType, registerInfo } from "@Util/type";
+import { checkIdValidation, registerUser } from "@Common/api";
+import { ErrorType, registerInfo } from "@Common/type";
 import { errorState } from "@Recoil/Atom";
 import { useMovePage } from "@Hook/useMovePage";
 import { useCheckDoublePassword, useRegisterRefsHook } from "./RegisterPage.hook";

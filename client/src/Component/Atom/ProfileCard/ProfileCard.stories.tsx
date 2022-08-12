@@ -2,7 +2,7 @@
 import React from "react";
 import { ComponentMeta } from "@storybook/react";
 import { ProfileInfo } from "@Atom/ProfileInfo/ProfileInfo";
-import { ProfileCardType } from "@Util/type";
+import { ProfileCardType } from "@Common/type";
 import { ProfileCard } from "./ProfileCard";
 
 export default {

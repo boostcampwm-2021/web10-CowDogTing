@@ -2,13 +2,15 @@ import React, { useRef } from "react";
 import { css } from "@emotion/react";
 import { ChatIcon } from "@Atom/.";
 import useDropDownCloseEvent from "@Hook/useDropDownCloseEvent";
-import { checkLogin, passToLoginPage } from "@Util/.";
+import { checkLogin } from "@Common/util";
 import { useToggleHook } from "@Hook/useToggleHook";
+import { useMovePage } from "@Hook/useMovePage";
 import { DropDown } from "./DropDown";
 
 export const Footer = () => {
   const [chatDropDown, ToggleChatDropDown, handleFalseDropDown] = useToggleHook();
-  const handleChatIconClick = () => (checkLogin() ? ToggleChatDropDown() : passToLoginPage());
+  const [goLogin] = useMovePage("/login");
+  const handleChatIconClick = () => (checkLogin() ? ToggleChatDropDown() : goLogin());
   const chatRef = useRef<HTMLDivElement>(null);
   useDropDownCloseEvent(chatRef, handleFalseDropDown);
 

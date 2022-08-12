@@ -11,5 +11,5 @@ export * from "./Chat/ChatListDetail";
 export * from "./Chat/ChatProfile";
 export * from "./Chat/ChatProfileContainer";
 
-export * from "./Info/MyInfoContainer";
+export * from "./Info/MyInfoContainer/MyInfoContainer";
 export * from "./Info/TeamInfo";

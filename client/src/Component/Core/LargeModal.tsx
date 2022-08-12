@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { Modal } from "@Core/Modal";
-import { LargeModalType } from "@Util/type";
+import { LargeModalType } from "@Common/type";
 
 const RightBtn = "/Asset/RightButton.svg";
 const LeftBtn = "/Asset/LeftButton.svg";

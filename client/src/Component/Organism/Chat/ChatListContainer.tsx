@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "@emotion/react";
-import { ChatListContainerType } from "@Util/type";
+import { ChatListContainerType } from "@Common/type";
 import { ChatImageContainer } from "./ChatImageContainer";
 import { ChatListDetail } from "./ChatListDetail";
 

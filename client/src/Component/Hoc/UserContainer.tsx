@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { ProfileInfo, ProfileCard } from "@Atom/.";
-import { PersonInfoType, ProfileType } from "@Util/type";
+import { PersonInfoType, ProfileType } from "@Common/type";
 
 const ProfileStyle = css`
   max-height: 200px;

@@ -1,5 +1,5 @@
 import { ChangeEvent, ChangeEventHandler, useRef } from "react";
-import { postChat } from "@Util/data";
+import { postChat } from "@Common/api";
 import ClientSocket from "@Socket/.";
 
 type chatRoomInfo = {

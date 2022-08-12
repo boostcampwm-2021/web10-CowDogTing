@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { ChatInfoType, ErrorType, ProfileType } from "@Util/type";
+import { ChatInfoType, ErrorType, ProfileType } from "@Common/type";
 import { userState } from "./UserData";
 
 export const cowDogState = atom<ProfileType[]>({

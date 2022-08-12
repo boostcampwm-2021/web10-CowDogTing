@@ -5,7 +5,7 @@ import { Navbar } from "@Core/.";
 import { ProfileList } from "@Template/Profile/ProfileList";
 import { ProfileModal } from "@Template/Modal/ProfileModal";
 import useModalCloseEvent from "@Hook/useModalCloseEvent";
-import { handleModalClick } from "@Util/.";
+import { handleModalClick } from "@Common/util";
 import { useGetUserProfiler, useModalDatasHook } from "./CowDogPage.hook";
 
 const ListContainer = css`

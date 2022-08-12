@@ -4,33 +4,20 @@ export default function useModalCloseEvent(ref: RefObject<HTMLDivElement>, profi
   useEffect(() => {
     const listener = (event: MouseEvent): void => {
       let flag = false;
-
       const target: HTMLElement = event.target as HTMLElement;
-
-      if (!ref.current || ref.current.contains(target)) {
-        return;
-      }
-
-      if (!profileRef.current) {
-        handler(event);
-        return;
-      }
+      if (!ref.current || ref.current.contains(target)) return;
+      if (!profileRef.current) return handler(event);
 
       profileRef.current.forEach((userRef) => {
         if (flag) return;
         if (!userRef) return;
-        if (userRef.contains(target)) {
-          flag = true;
-        }
+        if (userRef.contains(target)) flag = true;
       });
 
       if (flag) return;
       handler(event);
     };
     document.addEventListener("click", listener);
-
-    return () => {
-      document.removeEventListener("click", listener);
-    };
+    return () => document.removeEventListener("click", listener);
   }, [ref]);
 }

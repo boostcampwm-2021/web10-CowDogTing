@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { DropDownElement } from "@Atom/.";
-import { DropDownType } from "../../Util/type";
-import { MENU_LIST } from "../../Util/constant";
+import { DropDownType } from "../../Common/type";
+import { MENU_LIST } from "../../Common/constant";
 
 export const DropDown: React.FC<DropDownType> = ({ type, className, onClick }) => {
   const list = MENU_LIST[type];

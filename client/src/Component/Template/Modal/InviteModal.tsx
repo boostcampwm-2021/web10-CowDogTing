@@ -3,8 +3,8 @@ import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
 import { Button } from "@Atom/.";
 import { InputLabel } from "@Core/InputLabel";
-import { inviteTeam } from "@Util/data";
-import { TeamInfoType } from "@Util/type";
+import { inviteTeam } from "@Common/api";
+import { TeamInfoType } from "@Common/type";
 import { errorState } from "@Recoil/Atom";
 import { teamState } from "@Recoil/TeamData";
 

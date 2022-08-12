@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "@emotion/react";
-import { URL } from "@Util/URL";
+import { URL } from "@Common/URL";
 import styled from "@emotion/styled";
 
 const defaultImage = "/Asset/meetingImage.png";

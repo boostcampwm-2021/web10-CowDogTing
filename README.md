@@ -44,5 +44,10 @@
   - [배포](https://www.chromatic.com/build?appId=62f3c06c73a375912ca8d9be&number=1)
   - [repo](https://github.com/jin-Pro/CowDogTing_Storybook)
 - ### API 문서
-
+- [API](https://github.com/boostcampwm-2021/web10-CowDogTing/wiki/API-%EB%AC%B8%EC%84%9C)
 - ### Test 문서
+
+  - [Jest](https://github.com/boostcampwm-2021/web10-CowDogTing/wiki/Jest-%EB%AC%B8%EC%84%9C)
+
+- ### Type 문서
+  - [Type](https://github.com/boostcampwm-2021/web10-CowDogTing/wiki/Type-%EB%AC%B8%EC%84%9C)

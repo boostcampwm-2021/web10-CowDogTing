@@ -2,7 +2,7 @@ import React, { MouseEventHandler, useRef } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
 import { errorState } from "@Recoil/Atom";
-import { changeTeamInfo, exitTeam } from "@Util/data";
+import { changeTeamInfo, exitTeam } from "@Common/api";
 import { TeamSettingButtonContainer } from "@Molecules/.";
 import { TeamInfo } from "@Organism/.";
 import { teamState } from "@Recoil/TeamData";

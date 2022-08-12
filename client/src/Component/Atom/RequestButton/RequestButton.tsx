@@ -3,8 +3,8 @@ import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
 import { userState } from "@Recoil/UserData";
 import { Button } from "@Atom/.";
-import { RequestType } from "../../../Util/type";
-import { requestAccept, requestDeny } from "../../../Util/data";
+import { RequestType } from "../../../Common/type";
+import { requestAccept, requestDeny } from "../../../Common/api";
 
 export type RequestButtonProps = { type: string; data: RequestType; isTeam: string };
 export const RequestButton = ({ type, data, isTeam }: RequestButtonProps) => {

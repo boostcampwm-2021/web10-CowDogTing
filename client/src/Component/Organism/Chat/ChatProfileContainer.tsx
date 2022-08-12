@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { css } from "@emotion/react";
-import { ChatProfileContainerType } from "@Util/type";
+import { ChatProfileContainerType } from "@Common/type";
 import { NotReadNum } from "@Molecules/.";
 import { ChatProfile } from "./ChatProfile";
 

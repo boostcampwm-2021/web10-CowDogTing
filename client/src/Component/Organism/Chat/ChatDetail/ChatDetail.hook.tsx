@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { changeNotReadToRead, getChatMessage } from "@Util/data";
+import { changeNotReadToRead, getChatMessage } from "@Common/api";
 import { chatTarget } from "@Recoil/Atom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { joinChatRoomState } from "@Recoil/ChatData";
-import { joinChatType } from "@Util/type";
+import { joinChatType } from "@Common/type";
 
 export const useGetChatDatasHook = () => {
   const [chatInfo, setChatInfo] = useRecoilState(chatTarget);
