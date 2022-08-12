@@ -1,4 +1,4 @@
-import { changeMyInfo, changeTeamInfo, createTeam, exitTeam, getChatMessage, inviteTeam, logOutUser, postLogin, registerUser, requestAccept } from "./api";
+import { changeMyInfo, changeNotReadToRead, changeTeamInfo, checkIdValidation, createTeam, exitTeam, getChatMessage, inviteTeam, logOutUser, postLogin, registerUser, requestAccept, requestChat, requestDeny } from "./api";
 import { server } from "../../msw/server";
 
 beforeAll(() => server.listen());
@@ -195,43 +195,95 @@ test("requestAccept API is From same To Fail", () => {
   }).rejects.toThrowError(new Error("from과 to는 같을 수 없습니다."));
 });
 
-test("requestDeny", () => {
-  expect(1).toBe(1);
+test("requestDeny API is Success", async () => {
+  const res = await requestDeny(requestAccepData);
+  expect(res).toBe(true);
 });
-test("requestChat", () => {
-  expect(1).toBe(1);
+test("requestDeny API is From Fail", () => {
+  expect(async () => {
+    await requestDeny({ ...requestAccepData, from: "" });
+  }).rejects.toThrowError(new Error("from입력이 잘못되었습니다."));
 });
-test("postImage", () => {
-  expect(1).toBe(1);
-});
-test("postChat", () => {
-  expect(1).toBe(1);
-});
-test("changeNotReadToRead", () => {
-  expect(1).toBe(1);
-});
-test("checkIdValidation", () => {
-  expect(1).toBe(1);
+test("requestDeny API is To Fail", () => {
+  expect(async () => {
+    await requestDeny({ ...requestAccepData, to: "" });
+  }).rejects.toThrowError(new Error("to입력이 잘못되었습니다."));
 });
 
-// get
-test("getTeamInfo", () => {
-  expect(1).toBe(1);
+test("requestDeny API is From same To Fail", () => {
+  expect(async () => {
+    await requestDeny({ ...requestAccepData, to: "me" });
+  }).rejects.toThrowError(new Error("from과 to는 같을 수 없습니다."));
 });
-test("getJoinChat", () => {
-  expect(1).toBe(1);
+
+test("requestChat API is Success", async () => {
+  const res = await requestChat(requestAccepData);
+  expect(res).toBe(true);
 });
-test("getChatInfo", () => {
-  expect(1).toBe(1);
+test("requestChat API is From Fail", () => {
+  expect(async () => {
+    await requestChat({ ...requestAccepData, from: "" });
+  }).rejects.toThrowError(new Error("from입력이 잘못되었습니다."));
 });
-test("getRequestInfo", () => {
-  expect(1).toBe(1);
+test("requestChat API is To Fail", () => {
+  expect(async () => {
+    await requestChat({ ...requestAccepData, to: "" });
+  }).rejects.toThrowError(new Error("to입력이 잘못되었습니다."));
 });
-test("getTeamInfo", () => {
-  expect(1).toBe(1);
+
+test("requestChat API is From same To Fail", () => {
+  expect(async () => {
+    await requestChat({ ...requestAccepData, to: "me" });
+  }).rejects.toThrowError(new Error("from과 to는 같을 수 없습니다."));
 });
-test("getUserInfo", () => {
-  expect(1).toBe(1);
+
+test("changeNotReadToRead API is Success", async () => {
+  const res = await changeNotReadToRead(5);
+  expect(res).toBe(5);
 });
+
+test("changeNotReadToRead API is Fail", () => {
+  expect(async () => {
+    await changeNotReadToRead(0);
+  }).rejects.toThrowError(new Error("존재하지 않는 채팅방입니다."));
+});
+
+const existName = "test";
+const unExistName = "test1";
+test("checkIdValidation is Success true", async () => {
+  const res = await checkIdValidation(existName);
+  expect(res).toBe(false);
+});
+
+test("checkIdValidation is Success true", async () => {
+  const res = await checkIdValidation(unExistName);
+  expect(res).toBe(true);
+});
+
+test("checkIdValidation is Fail", () => {
+  expect(async () => {
+    await checkIdValidation("");
+  }).rejects.toThrowError("잘못된 id 형식입니다.");
+});
+
+// // get
+// test("getTeamInfo", () => {
+//   expect(1).toBe(1);
+// });
+// test("getJoinChat", () => {
+//   expect(1).toBe(1);
+// });
+// test("getChatInfo", () => {
+//   expect(1).toBe(1);
+// });
+// test("getRequestInfo", () => {
+//   expect(1).toBe(1);
+// });
+// test("getTeamInfo", () => {
+//   expect(1).toBe(1);
+// });
+// test("getUserInfo", () => {
+//   expect(1).toBe(1);
+// });
 
 export {};

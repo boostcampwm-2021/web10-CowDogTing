@@ -154,15 +154,20 @@ export const requestAccept = async ({ from, to }: { from: string | number; to: s
   }
 };
 
-export const requestDeny = async ({ from, to }: { from: string | number; to: string | number }): Promise<void> => {
-  await axios.post(
-    DENY_API_URL,
-    {
-      from,
-      to,
-    },
-    { withCredentials: true }
-  );
+export const requestDeny = async ({ from, to }: { from: string | number; to: string | number }): Promise<boolean> => {
+  try {
+    const res = await axios.post(
+      DENY_API_URL,
+      {
+        from,
+        to,
+      },
+      { withCredentials: true }
+    );
+    return res.data;
+  } catch (e) {
+    throw new Error((e as any).response.data.errorMessage);
+  }
 };
 
 export const requestChat = async ({ from, to }: { from: string | number; to: string | number }): Promise<boolean> => {
@@ -178,7 +183,7 @@ export const requestChat = async ({ from, to }: { from: string | number; to: str
     if (!data) throw new Error("API Error");
     return data;
   } catch (e) {
-    throw new Error(e as string);
+    throw new Error((e as any).response.data.errorMessage);
   }
 };
 
@@ -202,11 +207,20 @@ export const postChat = async (chatRoomId: number, uId: string, file: Blob) => {
   await axios.post(POST_CHAT_API_URL, formData, { withCredentials: true });
 };
 
-export const changeNotReadToRead = (chatRoomId: number) => {
-  axios.post(POST_CHAT_READ_API_URL, { chatRoomId }, { withCredentials: true });
+export const changeNotReadToRead = async (chatRoomId: number) => {
+  try {
+    const res = await axios.post(POST_CHAT_READ_API_URL, { chatRoomId }, { withCredentials: true });
+    return res.data;
+  } catch (e) {
+    throw new Error((e as any).response.data.errorMessage);
+  }
 };
 
 export const checkIdValidation = async (uid: string) => {
-  const { data } = await axios.get(`${CHECK_ID_VALIDATION_URL}?uid=${uid}`, { withCredentials: true });
-  return data;
+  try {
+    const { data } = await axios.get(`${CHECK_ID_VALIDATION_URL}?uid=${uid}`, { withCredentials: true });
+    return data;
+  } catch (e) {
+    throw new Error((e as any).response.data.errorMessage);
+  }
 };
