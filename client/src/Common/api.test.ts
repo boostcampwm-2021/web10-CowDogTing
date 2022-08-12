@@ -1,4 +1,4 @@
-import { changeTeamInfo, createTeam, exitTeam, inviteTeam, postLogin } from "./api";
+import { changeMyInfo, changeTeamInfo, createTeam, exitTeam, getChatMessage, inviteTeam, logOutUser, postLogin, registerUser, requestAccept } from "./api";
 import { server } from "../../msw/server";
 
 beforeAll(() => server.listen());
@@ -77,24 +77,124 @@ test("postLogin API Fail", () => {
   }).rejects.toThrowError(new Error("로그인 실패"));
 });
 
-test("registerUser", () => {
-  expect(1).toBe(1);
+const registerData = {
+  id: "test",
+  pw: "qwer1234",
+  location: "수원",
+  age: 25,
+  sex: "male",
+  info: "hi",
+};
+test("registerUser API is Success", async () => {
+  const res = await registerUser(registerData);
+  expect(res).toBe(true);
 });
-test("getCowDogInfo", () => {
-  expect(1).toBe(1);
+
+test("registerUser API is ID Error", () => {
+  expect(async () => {
+    await registerUser({ ...registerData, id: "" });
+  }).rejects.toThrowError(new Error("아이디 입력 오류"));
 });
-test("getChatMessage", () => {
-  expect(1).toBe(1);
+
+test("registerUser API is sex Error", () => {
+  expect(async () => {
+    await registerUser({ ...registerData, sex: "" });
+  }).rejects.toThrowError(new Error("성별 입력 오류"));
 });
-test("changeMyInfo", () => {
-  expect(1).toBe(1);
+test("registerUser API is PW Error", () => {
+  expect(async () => {
+    await registerUser({ ...registerData, pw: "" });
+  }).rejects.toThrowError(new Error("비밀번호 입력 오류"));
 });
-test("logOutUser", () => {
-  expect(1).toBe(1);
+test("registerUser API is Location Error", () => {
+  expect(async () => {
+    await registerUser({ ...registerData, location: "" });
+  }).rejects.toThrowError(new Error("지역 입력 오류"));
 });
-test("requestAccept", () => {
-  expect(1).toBe(1);
+test("registerUser API is Age Error", () => {
+  expect(async () => {
+    await registerUser({ ...registerData, age: 0 });
+  }).rejects.toThrowError(new Error("나이 입력 오류"));
 });
+test("registerUser API is info Error", () => {
+  expect(async () => {
+    await registerUser({ ...registerData, info: "" });
+  }).rejects.toThrowError(new Error("정보 입력 오류"));
+});
+
+const getChatMessageData = { index: 1, chatRoomId: 1 };
+test("getChatMessage API is Success", async () => {
+  const data = await getChatMessage(getChatMessageData);
+  expect(data).toBe(true);
+});
+test("getChatMessage API is index FAil", async () => {
+  expect(async () => {
+    await getChatMessage({ ...getChatMessageData, index: 0 });
+  }).rejects.toThrowError(new Error("index에러"));
+});
+test("getChatMessage API is chatRoomId FAil", () => {
+  expect(async () => {
+    await getChatMessage({ ...getChatMessageData, chatRoomId: 0 });
+  }).rejects.toThrowError(new Error("chatRoomId에러"));
+});
+
+const changeMyInfoData = { id: "test", location: "수원", age: 25, info: "hi" };
+test("changeMyInfo API is Success", async () => {
+  const res = await changeMyInfo(changeMyInfoData);
+  expect(res).toBe(true);
+});
+
+test("changeMyInfo API is id fail", async () => {
+  expect(async () => {
+    await changeMyInfo({ ...changeMyInfoData, id: "" });
+  }).rejects.toThrowError("id가 잘못되었습니다.");
+});
+
+test("changeMyInfo API is location fail", async () => {
+  expect(async () => {
+    await changeMyInfo({ ...changeMyInfoData, location: "" });
+  }).rejects.toThrowError("location이 잘못되었습니다.");
+});
+
+test("changeMyInfo API is age fail", async () => {
+  expect(async () => {
+    await changeMyInfo({ ...changeMyInfoData, age: 0 });
+  }).rejects.toThrowError("age설정이 잘못되었습니다.");
+});
+
+test("changeMyInfo API is info fail", async () => {
+  expect(async () => {
+    await changeMyInfo({ ...changeMyInfoData, info: "" });
+  }).rejects.toThrowError("info 입력이 잘못되었습니다.");
+});
+
+test("logOutUser API is Success", async () => {
+  const res = await logOutUser();
+  expect(res).toBe(true);
+});
+
+const requestAccepData = { from: "me", to: "you" };
+test("requestAccept API is Success", async () => {
+  const res = await requestAccept(requestAccepData);
+  expect(res).toBe(true);
+});
+test("requestAccept API is From Fail", () => {
+  expect(async () => {
+    await requestAccept({ ...requestAccepData, from: "" });
+  }).rejects.toThrowError(new Error("from입력이 잘못되었습니다."));
+});
+test("requestAccept API is To Fail", () => {
+  expect(async () => {
+    await requestAccept({ ...requestAccepData, to: "" });
+  }).rejects.toThrowError(new Error("to입력이 잘못되었습니다."));
+});
+
+test("requestAccept API is From same To Fail", () => {
+  expect(async () => {
+    await requestAccept({ ...requestAccepData, to: "me" });
+  }).rejects.toThrowError(new Error("from과 to는 같을 수 없습니다."));
+});
+
 test("requestDeny", () => {
   expect(1).toBe(1);
 });

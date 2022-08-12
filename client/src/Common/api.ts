@@ -85,7 +85,7 @@ export const registerUser = async ({ id, pw, location, age, sex, info }: registe
     });
     return data;
   } catch (error) {
-    throw new Error();
+    throw new Error((error as any).response.data.errorMessage);
   }
 };
 
@@ -96,7 +96,7 @@ export const getCowDogInfo = async (person: number, index: number, category: str
     });
     return data;
   } catch (error) {
-    throw new Error();
+    throw new Error((error as any).response.data.errorMessage);
   }
 };
 
@@ -104,8 +104,8 @@ export const getChatMessage = async ({ index, chatRoomId }: { index: number; cha
   try {
     const { data } = await axios.get(`${CHAT_MESSAGES_API_URL}?chatRoomId=${chatRoomId}&index=${index}`);
     return data;
-  } catch (error) {
-    throw new Error();
+  } catch (e) {
+    throw new Error((e as any).response.data.errorMessage);
   }
 };
 export const changeMyInfo = async ({ id, location, age, info }: { id: string; location: string; age: number; info: string }) => {
@@ -124,28 +124,34 @@ export const changeMyInfo = async ({ id, location, age, info }: { id: string; lo
     );
 
     return data;
-  } catch (error) {
-    throw new Error("내 정보 수정에 실패했습니다");
+  } catch (e) {
+    throw new Error((e as any).response.data.errorMessage);
+    // throw new Error("내 정보 수정에 실패했습니다");
   }
 };
 export const logOutUser = async () => {
   try {
     const { data } = await axios.get(LOGOUT_API_URL, { withCredentials: true });
     return data;
-  } catch (error) {
-    throw new Error();
+  } catch (e) {
+    throw new Error((e as any).response.data.errorMessage);
   }
 };
 
 export const requestAccept = async ({ from, to }: { from: string | number; to: string | number }): Promise<void> => {
-  await axios.post(
-    ACCEPT_API_URL,
-    {
-      from,
-      to,
-    },
-    { withCredentials: true }
-  );
+  try {
+    const res = await axios.post(
+      ACCEPT_API_URL,
+      {
+        from,
+        to,
+      },
+      { withCredentials: true }
+    );
+    return res.data;
+  } catch (e) {
+    throw new Error((e as any).response.data.errorMessage);
+  }
 };
 
 export const requestDeny = async ({ from, to }: { from: string | number; to: string | number }): Promise<void> => {
