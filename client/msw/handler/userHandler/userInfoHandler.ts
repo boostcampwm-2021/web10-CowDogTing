@@ -1,7 +1,7 @@
-import { MockProps } from "..";
+import { errorHandlerMaker, MockProps } from "..";
 
 export const userInfoHandler: MockProps = (req, res, ctx) => {
-  const errorHandler = (message: string) => res(ctx.status(403), ctx.json({ errorMessage: message }));
+  const errorHandler = errorHandlerMaker(res, ctx);
   const {
     body: { id, location, age, info },
   } = req;
