@@ -1,6 +1,4 @@
-import { RestRequest, PathParams, ResponseComposition, DefaultBodyType, RestContext } from "msw";
-
-export type MockProps = (req: RestRequest<never, PathParams<string>>, res: ResponseComposition<DefaultBodyType>, ctx: RestContext) => any;
+import { MockProps } from "..";
 
 export const teamUpdateHandler: MockProps = (req, res, ctx) => {
   const { name, description, location } = req.body;

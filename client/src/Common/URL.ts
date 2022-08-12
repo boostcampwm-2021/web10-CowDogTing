@@ -3,9 +3,12 @@ export const URL = `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_
 export const TEAM_INFO_URL = `${process.env.REACT_APP_GET_TEAM_INFO_API_URL}`;
 export const TEAM_UPDATE_API_URL = "http://localhost:4000/team/update";
 // export const TEAM_UPDATE_API_URL = `${URL}${process.env.REACT_APP_TEAM_UPDATE_API_URL}`;
-export const TEAM_CREATE_API_URL = `${URL}${process.env.REACT_APP_TEAM_CREATE_API_URL}`;
-export const TEAM_INVITE_API_URL = `${URL}${process.env.REACT_APP_TEAM_INVITE_API_URL}`;
-export const TEAM_EXIT_API_URL = `${URL}${process.env.REACT_APP_TEAM_EXIT_API_URL}`;
+export const TEAM_CREATE_API_URL = "http://localhost:4000/team/create";
+// export const TEAM_CREATE_API_URL = `${URL}${process.env.REACT_APP_TEAM_CREATE_API_URL}`;
+export const TEAM_INVITE_API_URL = "http://localhost:4000/team/invite";
+// export const TEAM_INVITE_API_URL = `${URL}${process.env.REACT_APP_TEAM_INVITE_API_URL}`;
+export const TEAM_EXIT_API_URL = "http://localhost:4000/team/exit";
+// export const TEAM_EXIT_API_URL = `${URL}${process.env.REACT_APP_TEAM_EXIT_API_URL}`;
 
 export const REQUEST_URL = `${process.env.REACT_APP_GET_REQUEST_API_URL}`;
 export const REQUEST_API_URL = `${URL}${process.env.REACT_APP_POST_POST_REQUEST_API_URL}`;
@@ -24,7 +27,8 @@ export const USER_INFO_API_URL = `${URL}${process.env.REACT_APP_POST_USER_INFO_A
 export const POST_IMAGE_API_URL = `${URL}${process.env.REACT_APP_POST_IMAGE_API_URL}`;
 
 export const REGISTER_API_URL = `${URL}${process.env.REACT_APP_REGISTER_API_URL}`;
-export const LOGIN_API_URL = `${URL}${process.env.REACT_APP_LOGIN_API_URL}`;
+export const LOGIN_API_URL = "http://localhost:4000/auth/login";
+// export const LOGIN_API_URL = `${URL}${process.env.REACT_APP_LOGIN_API_URL}`;
 export const LOGOUT_API_URL = `${URL}${process.env.REACT_APP_LOGOUT_API_URL}`;
 export const CHECK_ID_VALIDATION_URL = `${URL}${process.env.REACT_APP_GET_ID_VALIDATION}`;
 

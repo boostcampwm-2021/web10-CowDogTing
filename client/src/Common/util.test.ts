@@ -14,3 +14,5 @@ test("makeCategory", () => {
 test("transAgeToNumber", () => {
   expect(1).toBe(1);
 });
+
+export {};

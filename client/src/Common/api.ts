@@ -38,18 +38,24 @@ export const createTeam = async ({ teamName, teamInfo, location }: PostTeamType)
 
     return gid;
   } catch (error) {
-    throw new Error();
+    throw new Error("팀 생성에 실패하셨습니다.");
   }
 };
 
-export const inviteTeam = ({ userId }: { userId: string }): Promise<AxiosResponse<PersonInfoType>> =>
-  axios.post(
-    TEAM_INVITE_API_URL,
-    {
-      userId,
-    },
-    { withCredentials: true }
-  );
+export const inviteTeam = async ({ userId }: { userId: string }): Promise<AxiosResponse<PersonInfoType>> => {
+  try {
+    const res = await axios.post(
+      TEAM_INVITE_API_URL,
+      {
+        userId,
+      },
+      { withCredentials: true }
+    );
+    return res;
+  } catch (e) {
+    throw new Error("유저가 존재하지 않습니다.");
+  }
+};
 
 export const postLogin = async ({ id, pw }: loginInfo) => {
   try {
@@ -63,7 +69,7 @@ export const postLogin = async ({ id, pw }: loginInfo) => {
     );
     return data;
   } catch (error) {
-    throw new Error();
+    throw new Error("로그인 실패");
   }
 };
 

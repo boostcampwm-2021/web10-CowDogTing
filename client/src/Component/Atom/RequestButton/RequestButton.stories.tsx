@@ -24,3 +24,4 @@
 // };
 // export const Primary: React.VFC<RequestButtonProps> = () => <RequestButton from="hihi" type="Mine" message="안녕하세요" src={null} />;
 // export const OtherChat: React.VFC<RequestButtonProps> = () => <RequestButton from="hihi" type="Other" message="안녕히가세요" src={null} />;
+export {};
