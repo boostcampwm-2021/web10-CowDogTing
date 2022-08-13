@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { findAllRequest, validationTeamAndUser, findAllTeamRequest, isLeader, addRequest, sendRequest, _denyRequest, _acceptRequest } from "./service";
+import { findAllRequest, validationTeamAndUser, findAllTeamRequest, isLeader, addRequest } from "./service";
+// import { findAllRequest, validationTeamAndUser, findAllTeamRequest, isLeader, addRequest, sendRequest, _denyRequest, _acceptRequest } from "./service";
 
 const defaultRequest = <any>[];
 
@@ -26,7 +27,7 @@ export const postRequest = async (req: Request, res: Response, next: NextFunctio
     const toValidation = await validationTeamAndUser(to);
     if (!toValidation) return res.status(403).send({ error: "to isn`t exist" });
     await addRequest({ from, to });
-    sendRequest({ from, to });
+    // sendRequest({ from, to });
     return res.status(200).send(true);
   } catch (error) {
     return next(error);
@@ -39,7 +40,7 @@ export const denyRequest = async (req: Request, res: Response, next: NextFunctio
     const { from, to } = req.body;
     const toValidation = await validationTeamAndUser(to);
     if (!toValidation) return res.status(401).send({ error: "to isn`t exist" });
-    _denyRequest({ from, to });
+    // _denyRequest({ from, to });
     return res.status(200).send(true);
   } catch (error) {
     return next(error);
@@ -52,7 +53,7 @@ export const acceptRequest = async (req: Request, res: Response, next: NextFunct
     const { from, to } = req.body;
     const toValidation = await validationTeamAndUser(to);
     if (!toValidation) return res.status(401).send({ error: "to isn`t exist" });
-    _acceptRequest({ from, to });
+    // _acceptRequest({ from, to });
     return res.status(200).send(true);
   } catch (error) {
     return next(error);

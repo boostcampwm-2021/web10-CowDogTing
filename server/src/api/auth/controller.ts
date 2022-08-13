@@ -66,7 +66,8 @@ export const handleNaverCallback = (req: Request, res: Response, next: NextFunct
   })(req, res, next);
 
 export const handleLogOut = (req: Request, res: Response) => {
-  req.logout();
+  //error
+  req.logout(() => {});
   req.session.destroy(() => {
     req.session;
   });
