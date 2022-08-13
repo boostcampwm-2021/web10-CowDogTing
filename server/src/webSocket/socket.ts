@@ -1,12 +1,12 @@
 import express = require("express");
 import { Server, Socket } from "socket.io";
 // const wrtc = require("wrtc");
-import { createClient } from "redis";
-import { createAdapter } from "@socket.io/redis-adapter";
+// import { createClient } from "redis";
+// import { createAdapter } from "@socket.io/redis-adapter";
 import { addReadRow } from "../api/chat/controller";
 import { SendChatType, receiverPCType, senderPCsType, usersType, socketToRoomType, userType } from "../util/type";
 import { createChatMessage } from "../api/util";
-export const pubClient = createClient({ url: process.env.CHAT_REDIS_URL, password: process.env.CHAT_REDIS_PWD });
+// export const pubClient = createClient({ url: process.env.CHAT_REDIS_URL, password: process.env.CHAT_REDIS_PWD });
 
 export const socketInit = (server: any, app: express.Application) => {
   const io = new Server(server, {
@@ -16,8 +16,8 @@ export const socketInit = (server: any, app: express.Application) => {
     },
   });
 
-  const subClient = pubClient.duplicate();
-  io.adapter(createAdapter(pubClient, subClient));
+  // const subClient = pubClient.duplicate();
+  // io.adapter(createAdapter(pubClient, subClient));
 
   app.set("io", io);
 
@@ -27,10 +27,10 @@ export const socketInit = (server: any, app: express.Application) => {
     console.log("socket 연결 성공 ip : ", ip);
     console.log(socket.id);
 
-    socket.on("setUid", async (Id: string) => {
-      pubClient.set(Id, socket.id);
-      pubClient.get(Id);
-    });
+    // socket.on("setUid", async (Id: string) => {
+    //   pubClient.set(Id, socket.id);
+    //   pubClient.get(Id);
+    // });
 
     socket.on("joinChatRoom", (chatroomId: string[]) => {
       socket.join(chatroomId);

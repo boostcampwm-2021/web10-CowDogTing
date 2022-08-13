@@ -6,8 +6,8 @@ import * as cookieParser from "cookie-parser";
 import * as passport from "passport";
 import { Express } from "express";
 import apiRouter from "../api";
-const redisStore = require("connect-redis")(session);
-import { createClient } from "redis";
+// const redisStore = require("connect-redis")(session);
+// import { createClient } from "redis";
 
 export const loadApp = async (app: Express) => {
   app.use(express.json());
@@ -17,22 +17,22 @@ export const loadApp = async (app: Express) => {
     }),
   );
   app.use(cookieParser(process.env.COOKIE_SECRET));
-  app.use(
-    session({
-      store: new redisStore({
-        client: createClient({ url: process.env.SESSION_REDIS_URL, password: process.env.SESSION_REDIS_PWD }),
-        prefix: "session:",
-        logErrors: true,
-      }),
-      resave: false,
-      saveUninitialized: false,
-      secret: String(process.env.COOKIE_SECRET),
-      cookie: {
-        httpOnly: true,
-        secure: false,
-      },
-    }),
-  );
+  // app.use(
+  //   session({
+  //     store: new redisStore({
+  //       client: createClient({ url: process.env.SESSION_REDIS_URL, password: process.env.SESSION_REDIS_PWD }),
+  //       prefix: "session:",
+  //       logErrors: true,
+  //     }),
+  //     resave: false,
+  //     saveUninitialized: false,
+  //     secret: String(process.env.COOKIE_SECRET),
+  //     cookie: {
+  //       httpOnly: true,
+  //       secure: false,
+  //     },
+  //   }),
+  // );
 
   app.use(express.static("src/public"));
   app.use(passport.initialize());
