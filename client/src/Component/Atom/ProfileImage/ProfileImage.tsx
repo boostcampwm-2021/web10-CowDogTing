@@ -8,8 +8,8 @@ export type ProfileImageType = {
   image: string | ArrayBuffer | null;
   type: string;
   onClick?: React.MouseEventHandler;
-  ref?: any;
-  children?: JSX.Element;
+  ref?: (el: any) => HTMLDivElement;
+  children?: React.ReactNode;
 };
 
 export const ProfileImage: React.FC<ProfileImageType> = ({ type, onClick, ref, children, image }) => {

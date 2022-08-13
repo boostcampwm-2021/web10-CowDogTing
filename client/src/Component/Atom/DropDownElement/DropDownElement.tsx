@@ -1,8 +1,12 @@
 import React, { MouseEventHandler } from "react";
 import { LinkButton } from "@Core/LinkButton";
 import { logOutUser } from "@Common/api";
-import { menuType } from "@Common/type";
 import { useMovePage } from "@Hook/useMovePage";
+
+export type menuType = {
+  link?: string;
+  name: string;
+};
 
 export type DropDownElementProps = { menu: menuType; onClick: MouseEventHandler<HTMLButtonElement> | undefined };
 

@@ -1,13 +1,7 @@
-import React, { RefObject } from "react";
+import React from "react";
 
 export type ChildrenType = {
   children?: React.ReactNode;
-};
-
-export type InputLabelType = {
-  label: string;
-  placeholder?: string;
-  refProps?: React.MutableRefObject<HTMLInputElement | null>;
 };
 
 export type PersonInfoType = {
@@ -21,12 +15,6 @@ export type PersonInfoType = {
   gid?: number | null;
   idx?: number;
 };
-export interface PostTeamType {
-  teamName: string;
-  teamInfo: string;
-  location: string;
-}
-export interface ChangeTeamInfoType extends PostTeamType {}
 
 export type TeamInfoType = {
   image: string | null;
@@ -40,33 +28,14 @@ export type TeamInfoType = {
 };
 
 export type ProfileType = PersonInfoType & {
-  // [key: string]: PersonInfoType[] | undefined;
   member?: PersonInfoType[];
 };
 
-export type ProfileListType = {
-  datas: PersonInfoType[] | ProfileType[] | null | undefined;
-  person: number;
-  handleProfileListContainer: (prev: any) => void;
-  profileRef: RefObject<HTMLDivElement[]>;
-};
 export type RequestListType = {
   datas: RequestType[];
   type: string;
   handleRequestListContainer: (prev: any) => void;
-  profileRef: RefObject<HTMLDivElement[]>;
-};
-
-export type LargeModalType = {
-  children: JSX.Element[];
-  length: number;
-  decreaseIndex: (e: React.MouseEvent<HTMLElement>) => void;
-  inCreaseIndex: (e: React.MouseEvent<HTMLElement>) => void;
-  index: number;
-};
-
-export type SmallModalType = {
-  setRequest: (current: boolean) => void;
+  profileRef: React.RefObject<HTMLDivElement[]>;
 };
 
 export type MessageType = {
@@ -88,67 +57,14 @@ export type RequestType = {
   state: string;
 };
 
-export type RequestsType = {
-  data: RequestType[];
-};
-
 export type joinChatType = {
   chatRoomId: number;
   notReadNum: number;
 };
 
-export type ChatProfileContainerType = {
-  chatsInfo: ChatInfoType[] | null;
-  setClickedRoomIndex: Function;
-};
-
 export type ProfileCardType = {
   type: string;
   children?: undefined | JSX.Element[] | JSX.Element | string;
-};
-
-export type ChatListInfoType = {
-  lastChat: string;
-  from: string;
-};
-
-export type ChatListContainerType = {
-  profileRef: RefObject<HTMLDivElement[]>;
-  onClick: (prev: any) => void;
-};
-
-export type ChatImageContainerType = {
-  profileRef: RefObject<HTMLDivElement[]>;
-};
-
-export type NavDropDownType = {
-  DropDownList: Array<string>;
-  className: string;
-};
-
-export type LinkButtonType = {
-  url: string | undefined;
-  type: string;
-  content: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
-  refProps?: RefObject<HTMLButtonElement>;
-  id?: string;
-};
-
-export type DropDownType = {
-  DropDownRef?: RefObject<HTMLDivElement>;
-  type: string;
-  className: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  refProps?: RefObject<HTMLDivElement>;
-};
-
-export type menuType = {
-  link?: string;
-  name: string;
-};
-export type menuListType = {
-  [key: string]: menuType[];
 };
 
 export interface loginInfo {
@@ -168,49 +84,17 @@ export type ErrorType = {
   timeOut: number;
 };
 
-export type ReceiveRequestSocketType = {
-  setRequest: Function;
-  data: RequestType;
-};
-
-export type ReceiveDenySocketType = {
-  setRequest: Function;
-  data: { from: string; to: string };
-};
-
-export type ReceiveAcceptSocketType = {
-  setRequest: Function;
-  setJoinChat: Function;
-  setChat: Function;
-  data: {
-    chat: ChatInfoType;
-    from: string;
-    to: string;
-  };
-};
-
-export type ReceiveChatSocketType = {
-  setJoinChat: any;
-  setChat: any;
-  setChatInfo: any;
-  setErrorValue: Function;
-  data: {
-    message: MessageType;
-    chatRoomId: number;
-  };
-};
-
 export type IWebRTCUser = {
   id: string;
   stream: MediaStream;
 };
 
-export type webRTCProps = {
-  stream: MediaStream;
-  muted?: boolean;
-};
+// export type webRTCProps = {
+//   stream: MediaStream;
+//   muted?: boolean;
+// };
 
-export type receivePCsType = {
-  id: string;
-  pc: RTCPeerConnection;
-};
+// export type receivePCsType = {
+//   id: string;
+//   pc: RTCPeerConnection;
+// };

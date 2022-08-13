@@ -1,4 +1,8 @@
-import { menuListType } from "./type";
+import { menuType } from "@Atom/.";
+
+export type menuListType = {
+  [key: string]: menuType[];
+};
 
 export const MENU_LIST: menuListType = {
   Location: [{ name: "서울" }, { name: "경기" }, { name: "인천" }, { name: "대구" }, { name: "대전" }, { name: "광주" }, { name: "부산" }, { name: "울산" }],

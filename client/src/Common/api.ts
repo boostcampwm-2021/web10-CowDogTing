@@ -1,9 +1,15 @@
 import axios, { AxiosResponse } from "axios";
 import { TEAM_EXIT_API_URL, ACCEPT_API_URL, CHAT_MESSAGES_API_URL, DENY_API_URL, LOGIN_API_URL, LOGOUT_API_URL, POST_CHAT_API_URL, POST_IMAGE_API_URL, PROFILE_API_URL, REGISTER_API_URL, REQUEST_API_URL, TEAM_CREATE_API_URL, TEAM_INVITE_API_URL, TEAM_UPDATE_API_URL, USER_INFO_API_URL, POST_CHAT_READ_API_URL, CHECK_ID_VALIDATION_URL } from "./URL";
-import { ChangeTeamInfoType, loginInfo, PersonInfoType, PostTeamType, registerInfo } from "./type";
+import { loginInfo, PersonInfoType, registerInfo } from "./type";
 import { fromImageToForm } from "./util";
 
-export const changeTeamInfo = async ({ teamName, teamInfo, location }: ChangeTeamInfoType) => {
+export type PostTeamType = {
+  teamName: string;
+  teamInfo: string;
+  location: string;
+};
+
+export const changeTeamInfo = async ({ teamName, teamInfo, location }: PostTeamType) => {
   try {
     const res = await axios.post(
       TEAM_UPDATE_API_URL,
