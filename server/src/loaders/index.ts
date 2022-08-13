@@ -17,6 +17,14 @@ export const loadApp = async (app: Express) => {
     }),
   );
   app.use(cookieParser(process.env.COOKIE_SECRET));
+  app.use(
+    session({
+      secret: "asdfasdf",
+      resave: false,
+      saveUninitialized: true,
+      // store: sessionStore,
+    }),
+  );
   // app.use(
   //   session({
   //     store: new redisStore({
@@ -39,14 +47,14 @@ export const loadApp = async (app: Express) => {
   app.use(passport.session());
   app.use(
     cors({
-      origin: ["https://localhost:3000"],
+      origin: ["http://localhost:3000"],
       credentials: true,
     }),
   );
   app.use(morgan("dev"));
   app.use("/uploads", express.static("uploads"));
   app.use("/api", apiRouter);
-  app.get("/mafia", (req, res, next) => {
-    res.sendFile(__dirname + "mafia.htm");
-  });
+  // app.get("/mafia", (req, res, next) => {
+  //   res.sendFile(__dirname + "mafia.htm");
+  // });
 };

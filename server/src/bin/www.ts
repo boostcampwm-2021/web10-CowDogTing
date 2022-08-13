@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import { createApp } from "../app";
-import { createServer } from "https";
+// import { createServer } from "https";
+import { createServer } from "http";
 import { sequelize } from "../db/models";
 import { socketInit } from "../webSocket/socket";
 
