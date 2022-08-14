@@ -6,5 +6,13 @@ export const chatMessagesHandler: MockProps = (req, res, ctx) => {
   const index = params.get("index");
   if (index === "0") return res(ctx.status(403), ctx.json({ errorMessage: "index에러" }));
   if (chatRoomId === "0") return res(ctx.status(403), ctx.json({ errorMessage: "chatRoomId에러" }));
-  return res(ctx.json(true));
+  return res(
+    ctx.json([
+      {
+        from: "to",
+        message: "hi",
+        source: "",
+      },
+    ])
+  );
 };
