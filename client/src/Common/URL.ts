@@ -1,6 +1,7 @@
 export const URL = `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}`;
 
-export const TEAM_INFO_URL = `${process.env.REACT_APP_GET_TEAM_INFO_API_URL}`;
+export const TEAM_INFO_URL = "http://localhost:4000/api/team/info";
+// export const TEAM_INFO_URL = `${process.env.REACT_APP_GET_TEAM_INFO_API_URL}`;
 export const TEAM_UPDATE_API_URL = "http://localhost:4000/api/team/update";
 // export const TEAM_UPDATE_API_URL = `${URL}${process.env.REACT_APP_TEAM_UPDATE_API_URL}`;
 export const TEAM_CREATE_API_URL = "http://localhost:4000/api/team/create";

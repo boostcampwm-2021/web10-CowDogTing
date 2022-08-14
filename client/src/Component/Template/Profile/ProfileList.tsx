@@ -1,6 +1,6 @@
-import React from "react";
+import React, { RefObject } from "react";
 import { css } from "@emotion/react";
-import { ProfileListType } from "@Common/type";
+import { PersonInfoType, ProfileType } from "@Common/type";
 import { ProfileComponent } from "./ProfileComponent";
 
 const ProfileListStyle = css`
@@ -12,8 +12,14 @@ const ProfileListStyle = css`
   margin-bottom: 10px;
 `;
 
-type props = ProfileListType;
-export const ProfileList = ({ datas, person, handleProfileListContainer, profileRef }: props) => {
+export type ProfileListType = {
+  datas: PersonInfoType[] | ProfileType[] | null | undefined;
+  person: number;
+  handleProfileListContainer: (prev: any) => void;
+  profileRef: RefObject<HTMLDivElement[]>;
+};
+
+export const ProfileList = ({ datas, person, handleProfileListContainer, profileRef }: ProfileListType) => {
   return (
     <div css={ProfileListStyle} aria-hidden="true" onClick={handleProfileListContainer}>
       {datas?.map((data, idx) => {

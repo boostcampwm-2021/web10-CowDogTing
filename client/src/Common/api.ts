@@ -1,9 +1,15 @@
 import axios, { AxiosResponse } from "axios";
 import { TEAM_EXIT_API_URL, ACCEPT_API_URL, CHAT_MESSAGES_API_URL, DENY_API_URL, LOGIN_API_URL, LOGOUT_API_URL, POST_CHAT_API_URL, POST_IMAGE_API_URL, PROFILE_API_URL, REGISTER_API_URL, REQUEST_API_URL, TEAM_CREATE_API_URL, TEAM_INVITE_API_URL, TEAM_UPDATE_API_URL, USER_INFO_API_URL, POST_CHAT_READ_API_URL, CHECK_ID_VALIDATION_URL } from "./URL";
-import { ChangeTeamInfoType, loginInfo, PersonInfoType, PostTeamType, registerInfo } from "./type";
+import { loginInfo, MessageType, PersonInfoType, registerInfo } from "./type";
 import { fromImageToForm } from "./util";
 
-export const changeTeamInfo = async ({ teamName, teamInfo, location }: ChangeTeamInfoType) => {
+export type PostTeamType = {
+  teamName: string;
+  teamInfo: string;
+  location: string;
+};
+
+export const changeTeamInfo = async ({ teamName, teamInfo, location }: PostTeamType) => {
   try {
     const res = await axios.post(
       TEAM_UPDATE_API_URL,
@@ -91,16 +97,14 @@ export const registerUser = async ({ id, pw, location, age, sex, info }: registe
 
 export const getCowDogInfo = async (person: number, index: number, category: string) => {
   try {
-    const { data } = await axios.get(`${PROFILE_API_URL}?person=${person}&index=${index}${category}`, {
-      withCredentials: true,
-    });
+    const data = await getFetch({ url: PROFILE_API_URL, query: `?person=${person}&index=${index}${category}` });
     return data;
   } catch (error) {
     throw new Error((error as any).response.data.errorMessage);
   }
 };
 
-export const getChatMessage = async ({ index, chatRoomId }: { index: number; chatRoomId: number }) => {
+export const getChatMessage = async ({ index, chatRoomId }: { index: number; chatRoomId: number }): Promise<MessageType[]> => {
   try {
     const { data } = await axios.get(`${CHAT_MESSAGES_API_URL}?chatRoomId=${chatRoomId}&index=${index}`);
     return data;
@@ -188,7 +192,8 @@ export const requestChat = async ({ from, to }: { from: string | number; to: str
 };
 
 export const getFetch = async ({ url, query }: { url: string; query: string }): Promise<any> => {
-  const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}${url}${query}`, {
+  const { data } = await axios.get(`${url}${query}`, {
+    // const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}${url}${query}`, {
     withCredentials: true,
   });
   return data;

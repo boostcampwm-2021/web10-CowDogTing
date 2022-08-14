@@ -15,7 +15,7 @@ export const useGetChatDatasHook = () => {
     if (scrollTop !== 0) return;
 
     const chatMessages = await getChatMessage({ index: dataIndex, chatRoomId });
-    if (!chatMessages.length || chatMessages === "error") return;
+    if (!chatMessages.length) return;
 
     setChatInfo((prev) => {
       return {

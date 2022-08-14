@@ -1,11 +1,30 @@
-import React from "react";
+import React, { RefObject } from "react";
 import { useRecoilValue } from "recoil";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { ChatImageContainerType } from "@Common/type";
 import { ProfileImage, Button } from "@Atom/.";
 import { useMovePage } from "@Hook/useMovePage";
 import { getChatMemberSelector } from "@Recoil/Atom";
+
+type ChatImageContainerType = {
+  profileRef: RefObject<HTMLDivElement[]>;
+};
+
+export const ChatImageContainer = ({ profileRef }: ChatImageContainerType) => {
+  const member = useRecoilValue(getChatMemberSelector);
+  const [handleCloseRoomClick] = useMovePage("/main");
+
+  return (
+    <ChatListHeader>
+      <div css={ChatImageContainerStyle}>
+        {member?.map((userInfo, idx) => (
+          <ProfileImage key={idx} type="Mini" image={userInfo.image} ref={(el: any) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx} />
+        ))}
+      </div>
+      <Button onClick={handleCloseRoomClick}>나가기</Button>
+    </ChatListHeader>
+  );
+};
 
 const ChatListHeader = styled.div`
   display: flex;
@@ -25,19 +44,3 @@ const ChatImageContainerStyle = css`
   align-items: center;
   justify-content: space-evenly;
 `;
-
-export const ChatImageContainer = ({ profileRef }: ChatImageContainerType) => {
-  const member = useRecoilValue(getChatMemberSelector);
-  const [handleCloseRoomClick] = useMovePage("/main");
-
-  return (
-    <ChatListHeader>
-      <div css={ChatImageContainerStyle}>
-        {member?.map((userInfo, idx) => (
-          <ProfileImage key={idx} type="Mini" image={userInfo.image} ref={(el: any) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLImageElement)} data-id={idx} />
-        ))}
-      </div>
-      <Button onClick={handleCloseRoomClick}>나가기</Button>
-    </ChatListHeader>
-  );
-};

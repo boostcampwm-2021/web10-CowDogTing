@@ -1,4 +1,34 @@
-import { ChatInfoType, joinChatType, ReceiveAcceptSocketType, ReceiveChatSocketType, ReceiveDenySocketType, ReceiveRequestSocketType, RequestType } from "../Common/type";
+import { ChatInfoType, joinChatType, MessageType, RequestType } from "../Common/type";
+
+type ReceiveRequestSocketType = {
+  setRequest: Function;
+  data: RequestType;
+};
+type ReceiveDenySocketType = {
+  setRequest: Function;
+  data: { from: string; to: string };
+};
+type ReceiveAcceptSocketType = {
+  setRequest: Function;
+  setJoinChat: Function;
+  setChat: Function;
+  data: {
+    chat: ChatInfoType;
+    from: string;
+    to: string;
+  };
+};
+
+export type ReceiveChatSocketType = {
+  setJoinChat: any;
+  setChat: any;
+  setChatInfo: any;
+  setErrorValue: Function;
+  data: {
+    message: MessageType;
+    chatRoomId: number;
+  };
+};
 
 export const handleReceiveRequestSocket = ({ setRequest, data }: ReceiveRequestSocketType) => setRequest((prev: RequestType[]) => [...prev, data]);
 

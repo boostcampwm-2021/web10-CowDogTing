@@ -1,8 +1,16 @@
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { DropDownElement } from "@Atom/.";
-import { DropDownType } from "../../Common/type";
+import { RefObject } from "react";
 import { MENU_LIST } from "../../Common/constant";
+
+type DropDownType = {
+  DropDownRef?: RefObject<HTMLDivElement>;
+  type: string;
+  className: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  refProps?: RefObject<HTMLDivElement>;
+};
 
 export const DropDown: React.FC<DropDownType> = ({ type, className, onClick }) => {
   const list = MENU_LIST[type];

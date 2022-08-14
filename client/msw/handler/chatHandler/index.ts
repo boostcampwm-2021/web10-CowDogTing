@@ -6,4 +6,4 @@ import { chatMessagesHandler } from "./chatMessagesHandler";
 import { joinChatHandler } from "./joinChatHandler";
 import { postChatReadHandler } from "./postChatReadHandler";
 
-export const chatHandler = [rest.post(POST_CHAT_READ_API_URL, postChatReadHandler), rest.post(JOIN_CHAT_URL, joinChatHandler), rest.post(CHAT_INFO_URL, chatInfoHandler), rest.get(CHAT_MESSAGES_API_URL, chatMessagesHandler)];
+export const chatHandler = [rest.post(POST_CHAT_READ_API_URL, postChatReadHandler), rest.get(JOIN_CHAT_URL, joinChatHandler), rest.get(CHAT_INFO_URL, chatInfoHandler), rest.get(CHAT_MESSAGES_API_URL, chatMessagesHandler)];
