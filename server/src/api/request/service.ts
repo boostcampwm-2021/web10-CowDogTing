@@ -67,45 +67,45 @@ export const result_from_data = (user: any) => {
   };
 };
 
-// export const sendRequest = ({ from, to }: { from: string; to: string }) => {
-//   if (isNumber(to)) {
-//     sendRequestToTeam({ from: from, to: Number(to) });
-//   } else {
-//     sendRequestToUser({ from, to });
-//   }
-// };
+export const sendRequest = ({ from, to }: { from: string; to: string }) => {
+  if (isNumber(to)) {
+    sendRequestToTeam({ from: from, to: Number(to) });
+  } else {
+    sendRequestToUser({ from, to });
+  }
+};
 
-// export const _denyRequest = ({ from, to }: { from: string; to: string }) => {
-//   if (isNumber(to)) {
-//     denyRequestTeam({ from, to: Number(to) });
-//   } else {
-//     denyRequestUser({ from, to });
-//   }
-// };
+export const _denyRequest = ({ from, to }: { from: string; to: string }) => {
+  if (isNumber(to)) {
+    denyRequestTeam({ from, to: Number(to) });
+  } else {
+    denyRequestUser({ from, to });
+  }
+};
 
-// export const _acceptRequest = ({ from, to }: { from: string; to: string }) => {
-//   if (isNumber(to)) {
-//     acceptRequestTeam({ from, to: Number(to) });
-//   } else {
-//     acceptRequestUser({ from, to });
-//   }
-// };
+export const _acceptRequest = ({ from, to }: { from: string; to: string }) => {
+  if (isNumber(to)) {
+    acceptRequestTeam({ from, to: Number(to) });
+  } else {
+    acceptRequestUser({ from, to });
+  }
+};
 export const addRequest = async ({ from, to }: { from: string; to: string }) => {
   return await Request.create({ from, to, state: "ready" });
 };
 
-// const sendRequestToTeam = async ({ from, to }: { from: string; to: number }) => {
-//   const io = app.get("io");
-//   const fromRequestData = await findTeamRequest({ from, to, type: "from" });
-//   pubClient.get(String(from), async (err, fromSocketId) => {
-//     io.to(fromSocketId).emit("receiveRequest", fromRequestData);
-//   });
-//   const toLeader = String(await findLeaders(to));
-//   pubClient.get(toLeader, async (err, toSocketId) => {
-//     const toRequestData = await findTeamRequest({ from, to, type: "to" });
-//     io.to(toSocketId).emit("receiveRequest", toRequestData);
-//   });
-// };
+const sendRequestToTeam = async ({ from, to }: { from: string; to: number }) => {
+  // const io = app.get("io");
+  // const fromRequestData = await findTeamRequest({ from, to, type: "from" });
+  // pubClient.get(String(from), async (err, fromSocketId) => {
+  //   io.to(fromSocketId).emit("receiveRequest", fromRequestData);
+  // });
+  // const toLeader = String(await findLeaders(to));
+  // pubClient.get(toLeader, async (err, toSocketId) => {
+  //   const toRequestData = await findTeamRequest({ from, to, type: "to" });
+  //   io.to(toSocketId).emit("receiveRequest", toRequestData);
+  // });
+};
 
 const findOneRequest = async ({ from, to, type }: { from: string; to: string; type: string }) => {
   const toQuery = {
@@ -175,73 +175,72 @@ const findLeaders = async (gid: number) => {
   return info?.getDataValue("leader");
 };
 
-// const sendRequestToUser = async ({ from, to }: { from: string; to: string }) => {
-//   const io = app.get("io");
-//   pubClient.get(from, async (err, fromSocketId) => {
-//     const fromRequestData = await findOneRequest({ from, to, type: "from" });
-//     io.to(fromSocketId).emit("receiveRequest", fromRequestData);
-//   });
+const sendRequestToUser = async ({ from, to }: { from: string; to: string }) => {
+  // const io = app.get("io");
+  // pubClient.get(from, async (err, fromSocketId) => {
+  //   const fromRequestData = await findOneRequest({ from, to, type: "from" });
+  //   io.to(fromSocketId).emit("receiveRequest", fromRequestData);
+  // });
+  // pubClient.get(to, async (err, toSocketId) => {
+  //   const toRequestData = await findOneRequest({ from, to, type: "to" });
+  //   io.to(toSocketId).emit("receiveRequest", toRequestData);
+  // });
+};
 
-//   pubClient.get(to, async (err, toSocketId) => {
-//     const toRequestData = await findOneRequest({ from, to, type: "to" });
-//     io.to(toSocketId).emit("receiveRequest", toRequestData);
-//   });
-// };
+const denyRequestTeam = async ({ from, to }: { from: string; to: number }) => {
+  // const io = app.get("io");
+  await deleteRequest({ from, to: String(to) });
+  const toLeader = String(await findLeaders(to));
+  // pubClient.get(toLeader, (err, toSocketId) => {
+  //   io.to(toSocketId).emit("receiveDenyRequest", { from, to });
+  // });
+  // pubClient.get(from, (err, fromSocketId) => {
+  //   io.to(fromSocketId).emit("receiveDenyRequest", { from, to });
+  // });
+};
 
-// const denyRequestTeam = async ({ from, to }: { from: string; to: number }) => {
-//   const io = app.get("io");
-//   await deleteRequest({ from, to: String(to) });
-//   const toLeader = String(await findLeaders(to));
-//   pubClient.get(toLeader, (err, toSocketId) => {
-//     io.to(toSocketId).emit("receiveDenyRequest", { from, to });
-//   });
-//   pubClient.get(from, (err, fromSocketId) => {
-//     io.to(fromSocketId).emit("receiveDenyRequest", { from, to });
-//   });
-// };
+const denyRequestUser = async ({ from, to }: { from: string; to: string }) => {
+  await deleteRequest({ from, to });
+  // const io = app.get("io");
+  // const toSocketId = pubClient.get(to, (err, toSocketId) => {
+  //   io.to(toSocketId).emit("receiveDenyRequest", { from, to });
+  // });
+  // pubClient.get(from, (err, fromSocketId) => {
+  //   io.to(fromSocketId).emit("receiveDenyRequest", { from, to });
+  // });
+};
 
-// const denyRequestUser = async ({ from, to }: { from: string; to: string }) => {
-//   await deleteRequest({ from, to });
-//   const io = app.get("io");
-//   const toSocketId = pubClient.get(to, (err, toSocketId) => {
-//     io.to(toSocketId).emit("receiveDenyRequest", { from, to });
-//   });
-//   pubClient.get(from, (err, fromSocketId) => {
-//     io.to(fromSocketId).emit("receiveDenyRequest", { from, to });
-//   });
-// };
+const acceptRequestTeam = async ({ from, to }: { from: string; to: number }) => {
+  await deleteRequest({ from, to: String(to) });
+  const createdChatRoom = await createChatRoom();
+  const chatRoomId = createdChatRoom.get({ plain: true }).chatRoomId;
+  const members = await createParticipants({ from, to, chatRoomId });
+  const membersArr = members.map((member: any) => member.dataValues);
+  await createChatMessage({ chatRoomId, message: makeMessageObject({ from, to: from, message: `${from}가 채팅을 수락했습니다.` }) });
+  const chatRoomData = await findChatRoomInfo({ chatRoomId, type: "team" });
+  // const io = app.get("io");
+  membersArr.forEach((member: any) => {
+    // pubClient.get(String(member.id), (err, toSocketId) => {
+    //   io.to(toSocketId).emit("receiveAcceptRequest", { chat: { ...chatRoomData, member: membersArr }, from, to });
+    // });
+  });
+};
 
-// const acceptRequestTeam = async ({ from, to }: { from: string; to: number }) => {
-//   await deleteRequest({ from, to: String(to) });
-//   const createdChatRoom = await createChatRoom();
-//   const chatRoomId = createdChatRoom.get({ plain: true }).chatRoomId;
-//   const members = await createParticipants({ from, to, chatRoomId });
-//   const membersArr = members.map((member: any) => member.dataValues);
-//   await createChatMessage({ chatRoomId, message: makeMessageObject({ from, to: from, message: `${from}가 채팅을 수락했습니다.` }) });
-//   const chatRoomData = await findChatRoomInfo({ chatRoomId, type: "team" });
-//   const io = app.get("io");
-//   membersArr.forEach((member: any) => {
-//     pubClient.get(String(member.id), (err, toSocketId) => {
-//       io.to(toSocketId).emit("receiveAcceptRequest", { chat: { ...chatRoomData, member: membersArr }, from, to });
-//     });
-//   });
-// };
-
-// const acceptRequestUser = async ({ from, to }: { from: string; to: string }) => {
-//   await deleteRequest({ from, to });
-//   const createdChatRoom = await createChatRoom();
-//   const chatRoomId = createdChatRoom.get({ plain: true }).chatRoomId;
-//   await createParticipant({ from, to, chatRoomId });
-//   await createChatMessage({ chatRoomId, message: makeMessageObject({ from, to, message: `${to}가 채팅을 수락했습니다.` }) });
-//   const chatRoomData = await findChatRoomInfo({ chatRoomId, type: "user" });
-//   const io = app.get("io");
-//   pubClient.get(from, async (err, fromSocketId) => {
-//     io.to(fromSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
-//   });
-//   pubClient.get(to, async (err, toSocketId) => {
-//     io.to(toSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
-//   });
-// };
+const acceptRequestUser = async ({ from, to }: { from: string; to: string }) => {
+  await deleteRequest({ from, to });
+  const createdChatRoom = await createChatRoom();
+  const chatRoomId = createdChatRoom.get({ plain: true }).chatRoomId;
+  const res = await createParticipant({ from, to, chatRoomId });
+  await createChatMessage({ chatRoomId, message: makeMessageObject({ from, to, message: `${to}가 채팅을 수락했습니다.` }) });
+  const chatRoomData = await findChatRoomInfo({ chatRoomId, type: "user" });
+  // const io = app.get("io");
+  // pubClient.get(from, async (err, fromSocketId) => {
+  //   io.to(fromSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
+  // });
+  // pubClient.get(to, async (err, toSocketId) => {
+  //   io.to(toSocketId).emit("receiveAcceptRequest", { chat: chatRoomData, from, to });
+  // });
+};
 
 const makeMessageObject = ({ from, to, message }: { from: string; to: string; message: string }): messageType => {
   return {

@@ -37,7 +37,6 @@ export const handleLogin = (req: Request, res: Response, next: NextFunction) => 
       addNaverID(String(req.session.naver), user.uid);
       delete req.session.naver;
     }
-
     return req.login(user, (loginError) => {
       if (loginError) {
         return next(loginError);
