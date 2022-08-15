@@ -91,7 +91,7 @@ export const registerUser = async ({ id, pw, location, age, sex, info }: registe
     });
     return data;
   } catch (error) {
-    throw new Error((error as any).response.data.errorMessage);
+    throw new Error((error as any).response?.data?.errorMessage ?? (error as any).message);
   }
 };
 
@@ -109,7 +109,7 @@ export const getChatMessage = async ({ index, chatRoomId }: { index: number; cha
     const { data } = await axios.get(`${CHAT_MESSAGES_API_URL}?chatRoomId=${chatRoomId}&index=${index}`);
     return data;
   } catch (e) {
-    throw new Error((e as any).response.data.errorMessage);
+    throw new Error((e as any).response?.data?.errorMessage ?? (e as any).message);
   }
 };
 export const changeMyInfo = async ({ id, location, age, info }: { id: string; location: string; age: number; info: string }) => {
@@ -129,8 +129,7 @@ export const changeMyInfo = async ({ id, location, age, info }: { id: string; lo
 
     return data;
   } catch (e) {
-    throw new Error((e as any).response.data.errorMessage);
-    // throw new Error("내 정보 수정에 실패했습니다");
+    throw new Error((e as any).response?.data?.errorMessage ?? (e as any).message);
   }
 };
 export const logOutUser = async () => {
@@ -138,7 +137,7 @@ export const logOutUser = async () => {
     const { data } = await axios.get(LOGOUT_API_URL, { withCredentials: true });
     return data;
   } catch (e) {
-    throw new Error((e as any).response.data.errorMessage);
+    throw new Error((e as any).response?.data?.errorMessage || (e as any).message);
   }
 };
 
@@ -154,7 +153,7 @@ export const requestAccept = async ({ from, to }: { from: string | number; to: s
     );
     return res.data;
   } catch (e) {
-    throw new Error((e as any).response.data.errorMessage);
+    throw new Error((e as any).response?.data?.errorMessage || (e as any).message);
   }
 };
 
@@ -170,7 +169,7 @@ export const requestDeny = async ({ from, to }: { from: string | number; to: str
     );
     return res.data;
   } catch (e) {
-    throw new Error((e as any).response.data.errorMessage);
+    throw new Error((e as any).response?.data?.errorMessage || (e as any).message);
   }
 };
 
@@ -192,24 +191,33 @@ export const requestChat = async ({ from, to }: { from: string | number; to: str
 };
 
 export const getFetch = async ({ url, query }: { url: string; query: string }): Promise<any> => {
-  const { data } = await axios.get(`${url}${query}`, {
-    // const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}${url}${query}`, {
-    withCredentials: true,
-  });
-  return data;
+  try {
+    const { data } = await axios.get(`${url}${query}`, { withCredentials: true });
+    return data;
+  } catch (e) {
+    throw new Error((e as any).response?.data?.errorMessage || (e as any).message);
+  }
 };
 
 export const postImage = async (image: Blob, id: string) => {
-  const formData = new FormData();
-  formData.append("image", image);
-  formData.append("id", id);
-  const { data } = await axios.post(POST_IMAGE_API_URL, formData, { withCredentials: true });
-  return data;
+  try {
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("id", id);
+    const { data } = await axios.post(POST_IMAGE_API_URL, formData, { withCredentials: true });
+    return data;
+  } catch (e) {
+    throw new Error((e as any).response?.data?.errorMessage || (e as any).message);
+  }
 };
 
 export const postChat = async (chatRoomId: number, uId: string, file: Blob) => {
-  const formData = fromImageToForm(chatRoomId, uId, file);
-  await axios.post(POST_CHAT_API_URL, formData, { withCredentials: true });
+  try {
+    const formData = fromImageToForm(chatRoomId, uId, file);
+    await axios.post(POST_CHAT_API_URL, formData, { withCredentials: true });
+  } catch (e) {
+    throw new Error((e as any).response?.data?.errorMessage || (e as any).message);
+  }
 };
 
 export const changeNotReadToRead = async (chatRoomId: number) => {
@@ -217,7 +225,7 @@ export const changeNotReadToRead = async (chatRoomId: number) => {
     const res = await axios.post(POST_CHAT_READ_API_URL, { chatRoomId }, { withCredentials: true });
     return res.data;
   } catch (e) {
-    throw new Error((e as any).response.data.errorMessage);
+    throw new Error((e as any).response?.data?.errorMessage || (e as any).message);
   }
 };
 
@@ -226,6 +234,6 @@ export const checkIdValidation = async (uid: string) => {
     const { data } = await axios.get(`${CHECK_ID_VALIDATION_URL}?uid=${uid}`, { withCredentials: true });
     return data;
   } catch (e) {
-    throw new Error((e as any).response.data.errorMessage);
+    throw new Error((e as any).response?.data?.errorMessage || (e as any).message);
   }
 };
