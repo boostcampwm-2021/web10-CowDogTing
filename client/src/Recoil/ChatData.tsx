@@ -1,4 +1,4 @@
-import { atom, selector } from "recoil";
+import { atom, selector, selectorFamily } from "recoil";
 import { getFetch } from "../Common/api";
 import { ChatInfoType, joinChatType } from "../Common/type";
 import { CHAT_INFO_URL, JOIN_CHAT_URL } from "../Common/URL";
@@ -14,7 +14,9 @@ export const joinChatRoomSelector = selector<joinChatType[]>({
   key: "joinChatRoomSelector",
   get: async () => {
     try {
-      return await getFetch({ url: JOIN_CHAT_URL, query: "" });
+      const res = await getFetch({ url: JOIN_CHAT_URL, query: "" });
+      console.log(res);
+      return res;
     } catch (e) {
       return [];
     }

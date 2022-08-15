@@ -37,9 +37,11 @@ export const socketInit = (server: any, app: express.Application) => {
     });
 
     socket.on("sendChat", async ({ chatRoomId, message }: SendChatType) => {
+      console.log(chatRoomId);
       const createdChatMessage = await createChatMessage({ chatRoomId, message });
       await addReadRow({ chatId: createdChatMessage.chatId, chatRoomId, uid: message.from });
       io.sockets.in(String(chatRoomId)).emit("receiveChat", { chatRoomId: chatRoomId, message });
+      console.log("??");
     });
 
     socket.on("joinRoom", (data: { id: string; chatRoomId: string }) => {
@@ -130,8 +132,8 @@ export const socketInit = (server: any, app: express.Application) => {
   });
 };
 
-let receiverPCs: receiverPCType = {};
-let senderPCs: senderPCsType = {};
+// let receiverPCs: receiverPCType = {};
+// let senderPCs: senderPCsType = {};
 let users: usersType = {};
 let socketToRoom: socketToRoomType = {};
 
@@ -236,22 +238,19 @@ const deleteUser = (socketId: string, roomId: string) => {
 };
 
 const closeReceiverPC = (socketId: string) => {
-  if (!receiverPCs[socketId]) return;
-
-  receiverPCs[socketId].close();
-  delete receiverPCs[socketId];
+  // if (!receiverPCs[socketId]) return;
+  // receiverPCs[socketId].close();
+  // delete receiverPCs[socketId];
 };
 
 const closeSenderPCs = (socketId: string) => {
-  if (!senderPCs[socketId]) return;
-
-  senderPCs[socketId].forEach((senderPC) => {
-    senderPC.pc.close();
-    const eachSenderPC = senderPCs[senderPC.id].filter((sPC) => sPC.id === socketId)[0];
-    if (!eachSenderPC) return;
-    eachSenderPC.pc.close();
-    senderPCs[senderPC.id] = senderPCs[senderPC.id].filter((sPC) => sPC.id !== socketId);
-  });
-
-  delete senderPCs[socketId];
+  // if (!senderPCs[socketId]) return;
+  // senderPCs[socketId].forEach((senderPC) => {
+  //   senderPC.pc.close();
+  //   const eachSenderPC = senderPCs[senderPC.id].filter((sPC) => sPC.id === socketId)[0];
+  //   if (!eachSenderPC) return;
+  //   eachSenderPC.pc.close();
+  //   senderPCs[senderPC.id] = senderPCs[senderPC.id].filter((sPC) => sPC.id !== socketId);
+  // });
+  // delete senderPCs[socketId];
 };

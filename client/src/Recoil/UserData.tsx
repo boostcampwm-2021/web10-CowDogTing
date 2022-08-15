@@ -19,7 +19,11 @@ export const userState = atom<PersonInfoType>({
 
 export const userStateSelector = selector<PersonInfoType>({
   key: "fetchUserData",
-  get: () => {
-    return getFetch({ url: USER_URL, query: "" });
+  get: async ({ get }) => {
+    try {
+      return await getFetch({ url: USER_URL, query: "" });
+    } catch (e) {
+      return get(userState);
+    }
   },
 });

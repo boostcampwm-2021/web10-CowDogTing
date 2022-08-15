@@ -48,7 +48,7 @@ export const handleReceiveAcceptSocket = ({ setRequest, setJoinChat, setChat, da
 
 export const handleReceiveChatSocket = ({ setJoinChat, setChat, setChatInfo, data: { chatRoomId, message }, setErrorValue }: ReceiveChatSocketType) => {
   let targetRoomId: number = 0;
-
+  console.log("??");
   setChatInfo((prev: ChatInfoType) => {
     targetRoomId = prev.chatRoomId;
     if (Number(chatRoomId) !== prev.chatRoomId) return prev;
