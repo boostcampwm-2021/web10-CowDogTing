@@ -8,7 +8,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 export const usePropsTypeHook = (type: string) => {
   const teamInfo = useRecoilValue(teamState);
   const userInfo = useRecoilValue(userState);
-  return checkLeader(teamInfo.leader, userInfo.id) ? type : "NotLeader";
+  return checkLeader(teamInfo.leader, userInfo.id) ? type : type === "ForMe" ? "ForMe" : "NotLeader";
 };
 
 const checkLeader = (leader: string, target: string) => leader === target;
@@ -18,6 +18,7 @@ export const useRequestModalStateControl = (datas: RequestType[]): ReturnType =>
   const [openModal, setOpenModal] = useState<number | null>(null);
   const setModalDatas = useSetRecoilState(profileModalDatas);
   useEffect(() => {
+    if (openModal === null) return;
     const data = datas[Number(openModal)].info;
     setModalDatas([data, ...(data.member ?? [])]);
   }, [openModal]);

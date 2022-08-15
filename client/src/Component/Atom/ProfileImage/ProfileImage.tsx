@@ -8,14 +8,14 @@ export type ProfileImageType = {
   image: string | ArrayBuffer | null;
   type: string;
   onClick?: React.MouseEventHandler;
-  ref?: (el: any) => HTMLDivElement;
+  profileRef?: (el: any) => HTMLDivElement;
   children?: React.ReactNode;
 };
 
-export const ProfileImage: React.FC<ProfileImageType> = ({ type, onClick, ref, children, image }) => {
+export const ProfileImage: React.FC<ProfileImageType> = ({ type, onClick, profileRef, children, image }) => {
   const src = String(image).includes("/uploads") ? URL + String(image ?? defaultImage) : image ?? defaultImage;
   return (
-    <div ref={ref}>
+    <div ref={profileRef}>
       <ProfileImageContainer type={type} alt="ProfileImage" aria-hidden="true" src={String(src)} onClick={onClick} />
       {children}
     </div>

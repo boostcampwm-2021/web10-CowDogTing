@@ -14,8 +14,8 @@ const RequestPageStyle = css`
 `;
 
 export const RequestPage: React.FC = () => {
-  const RequestForMe = useRecoilValue(requestForMeSelector);
-  const RequestToMe = useRecoilValue(requestToMeSelector);
+  const RequestForMe = useRecoilValue(requestForMeSelector(0));
+  const RequestToMe = useRecoilValue(requestToMeSelector(0));
 
   return (
     <div css={RequestPageStyle}>

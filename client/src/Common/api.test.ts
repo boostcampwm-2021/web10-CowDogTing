@@ -58,7 +58,7 @@ test("postLogin API Success", async () => {
 test("postLogin API Fail", () => {
   expect(async () => {
     await postLogin({ ...postLoginData, pw: "" });
-  }).rejects.toThrowError(new Error("로그인 실패"));
+  }).rejects.toThrowError(new Error("아이디,비밀번호를 확인해 주세요"));
 });
 
 const registerData = {

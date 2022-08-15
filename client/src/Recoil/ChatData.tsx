@@ -12,8 +12,12 @@ export const joinChatRoomState = atom<joinChatType[]>({
 
 export const joinChatRoomSelector = selector<joinChatType[]>({
   key: "joinChatRoomSelector",
-  get: () => {
-    return getFetch({ url: JOIN_CHAT_URL, query: "" });
+  get: async () => {
+    try {
+      return await getFetch({ url: JOIN_CHAT_URL, query: "" });
+    } catch (e) {
+      return [];
+    }
   },
 });
 
