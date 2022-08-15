@@ -18,7 +18,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "jest --detectOpenHandles --forceExit",
+    "test": "jest --detectOpenHandles --forceExit --setupFiles dotenv/config",
     "coverage": "jest --coverage",
     "storybook": "start-storybook -p 6006 -s public",
     "chromatic": "npx chromatic --project-token=53d956c30d79",
@@ -107,6 +107,7 @@
   "readme": "ERROR: No README data found!",
   "_id": "client@0.1.0",
   "jest": {
+    "setupFiles": ["dotenv/config"] ,
     "transform": {
       "^.+\\.ts$": "ts-jest"
     },
