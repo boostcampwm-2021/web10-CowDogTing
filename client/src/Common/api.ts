@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { TEAM_EXIT_API_URL, ACCEPT_API_URL, CHAT_MESSAGES_API_URL, DENY_API_URL, LOGIN_API_URL, LOGOUT_API_URL, POST_CHAT_API_URL, POST_IMAGE_API_URL, PROFILE_API_URL, REGISTER_API_URL, REQUEST_API_URL, TEAM_CREATE_API_URL, TEAM_INVITE_API_URL, TEAM_UPDATE_API_URL, USER_INFO_API_URL, POST_CHAT_READ_API_URL, CHECK_ID_VALIDATION_URL } from "./URL";
-import { loginInfo, MessageType, PersonInfoType, registerInfo } from "./type";
+import { loginInfo, MessageType, PersonInfoType, ProfileType, registerInfo } from "./type";
 import { fromImageToForm } from "./util";
 
 export type PostTeamType = {
@@ -75,7 +75,7 @@ export const postLogin = async ({ id, pw }: loginInfo) => {
     );
     return data;
   } catch (error) {
-    throw new Error("로그인 실패");
+    throw new Error("아이디,비밀번호를 확인해 주세요");
   }
 };
 
@@ -95,12 +95,12 @@ export const registerUser = async ({ id, pw, location, age, sex, info }: registe
   }
 };
 
-export const getCowDogInfo = async (person: number, index: number, category: string) => {
+export const getCowDogInfo = async (person: number, index: number, category: string): Promise<ProfileType[]> => {
   try {
     const data = await getFetch({ url: PROFILE_API_URL, query: `?person=${person}&index=${index}${category}` });
     return data;
   } catch (error) {
-    throw new Error((error as any).response.data.errorMessage);
+    throw new Error((error as any).response?.data?.errorMessage ?? (error as any).message);
   }
 };
 
@@ -187,7 +187,7 @@ export const requestChat = async ({ from, to }: { from: string | number; to: str
     if (!data) throw new Error("API Error");
     return data;
   } catch (e) {
-    throw new Error((e as any).response.data.errorMessage);
+    throw new Error((e as any).response?.data?.errorMessage || (e as any).message);
   }
 };
 

@@ -18,7 +18,7 @@ export const ChatImageContainer = ({ profileRef }: ChatImageContainerType) => {
     <ChatListHeader>
       <div css={ChatImageContainerStyle}>
         {member?.map((userInfo, idx) => (
-          <ProfileImage key={idx} type="Mini" image={userInfo.image} ref={(el: any) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx} />
+          <ProfileImage key={idx} type="Mini" image={userInfo.image} profileRef={(el: any) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx} />
         ))}
       </div>
       <Button onClick={handleCloseRoomClick}>나가기</Button>

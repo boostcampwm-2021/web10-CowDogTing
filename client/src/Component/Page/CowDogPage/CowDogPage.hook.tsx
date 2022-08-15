@@ -34,20 +34,27 @@ export const useGetUserProfiler = (person: number) => {
   const [dataIndex, setDataIndex] = useState<number>(0);
 
   const getDatas = async () => {
-    const filterCategory = makeCategory(category);
-    const item = await getCowDogInfo(person, 0, filterCategory);
-    const temp = item.length === 0 ? dummy : item;
-    setDatas(temp);
-    setDataIndex(1);
+    try {
+      const filterCategory = makeCategory(category);
+      const item = await getCowDogInfo(person, 0, filterCategory);
+      setDatas(item);
+      setDataIndex(1);
+    } catch (e) {
+      console.log((e as any).message);
+    }
   };
 
   const addDatas = async () => {
-    const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
-    if (scrollTop + clientHeight >= scrollHeight) {
-      const filterCategory = makeCategory(category);
-      const item = await getCowDogInfo(person, dataIndex, filterCategory);
-      setDatas([...datas, ...item]);
-      setDataIndex((prev) => prev + 1);
+    try {
+      const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight) {
+        const filterCategory = makeCategory(category);
+        const item = await getCowDogInfo(person, dataIndex, filterCategory);
+        setDatas([...datas, ...item]);
+        setDataIndex((prev) => prev + 1);
+      }
+    } catch (e) {
+      console.log((e as any).message);
     }
   };
 
@@ -70,70 +77,3 @@ export const useGetUserProfiler = (person: number) => {
 
   return { datas, handleSetCategory };
 };
-
-const dummy = [
-  {
-    id: "1",
-    image: null,
-    location: "서울",
-    sex: "남성",
-    age: 25,
-    info: "hihi",
-    gid: 1,
-    idx: 1,
-    member: [
-      {
-        id: "2",
-        image: null,
-        location: "서울",
-        sex: "남성",
-        age: 25,
-        info: "hihi",
-        gid: 1,
-        idx: 2,
-      },
-      {
-        id: "3",
-        image: null,
-        location: "서울",
-        sex: "남성",
-        age: 25,
-        info: "hihi",
-        gid: 1,
-        idx: 3,
-      },
-    ],
-  },
-  {
-    id: "4",
-    image: null,
-    location: "서울",
-    sex: "남성",
-    age: 25,
-    info: "hihi",
-    gid: 2,
-    idx: 4,
-    member: [
-      {
-        id: "5",
-        image: null,
-        location: "서울",
-        sex: "남성",
-        age: 25,
-        info: "hihi",
-        gid: 2,
-        idx: 5,
-      },
-      {
-        id: "6",
-        image: null,
-        location: "서울",
-        sex: "남성",
-        age: 25,
-        info: "hihi",
-        gid: 2,
-        idx: 6,
-      },
-    ],
-  },
-];
