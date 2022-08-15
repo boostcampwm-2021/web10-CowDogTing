@@ -20,4 +20,11 @@ const SideBarDIv = css`
     width: 100%;
     height: 60px;
   }
+
+  :hover {
+    background-color: #ffcfcf;
+    -webkit-transition: background-color 1s linear;
+    -ms-transition: background-color 1s linear;
+    transition: all 1s linear;
+  }
 `;

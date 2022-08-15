@@ -8,7 +8,7 @@ import ErrorModal from "./Component/Template/Modal/ErrorModal";
 import { Page } from "./Component/Page";
 
 export const App: React.FC = () => {
-  // useSocketConnect();
+  useSocketConnect();
   return (
     <>
       <Routes>

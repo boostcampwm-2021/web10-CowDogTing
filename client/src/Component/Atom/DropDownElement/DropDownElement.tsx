@@ -18,10 +18,10 @@ export const DropDownElement: React.FC<DropDownElementProps> = ({ menu, onClick 
 
 const LogOut = (callback: () => void) => async () => {
   try {
-    const data = await logOutUser();
-    if (!data) throw new Error();
+    await logOutUser();
     sessionStorage.setItem("isLogin", "false");
     callback();
+    window.location.reload();
   } catch (e) {
     throw new Error();
   }

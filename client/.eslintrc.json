@@ -22,6 +22,7 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "camelcase":1,
     "no-undef" : 1,
     "react/require-default-props" : 0,
     "no-nested-ternary" : 0,

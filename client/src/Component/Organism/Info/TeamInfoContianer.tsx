@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import { InputLabel } from "@Core/.";
 import { LocationDropDown } from "@Atom/.";
 import { InfoContainer } from "@Hoc/.";
-import { teamState } from "@Recoil/TeamData";
+import { teamStateSelector } from "@Recoil/TeamData";
 
 const LabelStyle = css`
   height: 20%;
@@ -14,7 +14,7 @@ const LabelStyle = css`
 type props = { locSelected: string; teamNameRef: RefObject<HTMLInputElement>; teamInfoRef: RefObject<HTMLInputElement>; handleLocationSelected: (e: React.ChangeEvent<HTMLSelectElement>) => void };
 
 export const TeamInfoContainer = ({ teamNameRef, teamInfoRef, locSelected, handleLocationSelected }: props) => {
-  const { id, info } = useRecoilValue(teamState);
+  const { id, info } = useRecoilValue(teamStateSelector);
   return (
     <InfoContainer>
       <InputLabel label="팀명" placeholder={id} refProps={teamNameRef} />

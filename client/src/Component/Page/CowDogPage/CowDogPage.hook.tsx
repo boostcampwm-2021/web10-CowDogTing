@@ -1,4 +1,4 @@
-import { cowDogState, profileModalDatas } from "@Recoil/Atom";
+import { cowDogState, errorState, profileModalDatas } from "@Recoil/Atom";
 import { makeCategory } from "@Common/util";
 import { getCowDogInfo } from "@Common/api";
 import { useEffect, useState } from "react";
@@ -32,6 +32,7 @@ export const useGetUserProfiler = (person: number) => {
   const [datas, setDatas] = useRecoilState(cowDogState);
   const [category, setCategory] = useState<string | null>(null);
   const [dataIndex, setDataIndex] = useState<number>(0);
+  const setError = useSetRecoilState(errorState);
 
   const getDatas = async () => {
     try {
@@ -40,7 +41,7 @@ export const useGetUserProfiler = (person: number) => {
       setDatas(item);
       setDataIndex(1);
     } catch (e) {
-      console.log((e as any).message);
+      setError((e as any).message);
     }
   };
 
@@ -54,7 +55,7 @@ export const useGetUserProfiler = (person: number) => {
         setDataIndex((prev) => prev + 1);
       }
     } catch (e) {
-      console.log((e as any).message);
+      setError((e as any).message);
     }
   };
 
