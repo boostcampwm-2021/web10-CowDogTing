@@ -19,6 +19,7 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "jest --detectOpenHandles --forceExit",
+    "coverage": "jest --coverage",
     "storybook": "start-storybook -p 6006 -s public",
     "chromatic": "npx chromatic --project-token=53d956c30d79",
     "lint-staged": "lint-staged",
