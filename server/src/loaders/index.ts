@@ -6,8 +6,6 @@ import * as cookieParser from "cookie-parser";
 import * as passport from "passport";
 import { Express } from "express";
 import apiRouter from "../api";
-// const redisStore = require("connect-redis")(session);
-// import { createClient } from "redis";
 
 export const loadApp = async (app: Express) => {
   app.use(express.json());
@@ -22,25 +20,8 @@ export const loadApp = async (app: Express) => {
       secret: "asdfasdf",
       resave: false,
       saveUninitialized: true,
-      // store: sessionStore,
     }),
   );
-  // app.use(
-  //   session({
-  //     store: new redisStore({
-  //       client: createClient({ url: process.env.SESSION_REDIS_URL, password: process.env.SESSION_REDIS_PWD }),
-  //       prefix: "session:",
-  //       logErrors: true,
-  //     }),
-  //     resave: false,
-  //     saveUninitialized: false,
-  //     secret: String(process.env.COOKIE_SECRET),
-  //     cookie: {
-  //       httpOnly: true,
-  //       secure: false,
-  //     },
-  //   }),
-  // );
 
   app.use(express.static("src/public"));
   app.use(passport.initialize());
@@ -54,7 +35,4 @@ export const loadApp = async (app: Express) => {
   app.use(morgan("dev"));
   app.use("/uploads", express.static("uploads"));
   app.use("/api", apiRouter);
-  // app.get("/mafia", (req, res, next) => {
-  //   res.sendFile(__dirname + "mafia.htm");
-  // });
 };

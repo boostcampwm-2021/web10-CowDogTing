@@ -1,12 +1,10 @@
 import express = require("express");
 import { Server, Socket } from "socket.io";
-// const wrtc = require("wrtc");
-// import { createClient } from "redis";
-// import { createAdapter } from "@socket.io/redis-adapter";
 import { addReadRow } from "../api/chat/controller";
-import { SendChatType, receiverPCType, senderPCsType, usersType, socketToRoomType, userType } from "../util/type";
+import { SendChatType, usersType, socketToRoomType, userType } from "../util/type";
 import { createChatMessage } from "../api/util";
-// export const pubClient = createClient({ url: process.env.CHAT_REDIS_URL, password: process.env.CHAT_REDIS_PWD });
+// const wrtc = require("wrtc");
+// import { SendChatType, receiverPCType, senderPCsType, usersType, socketToRoomType, userType } from "../util/type";
 
 export const socketInit = (server: any, app: express.Application) => {
   const io = new Server(server, {
@@ -15,9 +13,6 @@ export const socketInit = (server: any, app: express.Application) => {
       methods: ["GET", "POST"],
     },
   });
-
-  // const subClient = pubClient.duplicate();
-  // io.adapter(createAdapter(pubClient, subClient));
 
   app.set("io", io);
 
@@ -37,11 +32,9 @@ export const socketInit = (server: any, app: express.Application) => {
     });
 
     socket.on("sendChat", async ({ chatRoomId, message }: SendChatType) => {
-      console.log(chatRoomId);
       const createdChatMessage = await createChatMessage({ chatRoomId, message });
       await addReadRow({ chatId: createdChatMessage.chatId, chatRoomId, uid: message.from });
       io.sockets.in(String(chatRoomId)).emit("receiveChat", { chatRoomId: chatRoomId, message });
-      console.log("??");
     });
 
     socket.on("joinRoom", (data: { id: string; chatRoomId: string }) => {
@@ -137,20 +130,20 @@ export const socketInit = (server: any, app: express.Application) => {
 let users: usersType = {};
 let socketToRoom: socketToRoomType = {};
 
-const pc_config = {
-  iceServers: [
-    // {
-    //   urls: 'stun:[STUN_IP]:[PORT]',
-    //   'credentials': '[YOR CREDENTIALS]',
-    //   'username': '[USERNAME]'
-    // },
-    {
-      urls: "stun:stun.l.google.com:19302",
-    },
-  ],
-};
+// const pc_config = {
+//   iceServers: [
+//     // {
+//     //   urls: 'stun:[STUN_IP]:[PORT]',
+//     //   'credentials': '[YOR CREDENTIALS]',
+//     //   'username': '[USERNAME]'
+//     // },
+//     {
+//       urls: "stun:stun.l.google.com:19302",
+//     },
+//   ],
+// };
 
-const isIncluded = (array: any[], Id: string) => array.some((item) => item.id === Id);
+// const isIncluded = (array: any[], Id: string) => array.some((item) => item.id === Id);
 
 // const createReceiverPeerConnection = (socketId: string, socket: Socket, roomId: string) => {
 //   const pc = new wrtc.RTCPeerConnection(pc_config);
