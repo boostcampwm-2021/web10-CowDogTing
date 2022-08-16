@@ -3,6 +3,7 @@ import { makeCategory } from "@Common/util";
 import { getCowDogInfo } from "@Common/api";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { string } from "prop-types";
 
 export const useModalDatasHook = () => {
   const datas = useRecoilValue(cowDogState);
@@ -38,7 +39,7 @@ export const useGetUserProfiler = (person: number) => {
     try {
       const filterCategory = makeCategory(category);
       const item = await getCowDogInfo(person, 0, filterCategory);
-      setDatas(item);
+      setDatas(item.length === 0 ? makeDummyProfileData() : item);
       setDataIndex(1);
     } catch (e) {
       setError((e as any).message);
@@ -51,7 +52,8 @@ export const useGetUserProfiler = (person: number) => {
       if (scrollTop + clientHeight >= scrollHeight) {
         const filterCategory = makeCategory(category);
         const item = await getCowDogInfo(person, dataIndex, filterCategory);
-        setDatas([...datas, ...item]);
+        const temp = item.length === 0 ? makeDummyProfileData() : item;
+        setDatas([...datas, ...temp]);
         setDataIndex((prev) => prev + 1);
       }
     } catch (e) {
@@ -78,3 +80,13 @@ export const useGetUserProfiler = (person: number) => {
 
   return { datas, handleSetCategory };
 };
+
+const makeDummyProfileData = () =>
+  Array.from({ length: 10 }, (x, i) => ({
+    id: String(i),
+    image: null,
+    location: "서울",
+    sex: "male",
+    age: Math.floor(Math.random() * 10) + 20,
+    info: String(Math.floor(Math.random() * 100)),
+  }));
