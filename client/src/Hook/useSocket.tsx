@@ -20,7 +20,6 @@ export const useSocketConnect = () => {
   const setErrorValue = useSetRecoilState(errorState);
 
   useEffect(() => {
-    console.log(joinChat);
     if (id === "") return;
     const socket = new ClientSocket(id);
 

@@ -15,7 +15,6 @@ export const joinChatRoomSelector = selector<joinChatType[]>({
   get: async () => {
     try {
       const res = await getFetch({ url: JOIN_CHAT_URL, query: "" });
-      console.log(res);
       return res;
     } catch (e) {
       return [];

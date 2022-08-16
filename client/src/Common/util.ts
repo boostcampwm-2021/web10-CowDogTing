@@ -1,5 +1,18 @@
 import { RefObject } from "react";
 
+export const useThrottle = (callback: () => void, time: number) => {
+  let timer: NodeJS.Timeout | null;
+
+  return () => {
+    if (!timer) {
+      timer = setTimeout(() => {
+        callback();
+        timer = null;
+      }, time);
+    }
+  };
+};
+
 export const handleModalClick = (refs: RefObject<HTMLDivElement[]>, handler: (value: any) => void) => (e: React.MouseEvent) => {
   if (!refs.current) {
     handler(null);
