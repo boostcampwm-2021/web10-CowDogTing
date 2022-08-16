@@ -28,7 +28,9 @@ export const loadApp = async (app: Express) => {
   app.use(passport.session());
   app.use(
     cors({
-      origin: ["http://localhost:3000"],
+      // origin: ["http://13.124.198.140:3000"],
+      origin: ["http://211.110.23.222:3000"],
+      // origin: ["http://localhost:3000"],
       credentials: true,
     }),
   );
