@@ -23,6 +23,7 @@
     "storybook": "start-storybook -p 6006 -s public",
     "chromatic": "npx chromatic --project-token=53d956c30d79",
     "lint-staged": "lint-staged",
+    "analyze":"source-map-explorer 'build/static/js/*.js'",
     "eject": "react-app-rewired eject",
     "build-storybook": "build-storybook -s public",
     "window-start": "cross-env HTTPS=true SSL_CRT_FILE=cert.pem SSL_KEY_FILE=key.pem react-app-rewired start",
@@ -84,8 +85,11 @@
     "prettier": "^2.7.1",
     "prop-types": "^15.8.1",
     "react-app-rewired": "^2.2.1",
+    "source-map-explorer": "^2.5.2",
+    "speed-measure-webpack-plugin": "^1.5.0",
     "typescript": "^4.7.4",
-    "webpack": "^5.74.0"
+    "webpack": "^5.74.0",
+    "webpack-bundle-analyzer": "^4.5.0"
   },
   "eslintConfig": {
     "overrides": [
@@ -107,7 +111,9 @@
   "readme": "ERROR: No README data found!",
   "_id": "client@0.1.0",
   "jest": {
-    "setupFiles": ["dotenv/config"] ,
+    "setupFiles": [
+      "dotenv/config"
+    ],
     "transform": {
       "^.+\\.ts$": "ts-jest"
     },
