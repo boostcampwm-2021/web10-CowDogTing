@@ -13,7 +13,7 @@ const ChatRoomStyle = css`
   border-right: 1px solid #000000;
 `;
 
-export const ChatRoom: React.FC = () => {
+const ChatRoom: React.FC = () => {
   const setChatInfo = useSetRecoilState(chatTarget);
   const chatDatas = useRecoilValue(chatsState);
   const searchParams = new URLSearchParams(useLocation().search);
@@ -32,3 +32,5 @@ export const ChatRoom: React.FC = () => {
     </div>
   );
 };
+
+export default ChatRoom;

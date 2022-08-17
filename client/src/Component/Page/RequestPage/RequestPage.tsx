@@ -13,7 +13,8 @@ const RequestPageStyle = css`
   justify-content: center;
 `;
 
-export const RequestPage: React.FC = () => {
+// export const RequestPage: React.FC = () => {
+const RequestPage: React.FC = () => {
   const RequestForMe = useRecoilValue(requestForMeSelector(0));
   const RequestToMe = useRecoilValue(requestToMeSelector(0));
 
@@ -24,3 +25,4 @@ export const RequestPage: React.FC = () => {
     </div>
   );
 };
+export default RequestPage;

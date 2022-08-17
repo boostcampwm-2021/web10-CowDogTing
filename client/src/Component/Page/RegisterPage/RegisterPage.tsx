@@ -8,7 +8,7 @@ import { useMovePage } from "@Hook/useMovePage";
 import { useCheckDoublePassword, useRegisterRefsHook } from "./RegisterPage.hook";
 import * as RegisterStyle from "./RegisterPage.style";
 
-export const RegisterPage: React.FC = () => {
+const RegisterPage: React.FC = () => {
   const [locSelected, setLocSelected] = useState<string>("");
   const [sexSelected, setSexSelected] = useState<string>("");
   const [idValidation, setIdValidation] = useState(false);
@@ -108,6 +108,8 @@ export const RegisterPage: React.FC = () => {
     </form>
   );
 };
+
+export default RegisterPage;
 
 const checkIdValidationCheck = (idValidation: boolean, setErrorValue: (valOrUpdater: ErrorType | ((currVal: ErrorType) => ErrorType)) => void) => {
   if (!idValidation) setErrorValue({ errorStr: "아이디 중복체크가 필요합니다.", timeOut: 1000 });

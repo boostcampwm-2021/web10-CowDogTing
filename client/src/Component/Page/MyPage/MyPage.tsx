@@ -2,13 +2,15 @@ import React from "react";
 import { css } from "@emotion/react";
 import { MyPageBodyTemplate } from "@Template/MyPageBodyTemplate";
 
-export const MyPage: React.FC = () => {
+const MyPage: React.FC = () => {
   return (
     <div css={MyPageStyle}>
       <MyPageBodyTemplate />
     </div>
   );
 };
+
+export default MyPage;
 
 const MyPageStyle = css`
   width: 100vw;

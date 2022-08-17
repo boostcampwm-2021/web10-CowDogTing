@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router-dom";
 import { useRecoilRefresher_UNSTABLE, useSetRecoilState } from "recoil";
@@ -19,7 +19,7 @@ const containerStyle = css`
   margin-top: 50px;
 `;
 
-export const LogInPage: React.FC = () => {
+const LogInPage: React.FC = () => {
   const searchParams = new URLSearchParams(useLocation().search);
   const social = searchParams.get("social") ?? "";
 
@@ -54,3 +54,5 @@ export const LogInPage: React.FC = () => {
     </div>
   );
 };
+
+export default LogInPage;

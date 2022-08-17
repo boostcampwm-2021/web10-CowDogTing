@@ -6,7 +6,7 @@ import { ProfileModal } from "@Template/Modal/ProfileModal";
 import { handleModalClick } from "@Common/util";
 import { ChatListTemplateStyle } from "./ChatListPage.style";
 
-export const ChatListPage: React.FC = () => {
+const ChatListPage: React.FC = () => {
   const { offModal, openModal, setOpenModal, chatsInfo, clickedRoomIndex, setClickedRoomIndex } = useToggleModal();
 
   const profileRef = useRef<HTMLDivElement[]>([]);
@@ -22,3 +22,5 @@ export const ChatListPage: React.FC = () => {
     </div>
   );
 };
+
+export default ChatListPage;

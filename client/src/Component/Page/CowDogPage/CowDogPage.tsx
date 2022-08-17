@@ -12,7 +12,7 @@ const ListContainer = css`
   margin: 0 auto;
 `;
 
-export const CowDogPage: React.FC = () => {
+const CowDogPage: React.FC = () => {
   const searchParams = new URLSearchParams(useLocation().search);
   const person = Number(searchParams.get("person"));
 
@@ -34,3 +34,5 @@ export const CowDogPage: React.FC = () => {
     </div>
   );
 };
+
+export default CowDogPage;
