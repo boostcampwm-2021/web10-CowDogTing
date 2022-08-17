@@ -1,9 +1,0 @@
-{
-    "production":{
-        "username":"root",
-        "password":"qwer1234!",
-        "database":"database_production",
-        "host":"127.0.0.1",
-        "dialect":"mysql"
-    }
-}
