@@ -1,9 +1,31 @@
-/* eslint-disable no-console */
-
 import React from "react";
 import { css } from "@emotion/react";
 import { Modal } from "@Core/Modal";
-import { LargeModalType } from "@Util/type";
+
+type LargeModalType = {
+  children: React.ReactNode[];
+  length: number;
+  decreaseIndex: (e: React.MouseEvent<HTMLElement>) => void;
+  inCreaseIndex: (e: React.MouseEvent<HTMLElement>) => void;
+  index: number;
+};
+
+export const LargeModal = ({ index, children, length, decreaseIndex, inCreaseIndex }: LargeModalType) => {
+  const inCrease = (e: React.MouseEvent<HTMLElement>): void => inCreaseIndex(e);
+  const decrease = (e: React.MouseEvent<HTMLElement>): void => decreaseIndex(e);
+
+  return (
+    <Modal type="Large">
+      <div css={InfoContainer}>
+        <div aria-hidden css={LeftButton({ visiable: index > 0 })} onClick={decrease} />
+        {children[0]}
+        <div aria-hidden css={RightButton({ visiable: index + 1 === length })} onClick={inCrease} />
+      </div>
+      {children[1]}
+    </Modal>
+  );
+};
+
 const RightBtn = "/Asset/RightButton.svg";
 const LeftBtn = "/Asset/LeftButton.svg";
 
@@ -38,19 +60,3 @@ const RightButton = (props: { visiable: boolean }) => css`
   float: right;
   ${props.visiable && { visibility: "hidden" }};
 `;
-
-export const LargeModal = ({ index, children, length, decreaseIndex, inCreaseIndex }: LargeModalType) => {
-  const inCrease = (e: React.MouseEvent<HTMLElement>): void => inCreaseIndex(e);
-  const decrease = (e: React.MouseEvent<HTMLElement>): void => decreaseIndex(e);
-
-  return (
-    <Modal type="Large">
-      <div css={InfoContainer}>
-        <div css={LeftButton({ visiable: index > 0 })} onClick={decrease} />
-        {children[0]}
-        <div css={RightButton({ visiable: index + 1 === length })} onClick={inCrease} />
-      </div>
-      {children[1]}
-    </Modal>
-  );
-};

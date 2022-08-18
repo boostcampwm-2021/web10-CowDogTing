@@ -1,11 +1,7 @@
-/* eslint-disable no-return-assign */
-/* eslint-disable no-param-reassign */
-
 import React from "react";
 import { css } from "@emotion/react";
-import { ProfileCard } from "@Atom/ProfileCard";
-import { ProfileInfo } from "@Atom/ProfileInfo";
-import { PersonInfoType, ProfileType } from "../../Util/type";
+import { ProfileInfo, ProfileCard } from "@Atom/.";
+import { PersonInfoType, ProfileType } from "@Common/type";
 
 const ProfileStyle = css`
   max-height: 200px;
@@ -19,7 +15,7 @@ export const UserContainer: React.FC<props> = ({ sex, data, profileRef, idx, chi
     <div css={ProfileStyle}>
       <div ref={(el) => ((profileRef.current as HTMLDivElement[])[idx] = el as HTMLDivElement)} data-id={idx}>
         <ProfileCard type={sex}>
-          <ProfileInfo data={data} />
+          <ProfileInfo {...data} />
         </ProfileCard>
       </div>
       {children}

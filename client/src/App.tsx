@@ -1,21 +1,24 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Route } from "react-router";
 import { Routes } from "react-router-dom";
-import { MainPage } from "@Page/.";
 import { Footer } from "@Core/.";
 import { useSocketConnect } from "./Hook/useSocket";
 import ErrorModal from "./Component/Template/Modal/ErrorModal";
-import { Page } from "./Component/Page";
+
+const MainPage = React.lazy(() => import("@Page/MainPage/MainPage"));
+const Page = React.lazy(() => import("@Page/Page/Page"));
 
 export const App: React.FC = () => {
-  // useSocketConnect();
+  useSocketConnect();
   return (
     <>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/main" element={<MainPage />} />
-        <Route path="*" element={<Page />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/main" element={<MainPage />} />
+          <Route path="*" element={<Page />} />
+        </Routes>
+      </Suspense>
       <Footer />
       <ErrorModal />
     </>

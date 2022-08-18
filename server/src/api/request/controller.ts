@@ -25,6 +25,7 @@ export const postRequest = async (req: Request, res: Response, next: NextFunctio
     const { from, to } = req.body;
     const toValidation = await validationTeamAndUser(to);
     if (!toValidation) return res.status(403).send({ error: "to isn`t exist" });
+
     await addRequest({ from, to });
     sendRequest({ from, to });
     return res.status(200).send(true);

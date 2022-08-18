@@ -8,17 +8,18 @@ export type messageType = {
   source?: string | null;
 };
 
-export type receiverPCType = {
-  [index: string]: RTCPeerConnection;
-};
-export type senderPCsType = {
-  [index: string]: senderPCType[];
-};
-export type senderPCType = {
-  id: string;
-  pc: RTCPeerConnection;
-};
-export type userType = { id: string; stream: MediaStream };
+// export type receiverPCType = {
+//   [index: string]: RTCPeerConnection;
+// };
+// export type senderPCsType = {
+//   [index: string]: senderPCType[];
+// };
+// export type senderPCType = {
+//   id: string;
+//   pc: RTCPeerConnection;
+// };
+export type userType = { id: string };
+// export type userType = { id: string; stream: MediaStream };
 
 export type usersType = { [index: string]: userType[] };
 export type socketToRoomType = {

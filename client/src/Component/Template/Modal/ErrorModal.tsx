@@ -16,10 +16,15 @@ const ErrorModalStyle = css`
   align-items: center;
   background-color: #ffcfcf;
 `;
+let timer: NodeJS.Timeout;
+
 export default function ErrorModal() {
   const [errorValue, setErrorValue] = useRecoilState(errorState);
   const setModalClose = () => {
-    setTimeout(() => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
       setErrorValue({ errorStr: "", timeOut: 2000 });
     }, errorValue.timeOut);
   };

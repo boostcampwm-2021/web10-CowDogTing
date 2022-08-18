@@ -37,7 +37,6 @@ export const handleLogin = (req: Request, res: Response, next: NextFunction) => 
       addNaverID(String(req.session.naver), user.uid);
       delete req.session.naver;
     }
-
     return req.login(user, (loginError) => {
       if (loginError) {
         return next(loginError);
@@ -66,7 +65,8 @@ export const handleNaverCallback = (req: Request, res: Response, next: NextFunct
   })(req, res, next);
 
 export const handleLogOut = (req: Request, res: Response) => {
-  req.logout();
+  //error
+  req.logout(() => {});
   req.session.destroy(() => {
     req.session;
   });
@@ -77,10 +77,7 @@ export const handleIdValidation = async (req: Request, res: Response, next: Next
   const uid = String(req.query.uid);
   try {
     const result = await findUser({ uid });
-    if (result) {
-      return res.send(false);
-    }
-    return res.send(true);
+    return res.send(!result);
   } catch (e) {
     next(e);
   }

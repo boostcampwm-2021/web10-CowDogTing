@@ -1,6 +1,6 @@
-import { postChat } from "@Util/data";
 import { ChangeEvent, ChangeEventHandler, useRef } from "react";
-import ClientSocket from "Socket";
+import { postChat } from "@Common/api";
+import ClientSocket from "@Socket/.";
 
 type chatRoomInfo = {
   uid: string;

@@ -1,8 +1,9 @@
-import { cowDogState, profileModalDatas } from "@Recoil/Atom";
-import { makeCategory } from "@Util/.";
-import { getCowDogInfo } from "@Util/data";
-import { useEffect, useState } from "react";
+import { cowDogState, errorState, profileModalDatas } from "@Recoil/Atom";
+import { makeCategory, useThrottle } from "@Common/util";
+import { getCowDogInfo } from "@Common/api";
+import { useCallback, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { string } from "prop-types";
 
 export const useModalDatasHook = () => {
   const datas = useRecoilValue(cowDogState);
@@ -32,24 +33,36 @@ export const useGetUserProfiler = (person: number) => {
   const [datas, setDatas] = useRecoilState(cowDogState);
   const [category, setCategory] = useState<string | null>(null);
   const [dataIndex, setDataIndex] = useState<number>(0);
+  const setError = useSetRecoilState(errorState);
 
   const getDatas = async () => {
-    const filterCategory = makeCategory(category);
-    const item = await getCowDogInfo(person, 0, filterCategory);
-    const temp = item.length === 0 ? dummy : item;
-    setDatas(temp);
-    setDataIndex(1);
-  };
-
-  const addDatas = async () => {
-    const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
-    if (scrollTop + clientHeight >= scrollHeight) {
+    try {
       const filterCategory = makeCategory(category);
-      const item = await getCowDogInfo(person, dataIndex, filterCategory);
-      setDatas([...datas, ...item]);
-      setDataIndex((prev) => prev + 1);
+      const item = await getCowDogInfo(person, 0, filterCategory);
+      setDatas(item.length === 0 ? makeDummyProfileData() : item);
+      setDataIndex(1);
+    } catch (e) {
+      setError((e as any).message);
     }
   };
+
+  const addDatas = useCallback(async () => {
+    try {
+      const filterCategory = makeCategory(category);
+      const item = await getCowDogInfo(person, dataIndex, filterCategory);
+      const temp = item.length === 0 ? makeDummyProfileData() : item;
+      setDatas([...datas, ...temp]);
+      setDataIndex((prev) => prev + 1);
+    } catch (e) {
+      setError((e as any).message);
+    }
+  }, [person, dataIndex, category]);
+
+  const onScroll = useCallback(() => {
+    // console.log("동작!");
+    const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
+    if (scrollTop + clientHeight >= scrollHeight) addDatas();
+  }, [addDatas]);
 
   const handleSetCategory = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLElement;
@@ -61,79 +74,26 @@ export const useGetUserProfiler = (person: number) => {
     getDatas();
   }, [person, category]);
 
+  const throttleScrollEvent = useCallback(useThrottle(onScroll, 300), [onScroll]);
   useEffect(() => {
-    document.addEventListener("scroll", addDatas);
+    // document.addEventListener("scroll", onScroll);
+    document.addEventListener("scroll", throttleScrollEvent);
     return () => {
-      document.removeEventListener("scroll", addDatas);
+      // document.removeEventListener("scroll", onScroll);
+      document.removeEventListener("scroll", throttleScrollEvent);
     };
-  }, [dataIndex, category]);
+    // }, [onScroll]);
+  }, [throttleScrollEvent]);
 
   return { datas, handleSetCategory };
 };
 
-const dummy = [
-  {
-    id: "1",
+const makeDummyProfileData = () =>
+  Array.from({ length: 100 }, (x, i) => ({
+    id: String(i),
     image: null,
     location: "서울",
-    sex: "남성",
-    age: 25,
-    info: "hihi",
-    gid: 1,
-    idx: 1,
-    member: [
-      {
-        id: "2",
-        image: null,
-        location: "서울",
-        sex: "남성",
-        age: 25,
-        info: "hihi",
-        gid: 1,
-        idx: 2,
-      },
-      {
-        id: "3",
-        image: null,
-        location: "서울",
-        sex: "남성",
-        age: 25,
-        info: "hihi",
-        gid: 1,
-        idx: 3,
-      },
-    ],
-  },
-  {
-    id: "4",
-    image: null,
-    location: "서울",
-    sex: "남성",
-    age: 25,
-    info: "hihi",
-    gid: 2,
-    idx: 4,
-    member: [
-      {
-        id: "5",
-        image: null,
-        location: "서울",
-        sex: "남성",
-        age: 25,
-        info: "hihi",
-        gid: 2,
-        idx: 5,
-      },
-      {
-        id: "6",
-        image: null,
-        location: "서울",
-        sex: "남성",
-        age: 25,
-        info: "hihi",
-        gid: 2,
-        idx: 6,
-      },
-    ],
-  },
-];
+    sex: "male",
+    age: Math.floor(Math.random() * 10) + 20,
+    info: String(Math.floor(Math.random() * 100)),
+  }));

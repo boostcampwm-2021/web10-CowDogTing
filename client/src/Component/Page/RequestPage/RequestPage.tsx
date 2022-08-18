@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { css } from "@emotion/react";
 import { useRecoilValue } from "recoil";
-import { RequestType } from "@Util/type";
-import { userState } from "@Recoil/UserData";
-import { requestForMeSelector, requestState, requestToMeSelector } from "@Recoil/RequestData";
-import RequestListContainer from "@Template/Request/RequestListContainer";
+import { requestForMeSelector, requestToMeSelector } from "@Recoil/RequestData";
+import { RequestListContainer } from "@Template/.";
 
 const RequestPageStyle = css`
   display: flex;
@@ -15,9 +13,10 @@ const RequestPageStyle = css`
   justify-content: center;
 `;
 
-export const RequestPage: React.FC = () => {
-  const RequestForMe = useRecoilValue(requestForMeSelector);
-  const RequestToMe = useRecoilValue(requestToMeSelector);
+// export const RequestPage: React.FC = () => {
+const RequestPage: React.FC = () => {
+  const RequestForMe = useRecoilValue(requestForMeSelector(0));
+  const RequestToMe = useRecoilValue(requestToMeSelector(0));
 
   return (
     <div css={RequestPageStyle}>
@@ -26,3 +25,4 @@ export const RequestPage: React.FC = () => {
     </div>
   );
 };
+export default RequestPage;

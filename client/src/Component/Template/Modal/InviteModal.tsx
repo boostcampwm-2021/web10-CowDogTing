@@ -1,10 +1,9 @@
 import React, { MouseEventHandler, useRef } from "react";
 import { css } from "@emotion/react";
 import { useSetRecoilState } from "recoil";
-import { Button } from "@Atom/Button";
+import { Button } from "@Atom/.";
 import { InputLabel } from "@Core/InputLabel";
-import { inviteTeam } from "@Util/data";
-import { TeamInfoType } from "@Util/type";
+import { inviteTeam } from "@Common/api";
 import { errorState } from "@Recoil/Atom";
 import { teamState } from "@Recoil/TeamData";
 
@@ -33,15 +32,12 @@ export default function InviteModal({ handleFalseInvite }: { handleFalseInvite: 
   const clickInvite: MouseEventHandler = async () => {
     try {
       const inviteUserId = validationUserId({ userIdRef });
-      inviteTeam({ userId: inviteUserId })
-        .then(({ data }) => {
-          setTeamInfo((prev: TeamInfoType) => ({
-            ...prev,
-            member: [...(prev.member ?? []), data],
-          }));
-          handleFalseInvite();
-        })
-        .catch((e) => setErrorValue({ errorStr: "초대 실패했습니다", timeOut: 1000 }));
+      const { data } = await inviteTeam({ userId: inviteUserId });
+      setTeamInfo((prev) => ({
+        ...prev,
+        member: [...(prev.member ?? []), data],
+      }));
+      handleFalseInvite();
     } catch (e) {
       setErrorValue({ errorStr: e as string, timeOut: 1000 });
     }

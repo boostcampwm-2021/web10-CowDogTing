@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import React from "react";
 import { css } from "@emotion/react";
 import { RequestButton } from "@Atom/.";
-import { RequestType } from "@Util/type";
+import { RequestType } from "@Common/type";
 import { UserContainer } from "@Hoc/.";
 
 const ProfileSideStyle = css`
@@ -24,10 +22,7 @@ const ProfileStyle = css`
 `;
 
 export default function RequestComponent({ data, type, profileRef, idx }: { data: RequestType; type: string; profileRef: React.RefObject<HTMLDivElement[]>; idx: number }) {
-  let { sex } = data.info;
-  if (data.info.member) {
-    sex = "team";
-  }
+  const sex = data.info?.member ? "team" : data.info.sex;
   return (
     <div css={ProfileStyle}>
       <UserContainer sex={data.info.sex} data={data.info} profileRef={profileRef} idx={idx} />

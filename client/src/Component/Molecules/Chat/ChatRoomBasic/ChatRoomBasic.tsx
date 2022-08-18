@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 // import { Socket } from "socket.io-client";
 import { css } from "@emotion/react";
 import { Video, Button } from "@Atom/.";
-import { IWebRTCUser } from "@Util/type";
+import { IWebRTCUser } from "@Common/type";
 import { userChatRoomInfo } from "@Recoil/ChatData";
 import ClientSocket from "../../../../Socket";
 import { useVideoSocketEvent } from "./ChatRoomBasic.hook";

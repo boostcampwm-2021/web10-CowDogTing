@@ -1,15 +1,15 @@
 import React, { MouseEventHandler, useRef } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue, useSetRecoilState } from "recoil";
 import { css } from "@emotion/react";
 import { errorState } from "@Recoil/Atom";
-import { changeTeamInfo, exitTeam } from "@Util/data";
+import { changeTeamInfo, exitTeam } from "@Common/api";
 import { TeamSettingButtonContainer } from "@Molecules/.";
 import { TeamInfo } from "@Organism/.";
-import { teamState } from "@Recoil/TeamData";
-import { userState } from "@Recoil/UserData";
+import { teamStateSelector } from "@Recoil/TeamData";
+import { userStateSelector } from "@Recoil/UserData";
 import { useMovePage } from "@Hook/useMovePage";
 import { ProfileList } from "../Profile/ProfileList";
-import { teamUpdateDataValidation, useLocationSelectHook } from "./TeamCreateTemplate.hook";
+import { teamUpdateDataValidation, useLocationSelectHook, useTeamInfoHandler, useTeamInfoInputHandler } from "./TeamCreateTemplate.hook";
 
 const TeamSettingTemPlateStyle = css`
   display: flex;
@@ -21,22 +21,15 @@ const TeamSettingTemPlateStyle = css`
 `;
 
 export const TeamSettingTemplate: React.FC = () => {
-  const [locSelected, handleLocationSelected, handleLocationInit] = useLocationSelectHook();
   const [goMain] = useMovePage("/main");
 
-  const [teamInfoState, setTeamInfoState] = useRecoilState(teamState);
-  const userInfoState = useRecoilValue(userState);
-  const teamNameRef = useRef<HTMLInputElement>(null);
-  const teamInfoRef = useRef<HTMLInputElement>(null);
-  const profileRef = useRef<HTMLDivElement[]>([]);
-  const setErrorValue = useSetRecoilState(errorState);
+  const [teamInfoState, resetTeamInfo] = useTeamInfoHandler();
+  const userInfoState = useRecoilValue(userStateSelector);
 
-  const resetInput = () => {
-    if (!teamNameRef.current || !teamInfoRef.current || !locSelected) return;
-    teamNameRef.current.value = "";
-    teamInfoRef.current.value = "";
-    handleLocationInit();
-  };
+  const [locSelected, handleLocationSelected, handleLocationInit] = useLocationSelectHook(teamInfoState.location);
+  const { teamNameRef, teamInfoRef, profileRef, resetInputHandler } = useTeamInfoInputHandler();
+  const resetInput = resetInputHandler(locSelected, handleLocationInit);
+  const setErrorValue = useSetRecoilState(errorState);
 
   const clickExitButton: MouseEventHandler = () =>
     exitTeam()
@@ -46,11 +39,11 @@ export const TeamSettingTemplate: React.FC = () => {
   const clickUpdateButton: MouseEventHandler = async () => {
     try {
       const value = teamUpdateDataValidation({ teamNameRef, teamInfoRef, locSelected, teamInfoState, userInfoState });
-      const res = await changeTeamInfo(value);
-      setTeamInfoState((prev) => ({ ...prev, ...res }));
+      await changeTeamInfo(value);
+      resetTeamInfo();
       resetInput();
     } catch (e) {
-      setErrorValue({ errorStr: e as string, timeOut: 1000 });
+      setErrorValue({ errorStr: (e as any).message as string, timeOut: 1000 });
     }
   };
   return (

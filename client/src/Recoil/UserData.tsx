@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil";
-import { getFetch } from "../Util/data";
-import { PersonInfoType } from "../Util/type";
-import { USER_URL } from "../Util/URL";
+import { getFetch } from "../Common/api";
+import { PersonInfoType } from "../Common/type";
+import { USER_URL } from "../Common/URL";
 
 export const userState = atom<PersonInfoType>({
   key: "user",
@@ -19,7 +19,11 @@ export const userState = atom<PersonInfoType>({
 
 export const userStateSelector = selector<PersonInfoType>({
   key: "fetchUserData",
-  get: () => {
-    return getFetch({ url: USER_URL, query: "" });
+  get: async ({ get }) => {
+    try {
+      return await getFetch({ url: USER_URL, query: "" });
+    } catch (e) {
+      return get(userState);
+    }
   },
 });

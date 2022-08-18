@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import { IWebRTCUser } from "@Util/type";
-import ClientSocket from "Socket";
-import { getSenderAnswerEvent, getSenderCandidateEvent, getReceiverAnswerEvent, getReceiverCandidateEvent, allUsersEvent, userEnterEvent, userExitEvent } from "Socket/util";
-import { getLocalStream } from "Socket/webRTC";
+import { IWebRTCUser } from "@Common/type";
+import ClientSocket from "@Socket/.";
+import { getSenderAnswerEvent, getSenderCandidateEvent, getReceiverAnswerEvent, getReceiverCandidateEvent, allUsersEvent, userEnterEvent, userExitEvent } from "@Socket/util";
+import { getLocalStream } from "@Socket/webRTC";
 
 type userType = {
   users: IWebRTCUser[];

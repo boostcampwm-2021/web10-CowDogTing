@@ -1,6 +1,19 @@
 import React from "react";
 import { css } from "@emotion/react";
-import { ChatListInfoType } from "@Util/type";
+
+type ChatListInfoType = {
+  lastChat: string;
+  from: string;
+};
+
+export const ChatProfileInfoContainer = ({ lastChat, from }: ChatListInfoType) => {
+  return (
+    <div css={ChatProfileInfoContainerStyle}>
+      <p css={ChatProfileTextStyle}>{from}</p>
+      <p css={ChatProfileTextStyle}>{lastChat}</p>
+    </div>
+  );
+};
 
 const ChatProfileInfoContainerStyle = css`
   width: 50%;
@@ -15,12 +28,3 @@ const ChatProfileTextStyle = css`
   font-size: 20px;
   font-weight: bold;
 `;
-
-export const ChatProfileInfoContainer = ({ lastChat, from }: ChatListInfoType) => {
-  return (
-    <div css={ChatProfileInfoContainerStyle}>
-      <p css={ChatProfileTextStyle}>{from}</p>
-      <p css={ChatProfileTextStyle}>{lastChat}</p>
-    </div>
-  );
-};

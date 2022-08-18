@@ -5,14 +5,14 @@ import { Navbar } from "@Core/.";
 import { ProfileList } from "@Template/Profile/ProfileList";
 import { ProfileModal } from "@Template/Modal/ProfileModal";
 import useModalCloseEvent from "@Hook/useModalCloseEvent";
-import { handleModalClick } from "@Util/.";
+import { handleModalClick } from "@Common/util";
 import { useGetUserProfiler, useModalDatasHook } from "./CowDogPage.hook";
 
 const ListContainer = css`
   margin: 0 auto;
 `;
 
-export const CowDogPage: React.FC = () => {
+const CowDogPage: React.FC = () => {
   const searchParams = new URLSearchParams(useLocation().search);
   const person = Number(searchParams.get("person"));
 
@@ -34,3 +34,5 @@ export const CowDogPage: React.FC = () => {
     </div>
   );
 };
+
+export default CowDogPage;

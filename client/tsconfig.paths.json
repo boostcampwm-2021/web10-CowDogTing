@@ -10,9 +10,10 @@
       "@Organism/*": ["./Component/Organism/*"],
       "@Template/*": ["./Component/Template/*"],
       "@Hoc/*": ["./Component/Hoc/*"],
-      "@Util/*": ["./Util/*"],
+      "@Common/*": ["./Common/*"],
       "@Asset/*": ["./Asset/*"],
       "@Recoil/*": ["./Recoil/*"],
+      "@Socket/*": ["./Socket/*"],
     }
   }
 }

@@ -1,7 +1,7 @@
-import { atom, selector } from "recoil";
-import { getFetch } from "../Util/data";
-import { ChatInfoType, joinChatType } from "../Util/type";
-import { CHAT_INFO_URL, JOIN_CHAT_URL } from "../Util/URL";
+import { atom, selector, selectorFamily } from "recoil";
+import { getFetch } from "../Common/api";
+import { ChatInfoType, joinChatType } from "../Common/type";
+import { CHAT_INFO_URL, JOIN_CHAT_URL } from "../Common/URL";
 import { chatTarget } from "./Atom";
 import { userState } from "./UserData";
 
@@ -12,8 +12,13 @@ export const joinChatRoomState = atom<joinChatType[]>({
 
 export const joinChatRoomSelector = selector<joinChatType[]>({
   key: "joinChatRoomSelector",
-  get: () => {
-    return getFetch({ url: JOIN_CHAT_URL, query: "" });
+  get: async () => {
+    try {
+      const res = await getFetch({ url: JOIN_CHAT_URL, query: "" });
+      return res;
+    } catch (e) {
+      return [];
+    }
   },
 });
 

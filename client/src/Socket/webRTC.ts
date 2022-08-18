@@ -1,7 +1,6 @@
-/* eslint-disable no-param-reassign */
 import { Socket } from "socket.io-client";
 import ClientSocket from ".";
-import { IWebRTCUser } from "../Util/type";
+import { IWebRTCUser } from "../Common/type";
 
 const pcConfig = {
   iceServers: [
@@ -134,5 +133,3 @@ export const getLocalStream = async (localStreamRef: React.MutableRefObject<Medi
     console.log(`getUserMedia error: ${e}`);
   }
 };
-
-export {};

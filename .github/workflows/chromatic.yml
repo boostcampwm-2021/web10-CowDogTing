@@ -1,0 +1,27 @@
+# Workflow name
+name: "Chromatic Deployment"
+
+# Event for the workflow
+on:
+  push:
+    branches: [dev]
+
+env:
+  client-directory: ./client
+
+# List of jobs
+jobs:
+  test:
+    # Operating System
+    runs-on: ubuntu-latest
+    # Job steps
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Client npm install
+        working-directory: ${{env.client-directory}}
+        run: npm install
+
+      - name: Storybook Deploy
+        working-directory: ${{env.client-directory}}
+        run: npm run

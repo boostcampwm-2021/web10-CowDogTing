@@ -1,0 +1,23 @@
+{
+  "name": "web10-cowdogting",
+  "version": "1.0.0",
+  "description": "|                     J039                     |                      J080                       |                      J154                       |                       J220                        | | :------------------------------------------: | :---------------------------------------------: | :---------------------------------------------: | :-----------------------------------------------: | |     [김영진](https://github.com/jin-Pro)     |     [민태홍](https://github.com/taehong0-0)     |     [이윤성](https://github.com/ddaynew365)     |     [홍한솔](https://github.com/Noelsky-code)     | | <img src=\"https://github.com/jin-Pro.png\" /> | <img src=\"https://github.com/taehong0-0.png\" /> | <img src=\"https://github.com/ddaynew365.png\" /> | <img src=\"https://github.com/Noelsky-code.png\" /> |",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boostcampwm-2021/web10-CowDogTing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/boostcampwm-2021/web10-CowDogTing/issues"
+  },
+  "homepage": "https://github.com/boostcampwm-2021/web10-CowDogTing#readme",
+  "devDependencies": {
+    "husky": "^8.0.1"
+  }
+}

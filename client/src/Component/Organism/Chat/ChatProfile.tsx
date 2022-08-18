@@ -1,7 +1,7 @@
 import { ProfileCard } from "@Atom/.";
 import { ProfileImageContainer } from "@Hoc/.";
 import { ChatProfileInfoContainer } from "@Molecules/Chat/ChatProfileInfoContainer";
-import { ChatInfoType } from "@Util/type";
+import { ChatInfoType } from "@Common/type";
 
 type props = { data: ChatInfoType; idx: number; chatRoomRef: React.MutableRefObject<HTMLDivElement[]> };
 export const ChatProfile = ({ data, idx, chatRoomRef }: props) => {

@@ -1,11 +1,43 @@
-import { createTeam, getFetch } from "@Util/data";
-import { PersonInfoType, TeamInfoType } from "@Util/type";
-import { TEAM_INFO_URL } from "@Util/URL";
-import { useState } from "react";
+import { createTeam, getFetch } from "@Common/api";
+import { PersonInfoType, TeamInfoType } from "@Common/type";
+import { TEAM_INFO_URL } from "@Common/URL";
+import { teamStateSelector } from "@Recoil/TeamData";
+import { userStateSelector } from "@Recoil/UserData";
+import { useRef, useState } from "react";
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from "recoil";
 
-type useLocationSelectHookType = () => [string, (e: React.ChangeEvent<HTMLSelectElement>) => void, () => void];
-export const useLocationSelectHook: useLocationSelectHookType = () => {
-  const [locSelected, setLocSelected] = useState<string>("");
+export const useTeamInfoInputHandler = () => {
+  const teamNameRef = useRef<HTMLInputElement>(null);
+  const teamInfoRef = useRef<HTMLInputElement>(null);
+  const profileRef = useRef<HTMLDivElement[]>([]);
+  const resetInputHandler = (locSelected: string, handleLocationInit: () => void) => () => {
+    if (!teamNameRef.current || !teamInfoRef.current || locSelected === "") return;
+    teamNameRef.current.value = "";
+    teamInfoRef.current.value = "";
+    handleLocationInit();
+  };
+
+  return { teamNameRef, teamInfoRef, profileRef, resetInputHandler };
+};
+
+type UseTeamInfoHandler = [TeamInfoType, () => void];
+export const useTeamInfoHandler = (): UseTeamInfoHandler => {
+  const teamInfoState = useRecoilValue(teamStateSelector);
+  const resetTeamInfo = useRecoilRefresher_UNSTABLE(teamStateSelector);
+  return [teamInfoState, resetTeamInfo];
+};
+export const useResetUserAndTeam = () => {
+  const resetUser = useRecoilRefresher_UNSTABLE(userStateSelector);
+  const resetTeam = useRecoilRefresher_UNSTABLE(teamStateSelector);
+  return () => {
+    resetUser();
+    resetTeam();
+  };
+};
+
+type useLocationSelectHookType = (location: string) => [string, (e: React.ChangeEvent<HTMLSelectElement>) => void, () => void];
+export const useLocationSelectHook: useLocationSelectHookType = (location: string) => {
+  const [locSelected, setLocSelected] = useState<string>(location);
   const handleLocationSelected = (e: React.ChangeEvent<HTMLSelectElement>) => setLocSelected(e.target.value);
   const handleLocationInit = () => setLocSelected("");
   return [locSelected, handleLocationSelected, handleLocationInit];
@@ -26,11 +58,14 @@ export const validationRefData: validationFuncType = ({ teamNameRef, teamInfoRef
   return { teamName, teamInfo, location };
 };
 
-type postCreateTeamFuncType = ({ teamName, teamInfo, location }: returnType) => Promise<{ gid: number; teamData: TeamInfoType } | undefined>;
+type postCreateTeamFuncType = ({ teamName, teamInfo, location }: returnType) => Promise<boolean>;
 export const postCreateTeam: postCreateTeamFuncType = async ({ teamName, teamInfo, location }) => {
-  const [gid, teamData] = await Promise.all([createTeam({ teamName, teamInfo, location }), getFetch({ url: TEAM_INFO_URL, query: "" })]);
-  if (gid === "error") throw new Error("팀 생성에 실패했습니다");
-  return { gid, teamData };
+  try {
+    await Promise.all([createTeam({ teamName, teamInfo, location }), getFetch({ url: TEAM_INFO_URL, query: "" })]);
+    return true;
+  } catch (e) {
+    throw new Error("팀 생성에 실패했습니다");
+  }
 };
 
 type teamUpdateDataValidationArgsType = validationArgsType & {

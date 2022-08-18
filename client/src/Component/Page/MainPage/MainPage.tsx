@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "@emotion/react";
 import { MainHeader, MainPageBody } from "@Organism/.";
 
-export const MainPage: React.FC = () => {
+const MainPage: React.FC = () => {
   return (
     <div css={mainPageTemplateStyle}>
       <div css={mainHeaderStyle}>

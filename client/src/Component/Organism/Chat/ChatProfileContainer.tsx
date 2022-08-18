@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { css } from "@emotion/react";
-import { ChatProfileContainerType } from "@Util/type";
+import { ChatInfoType } from "@Common/type";
 import { NotReadNum } from "@Molecules/.";
 import { ChatProfile } from "./ChatProfile";
 
@@ -15,6 +15,11 @@ const ChatProfileContainerStyle = css`
   min-width: 400px;
   overflow: auto;
 `;
+
+type ChatProfileContainerType = {
+  chatsInfo: ChatInfoType[] | null;
+  setClickedRoomIndex: Function;
+};
 
 export const ChatProfileContainer = ({ chatsInfo, setClickedRoomIndex }: ChatProfileContainerType) => {
   const chatRoomRef = useRef<HTMLDivElement[]>([]);
