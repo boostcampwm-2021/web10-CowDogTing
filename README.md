@@ -56,3 +56,4 @@
 - ### 개선사항
   - [Infinity Scroll 비교 분석](https://velog.io/@0_jin/%EB%AC%B4%ED%95%9C%EC%8A%A4%ED%81%AC%EB%A1%A4-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0)
   - [Code splitting 적용](https://velog.io/@0_jin/WebVitals-10-%EB%8B%A8%EC%B6%95%EC%8B%9C%ED%82%A4%EA%B8%B0)
+  - [tree Shaking 적용](https://velog.io/@0_jin/Tree-Shake-%EC%A0%81%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0)
