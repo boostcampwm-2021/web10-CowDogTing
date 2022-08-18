@@ -14,5 +14,13 @@
         "pragma": "__to_avoid_prepending_/** @jsxImportSource @emotion/react */"
       }
     ]
+  ],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules":false
+      }
+    ]
   ]
 }

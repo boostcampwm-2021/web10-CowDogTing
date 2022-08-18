@@ -1,6 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "sideEffects":false,
   "private": true,
   "dependencies": {
     "@emotion/css": "^11.10.0",
