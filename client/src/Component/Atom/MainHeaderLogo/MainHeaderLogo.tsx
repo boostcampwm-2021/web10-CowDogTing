@@ -1,2 +1,7 @@
-const logo = "/Asset/Logo.svg";
-export const MainHeaderLogo = () => <img alt="mainLogo" src={logo} />;
+import styled from "@emotion/styled";
+
+export const MainHeaderLogo = () => <Container>CowDogTing</Container>;
+
+const Container = styled.div`
+  font-size: 32px;
+`;
