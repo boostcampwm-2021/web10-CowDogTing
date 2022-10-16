@@ -96,12 +96,8 @@ export const registerUser = async ({ id, pw, location, age, sex, info }: registe
 };
 
 export const getCowDogInfo = async (person: number, index: number, category: string): Promise<ProfileType[]> => {
-  try {
-    const data = await getFetch({ url: PROFILE_API_URL, query: `?person=${person}&index=${index}${category}` });
-    return data;
-  } catch (error) {
-    throw new Error((error as any).response?.data?.errorMessage ?? (error as any).message);
-  }
+  const data = await getFetch({ url: PROFILE_API_URL, query: `?person=${person}&index=${index}${category}` });
+  return data;
 };
 
 export const getChatMessage = async ({ index, chatRoomId }: { index: number; chatRoomId: number }): Promise<MessageType[]> => {
@@ -133,12 +129,8 @@ export const changeMyInfo = async ({ id, location, age, info }: { id: string; lo
   }
 };
 export const logOutUser = async () => {
-  try {
-    const { data } = await axios.get(LOGOUT_API_URL, { withCredentials: true });
-    return data;
-  } catch (e) {
-    throw new Error((e as any).response?.data?.errorMessage || (e as any).message);
-  }
+  const { data } = await axios.get(LOGOUT_API_URL, { withCredentials: true });
+  return data;
 };
 
 export const requestAccept = async ({ from, to }: { from: string | number; to: string | number }): Promise<void> => {
@@ -191,24 +183,16 @@ export const requestChat = async ({ from, to }: { from: string | number; to: str
 };
 
 export const getFetch = async ({ url, query }: { url: string; query: string }): Promise<any> => {
-  try {
-    const { data } = await axios.get(`${url}${query}`, { withCredentials: true });
-    return data;
-  } catch (e) {
-    throw new Error((e as any).response?.data?.errorMessage || (e as any).message);
-  }
+  const { data } = await axios.get(`${url}${query}`, { withCredentials: true });
+  return data;
 };
 
 export const postImage = async (image: Blob, id: string) => {
-  try {
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("id", id);
-    const { data } = await axios.post(POST_IMAGE_API_URL, formData, { withCredentials: true });
-    return data;
-  } catch (e) {
-    throw new Error((e as any).response?.data?.errorMessage || (e as any).message);
-  }
+  const formData = new FormData();
+  formData.append("image", image);
+  formData.append("id", id);
+  const { data } = await axios.post(POST_IMAGE_API_URL, formData, { withCredentials: true });
+  return data;
 };
 
 export const postChat = async (chatRoomId: number, uId: string, file: Blob) => {
